@@ -1,0 +1,259 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(249, 249, 249);
+}
+
+.container-fluid {
+    height: 100vh;
+    /* Use 100vh to ensure it fills the viewport height */
+    display: flex;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+.tab {
+    background-color: #fff !important;
+    width: 17rem;
+    margin-left: 0;
+    border-right: 1px solid gray;
+    transition: width 0.5s ease, padding 0.5s ease;
+}
+
+.col-6.flex-grow-1.overflow-auto {
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.col-6.flex-grow-1.overflow-auto::-webkit-scrollbar {
+    display: none;
+}
+
+
+.img-logo {
+    width: 3rem;
+}
+
+.card-profile {
+    width: 13rem;
+    border: 0px;
+    box-shadow: 0px 0px 2px 0px gray;
+    border-radius: 0.5rem;
+    height: 6rem;
+}
+
+.img-profile {
+    border-radius: 1rem;
+    border: 2px solid black;
+}
+
+.name-text {
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+.sub-text {
+    display: block;
+    margin-bottom: 0;
+    font-size: 10px;
+}
+
+#btn {
+    width: 12rem;
+    font-size: 10px;
+    margin: auto;
+    border-radius: 0.4rem;
+    background: transparent;
+}
+
+#btn:hover {
+    background-color: #f0f0f0;
+    transition: 0.5s ease;
+}
+
+.col-used {
+    background-color: rgba(211, 47, 47, 255);
+    border-radius: 0.4rem;
+    color: white;
+}
+
+.col-hover {
+    cursor: pointer;
+}
+
+.col-hover>p {
+    position: relative;
+    top: 0.5rem;
+}
+
+.svg-style {
+    margin-top: 0.8rem !important;
+}
+
+.col-hover:hover {
+    background-color: #f0f0f0;
+    border-radius: 0.4rem;
+    transition: 0.5s ease;
+}
+
+#filter-text {
+    font-size: 14px !important;
+}
+
+#btnCreate {
+    padding: 10px;
+    border-radius: 0.4rem;
+    width: 10rem;
+    background-color: rgba(211, 47, 47, 255);
+    color: white;
+    border: 0px;
+    transition: 0.5s ease;
+}
+
+#btnCreate:hover {
+    background-color: rgba(183, 28, 28, 255);
+}
+
+.card-post {
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    background-color: white;
+    transition: 0.3s ease;
+    border: 0px;
+    box-shadow: 0px 0px 2px 0px gray;
+}
+
+.img-profile-post {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.like-post:hover,
+.comments:hover {
+    color: rgba(211, 47, 47, 255);
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+
+.tab-infos {
+    background-color: #fff !important;
+    width: 17rem;
+    margin-left: 0;
+    border-left: 1px solid gray;
+    transition: width 0.5s ease;
+    margin-left: auto;
+}
+
+.expanded-center {
+    width: 40rem;
+}
+
+.suggested-friends {
+    box-shadow: 0px 0px 2px 0px gray;
+    border-radius: 0.4rem;
+    margin-left: 1.5rem !important;
+    width: 15rem;
+}
+
+#follow {
+    border-radius: 0.4rem;
+    font-size: 12px;
+    padding: 0.3rem;
+    background: transparent;
+    transition: 0.5s ease;
+}
+
+#follow:hover {
+    background-color: #f0f0f0;
+}
+
+
+
+
+
+.post {
+    width: 100%;
+    min-height: 12rem;
+    padding: 1rem 1rem 1rem;
+    background-color: white;
+    box-shadow: 0 0 0 1px rgb(228, 228, 228);
+    display: flex;
+
+    border-radius: 10px;
+}
+
+.post-icon-div {
+    width: 8%;
+    min-width: 4rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.user-photo-post {
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D32F2F;
+}
+
+.post-info-div {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.post-sec-1 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+}
+
+.post-role {
+    align-self: start;
+    font-size: 0.75rem;
+    color: white;
+    background-color: #D32F2F;
+    border-radius: 7px;
+    padding: 0.1rem 0.3rem;
+
+}
+.post-etec {
+    color: #666666;
+    font-size: 0.85rem;
+}
+
+
+.post-content {
+    margin-top: 0.2rem;
+}
+
+.post-sec-2 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    word-spacing: 0.2rem;
+}
+
+.post-like-icon {
+    transition: 0.2s ease;
+    cursor: pointer;
+
+}
+
+.post-like-icon:hover {
+    color: #D32F2F;
+}

@@ -1,0 +1,62 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.img-logo {
+    max-width: 6rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    width: 27rem !important;
+    max-width: 35rem;
+    border-radius: 0.8rem;
+    box-shadow: 0px 0px 4px 0px black;
+}
+
+form label,
+form input,
+form select,
+form button {
+    margin-bottom: 10px;
+}
+
+form input {
+    max-width: 60rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 1rem;
+    border-radius: 0.3rem;
+}
+
+form input:focus,
+form select:focus {
+    border: 2px solid red !important;
+    box-shadow: none !important;
+}
+
+#hr-style {
+    height: 3px;
+    background-color: red;
+    border: none;
+    width: 20px;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+#linkSignup{
+    text-decoration: none;
+}
+
+#linkSignup:hover{
+    text-decoration: underline;
+}
+
+.text-style, .text-entrar{
+    font-size:14px;
+}

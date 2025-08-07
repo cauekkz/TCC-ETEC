@@ -1,0 +1,31 @@
+Options -Indexes
+RewriteEngine On
+RewriteBase /
+
+DirectoryIndex index.html index.php
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} \.(html|php|css|js|png|jpe?g|gif|svg|webp)$ [NC]
+RewriteRule ^ - [L]
+
+
+#static files
+RewriteRule ^verify-email$ backend/public/routes/verify-Email.php [L,NC,QSA]
+RewriteRule ^css/(.+\.css)$ frontend/static/css/$1  [L,NC]
+RewriteRule ^js/(.+\.js)$ frontend/static/js/$1 [L,NC]
+RewriteRule ^img/(.+\.(png|jpeg|jpg|gif|svg))$  frontend/static/img/$1 [L,NC]
+RewriteRule ^audio/(.+\.mp3)$  frontend/static/audio/$1 [L,NC]
+
+#uploads
+RewriteRule ^uploads/([^/]+)/([^/]+)/(.+\.(png|jpe?g|gif|svg))$ backend/uploads/$1/$2/$3 [L,NC]
+RewriteRule ^uploads/([^/]+)/([^/]+\.(png|jpe?g|gif|svg))$ backend/uploads/$1/$2 [L,NC]
+
+#api
+RewriteRule ^api/([a-zA-Z0-9_-]+)$ backend/public/routes/$1.php [L,NC,QSA]
+
+
+#index page
+RewriteRule ^(.*)$ frontend/index.php [L,NC,QSA]
+
+ErrorDocument 404 /backend/public/routes/404.php
+

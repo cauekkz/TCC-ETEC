@@ -93,7 +93,7 @@
                 </div>
             </div>
 
-            <div class="row px-3 mt-2">
+            <div class="row px-3 mt-4">
                 <div class="col">
                     <div class="card-profile d-flex flex-column">
                         <div class="d-flex">
@@ -111,22 +111,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row mt-4">
-                <div class="filters">
-                    <div class="d-flex align-items-center"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
-                            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2z" />
-                        </svg>
-                        <p id="text-filter" class="mb-0 ms-2"><strong>Filtros do feed</strong></p>
-                    </div>
-                    <div class="row mt-2">
-                        <p id="total" class="col-used p-2">Todos</p>
-                        <p id="ETEC" class="col-hover p-2">Apenas minha ETEC</p>
-                        <p id="teachers" class="col-hover p-2">Apenas professores</p>
-                        <p id="myGroups" class="col-hover p-2">Meus Grupos</p>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="col-6 flex-grow-1 overflow-auto px-3 " style="min-height: 0;">
             <div class="feed mt-4 px-4">
@@ -141,31 +125,116 @@
                 <!-- Mudar para a parte do bd dps -->
                 <!-- Tbm é só pra ter uma estrutura do card em um geral -->
                 <div class="posts row mt-5 px-3">
-                    <div class="post">
-                        <div class="post-icon-div">
-                            <div class="user-photo-post">
-                                C
+                    <div class="card-post p-3 mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
+                            <div>
+                                <p class="name-text mb-0"><strong>Ana Silva</strong></p>
+                                <span class="badge bg-dark">Aluna - Desenvolvimento de Sistemas</span>
+                                <p class="sub-text mb-0">ETEC Zona Leste</p>
                             </div>
                         </div>
-                        <div class="post-info-div">
-                            <div class="post-sec-1">
-                                <span class="post-username">Caue Vaccari</span>
-                                <span class="post-role">estudante</span>
-                                <span class="post-etec"> ETEC de heliopólis</span>
-                                <span class="post-content">Matheus o mais fiot de todas as ETECS</span>
+
+                        <p id="textPost" class="mb-2">
+                            Acabei de apresentar meu TCC sobre automação industrial! Muito feliz com o resultado.
+                            Obrigada aos professores pelo apoio e aos colegas pelas dicas 🎓✨
+                            <span class="text-primary">#ETEC #TCC #AutomacaoIndustrial</span>
+                        </p>
+
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="like-post d-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-heart me-1" viewBox="0 0 16 16">
+                                    <path
+                                        d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
+                                </svg>
+                                <span id="qntLikes">24</span>
                             </div>
 
-                            <div class="post-sec-2">
-                                <div>
-                                    <span class="post-like-icon">&#9825; 200</span>
-                                    <span class="post-comments-icon"> 10</span>
-                                </div>
-
-                                <span class="post-time">2h</span>
+                            <div class="comments d-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chat me-1" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
+                                </svg>
+                                <span id="qntComments">8</span>
                             </div>
                         </div>
                     </div>
-    
+
+                    <div class="card-post p-3 mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
+                            <div>
+                                <p class="name-text mb-0"><strong>Prof. Carlos Mendes</strong></p>
+                                <span class="badge bg-dark">Professor - Informática</span>
+                                <p class="sub-text mb-0">ETEC Centro-Oeste</p>
+                            </div>
+                        </div>
+
+                        <p id="textPost" class="mb-2">
+                            Lembrete importante: As inscrições para o projeto de extensão em Python
+                            estão abertas até sexta-feira! Não percam essa
+                            oportunidade de aprender mais sobre programação. 🐍💻
+                        </p>
+
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="like-post d-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-heart me-1" viewBox="0 0 16 16">
+                                    <path
+                                        d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
+                                </svg>
+                                <span id="qntLikes">45</span>
+                            </div>
+
+                            <div class="comments d-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chat me-1" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
+                                </svg>
+                                <span id="qntComments">12</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-post p-3 mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
+                            <div>
+                                <p class="name-text mb-0"><strong>Prof. Carlos Mendes</strong></p>
+                                <span class="badge bg-dark">Professor - Informática</span>
+                                <p class="sub-text mb-0">ETEC Centro-Oeste</p>
+                            </div>
+                        </div>
+
+                        <p id="textPost" class="mb-2">
+                            Lembrete importante: As inscrições para o projeto de extensão em Python
+                            estão abertas até sexta-feira! Não percam essa
+                            oportunidade de aprender mais sobre programação. 🐍💻
+                        </p>
+
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="like-post d-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-heart me-1" viewBox="0 0 16 16">
+                                    <path
+                                        d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
+                                </svg>
+                                <span id="qntLikes">45</span>
+                            </div>
+
+                            <div class="comments d-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chat me-1" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
+                                </svg>
+                                <span id="qntComments">12</span>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="card-post p-3 mb-3">
                         <div class="d-flex align-items-center mb-2">
@@ -206,82 +275,19 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex">
-            <div class="tab-infos">
-                <div class="col text-start px-3">
-                    <div class="row row-arrows d-flex pt-3">
-                        <!-- To right -> -->
-                        <div class="col" id="right-arrow-infos">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
-                            </svg>
-                        </div>
-                        <!-- To left  <- -->
-                        <div class="col d-none" id="left-arrow-infos">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-                            </svg>
-                        </div>
-                    </div>
+    </div>
+</div>
+
+<div class="container-post-focus d-none">
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="post-focus">
+            <div class="d-flex align-items-center mb-2">
+                <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
+                <div>
+                    <p class="name-text mb-0"><strong>Prof. Carlos Mendes</strong></p>
+                    <span class="badge bg-dark">Professor - Informática</span>
+                    <p class="sub-text mb-0">ETEC Centro-Oeste</p>
                 </div>
-                <div class="tab-container mt-4">
-                    <div class="suggested-friends p-2">
-                        <div class="d-flex mb-2">
-                            <div class="svg-style px-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-person" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
-                                </svg>
-                            </div>
-                            <p id="textSuggested" class="mt-2 px-2">Sugestões para você</p>
-                        </div>
-
-                        <div class="row friends flex-column">
-                            <div class="friend">
-                                <div class="d-flex align-items-center mb-2 justify-content-between">
-                                    <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
-                                    <div class="me-4">
-                                        <p class="name-text mb-0"><strong>Pedro Costa</strong></p>
-                                        <span class="sub-text">ETEC centro</span>
-                                        <span class="sub-text">3 amigos em comum</span>
-                                    </div>
-                                    <div class="text-end">
-                                        <button id="follow">Seguir</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="friend">
-                                <div class="d-flex align-items-center mb-2 justify-content-between">
-                                    <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
-                                    <div class="me-4">
-                                        <p class="name-text mb-0"><strong>Prof. Sandra Lima</strong></p>
-                                        <span class="sub-text">ETEC Zona Leste</span>
-                                        <span class="sub-text">8 amigos em comum</span>
-                                    </div>
-                                    <div class="text-end">
-                                        <button id="follow">Seguir</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="friend">
-                                <div class="d-flex align-items-center mb-2 justify-content-between">
-                                    <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
-                                    <div class="me-4">
-                                        <p class="name-text mb-0"><strong>Lucas Ferreira</strong></p>
-                                        <span class="sub-text">ETEC Sul</span>
-                                        <span class="sub-text">5 amigos em comum</span>
-                                    </div>
-                                    <div class="text-end">
-                                        <button id="follow">Seguir</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>

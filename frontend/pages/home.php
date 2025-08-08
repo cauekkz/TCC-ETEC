@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="col d-flex">
-        <div class="tab flex-column px-3">
+        <div class="tab d-flex flex-column px-3">
             <div class="row row-arrows d-flex pt-3">
                 <img src="frontend/static/img/logo.png" alt="logo eteconnect" class="img-logo img-fluid">
 
@@ -25,15 +25,15 @@
 
             <div class="row mt-4 row-profile">
                 <div class="col">
-                        <div class="d-flex">
-                            <div class="mt-2 px-2">
-                                <img src="" alt=" " class="img-fluid img-profile">
-                            </div>
-                            <div class="row flex-column">
-                                <p class="name-text mt-2"> <strong>Maria silva</strong>  <span class="badge bg-dark">Aluno</span></p>
-                                <p class="sub-text">Desenvolvimento de sistemas</p>
-                            </div>
+                    <div class="d-flex">
+                        <div class="mt-2 px-2">
+                            <img src="" alt=" " class="img-fluid img-profile">
                         </div>
+                        <div class="row flex-column">
+                            <p class="name-text mt-2"> <strong>Maria silva</strong> <span class="badge bg-dark">Aluno</span></p>
+                            <p class="sub-text">Desenvolvimento de sistemas</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -57,18 +57,18 @@
                             <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
                         </svg>
                     </div>
-                    <p class="px-2">Grupos</p>
+                    <p class="px-2 mt-1">Grupos</p>
                 </div>
             </div>
 
-            <div class="row mt-2">
+            <div class="row mt-2 logout">
                 <div class="col d-flex col-hover">
                     <div class="svg-style">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
                             <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6" />
                         </svg>
                     </div>
-                    <p class="px-2">Avisos</p>
+                    <p class="px-2 mt-1">Avisos</p>
                 </div>
             </div>
 
@@ -80,7 +80,7 @@
                             <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46z" />
                         </svg>
                     </div>
-                    <p class="px-2">Projetos TCC</p>
+                    <p class="px-2 mt-1">Projetos TCC</p>
                 </div>
             </div>
 
@@ -92,7 +92,19 @@
                             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
                         </svg>
                     </div>
-                    <p class="px-2">Eventos</p>
+                    <p class="px-2 mt-1">Eventos</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col d-flex col-hover">
+                    <div class="svg-style">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                        </svg>
+                    </div>
+                    <p class="px-2 mt-1">Sair</p>
                 </div>
             </div>
 
@@ -100,9 +112,10 @@
         </div>
         <div class="col-6 flex-grow-1 overflow-auto px-3 " style="min-height: 0;">
             <div class="feed mt-4 px-4">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div>
-                        <p id="feedTitle" class="mb-0"><strong>Feed</strong></p>
+                <div class="d-flex align-items-center justify-content-around">
+                    <div class="px-4">
+                        <p id="feedTitle" class="mb-0 h4"><strong>Feed da comunidade</strong></p>
+                        <p class="text-secondary">Acompanhe as novidades da sua ETEC</p>
                     </div>
                     <button id="btnCreate">+ Nova postagem</button>
                 </div>
@@ -125,7 +138,7 @@
                             Obrigada aos professores pelo apoio e aos colegas pelas dicas 🎓✨
                             <span class="text-primary">#ETEC #TCC #AutomacaoIndustrial</span>
                         </p>
-
+                        <hr>
                         <div class="d-flex align-items-center gap-3">
                             <div class="like-post d-flex align-items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -162,7 +175,7 @@
                             estão abertas até sexta-feira! Não percam essa
                             oportunidade de aprender mais sobre programação. 🐍💻
                         </p>
-
+                        <hr>
                         <div class="d-flex align-items-center gap-3">
                             <div class="like-post d-flex align-items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -199,7 +212,7 @@
                             estão abertas até sexta-feira! Não percam essa
                             oportunidade de aprender mais sobre programação. 🐍💻
                         </p>
-
+                        <hr>
                         <div class="d-flex align-items-center gap-3">
                             <div class="like-post d-flex align-items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -236,7 +249,7 @@
                             estão abertas até sexta-feira! Não percam essa
                             oportunidade de aprender mais sobre programação. 🐍💻
                         </p>
-
+                        <hr>
                         <div class="d-flex align-items-center gap-3">
                             <div class="like-post d-flex align-items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

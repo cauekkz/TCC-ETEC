@@ -1,203 +1,224 @@
 body,
 html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: rgb(249, 249, 249);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(249, 249, 249);
 }
 
 .container-fluid {
-    height: 100vh;
-    display: flex;
-    padding-left: 0 !important;
-    margin-left: 0 !important;
+  height: 100vh;
+  display: flex;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
 }
 
 .tab {
-    background-color: #fff !important;
-    font-size: 12px;
-    width: 12rem;
-    margin-left: 0;
-    border-right: 1px solid gray;
-    transition: width 0.5s ease, padding 0.5s ease;
+  background-color: #fff !important;
+  font-size: 12px;
+  width: 12rem;
+  margin-left: 0;
+  border-right: 1px solid gray;
+  transition: width 0.5s ease, padding 0.5s ease;
 }
 
 .col-6.flex-grow-1.overflow-auto {
-    height: 100vh;
-    overflow-y: auto;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .col-6.flex-grow-1.overflow-auto::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
-
 .img-logo {
-    width: 3rem;
+  width: 3rem;
 }
 
 .img-profile {
-    border-radius: 50px;
-    padding: 5px;
+  border-radius: 50px;
+  padding: 5px;
 }
 
-.row-profile{
-    cursor: pointer;
+.row-profile {
+  cursor: pointer;
 }
 
 .name-text {
-    font-size: 12px;
-    margin-bottom: 0;
+  font-size: 12px;
+  margin-bottom: 0;
 }
 
 .sub-text {
-    display: block;
-    margin-bottom: 0;
-    font-size: 10px;
+  display: block;
+  margin-bottom: 0;
+  font-size: 10px;
 }
 
 #btn {
-    width: 12rem;
-    font-size: 10px;
-    margin: auto;
-    border-radius: 0.4rem;
-    background: transparent;
+  width: 12rem;
+  font-size: 10px;
+  margin: auto;
+  border-radius: 0.4rem;
+  background: transparent;
 }
 
 #btn:hover {
-    background-color: #f0f0f0;
-    transition: 0.5s ease;
+  background-color: #f0f0f0;
+  transition: 0.5s ease;
 }
 
 .col-used {
-    background-color: rgba(211, 47, 47, 255);
-    border-radius: 0.4rem;
-    color: white;
+  background-color: rgba(211, 47, 47, 255);
+  border-radius: 0.4rem;
+  color: white;
 }
 
 .col-hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.col-hover>p {
-    position: relative;
-    top: 0.5rem;
+.col-hover > p {
+  position: relative;
+  top: 0.5rem;
 }
 
 .svg-style {
-    margin-top: 0.8rem !important;
+  margin-top: 0.8rem !important;
 }
 
 .col-hover:hover {
-    background-color: #f0f0f0;
-    border-radius: 0.4rem;
-    transition: 0.5s ease;
+  background-color: #f0f0f0;
+  border-radius: 0.4rem;
+  transition: 0.5s ease;
 }
 
 #btnCreate {
-    padding: 10px;
-    border-radius: 0.4rem;
-    width: 10rem;
-    background-color: rgba(211, 47, 47, 255);
-    color: white;
-    border: 0px;
-    transition: 0.5s ease;
+  padding: 10px;
+  border-radius: 0.4rem;
+  width: 10rem;
+  background-color: rgba(211, 47, 47, 255);
+  color: white;
+  border: 0px;
+  transition: 0.5s ease;
 }
 
 #btnCreate:hover {
-    background-color: rgba(183, 28, 28, 255);
+  background-color: rgba(183, 28, 28, 255);
 }
 
 .card-post {
-    width: 51rem;
-    margin: auto;
-    border: 1px solid black;
-    border-radius: 0.5rem;
-    background-color: white;
-    transition: 0.3s ease;
-    border: 0px;
-    box-shadow: 0px 0px 2px 0px gray;
+  width: 43rem;
+  margin: auto;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  background-color: white;
+  transition: 0.3s ease;
+  border: 0px;
+  box-shadow: 0px 0px 2px 0px gray;
 }
 
 .comment-box {
-    background-color: #f9f9f9;
+  background-color: #f9f9f9;
 }
 
 form input:focus,
-form select:focus {
-    border: 2px solid red !important;
-    box-shadow: none !important;
+form select:focus,
+#textareaCreate:focus {
+  border: 2px solid red !important;
+  box-shadow: none !important;
 }
 
 .img-profile-post {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .like-post:hover,
 .comments:hover {
-    color: rgba(211, 47, 47, 255);
-    transition: 0.5s ease;
-    cursor: pointer;
+  color: rgba(211, 47, 47, 255);
+  transition: 0.5s ease;
+  cursor: pointer;
 }
 
 .tab-infos {
-    background-color: #fff !important;
-    width: 17rem;
-    margin-left: 0;
-    border-left: 1px solid gray;
-    transition: width 0.5s ease;
-    margin-left: auto;
+  background-color: #fff !important;
+  width: 17rem;
+  margin-left: 0;
+  border-left: 1px solid gray;
+  transition: width 0.5s ease;
+  margin-left: auto;
 }
 
 .expanded-center {
-    width: 40rem;
+  width: 40rem;
 }
 
-.suggested-friends{
-    box-shadow: 0px 0px 2px 0px gray;
-    border-radius: 0.4rem;
-    margin-left: 1.5rem !important;
-    width: 15rem;
+.suggested-friends {
+  box-shadow: 0px 0px 2px 0px gray;
+  border-radius: 0.4rem;
+  margin-left: 1.5rem !important;
+  width: 15rem;
 }
 
-#follow{
-    border-radius: 0.4rem;
-    font-size: 12px;
-    padding: 0.3rem;
-    background: transparent;
-    transition: 0.5s ease;
+#follow {
+  border-radius: 0.4rem;
+  font-size: 12px;
+  padding: 0.3rem;
+  background: transparent;
+  transition: 0.5s ease;
 }
 
-#follow:hover{
-    background-color: #f0f0f0;
+#follow:hover {
+  background-color: #f0f0f0;
 }
 
-.container-post-focus, .container-create {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+.container-post-focus,
+.container-create {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .post-focus {
-    background-color: white;
-    width: 50rem;
-    padding: 20px;
-    border-radius: 0.4rem;
+  background-color: white;
+  width: 50rem;
+  padding: 20px;
+  border-radius: 0.4rem;
 }
 
-.create-card{
-    background-color: white;
-    border-radius: 0.4rem;
-    padding: 3rem;
+.create-card {
+  background-color: white;
+  border-radius: 0.4rem;
+}
+
+#subTitleCreate,
+#titleCreate {
+  font-size: 14px;
+}
+
+#textareaCreate::placeholder {
+  font-size: 12px;
+}
+
+#textareaCreate {
+  font-size: 12px;
+}
+
+.btn-space {
+  margin-left: 3.7rem !important;
+}
+
+.btn-create {
+  margin-right: 2rem;
 }
 
 /* .post {

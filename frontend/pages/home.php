@@ -12,7 +12,6 @@
                         </svg>
                     </div>
 
-
                     <!-- To right -> -->
                     <div class="col d-none" id="right-arrow">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
@@ -117,7 +116,7 @@
                         <p id="feedTitle" class="mb-0 h4"><strong>Feed da comunidade</strong></p>
                         <p class="text-secondary">Acompanhe as novidades da sua ETEC</p>
                     </div>
-                    <button id="btnCreate">+ Nova postagem</button>
+                    <button id="btnCreate" class="btn-create">+ Nova postagem</button>
                 </div>
 
                 <!-- Mudar para a parte do bd dps -->
@@ -344,10 +343,39 @@
 </div>
 
 <div class="container-create d-none">
-    <div class="d-flex justify-content-center align-items-center">
-        <div class="create-card">
-            <p>Criar post</p>
+    <div>
+        <div class="create-card p-4">
+            <p id="titleCreate" class="mb-1"><strong>Nova postagem</strong></p>
+            <p class="text-secondary" id="subTitleCreate">Compartilhe algo interessante com a comunidade da ETEConnect</p>
+            <div class="align-items-center">
+                <div class="d-flex">
+                    <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
+                    <div class="flex-column">
+                        <p class="name-text mb-0 "><strong>Prof. Carlos Mendes</strong></p>
+                        <span class="badge bg-dark">Professor - Informática</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-create-container mt-3">
+                <form class="form-create">
+                    <textarea name="createPost" id="textareaCreate" class="form-control p-3" placeholder="O que você quer compartilhar com a comunidade ETEC?"></textarea>
+
+            </div>
+
+            <hr>
+            <div class="row d-flex gap-3 mt-3">
+                <button class="btn btn-light w-25"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                        <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" />
+                    </svg></button>
+                <button class="w-25 btn btn-light btn-space">Cancelar</button>
+                <button class="w-25 btn btn-danger" id="btnPublish">Publicar</button>
+            </div>
+            </form>
         </div>
+
+
     </div>
 </div>
 

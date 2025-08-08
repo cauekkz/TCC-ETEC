@@ -9,16 +9,16 @@ $router = new AltoRouter();
 
 $router->map('GET', '/', function () {
     require __DIR__ . '/pages/home.php';
-},"home");
+}, "home");
 $router->map('GET', '/login', function () {
     require __DIR__ . '/pages/login.php';
-},"login");
+}, "login");
 $router->map('GET', '/signup', function () {
     require __DIR__ . '/pages/signup.php';
-},"signup");
+}, "signup");
 $router->map('GET', '/profile', function () {
     require __DIR__ . '/pages/profile.php';
-},"profile");
+}, "profile");
 
 
 $match = $router->match();

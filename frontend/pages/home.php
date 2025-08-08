@@ -23,27 +23,30 @@
 
             </div>
 
+            <div class="row mt-4 row-profile">
+                <div class="col">
+                        <div class="d-flex">
+                            <div class="mt-2 px-2">
+                                <img src="" alt=" " class="img-fluid img-profile">
+                            </div>
+                            <div class="row flex-column">
+                                <p class="name-text mt-2"> <strong>Maria silva</strong>  <span class="badge bg-dark">Aluno</span></p>
+                                <p class="sub-text">Desenvolvimento de sistemas</p>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
             <div class="row mt-3">
                 <div class="col d-flex col-used p-2">
-                    <div class="d-flex align-items-center ">
+                    <div class="d-flex align-items-center px-1  ">
                         <div class="mt-0">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
                                 <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z" />
                             </svg>
                         </div>
-                        <p class="px-2 mb-0" id="home">Página inicial</p>
+                        <p class="px-2 mb-0" id="home">Feed</p>
                     </div>
-                </div>
-            </div>
-
-            <div class="row mt-2">
-                <div class="col d-flex col-hover">
-                    <div class="svg-style">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-                        </svg>
-                    </div>
-                    <p class="px-2">Criar post</p>
                 </div>
             </div>
 
@@ -54,7 +57,7 @@
                             <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
                         </svg>
                     </div>
-                    <p class="px-2">Grupos/Canais</p>
+                    <p class="px-2">Grupos</p>
                 </div>
             </div>
 
@@ -77,7 +80,7 @@
                             <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46z" />
                         </svg>
                     </div>
-                    <p class="px-2">Projetos de TCC</p>
+                    <p class="px-2">Projetos TCC</p>
                 </div>
             </div>
 
@@ -93,31 +96,13 @@
                 </div>
             </div>
 
-            <div class="row px-3 mt-4">
-                <div class="col">
-                    <div class="card-profile d-flex flex-column">
-                        <div class="d-flex">
-                            <div class="mt-2 px-3">
-                                <img src="" alt="a" class="img-fluid img-profile">
-                            </div>
 
-                            <div class="row flex-column">
-                                <p class="name-text mt-2"> <strong>Maria silva</strong></p>
-                                <p class="sub-text">Desenvolvimento de sistemas</p>
-                            </div>
-                        </div>
-
-                        <button id="btn" class="mt-2 p-1"> <strong>Ver perfil completo</strong></button>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="col-6 flex-grow-1 overflow-auto px-3 " style="min-height: 0;">
             <div class="feed mt-4 px-4">
                 <div class="d-flex align-items-center justify-content-between">
                     <div>
                         <p id="feedTitle" class="mb-0"><strong>Feed</strong></p>
-                        <p id="filter-text" class="mb-0">Filtro ativo: <span id="filter">Todos</span></p>
                     </div>
                     <button id="btnCreate">+ Nova postagem</button>
                 </div>
@@ -148,7 +133,7 @@
                                     <path
                                         d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
                                 </svg>
-                                <span id="qntLikes">24</span>
+                                <span id="qntLikes">0</span>
                             </div>
 
                             <div class="comments d-flex align-items-center">
@@ -157,7 +142,7 @@
                                     <path
                                         d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
                                 </svg>
-                                <span id="qntComments">8</span>
+                                <span id="qntComments">0</span>
                             </div>
                         </div>
                     </div>
@@ -185,7 +170,7 @@
                                     <path
                                         d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
                                 </svg>
-                                <span id="qntLikes">45</span>
+                                <span id="qntLikes">0</span>
                             </div>
 
                             <div class="comments d-flex align-items-center">
@@ -194,7 +179,7 @@
                                     <path
                                         d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
                                 </svg>
-                                <span id="qntComments">12</span>
+                                <span id="qntComments">0</span>
                             </div>
                         </div>
                     </div>
@@ -222,7 +207,7 @@
                                     <path
                                         d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
                                 </svg>
-                                <span id="qntLikes">45</span>
+                                <span id="qntLikes">0</span>
                             </div>
 
                             <div class="comments d-flex align-items-center">
@@ -231,7 +216,7 @@
                                     <path
                                         d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
                                 </svg>
-                                <span id="qntComments">12</span>
+                                <span id="qntComments">0</span>
                             </div>
                         </div>
                     </div>
@@ -259,7 +244,7 @@
                                     <path
                                         d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
                                 </svg>
-                                <span id="qntLikes">45</span>
+                                <span id="qntLikes">0</span>
                             </div>
 
                             <div class="comments d-flex align-items-center">
@@ -268,7 +253,7 @@
                                     <path
                                         d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
                                 </svg>
-                                <span id="qntComments">12</span>
+                                <span id="qntComments">0</span>
                             </div>
                         </div>
                     </div>
@@ -289,6 +274,66 @@
                     <p class="sub-text mb-0">ETEC Centro-Oeste</p>
                 </div>
             </div>
+            <p id="textPost" class="mb-2">
+                Acabei de apresentar meu TCC sobre automação industrial! Muito feliz com o resultado.
+                Obrigada aos professores pelo apoio e aos colegas pelas dicas 🎓✨
+                <span class="text-primary">#ETEC #TCC #AutomacaoIndustrial</span>
+            </p>
+            <hr>
+            <div class="d-flex align-items-center gap-3">
+                <div class="like-post d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-heart me-1" viewBox="0 0 16 16">
+                        <path
+                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
+                    </svg>
+                    <span id="qntLikes">0</span>
+                </div>
+
+                <div class="comments d-flex align-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chat me-1" viewBox="0 0 16 16">
+                        <path
+                            d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
+                    </svg>
+                    <span id="qntComments">1</span>
+                </div>
+            </div>
+
+            <div class="comment mt-3">
+                <p id="interactionComment"><strong>Comentários</strong></p>
+                <div class="comment-box p-3 my-2 shadow-sm border rounded">
+                    <div class="d-flex align-items-center pt-3">
+
+                        <div class="d-flex">
+                            <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
+                            <div class="flex-column">
+                                <p class="name-text mb-0 "><strong>Prof. Carlos Mendes</strong></p>
+                                <span class="badge bg-dark">Professor - Informática</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Matheus Fiot Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis non natus molestias? Dolores animi necessitatibus a, eum saepe repellat mollitia maxime, culpa maiores aut quae delectus ipsa quod corporis aspernatur!</p>
+                </div>
+                <form class="form-comment">
+                    <div class="write-comment mt-5">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control p-2" placeholder="Seu comentário" aria-label="Seu comentário" name="comment">
+                            <button class="btn btn-outline-secondary" type="button" id="btnSend"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                                </svg></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-create d-none">
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="create-card">
+            <p>Criar post</p>
         </div>
     </div>
 </div>

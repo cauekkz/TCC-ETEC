@@ -115,7 +115,7 @@
                     <div class="px-4">
                         <p id="feedTitle" class="mb-0 h4"><strong>Feed da comunidade</strong></p>
                         <p class="text-secondary">Acompanhe as novidades da sua ETEC</p>
-                    </div>a
+                    </div>
                     <button id="btnCreate" class="btn-create">+ Nova postagem</button>
                 </div>
 

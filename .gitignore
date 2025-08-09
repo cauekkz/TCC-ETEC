@@ -1,2 +1,2 @@
-backend/uploads/mediaMessage
-backend/uploads/profilePhotos
+/backend/uploads/mediaMessage/*
+/backend/uploads/profilePhotos/*

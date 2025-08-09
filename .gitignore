@@ -1,2 +1,5 @@
 /backend/uploads/mediaMessage/*
+!/backend/uploads/mediaMessage/.gitkeep
+
 /backend/uploads/profilePhotos/*
+!/backend/uploads/profilePhotos/.gitkeep

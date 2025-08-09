@@ -60,7 +60,7 @@
 
 
     </div>
-
+    
 </section>
 <script src="frontend/static/js/likeFunctions.js"></script>
 <script src="frontend/static/js/loaduserinformation.js"></script>
@@ -154,11 +154,10 @@
             });
         }
 
-        document.querySelector("#user-photo").addEventListener("click", () => {
-            const name = userInfo.name
-            const email = userInfo.email
+        document.querySelector("#leave-account-button").addEventListener("click",()=>{
+            localStorage.clear()
+            window.location.href="/login"
 
-            //fazer dps essa porra
         })
 
 

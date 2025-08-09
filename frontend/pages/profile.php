@@ -136,10 +136,19 @@
 
                 const post = addPostBox(postInfo)
                 const likebtn = post.querySelector(".post-like-icon")
-                const postId = post.dataset.postId
-                likebtn.addEventListener("click", async()=>{
-                    const data  = await executeWithRefresh(addLike,'post',postId)
-                    console.log(data)
+                const postId = postInfo.id
+                likebtn.addEventListener("click", async () => {
+                   
+                    if (post.dataset.user_liked == 0) {
+                        const data = await executeWithRefresh(addLike, 'post', postId)
+                        changeFrontLike(post,true)
+                        post.dataset.user_liked = 1
+                    } else {
+                        const data = await executeWithRefresh(deleteLike, 'post', postId)
+                        changeFrontLike(post,false)
+                        post.dataset.user_liked = 0
+                    }
+
                 })
                 document.querySelector("#posts-box").appendChild(post)
             });

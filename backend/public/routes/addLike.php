@@ -33,7 +33,6 @@ if ($response->status != 'success') {
     $res->response();
     exit;
 }
-$res->set_response_data($response);
 $res->response();
 
 

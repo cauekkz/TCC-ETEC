@@ -83,22 +83,7 @@ section {
     border-radius: 50%;
     font-size: 3rem;
     transition: filter 0.1s ease;
-    cursor: pointer;
     
-}
-#user-photo::before{
-    content: "Editar";
-    color: white;
-    font-size: 1rem;
-    display: none;
-}
-#user-photo:hover::before{
-    filter: brightness(1);
-    display: block;
-}
-#user-photo:hover{
-    filter: brightness(0.3);
-
 }
 
 #username {
@@ -313,6 +298,7 @@ section {
 }
 
 .post-like-icon {
+    user-select: none;
     transition: 0.2s ease;
     cursor: pointer;
 

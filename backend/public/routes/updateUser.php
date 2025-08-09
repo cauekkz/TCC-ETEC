@@ -25,7 +25,6 @@ $email =$_POST['email'];
 $name = $_POST['name'];
 $phone = $_POST['phone'] ?? null;
 $profile_photo_path = null;
-$password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
 if (isset($_FILES['profile_photo'])) {
     $uploadDir = "../../uploads/profilePhotos/$user_id/";
@@ -50,9 +49,8 @@ if (isset($_FILES['profile_photo'])) {
     $profile_photo_path = "uploads/profilePhotos/$user_id/" . $filename;
 }
 
-
-$sql = "UPDATE user SET name = :name , email = :email, password_hash = :password_hash,phone = :phone,profile_photo_path = :profile_photo_path   WHERE id = :id";
-$params = ['id' => $user_id, 'name' => $name, 'email' => $email, "password_hash" => $password_hash, 'phone' => $phone,"profile_photo_path"=>$profile_photo_path];
+$sql = "UPDATE user SET name = :name , email = :email,phone = :phone,profile_photo_path = :profile_photo_path   WHERE id = :id";
+$params = ['id' => $user_id, 'name' => $name, 'email' => $email, 'phone' => $phone,"profile_photo_path"=>$profile_photo_path];
 $response = $db->execute_non_query($sql, $params);
 if ($response->status != 'success') {
     $res->set_status('error');

@@ -1,3 +1,4 @@
+use tcc;
 INSERT INTO campus_address (street, address_number, city, state, zip_code)
 VALUES ("Dr. José Augusto de Souza e Silva", "s/n", "São Paulo", "SP", "05712-040");
 
@@ -130,7 +131,6 @@ VALUES ("Nazir Miguel", "779", "São Paulo", "SP", "05570-030");
 INSERT INTO campus_address (street, address_number, city, state, zip_code)
 VALUES ("Águia de Haia", "2633", "São Paulo", "SP", "03694-000");
 
---cursos
 
 INSERT INTO course (name, link) VALUES
 ("Administração", "https://www.cps.sp.gov.br/cursos-etec/administracao/"),
@@ -241,8 +241,6 @@ INSERT INTO course (name, link) VALUES
 ("Viticultura e Enologia", "https://www.cps.sp.gov.br/cursos-etec/viticultura-e-enologia/"),
 ("Zootecnia", "https://www.cps.sp.gov.br/cursos-etec/zootecnia/");
 
---ETECS
-
 INSERT INTO campus (address_id, name, phone, email) VALUES
 (1, "Etec Abdias do Nascimento", "1135077491 / 1135014994", "e224dir@cps.sp.gov.br"),
 (2, "Etec Albert Einstein", "1139660503 / 1138587529", "e023dir@cps.sp.gov.br"),
@@ -289,7 +287,6 @@ INSERT INTO campus (address_id, name, phone, email) VALUES
 (43, "Etec Uirapuru", "1137825376 / 1137824837", "e230dir@cps.sp.gov.br"),
 (44, "Etec Zona Leste", "1120454016 / 1120454017", "e211dir@cps.sp.gov.br");
 
---relacao curso etec
 
 INSERT INTO campus_course (campus_id, course_id) VALUES (1, 1);
 INSERT INTO campus_course (campus_id, course_id) VALUES (1, 23);
@@ -957,3 +954,50 @@ VALUES (44, 84);
 
 INSERT INTO campus_course (campus_id, course_id)
 VALUES (44, 90);
+
+INSERT INTO server (name) VALUES
+("Geral"),
+("Etec Abdias do Nascimento"),
+("Etec Albert Einstein"),
+("Etec Carlos de Campos"),
+("Etec Carolina Carinhato Sampaio (antiga Etec Zona Sul)"),
+("Etec Cepam"),
+("Etec de Artes"),
+("Etec de Cidade Tiradentes"),
+("Etec de Esportes – Curt Walter Otto Baumgart"),
+("Etec de Guaianazes"),
+("Etec de Heliópolis"),
+("Etec de Itaquera"),
+("Etec de Itaquera II"),
+("Etec de Sapopemba"),
+("Etec de Tiquatira"),
+("Etec de Vila Formosa"),
+("Etec Dra. Maria Augusta Saraiva"),
+("Etec Getúlio Vargas"),
+("Etec Gildo Marçal Bezerra Brandão (Etec Perus)"),
+("Etec Guaracy Silveira"),
+("Etec Irmã Agostina"),
+("Etec Jaraguá"),
+("Etec Jardim Ângela"),
+("Etec Jornalista Roberto Marinho"),
+("Etec José Rocha Mendes"),
+("Etec Mandaqui"),
+("Etec Martin Luther King"),
+("Etec Parque Belém"),
+("Etec Parque da Juventude"),
+("Etec Paulistano"),
+("Etec Prof. Adhemar Batista Heméritas"),
+("Etec Prof. Aprígio Gonzaga"),
+("Etec Prof. Basílides de Godoy"),
+("Etec Prof. Camargo Aranha"),
+("Etec Prof. Horácio Augusto da Silveira"),
+("Etec Profª Dra. Doroti Quiomi Kanashiro Toyohara (Etec Pirituba)"),
+("Etec Raposo Tavares"),
+("Etec Santa Ifigênia"),
+("Etec São Mateus"),
+("Etec São Paulo"),
+("Etec Sebrae"),
+("Etec Takashi Morita"),
+("Etec Tereza Aparecida Cardoso Nunes de Oliveira"),
+("Etec Uirapuru"),
+("Etec Zona Leste");

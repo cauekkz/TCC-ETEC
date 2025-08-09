@@ -19,11 +19,13 @@ if (!empty($errors)) {
 
 $email = $data['email'];
 $name = $data['name'];
-$role = $data['role'];
+$registration = $data['registration'];
+$role = (strlen($registration) == 6)? "teacher": "student";
+$birthday =  $data['birthday'];
 $password_hash = password_hash($data['password'], PASSWORD_DEFAULT);
 
-$sql = "INSERT INTO user (name, email,password_hash,role) VALUES (:name, :email,:password_hash,:role)";
-$params = ['name' => $name, 'email' => $email, "password_hash" => $password_hash, "role" => $role];
+$sql = "INSERT INTO user (name, email,password_hash,role,birthday,registration) VALUES (:name, :email,:password_hash,:role,:birthday,:registration)";
+$params = ['name' => $name, 'email' => $email, "password_hash" => $password_hash, "role" => $role,"birthday"=>$birthday,"registration"=>$registration];
 $response = $db->execute_non_query($sql, $params);
 
 if ($response->status != 'success') {

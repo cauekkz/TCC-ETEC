@@ -35,17 +35,8 @@ if ($response->status != 'success') {
 $data = [];
 $data["user"] = $response->results[0];
 
-$Address_id = $response->results[0]->address_id;
-if ($Address_id == null) {
-
-    $res->set_response_data($data);
-    $res->response();
-    exit;
-}
-
-
-$sql = "SELECT * FROM address WHERE id = :Address_id";
-$params = ['Address_id' => $Address_id];
+$sql = "SELECT * FROM address WHERE user_id = :user_query_id";
+$params = ['user_query_id' => $user_query_id];
 $response = $db->execute_query($sql, $params);
 
 
@@ -55,8 +46,13 @@ if ($response->status != 'success') {
     $res->response();
     exit;
 }
-$data["address"] = $response->results[0];
+if ($response->results == []) {
+    $res->set_response_data($data);
 
+    $res->response();
+    exit;
+}
+$data["address"] = $response->results[0];
 
 
 $res->set_response_data($data);

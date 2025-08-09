@@ -14,8 +14,8 @@
 
             <label for="email" class="form-label">E-mail</label>
             <input type="email" id="email" name="email" placeholder="seu@etec.sp.gov.br" class="form-control" required>
-            <label for="registration" class="form-label">Matricula</label>
-            <input type="text" id="registration" name="registration" placeholder="matricula" class="form-control" required>
+            <label for="registration" class="form-label">MatrÍcula</label>
+            <input type="text" id="registration" name="registration" placeholder="matrícula" class="form-control" required>
 
             <label for="birthday" class="form-label">Data de nascimento</label>
 
@@ -44,9 +44,10 @@
         const body = {
             name: form.name.value,
             email: form.email.value,
-            role: form.role.value,
             password: form.password.value,
-            conf_password: form.conf_password.value
+            conf_password: form.conf_password.value,
+            birthday: form.birthday.value,
+            registration: form.registration.value
         }
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
@@ -58,10 +59,12 @@
             //500
         }
         const data = await response.json()
+        console.log(data)
         if (data.status !== "success") {
             //error message
             return;
         }
+        
         const dataLogin = await login(form.email.value, form.password.value)
         if (data.status !== "success") {
             return;

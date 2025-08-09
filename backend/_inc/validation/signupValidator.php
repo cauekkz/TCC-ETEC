@@ -10,18 +10,25 @@ function validate($data)
     if (empty($data['password']) || strlen($data['password']) < 8) {
         $errors[] = 'A senha precisa ter pelo menos 8 caracteres';
     }
-
-    if (!in_array($data['role'],["student","teacher","admin"])) {
-        $errors[] = 'tipo de usuário não permitido';
-    }
     if ($data["conf_password"] != $data['password']) {
         $errors[] = 'Senhas diferentes';
     }
-    
+
     if (empty($data['name']) || strlen($data['name']) < 3) {
         $errors[] = 'Nome muito curto';
     }
+    if (empty($data["birthday"])) {
+        $errors[] = 'Data de nascimento obrigatório';
+    } else {
+        $today = new DateTime();
+        $birthday = new DateTime($data["birthday"]);
 
+        if ($birthday > $today) {
+            $errors[] = 'Data de nascimento Invalida';
+        } 
+    }
+    if(empty($data["registration"]) || !is_numeric($data["registration"])){
+            $errors[] = 'Matrícula invalida';
+    }
     return $errors;
 }
-    

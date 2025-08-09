@@ -62,12 +62,14 @@
     </div>
 
 </section>
+<script src="frontend/static/js/likeFunctions.js"></script>
 <script src="frontend/static/js/loaduserinformation.js"></script>
 <script src="frontend/static/js/executeWithRefresh.js"></script>
 <script src="frontend/static/js/getUserPosts.js"></script>
 <script src="frontend/static/js/addPostBox.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', async function() {
+
         const userData = await executeWithRefresh(loadUserInformation, 'mine')
 
 
@@ -133,9 +135,22 @@
             postsInfos.forEach(postInfo => {
 
                 const post = addPostBox(postInfo)
+                const likebtn = post.querySelector(".post-like-icon")
+                const postId = post.dataset.postId
+                likebtn.addEventListener("click", async()=>{
+                    const data  = await executeWithRefresh(addLike,'post',postId)
+                    console.log(data)
+                })
                 document.querySelector("#posts-box").appendChild(post)
             });
         }
+
+        document.querySelector("#user-photo").addEventListener("click", () => {
+            const name = userInfo.name
+            const email = userInfo.email
+
+            //fazer dps essa porra
+        })
 
 
     });

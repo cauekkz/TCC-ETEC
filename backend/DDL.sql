@@ -10,6 +10,7 @@ CREATE TABLE user (
   role ENUM('student', 'teacher') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   password_hash VARCHAR(255) NOT NULL
+  
 );
 CREATE TABLE address (
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -53,7 +54,7 @@ CREATE TABLE campus (
   name VARCHAR(255) NOT NULL,
   phone VARCHAR(30),
   email VARCHAR(255),
-  FOREIGN KEY (address_id) REFERENCES campus_address(id),
+  FOREIGN KEY (address_id) REFERENCES campus_address(id)
 );
 CREATE TABLE campus_course (
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -109,14 +110,3 @@ CREATE TABLE message (
     OR media_url IS NOT NULL
   )
 );
-#trigger
-DELIMITER $$ CREATE TRIGGER delete_address_after_user
-AFTER DELETE ON user FOR EACH ROW BEGIN
-DELETE FROM address
-WHERE id = OLD.address_id;
-END $$ DELIMITER;
-DELIMITER $$ CREATE TRIGGER delete_address_after_campus
-AFTER DELETE ON campus FOR EACH ROW BEGIN
-DELETE FROM address
-WHERE id = OLD.address_id;
-END $$ DELIMITER;

@@ -9,7 +9,7 @@ define('API_MESSAGE', '');
 define('MYSQL_HOST', 'localhost');
 define('MYSQL_DBNAME', 'tcc');
 define('MYSQL_USER', 'root');
-define('MYSQL_PASS', 'REMOVIDO');
+define('MYSQL_PASS', '');
 //REMOVIDO
 //SEU FILHA DE UMA PUTA BOTA O KRL DAS ETEC NO BANCO PORRA DESGRAÇADO VAI FUDER TUDO SE DEMORAR PRA FAZER ESSA BOSTA
 define('OPENSSL_KEY','dev-only-openssl-key-change-me!!');

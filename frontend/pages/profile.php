@@ -60,8 +60,30 @@
 
 
     </div>
+    <dialog id="edit-profile-modal">
+        <div id="modal-header">
+            <div>
+                <span style="font-size: 1.5rem;font-weight:500;">Editar Perfil</span>
+                <span aria-label="Fechar janela" id="close-modal-btn">X</span>
+            </div>
+            <span style="color:#666666;">Atualize suas informações pessoais</span>
+        </div>
+        <form id="update-form">
+            <div id="update-photo-div">
+                <input type="file" id="profilePic" style="display:none" />
+                <label for="profilePic" id="photo-label" title="Clique para alterar foto" >
+                </label>
+                    <i class="bi bi-pencil-fill" style="font-size: 0.85rem;position:relative;left:-1.5rem;bottom:-2rem;background:white;border-radius:50%;padding:0.25rem;border:1px solid black"></i>
 
+
+
+            </div>
+
+        </form>
+
+    </dialog>
 </section>
+
 <script src="frontend/static/js/likeFunctions.js"></script>
 <script src="frontend/static/js/loaduserinformation.js"></script>
 <script src="frontend/static/js/executeWithRefresh.js"></script>
@@ -71,8 +93,7 @@
     document.addEventListener('DOMContentLoaded', async function() {
 
         const userData = await executeWithRefresh(loadUserInformation, 'mine')
-
-
+        sessionStorage.setItem('userData', JSON.stringify(userData?.data));
 
         const userInfo = userData?.data?.user
         const addressInfo = userData?.data?.address
@@ -80,6 +101,7 @@
 
 
         if (userInfo != null) {
+
             const username = userInfo?.name ?? "usuario"
             document.querySelector("#username").innerText = username;
 
@@ -136,22 +158,81 @@
 
                 const post = addPostBox(postInfo)
                 const likebtn = post.querySelector(".post-like-icon")
-                const postId = post.dataset.postId
-                likebtn.addEventListener("click", async()=>{
-                    const data  = await executeWithRefresh(addLike,'post',postId)
-                    console.log(data)
+                const postId = postInfo.id
+                likebtn.addEventListener("click", async () => {
+
+                    if (post.dataset.user_liked == 0) {
+                        const data = await executeWithRefresh(addLike, 'post', postId)
+                        changeFrontLike(post, true)
+                        post.dataset.user_liked = 1
+                    } else {
+                        const data = await executeWithRefresh(deleteLike, 'post', postId)
+                        changeFrontLike(post, false)
+                        post.dataset.user_liked = 0
+                    }
+
                 })
                 document.querySelector("#posts-box").appendChild(post)
             });
         }
 
-        document.querySelector("#user-photo").addEventListener("click", () => {
-            const name = userInfo.name
-            const email = userInfo.email
+        document.querySelector("#leave-account-button").addEventListener("click", () => {
+            localStorage.clear()
+            window.location.href = "/login"
 
-            //fazer dps essa porra
+
         })
+        document.querySelector("#edit-profile-button").addEventListener("click", () => {
+
+            const modal = document.querySelector("#edit-profile-modal")
+            modal.showModal();
+            const userData = JSON.parse(sessionStorage.getItem('userData'));
+            const userInfo = userData?.user
+            const addressInfo = userData?.address
 
 
-    });
+
+            if (userInfo != null) {
+                const username = userInfo?.name ?? "usuario"
+
+                const role = userInfo?.role ?? "user"
+                const roleColor = (role == "student") ? "#D32F2F" : "#2f32d3ff"
+
+                const profilePath = userInfo.profile_photo_path
+                const userPhoto = document.querySelector("#photo-label")
+
+                userPhoto.style.backgroundImage = profilePath ?
+                    `url("${profilePath}")` :
+                    "none";
+
+                userPhoto.style.backgroundColor = profilePath ?
+                    "transparent" :
+                    roleColor;
+
+                userPhoto.innerText = profilePath ?
+                    "" :
+                    getProfileLetter(username);
+
+                userPhoto.style.backgroundRepeat = "no-repeat";
+                userPhoto.style.backgroundPosition = "center";
+                userPhoto.style.backgroundSize = "cover";
+
+
+            }
+
+
+        });
+        const inputFile = document.querySelector("#profilePic")
+        inputFile.addEventListener('change', () => {
+            const file = inputFile.files[0];
+            if (file) {
+                const url = URL.createObjectURL(file);
+                const photoLabel = document.querySelector("#photo-label")
+                photoLabel.style.backgroundImage = `url("${url}")`;
+                photoLabel.style.backgroundColor = "none"
+                photoLabel.innerText = ""
+            }
+        });
+
+    })
 </script>

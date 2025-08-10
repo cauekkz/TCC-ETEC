@@ -24,10 +24,7 @@ class RefreshToken
             $sql = "SELECT user_id FROM refresh_tokens WHERE token = :token AND expires_at > NOW()";
             $params = ['token' => $token];
             $response = $conn->execute_query($sql, $params);
-            if (empty($response)) {
-                return null;
-            }
-            return $response->results[0];
+            return $response?->results[0] ?? null;
         } catch (Exception $e) {
             return null;
         }

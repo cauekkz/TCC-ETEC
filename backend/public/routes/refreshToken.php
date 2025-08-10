@@ -12,8 +12,10 @@ if (!isset($_COOKIE["refreshToken"])) {
 }
 $refresh_token = $_COOKIE["refreshToken"] ?? null;
 
-$user_id = RefreshToken::validate_token($refresh_token, $db)->user_id;
-if (!$user_id) {
+$token_data = RefreshToken::validate_token($refresh_token, $db);
+$user_id = $token_data?->user_id ?? null;
+
+if ($user_id === null) {
     $res->set_status('error');
     $res->set_error_message("Logg in");
     $res->response();
@@ -23,6 +25,13 @@ if (!$user_id) {
 $sql = "select id,name,email,password_hash,role from user where id = :id";
 $params = ['id' => $user_id];
 $response = $db->execute_query($sql, $params);
+
+if (empty($response->results)) {
+    $res->set_status('error');
+    $res->set_error_message("Usuário não encontrado.");
+    $res->response();
+    exit;
+}
 
 $user = $response->results[0];
 

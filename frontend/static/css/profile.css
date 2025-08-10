@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css');
 
 body {
     background-color: #F8F9FA;
@@ -83,21 +84,6 @@ section {
     border-radius: 50%;
     font-size: 3rem;
     transition: filter 0.1s ease;
-    cursor: pointer;
-    
-}
-#user-photo::before{
-    content: "Editar";
-    color: white;
-    font-size: 1rem;
-    display: none;
-}
-#user-photo:hover::before{
-    filter: brightness(1);
-    display: block;
-}
-#user-photo:hover{
-    filter: brightness(0.3);
 
 }
 
@@ -313,6 +299,7 @@ section {
 }
 
 .post-like-icon {
+    user-select: none;
     transition: 0.2s ease;
     cursor: pointer;
 
@@ -321,6 +308,8 @@ section {
 .post-like-icon:hover {
     color: #D32F2F;
 }
+
+
 
 h3 {
     margin-top: 4.1rem;
@@ -331,6 +320,66 @@ h4 {
     font-size: 1rem;
 }
 
+#edit-profile-modal {
+    height: 90vh;
+    width: 45vw;
+    border: none;
+    border-radius: 10px;
+    margin: auto;
+    outline: none;
+    padding: 0.5rem 1rem;
+    overflow: auto;
+}
+
+#edit-profile-modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(2px);
+}
+
+#modal-header {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    
+
+}
+
+#modal-header>div {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#close-modal-btn {
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-family: Helvetica, sans-serif;
+    color: #666666;
+    user-select: none;
+    cursor: pointer;
+}
+#update-photo-div{
+    width: 100%;
+    height: 15vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid;
+
+}
+#photo-label{
+    width:15vh;
+    height:100%;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+}
 @media (max-width: 1024px) {
     :root {
         font-size: 15px;
@@ -362,7 +411,15 @@ h4 {
         width: 100%;
     }
 
+    #edit-profile-modal {
+        height: 95vh;
+        width: 90vw;
+        border: none;
+        border-radius: 10px;
+        margin: auto;
+        outline: none;
 
+    }
 
 
 

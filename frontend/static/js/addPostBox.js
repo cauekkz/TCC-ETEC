@@ -1,30 +1,47 @@
 function addPostBox(postInfo) {
-    console.log(postInfo)
+    const formatter = new Intl.NumberFormat('pt-BR', { notation: 'compact' });
+
     const post = document.createElement("div")
 
     const authorName = postInfo.author_name ?? "usuario"
     const authorRole = postInfo.role ?? "user"
     const roleColor = (authorRole == "student") ? "#D32F2F" : "#2f32d3ff"
     const author_id = postInfo.id_author
-    const profilePath = postInfo?.profile_photo_path ??null;
+    const profilePath = postInfo?.profile_photo_path ?? null;
 
     const color = (profilePath) ? "transparent" : roleColor
     const url = (profilePath) ? `url("${profilePath}")` : "none"
     const userPhotoText = (profilePath) ? "" : getProfileLetter(authorName)
 
     const content = postInfo.content
-    const total_likes = postInfo.total_likes
+    const total_likes = formatter.format(postInfo.total_likes).replace(/\s+/g, '')
     const id = postInfo.id
     const post_time = formatTimeAgo(postInfo.created_at)
 
-    post.dataset.postId = id
-    post.dataset.authorId = author_id
 
-    const likeBtnColor = (postInfo.user_liked === "1")? "D32F2F" : "none"
+    const likeIcon = (postInfo.user_liked === 1) ? `
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#D32F2F" viewBox="0 0 16 16">
+    <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+  </svg>
+`: `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
+     fill="none" stroke="currentColor" stroke-width="1" 
+     viewBox="0 0 16 16">
+  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 
+           1.4 3.053c-.523 1.023-.641 2.5.314 
+           4.385.92 1.815 2.834 3.989 6.286 
+           6.357 3.452-2.368 5.365-4.542 
+           6.286-6.357.955-1.886.838-3.362.314-4.385
+           C13.486.878 10.4.28 8.717 2.01z"/>
+</svg>`
     post.classList.add("post")
 
-    post.innerHTML = `
-    
+    post.dataset.postId = id
+    post.dataset.authorId = author_id
+    post.dataset.user_liked = postInfo.user_liked
+    post.dataset.total_likes = postInfo.total_likes
+
+    post.innerHTML = `  
             <div class="post-icon-div">
                 <div class="user-photo-post" style='background-color:${color}; background-image:${url};'>
                     ${userPhotoText}
@@ -41,18 +58,15 @@ function addPostBox(postInfo) {
 
                 <div class="post-sec-2">
                     <div>
-                        <span class="post-like-icon">  <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-heart-fill me-1" viewBox="0 0 16 16">
-                                    <path
-                                        d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
-                                </svg>${total_likes} 
+                        <span class="post-like-icon"><span class="like_icon">${likeIcon}</span> <span class="total_likes">${total_likes} </span>
                         </span>
 
-                        <span class="post-comments-icon">                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        <span class="post-comments-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-chat me-1" viewBox="0 0 16 16">
                                     <path
                                         d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
-                                </svg>
+                            </svg>
                         </span>
                     </div>
 

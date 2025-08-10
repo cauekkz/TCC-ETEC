@@ -3,27 +3,44 @@ html {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: rgb(249, 249, 249);
 }
 
-.container-fluid {
-  height: 100vh;
+.container-style {
+  height: 87.6vh !important;
   display: flex;
   padding-left: 0 !important;
   margin-left: 0 !important;
 }
 
+.title-page {
+  margin-top: 0.8rem;
+}
+
+header {
+   border-bottom: 1px solid rgba(211, 211, 211, 0.4) ;
+}
+
+.div-feed{
+  margin-right: 100px !important;
+}
+
+.moon:hover, .sun:hover{
+  background-color: #f0f0f0;
+  border-radius: 0.4rem;
+  transition: 0.5s ease;
+}
+
 .tab {
   background-color: #fff !important;
   font-size: 12px;
-  width: 12rem;
+  width: 12.5rem;
   margin-left: 0;
-  border-right: 1px solid gray;
+  border-right: 1px solid rgb(211, 211, 211);
   transition: width 0.5s ease, padding 0.5s ease;
 }
 
 .col-6.flex-grow-1.overflow-auto {
-  height: 100vh;
+  height: 87.6vh;
   overflow-y: auto;
 }
 
@@ -78,7 +95,7 @@ html {
   cursor: pointer;
 }
 
-.col-hover > p {
+.col-hover>p {
   position: relative;
   top: 0.5rem;
 }
@@ -94,7 +111,6 @@ html {
 }
 
 #btnCreate {
-  padding: 10px;
   border-radius: 0.4rem;
   width: 10rem;
   background-color: rgba(211, 47, 47, 255);
@@ -215,10 +231,6 @@ form select:focus,
 
 .btn-space {
   margin-left: 3.7rem !important;
-}
-
-.btn-create {
-  margin-right: 2rem;
 }
 
 /* .post {

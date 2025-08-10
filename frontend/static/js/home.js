@@ -13,7 +13,7 @@ const centerContent = document.querySelector(
   ".col-6.flex-grow-1.overflow-auto"
 );
 
-leftArrow.addEventListener("click", () => {
+/* leftArrow.addEventListener("click", () => {
   leftArrow.classList.add("d-none");
   rightArrow.classList.remove("d-none");
   tab.style.width = "2rem";
@@ -36,7 +36,7 @@ rightArrow.addEventListener("click", () => {
   img.classList.remove("d-none");
   textTabLeft.forEach((text) => text.classList.remove("d-none"));
   cardProfile.classList.remove("d-none");
-});
+}); */
 
 const cardPost = document.querySelectorAll(".card-post");
 const postFocus = document.querySelector(".container-post-focus");

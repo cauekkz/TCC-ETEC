@@ -1,18 +1,47 @@
-<div class="container-fluid">
+<header>
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="col-auto d-flex align-items-center mb-1">
+                <img src="frontend/static/img/logo.png" alt="logo eteconnect" class="img-logo img-fluid">
+                <h5 class="text-danger title-page">ETEConnect</h5>
+            </div>
+            <div class="col d-flex mt-3 justify-content-end">
+                <button id="btnCreate" class="btn btn-danger mb-3">+ Nova postagem</button>
+
+                <div class="light-dark px-5 mt-2">
+                    <div class="moon p-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon" viewBox="0 0 16 16">
+                            <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286" />
+                        </svg>
+                    </div>
+
+
+                    <div class="sun p-1 d-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16">
+                            <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container-fluid container-style">
     <div class="col d-flex">
         <div class="tab d-flex flex-column px-3">
-            <div class="row row-arrows d-flex pt-3">
+            <!-- <div class="row row-arrows d-flex pt-3">
                 <img src="frontend/static/img/logo.png" alt="logo eteconnect" class="img-logo img-fluid">
 
                 <div class="col text-end">
-                    <!-- To left  <- -->
+                    <!-- To left  <- 
                     <div class="col" id="left-arrow">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
                         </svg>
                     </div>
 
-                    <!-- To right -> -->
+                    <!-- To right ->
                     <div class="col d-none" id="right-arrow">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
@@ -20,7 +49,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
 
             <div class="row mt-4 row-profile">
                 <div class="col">
@@ -111,12 +140,11 @@
         </div>
         <div class="col-6 flex-grow-1 overflow-auto px-3 " style="min-height: 0;">
             <div class="feed mt-4 px-4">
-                <div class="d-flex align-items-center justify-content-around">
+                <div class="d-flex align-items-center div-feed">
                     <div class="px-4">
                         <p id="feedTitle" class="mb-0 h4"><strong>Feed da comunidade</strong></p>
                         <p class="text-secondary">Acompanhe as novidades da sua ETEC</p>
                     </div>
-                    <button id="btnCreate" class="btn-create">+ Nova postagem</button>
                 </div>
 
                 <!-- Mudar para a parte do bd dps -->

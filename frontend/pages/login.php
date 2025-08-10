@@ -25,7 +25,7 @@
     </div>
 
     <div class="row text-center text-style">
-        <p id="forgetPassword" class="text-danger pt-2">Esqueceu a senha? </p><!-- nd de link por enquanto -->
+        <p id="forgetPassword" class="text-danger pt-2">Esqueceu a senha?</p><!-- nd de link por enquanto -->
         <p id="signup">Não tem conta? <a href="/signup" class="text-danger" id="linkSignup">Cadastre-se</a></p>
     </div>
 </div>

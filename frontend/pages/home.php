@@ -156,6 +156,9 @@
         </div>
         <div class="col-6 flex-grow-1 overflow-auto px-3 " style="min-height: 0;">
             <div class="feed mt-4 px-4">
+                <div class="card-profile-edit">
+                    
+                </div>
                 <div class="d-flex align-items-center div-feed">
                     <div class="px-4">
                         <p id="feedTitle" class="mb-0 h4"><strong>Feed da comunidade</strong></p>

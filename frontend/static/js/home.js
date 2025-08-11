@@ -13,7 +13,8 @@ const centerContent = document.querySelector(
   ".col-6.flex-grow-1.overflow-auto"
 );
 
-leftArrow.addEventListener("click", () => {
+
+/* leftArrow.addEventListener("click", () => {
   leftArrow.classList.add("d-none");
   rightArrow.classList.remove("d-none");
   tab.style.width = "2rem";
@@ -26,6 +27,7 @@ leftArrow.addEventListener("click", () => {
   setTimeout(() => {}, 400);
 });
 
+
 rightArrow.addEventListener("click", () => {
   rightArrow.classList.add("d-none");
   leftArrow.classList.remove("d-none");
@@ -36,10 +38,12 @@ rightArrow.addEventListener("click", () => {
   img.classList.remove("d-none");
   textTabLeft.forEach((text) => text.classList.remove("d-none"));
   cardProfile.classList.remove("d-none");
-});
+}); */
+
 
 const cardPost = document.querySelectorAll(".card-post");
 const postFocus = document.querySelector(".container-post-focus");
+
 
 cardPost.forEach((cards) => {
   // Passar os values por aq, img, nome, etec, 'função'
@@ -48,6 +52,7 @@ cardPost.forEach((cards) => {
   });
 });
 
+
 postFocus.addEventListener("click", (e) => {
   const conteudo = document.querySelector(".post-focus");
   if (!conteudo.contains(e.target)) {
@@ -55,23 +60,29 @@ postFocus.addEventListener("click", (e) => {
   }
 });
 
+
 const btnSendComment = document.querySelector("#btnSend");
 const form = document.querySelector(".form-comment");
+
 
 btnSendComment.addEventListener("click", () => {
   if (!form.comment.value) {
     return;
   }
 
+
   // manda pra API, só arruma bgl de cada post antes
 });
+
 
 const btnCreate = document.querySelector("#btnCreate");
 const containerCreate = document.querySelector(".container-create");
 
+
 btnCreate.addEventListener("click", () => {
   containerCreate.classList.remove("d-none");
 });
+
 
 containerCreate.addEventListener("click", (e) => {
   const conteudo = document.querySelector(".create-card");
@@ -80,18 +91,23 @@ containerCreate.addEventListener("click", (e) => {
   }
 });
 
+
 document.querySelector(".like-post").addEventListener("click", (e) => {
   e.stopPropagation();
 });
+
 
 const formCreatePost = document.querySelector(".form-create");
 const textareaCreate = document.querySelector("#textareaCreate");
 const btnPublish = document.querySelector("#btnPublish");
 
+
 btnPublish.setAttribute("disabled", true);
+
 
 textareaCreate.addEventListener("input", () => {
   const textCreate = textareaCreate.value.trim();
+
 
   if (textCreate === "") {
     btnPublish.setAttribute("disabled", true);
@@ -100,12 +116,15 @@ textareaCreate.addEventListener("input", () => {
   }
 });
 
+
 btnPublish.addEventListener("click", (e) => {
   e.preventDefault();
   const postContent = textareaCreate.value;
   if (!postContent) {
     return;
   }
-  
+ 
   // passar pra API
 });
+
+

@@ -118,3 +118,12 @@ CREATE TABLE message (
     OR media_url IS NOT NULL
   )
 );
+CREATE TABLE follower (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  follower_id INT NOT NULL,
+  followed_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  
+  FOREIGN KEY (follower_id) REFERENCES user(id),
+  FOREIGN KEY (followed_id) REFERENCES user(id)
+);

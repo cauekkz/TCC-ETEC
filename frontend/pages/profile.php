@@ -1,5 +1,5 @@
 <header>
-    <img src="frontend/static/img/left-arrow.png" alt="icon de voltar a pagina"> <span style="font-size: 1.3rem;">Perfil</span>
+    <img id="btnBack" src="frontend/static/img/left-arrow.png" alt="icon de voltar a pagina"> <span style="font-size: 1.3rem;">Perfil</span>
 </header>
 
 <section>
@@ -26,15 +26,15 @@
             </div>
             <div id="social-info-div">
                 <div>
-                    <span>303</span>
+                    <span id="post-qtn"></span>
                     <span>Posts</span>
                 </div>
                 <div>
-                    <span>303</span>
+                    <span id="following_count"></span>
                     <span>Seguindo</span>
                 </div>
                 <div>
-                    <span>303</span>
+                    <span id="followers_count"></span>
                     <span>Seguidores</span>
                 </div>
 
@@ -135,7 +135,7 @@
 
         const userInfo = userData?.data?.user
         const addressInfo = userData?.data?.address
-        console.log(userInfo)
+        console.log(userData)
 
 
         if (userInfo != null) {
@@ -153,6 +153,8 @@
             const campus = userInfo?.campus_name ?? "ETEC"
             document.querySelector("#user-etec").innerText = campus
 
+
+
             const date = new Date(created_at);
 
             const formattedDate = date.toLocaleDateString('pt-BR', {
@@ -160,6 +162,10 @@
                 month: '2-digit',
                 year: 'numeric'
             });
+
+            document.querySelector("#followers_count").innerText = userData?.data?.followers_count?.followers_count
+            document.querySelector("#following_count").innerText = userData?.data?.following_count?.following_count
+
             document.querySelector("#perfil-created").innerText = `Membro desde ${formattedDate}`;
 
             const profilePath = userInfo.profile_photo_path
@@ -192,10 +198,12 @@
             document.querySelector("#perfil-address").innerText = `${city}, ${state}`;
 
         }
+
         if (userInfo?.role === "teacher") {
             const userPostData = await executeWithRefresh(getUserPosts, 'mine')
 
             const postsInfos = userPostData?.data
+            document.querySelector("#post-qtn").innerText = postsInfos.length
             postsInfos.forEach(postInfo => {
 
                 const post = addPostBox(postInfo)
@@ -428,6 +436,16 @@
 
             window.location.reload();
         })
+        document.getElementById('btnBack').addEventListener('click', function() {
+            const referrer = document.referrer;
+            const currentHost = window.location.host;
+
+            if (referrer && new URL(referrer).host === currentHost) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        });
 
     })
 </script>

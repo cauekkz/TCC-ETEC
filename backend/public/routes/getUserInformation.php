@@ -58,6 +58,29 @@ if ($response->results == []) {
 }
 $data["address"] = $response->results[0];
 
+$sql = "SELECT COUNT(*) AS following_count FROM follower WHERE follower_id = :user_id";
+$params = ['user_id' => $user_query_id];
+$response = $db->execute_query($sql, $params);
+if ($response->status != 'success') {
+    $res->set_status('error');
+    $res->set_error_message($response->mensagem);
+    $res->response();
+    exit;
+}
+$data["following_count"] = $response->results[0];
+
+// Conta quantos usuários seguem o user (followers_count)
+$sql = "SELECT COUNT(*) AS followers_count FROM follower WHERE followed_id = :user_id";
+$params = ['user_id' => $user_query_id];
+$response = $db->execute_query($sql, $params);
+if ($response->status != 'success') {
+    $res->set_status('error');
+    $res->set_error_message($response->mensagem);
+    $res->response();
+    exit;
+}
+$data["followers_count"] = $response->results[0];
+
 
 $res->set_response_data($data);
 $res->response();

@@ -1,17 +1,16 @@
-<?php 
+<?php
 
 require("../../_inc/init.php");
-
 require_once __DIR__ . '/../../_inc/filters/isLogged.php';
-
-
 require_once __DIR__ . '/../../_inc/validation/addressValidator.php';
 
 check_request_method($_SERVER['REQUEST_METHOD'], "POST");
+$jwt = new JwtAuth();
+$tokenJWT = $jwt->get_jwt_by_header();
+$resultJWT = $jwt->validate_token($tokenJWT);
+$user_id = $resultJWT['id'];
 
-
-$data = json_decode(file_get_contents('php://input'), true);
-$errors = validate($data);
+$errors = validate($_POST);
 
 if (!empty($errors)) {
     $res->set_status("error");
@@ -20,59 +19,52 @@ if (!empty($errors)) {
     $res->response();
     exit;
 }
-$street = $data['street'];
-$address_number = $data['address_number'];
-$city = $data['city'];
-$state = $data['state'];
-$zip_code = $data['zip_code'];
 
-$sql = "INSERT INTO address (street, address_number,city,state,zip_code) VALUES (:street, :address_number,:city,:state,:zip_code)";
-$params = ['street' => $street, 'address_number' => $address_number, "city" => $city, "state" => $state,"zip_code" => $zip_code];
-$response = $db->execute_non_query($sql, $params);
+$street = $_POST['street'];
+$address_number = $_POST['address_number'];
+$city = $_POST['city'];
+$state = $_POST['state'];
+$zip_code = $_POST['zip_code'];
 
-if ($response->status != 'success') {
-    $res->set_status('error');
-    $res->set_error_message($response->mensagem);
-    $res->response();
-    exit;
-}
-$newAddressId = $response->last_id;
+$sqlUpdate = "UPDATE address SET street = :street, address_number = :address_number, city = :city, state = :state, zip_code = :zip_code WHERE user_id = :user_id";
+$paramsUpdate = [
+    'street' => $street,
+    'address_number' => $address_number,
+    'city' => $city,
+    'state' => $state,
+    'zip_code' => $zip_code,
+    'user_id' => $user_id
+];
 
+$responseUpdate = $db->execute_non_query($sqlUpdate, $paramsUpdate);
 
-$jwt = new JwtAuth();
-$tokenJWT = $jwt->get_jwt_by_header();
-$resultJWT = $jwt->validate_token($tokenJWT);
-
-$user_id = $resultJWT['id'];
-
-$sql = "SELECT address_id FROM user WHERE id = :user_id";
-$params = ['user_id' => $user_id];
-$response = $db->execute_query($sql, $params);
-
-    $oldAddressId = $response->results[0]->address_id;
-
-
-$sql = "UPDATE user set address_id = :newAddressId WHERE id = :user_id";
-$params = ['user_id' => $user_id,"newAddressId"=>$newAddressId];
-$response = $db->execute_non_query($sql, $params);
-
-
-
-
-
-if ($response->status != 'success') {
-    $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+if ($responseUpdate->status == 'success' && $responseUpdate->affected_rows > 0) {
+    $res->set_status('success');
+    $res->set_response_data(['message' => 'Endereço atualizado com sucesso']);
     $res->response();
     exit;
 }
 
-$sql = "DELETE FROM address WHERE id = :oldAddressId ";
-$params = ["oldAddressId"=>$oldAddressId];
-$response = $db->execute_non_query($sql, $params);
+$sqlInsert = "INSERT INTO address (user_id, street, address_number, city, state, zip_code) VALUES (:user_id, :street, :address_number, :city, :state, :zip_code)";
+$paramsInsert = [
+    'user_id' => $user_id,
+    'street' => $street,
+    'address_number' => $address_number,
+    'city' => $city,
+    'state' => $state,
+    'zip_code' => $zip_code
+];
 
+$responseInsert = $db->execute_non_query($sqlInsert, $paramsInsert);
 
-//se a pessoa entrar mais de 1 vez nesse breakpoint vai deixar o ultimo endereço triste.
+if ($responseInsert->status != 'success') {
+    $res->set_status('error');
+    $res->set_error_message($responseInsert->mensagem ?? 'Erro ao inserir endereço');
+    $res->response();
+    exit;
+}
+
+$res->set_status('success');
+$res->set_response_data(['message' => 'Endereço criado com sucesso']);
 $res->response();
-
-?>
+exit;

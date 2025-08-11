@@ -17,7 +17,7 @@ function addPostBox(postInfo) {
     const total_likes = formatter.format(postInfo.total_likes).replace(/\s+/g, '')
     const id = postInfo.id
     const post_time = formatTimeAgo(postInfo.created_at)
-
+    const etecPost = postInfo.campus_name;
 
     const likeIcon = (postInfo.user_liked === 1) ? `
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#D32F2F" viewBox="0 0 16 16">
@@ -52,7 +52,7 @@ function addPostBox(postInfo) {
                     <span class="post-username">${authorName}</span>
                     <span class="post-role" style='background:${roleColor}'>${authorRole}</span>
 
-                    <span class="post-etec"> ETEC</span>
+                    <span class="post-etec"> ${etecPost}</span>
                     <span class="post-content">${content}</span>
                 </div>
 

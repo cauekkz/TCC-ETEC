@@ -21,7 +21,11 @@ if ($user_query_id === null) {
     exit;
 }
 
-$sql = "SELECT * FROM user WHERE id = :user_id";
+$sql = "SELECT user.*, c.name as campus_name
+FROM user 
+INNER JOIN campus c ON user.campus_id = c.id 
+WHERE user.id = :user_id
+";
 $params = ['user_id' => $user_query_id];
 $response = $db->execute_query($sql, $params);
 

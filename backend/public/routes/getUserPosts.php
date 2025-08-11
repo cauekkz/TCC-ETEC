@@ -21,7 +21,26 @@ if ($user_query_id === null) {
     exit;
 }
 
-$sql = "SELECT p.id, p.id_author, p.content, COUNT(l.id) AS total_likes, CASE WHEN l2.id IS NULL THEN 0 ELSE 1 END AS user_liked, p.created_at,u.name as author_name, u.role,u.profile_photo_path FROM post p LEFT JOIN likes l ON l.content_type = 'post' AND l.content_id = p.id LEFT JOIN likes l2 ON l2.content_type = 'post' AND l2.content_id = p.id AND l2.user_id = :user_query_id LEFT JOIN user u ON u.id = p.id_author WHERE id_author = :user_query_id GROUP BY p.id, p.id_author, p.content, p.created_at, user_liked  ORDER BY p.created_at DESC";
+$sql = "SELECT
+  p.id,
+  p.id_author,
+  p.content,
+  COUNT(l.id) AS total_likes,
+  CASE WHEN l2.id IS NULL THEN 0 ELSE 1 END AS user_liked,
+  p.created_at,
+  u.name AS author_name,
+  u.role,
+  u.profile_photo_path,
+  c.name AS campus_name
+FROM post p
+LEFT JOIN likes l ON l.content_type = 'post' AND l.content_id = p.id
+LEFT JOIN likes l2 ON l2.content_type = 'post' AND l2.content_id = p.id AND l2.user_id = :user_query_id
+LEFT JOIN user u ON u.id = p.id_author
+LEFT JOIN campus c ON u.campus_id = c.id
+WHERE p.id_author = :user_query_id
+GROUP BY p.id, p.id_author, p.content, p.created_at, user_liked, u.name, u.role, u.profile_photo_path, c.name
+ORDER BY p.created_at DESC
+";
 $params = ['user_query_id' => $user_query_id];
 $response = $db->execute_query($sql, $params);
 

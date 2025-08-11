@@ -6,10 +6,6 @@ function validate($address)
 {
     $errors = [];
 
-    if (!is_array($address)) {
-        return ['Endereço inválido'];
-    }
-
     if (empty($address['street']) || strlen($address['street']) < 3) {
         $errors[] = 'Rua inválida';
     }

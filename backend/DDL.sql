@@ -9,7 +9,15 @@ CREATE TABLE user (
   birthday DATE NOT NULL,
   role ENUM('student', 'teacher') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  password_hash VARCHAR(255) NOT NULL
+  password_hash VARCHAR(255) NOT NULL,
+
+  campus_id INT,
+  course_id INT,
+  
+  Foreign Key (campus_id) REFERENCES campus(id),
+  Foreign Key (course_id) REFERENCES course(id)
+
+
   
 );
 CREATE TABLE address (

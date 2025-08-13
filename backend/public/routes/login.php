@@ -55,6 +55,7 @@ if (!$resultSaveToken) {
     setcookie('refreshToken', $refreshToken->token, time() + $twoWeeks, '/', '', false, false);
 }
 
+    setcookie('refreshToken', $refreshToken->token, time() + $twoWeeks, '/', '', false, false);
 
 $jwt = new JwtAuth();
 //yeh

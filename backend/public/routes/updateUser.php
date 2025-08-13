@@ -4,17 +4,29 @@ require("../../_inc/init.php");
 require_once __DIR__ . '/../../_inc/filters/isLogged.php';
 
 require_once __DIR__ . '/../../_inc/validation/updateUserValidator.php';
+require_once __DIR__ . '/../../_inc/validation/addressValidator.php';
 
 
 
 check_request_method($_SERVER['REQUEST_METHOD'], "POST");
 $errors = validate($_POST);
+$has_address = ($_POST["has_address"] === "true") ? true : false;
 if (!empty($errors)) {
     $res->set_status("error");
     $res->set_error_message("Invalid Form");
     $res->set_response_data($errors);
     $res->response();
     exit;
+}
+if ($has_address) {
+    $errors = addressValidate($_POST);
+    if (!empty($errors)) {
+        $res->set_status("error");
+        $res->set_error_message("Invalid Form");
+        $res->set_response_data($errors);
+        $res->response();
+        exit;
+    }
 }
 $jwt = new JwtAuth();
 $tokenJWT = $jwt->get_jwt_by_header();
@@ -28,8 +40,9 @@ $course_id = $_POST['course'] ?? null;
 $campus_id = $_POST['campus'] ?? null;
 $profile_photo_path = null;
 
+$address = ($has_address) ? $_POST['street'] . ', ' . $_POST['address_number'] . ', ' . $_POST['city'] . ', ' . $_POST['state'] . ', ' . $_POST['zip_code'] : null;
 $sql = "";
-
+$params  = null;
 if (isset($_FILES['profilePic']) && $_FILES['profilePic']['error'] == 0) {
     $uploadDir = "../../uploads/profilePhotos/$user_id/";
     if (is_dir($uploadDir)) {
@@ -51,16 +64,17 @@ if (isset($_FILES['profilePic']) && $_FILES['profilePic']['error'] == 0) {
 
     move_uploaded_file($file['tmp_name'], $targetPath);
     $profile_photo_path = "uploads/profilePhotos/$user_id/" . $filename;
-    $sql = "UPDATE user SET name = :name , email = :email,phone = :phone,profile_photo_path = :profile_photo_path, campus_id = :campus_id, course_id = :course_id  WHERE id = :id";
-
-}else{
-$sql = "UPDATE user SET name = :name , email = :email,phone = :phone, campus_id = :campus_id, course_id = :course_id  WHERE id = :id";
-
+    $sql = "UPDATE user SET name = :name , email = :email,phone = :phone,profile_photo_path = :profile_photo_path, address = :address  WHERE id = :id";
+    $params = ['id' => $user_id, 'name' => $name, 'email' => $email, 'phone' => $phone, "profile_photo_path" => $profile_photo_path, "address" => $address];
+} else {
+    $sql = "UPDATE user SET name = :name , email = :email,phone = :phone, address = :address  WHERE id = :id";
+    
+    $params = ['id' => $user_id, 'name' => $name, 'email' => $email, 'phone' => $phone, "address" => $address];
 }
 
 
 
-$params = ['id' => $user_id, 'name' => $name, 'email' => $email, 'phone' => $phone, "profile_photo_path" => $profile_photo_path, "course_id" => $course_id, "campus_id" => $campus_id];
+
 $response = $db->execute_non_query($sql, $params);
 if ($response->status != 'success') {
     $res->set_status('error');

@@ -1,35 +1,4 @@
 USE tcc;
-CREATE TABLE user (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  profile_photo_path VARCHAR(255) DEFAULT NULL,
-  name VARCHAR(70) NOT NULL,
-  phone varchar(50),
-  email VARCHAR(100) UNIQUE NOT NULL,
-  registration VARCHAR(50) NOT NULL,
-  birthday DATE NOT NULL,
-  role ENUM('student', 'teacher') NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  password_hash VARCHAR(255) NOT NULL,
-
-  campus_id INT,
-  course_id INT,
-  
-  Foreign Key (campus_id) REFERENCES campus(id),
-  Foreign Key (course_id) REFERENCES course(id)
-
-
-  
-);
-CREATE TABLE address (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  user_id int NOT NULL,
-  street VARCHAR(100),
-  address_number VARCHAR(10),
-  city VARCHAR(50),
-  state CHAR(2),
-  zip_code VARCHAR(20),
-  FOREIGN KEY (user_id) REFERENCES user(id)
-);
 CREATE TABLE campus_address (
   id INT PRIMARY KEY AUTO_INCREMENT,
   street VARCHAR(100),
@@ -37,19 +6,6 @@ CREATE TABLE campus_address (
   city VARCHAR(50),
   state CHAR(2),
   zip_code VARCHAR(20)
-);
-CREATE TABLE refresh_tokens (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT NOT NULL,
-  token VARCHAR(255) NOT NULL UNIQUE,
-  expires_at DATETIME NOT NULL,
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES user(id)
-);
-CREATE TABLE server (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(70) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE course (
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -63,6 +19,49 @@ CREATE TABLE campus (
   phone VARCHAR(30),
   email VARCHAR(255),
   FOREIGN KEY (address_id) REFERENCES campus_address(id)
+);
+
+
+CREATE TABLE user (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  profile_photo_path VARCHAR(255) DEFAULT NULL,
+  name VARCHAR(70) NOT NULL,
+  phone varchar(50),
+  email VARCHAR(100) UNIQUE NOT NULL,
+  address VARCHAR(200) NULL,
+  registration VARCHAR(50) NOT NULL,
+  birthday DATE NOT NULL,
+  role ENUM('student', 'teacher') NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  password_hash VARCHAR(255) NOT NULL
+  
+);
+CREATE TABLE user_course(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id int,
+  course_id int,
+  Foreign Key (course_id) REFERENCES course(id),
+  FOREIGN KEY (user_id) REFERENCES user(id)
+)
+CREATE TABLE user_campus(
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id int,
+  campus_id int,
+  Foreign Key (campus_id) REFERENCES campus(id),
+  FOREIGN KEY (user_id) REFERENCES user(id)
+)
+CREATE TABLE refresh_tokens (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  token VARCHAR(255) NOT NULL UNIQUE,
+  expires_at DATETIME NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES user(id)
+);
+CREATE TABLE server (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(70) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE campus_course (
   id INT PRIMARY KEY AUTO_INCREMENT,

@@ -31,13 +31,9 @@ $sql = "SELECT
   user.birthday,
   user.role,
   user.created_at,
-  user.campus_id,
-  user.course_id,
-  c.name AS campus_name
-FROM user
-INNER JOIN campus c ON user.campus_id = c.id
-WHERE user.id = :user_id
-
+  user.address
+  FROM user
+  where id = :user_id
 ";
 $params = ['user_id' => $user_query_id];
 $response = $db->execute_query($sql, $params);
@@ -52,35 +48,59 @@ if ($response->status != 'success') {
 $data = [];
 $data["user"] = $response->results[0];
 
-$sql = "SELECT * FROM address WHERE user_id = :user_query_id";
-$params = ['user_query_id' => $user_query_id];
-$response = $db->execute_query($sql, $params);
 
+$addressString = $data["user"]->address?? null;
 
-if ($response->status != 'success') {
-    $res->set_status('error');
-    $res->set_error_message($response->mensagem);
-    $res->response();
-    exit;
+if ($addressString !== null) {
+    $addressParts = array_map('trim', explode(',', $addressString));
+
+    $data['address'] = [
+        'street' => $addressParts[0] ?? null,
+        'address_number' => $addressParts[1] ?? null,
+        'city' => $addressParts[2] ?? null,
+        'state' => $addressParts[3] ?? null,
+        'zip_code' => $addressParts[4] ?? null
+    ];
 }
-if ($response->results == []) {
-    $res->set_response_data($data);
+unset($data["user"]->address);
 
-    $res->response();
-    exit;
-}
-$data["address"] = $response->results[0];
 
-$sql = "SELECT COUNT(*) AS following_count FROM follower WHERE follower_id = :user_id";
+$sql = "SELECT c.* FROM user_course uc
+    inner join  course c on uc.course_id = c.id
+    where uc.user_id = :user_id
+";
 $params = ['user_id' => $user_query_id];
 $response = $db->execute_query($sql, $params);
+
+
 if ($response->status != 'success') {
     $res->set_status('error');
     $res->set_error_message($response->mensagem);
     $res->response();
     exit;
 }
-$data["following_count"] = $response->results[0];
+
+if (!empty($response->results)) {
+    $data["course"] = $response->results;
+}
+
+$sql = "SELECT c.* FROM user_campus uc
+    inner join  campus c on uc.campus_id = c.id
+    where uc.user_id = :user_id
+";
+$params = ['user_id' => $user_query_id];
+$response = $db->execute_query($sql, $params);
+
+if ($response->status != 'success') {
+    $res->set_status('error');
+    $res->set_error_message($response->mensagem);
+    $res->response();
+    exit;
+}
+if (!empty($response->results)) {
+    $data["campus"] = $response->results;
+}
+
 
 // Conta quantos usuários seguem o user (followers_count)
 $sql = "SELECT COUNT(*) AS followers_count FROM follower WHERE followed_id = :user_id";
@@ -93,6 +113,20 @@ if ($response->status != 'success') {
     exit;
 }
 $data["followers_count"] = $response->results[0];
+
+
+
+$sql = "SELECT COUNT(*) AS following_count FROM follower WHERE follower_id = :user_id";
+$params = ['user_id' => $user_query_id];
+$response = $db->execute_query($sql, $params);
+if ($response->status != 'success') {
+    $res->set_status('error');
+    $res->set_error_message($response->mensagem);
+    $res->response();
+    exit;
+}
+$data["following_count"] = $response->results[0];
+
 
 
 $res->set_response_data($data);

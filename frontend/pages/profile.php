@@ -89,14 +89,20 @@
                 <label for="phone-update">Telefone</label>
                 <input type="tel" id="phone-update" name="phone" placeholder="xxxxxxx-xxxx">
                 <label for="campus-select">ETEC</label>
+                <div id="campus-update-div">
+
+                </div>
                 <select name="campus" id="campus-select">
                     <option disabled selected value="monstro">selecione</option>
                 </select>
                 <!--Se for aluno-->
-                <label for="course-select">Curso</label>
-                <select name="course" id="course-select">
-                    <option disabled selected>selecione</option>
-                </select>
+                <div id="course-update-div">
+                    <label for="course-select">Curso</label>
+                    <select name="course" id="course-select">
+                        <option disabled selected>selecione</option>
+                    </select>
+                </div>
+
 
             </div>
             <div id="update-address-div">
@@ -127,6 +133,7 @@
 <script src="frontend/static/js/executeWithRefresh.js"></script>
 <script src="frontend/static/js/getUserPosts.js"></script>
 <script src="frontend/static/js/addPostBox.js"></script>
+<script src="frontend/static/js/getPayload.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', async function() {
 
@@ -202,8 +209,9 @@
         if (userInfo?.role === "teacher") {
             const userPostData = await executeWithRefresh(getUserPosts, 'mine')
 
-            const postsInfos = userPostData?.data
-            document.querySelector("#post-qtn").innerText = postsInfos.length
+            const postsInfos = userPostData?.data ?? []
+
+            document.querySelector("#post-qtn").innerText = postsInfos?.length ?? 0
             postsInfos.forEach(postInfo => {
 
                 const post = addPostBox(postInfo)
@@ -394,8 +402,16 @@
             formData.append("name", form.name.value);
             formData.append("email", form.email.value);
             formData.append("phone", form.phone.value);
-            formData.append("course", form.course.value);
-            formData.append("campus", form.campus.value);
+            formData.append("street", form.street.value);
+            formData.append("address_number", form.address_number.value);
+            formData.append("city", form.city.value);
+            formData.append("state", form.state.value);
+            formData.append("zip_code", form.zip_code.value);
+            //bug de mira fds vamo abusa
+            const has_address = (form.street.value.length === 0) ? false : true
+            formData.append("has_address", has_address);
+
+
             if (form.profilePic.files.length > 0) {
                 formData.append("profilePic", form.profilePic.files[0]);
             }
@@ -413,28 +429,10 @@
 
             // Aqui você chama o executeWithRefresh, passando a função updateUser e o formData
             const result = await executeWithRefresh(updateUser, formData);
+            if (result.status === "success") {
+                window.location.reload();
 
-            const updateAddress = async (formDataAddress) => {
-                const token = localStorage.getItem("jwt_token");
-                const response = await fetch("/api/addAddressuser", {
-                    method: "POST",
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                        // Não define Content-Type porque é FormData
-                    },
-                    body: formDataAddress
-                });
-                return response.json();
-            };
-            const formDataAddress = new FormData();
-            formDataAddress.append("street", form.street.value);
-            formDataAddress.append("address_number", form.address_number.value);
-            formDataAddress.append("city", form.city.value);
-            formDataAddress.append("state", form.state.value);
-            formDataAddress.append("zip_code", form.zip_code.value);
-            const resultAddress = await executeWithRefresh(updateAddress, formDataAddress);
-
-            window.location.reload();
+            }
         })
         document.getElementById('btnBack').addEventListener('click', function() {
             const referrer = document.referrer;

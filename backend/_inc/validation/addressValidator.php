@@ -1,11 +1,10 @@
-<?php 
+<?php
 
 
 
-function validate($address)
+function addressValidate($address)
 {
     $errors = [];
-
     if (empty($address['street']) || strlen($address['street']) < 3) {
         $errors[] = 'Rua inválida';
     }
@@ -28,5 +27,3 @@ function validate($address)
 
     return $errors;
 }
-
-?>

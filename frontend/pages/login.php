@@ -42,7 +42,7 @@
             return;
         }
         localStorage.setItem('jwt_token', data.data);
-        console.log(localStorage.getItem("jwt_token"))
+
         setCookie("logged", "1", 1440 * 7);
         window.location.href="/"
 

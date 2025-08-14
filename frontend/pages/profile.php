@@ -88,13 +88,13 @@
                 <input type="email" id="email-update" name="email" placeholder="email@etec.sp.gov.br">
                 <label for="phone-update">Telefone</label>
                 <input type="tel" id="phone-update" name="phone" placeholder="xxxxxxx-xxxx">
-                <label for="campus-select">ETEC</label>
+                <label>ETEC</label>
                 <div id="campus-update-div">
-
+                    <select class="campus-select" id="campus-select-1">
+                        <option disabled selected value="monstro">selecione</option>
+                    </select>
+                    <button type="button" id="add-campus-btn">+</button>
                 </div>
-                <select name="campus" id="campus-select">
-                    <option disabled selected value="monstro">selecione</option>
-                </select>
                 <!--Se for aluno-->
                 <div id="course-update-div">
                     <label for="course-select">Curso</label>
@@ -143,7 +143,6 @@
         const userInfo = userData?.data?.user
         const addressInfo = userData?.data?.address
         console.log(userData)
-
 
         if (userInfo != null) {
 
@@ -248,7 +247,41 @@
             const userInfo = userData?.user
             const addressInfo = userData?.address
 
+            const role = userInfo?.role
+            if (role === "teacher") {
+                document.querySelector("#course-update-div").style.display = "none"
+                document.querySelector("#add-campus-btn").addEventListener("click", (event) => {
+                    const btn = event.target
+                    const select = document.createElement("select")
+                    select.classList.add("campus-select")
+                    select.innerHTML = "<option disabled selected value='monstro'>selecione</option>"
+                    document.querySelector("#campus-update-div").insertBefore(select, btn);
 
+                    select.addEventListener("click", async (event) => {
+                        if (select.options.length !== 1) {
+                            return
+                        }
+                        const response = await fetch("/api/getAllEtecsNames")
+                        if (!response.ok) {
+                            return
+                        }
+                        const data = await response.json();
+                        if (data.status !== "success") {
+                            return
+                        }
+                        data.data.forEach((dt) => {
+                            const option = document.createElement("option")
+                            option.innerText = dt.name
+                            option.value = dt.id
+                            select.appendChild(option)
+                        })
+                    })
+
+
+                })
+            }else{
+                document.querySelector("#add-campus-btn").style.display= "none"
+            }
 
             if (userInfo != null) {
                 const username = userInfo?.name ?? "usuario"
@@ -346,8 +379,9 @@
             document.querySelector("#edit-icon").style.display = "block";
 
         })
+        //nao nao 
 
-        const campusSelect = document.querySelector("#campus-select")
+        const campusSelect = document.querySelector("#campus-select-1")
         campusSelect.addEventListener("click", async (event) => {
             const select = campusSelect
             if (select.options.length !== 1) {
@@ -368,6 +402,7 @@
                 select.appendChild(option)
             })
         })
+        /*
         campusSelect.addEventListener("change", async (event) => {
             const select = document.querySelector("#course-select")
             if (campusSelect.value == "monstro") {
@@ -393,6 +428,9 @@
                 select.appendChild(option)
             })
         })
+*/
+        //outro dia
+
 
         const form = document.querySelector("#update-form")
         form.addEventListener("submit", async (event) => {
@@ -429,10 +467,41 @@
 
             // Aqui você chama o executeWithRefresh, passando a função updateUser e o formData
             const result = await executeWithRefresh(updateUser, formData);
-            if (result.status === "success") {
-                window.location.reload();
-
+            if (result.status !== "success") {
+                return
             }
+            const formCampus = new FormData();
+            const campusSelects = document.querySelectorAll(".campus-select")
+            const campusIds = []
+            campusSelects.forEach((campusSelect) => {
+                const value = campusSelect.value
+                if (!isNaN(value)) {
+                    campusIds.push(value)
+                }
+            })
+            const uniqueCampusIds = [...new Set(campusIds)];
+
+            formCampus.append("campus_Ids", uniqueCampusIds)
+            for (let pair of formCampus.entries()) {
+                console.log(`${pair[0]}: ${pair[1]}`);
+            }
+
+            const updateCampus = async (formData) => {
+                const token = localStorage.getItem("jwt_token");
+                const response = await fetch("/api/addCampusUser", {
+                    method: "POST",
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                });
+                return response.json();
+            };
+
+            const resultCampus = await executeWithRefresh(updateCampus, formCampus);
+            console.log(resultCampus)
+            // window.location.reload();
+
         })
         document.getElementById('btnBack').addEventListener('click', function() {
             const referrer = document.referrer;

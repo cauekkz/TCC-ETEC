@@ -48,7 +48,9 @@ CREATE TABLE user_campus(
   user_id int,
   campus_id int,
   Foreign Key (campus_id) REFERENCES campus(id),
-  FOREIGN KEY (user_id) REFERENCES user(id)
+  FOREIGN KEY (user_id) REFERENCES user(id),
+  UNIQUE KEY unique_user_campus (user_id, campus_id)
+
 )
 CREATE TABLE refresh_tokens (
   id INT AUTO_INCREMENT PRIMARY KEY,

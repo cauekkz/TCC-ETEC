@@ -2,11 +2,12 @@
 require("../../_inc/init.php");
 check_request_method($_SERVER['REQUEST_METHOD'], "POST");
 
-require_once __DIR__ . '/../../_inc/filters/isTeacher.php';
+//require_once __DIR__ . '/../../_inc/filters/isTeacher.php';
+require_once __DIR__ . '/../../_inc/filters/isLogged.php';
 
-$data = json_decode(file_get_contents('php://input'), true);
+$data = $_POST;
 
-if (empty($data['campus_id']) || !is_numeric($data['campus_id'])) {
+if (empty($data['campus_Ids'])) {
     $errors[] = 'invalid ID Campus';
     $res->set_status("error");
     $res->set_error_message("Invalid Form");
@@ -14,9 +15,37 @@ if (empty($data['campus_id']) || !is_numeric($data['campus_id'])) {
     $res->response();
     exit;
 }
-$campus_id = $data['$campus_id'];
-$sql = "SELECT id FROM campus WHERE id = :campus_id";
-$params = ['campus_id' => $campus_id];
+$campus_Ids_string = $data['campus_Ids'];
+$campusArray = explode(",", $campus_Ids_string);
+$campusArray = array_filter($campusArray, fn($v) => trim($v) !== "");
+$campusArray = array_values(array_unique($campusArray));
+
+
+$jwt = new JwtAuth();
+$tokenJWT = $jwt->get_jwt_by_header();
+$resultJWT = $jwt->validate_token($tokenJWT);
+$user_id = $resultJWT['id'];
+$user_role = $resultJWT['role'];
+
+if (($user_role === "student" && count($campusArray) !== 1) || count($campusArray) <= 0) {
+    $errors[] = 'invalid ID Campus';
+    $res->set_status("error");
+    $res->set_error_message("Invalid Form");
+    $res->set_response_data($errors);
+    $res->response();
+    exit;
+}
+
+$placeholders = [];
+$params = [];
+
+foreach ($campusArray as $index => $id) {
+    $key = ":id$index";
+    $placeholders[] = $key;
+    $params[$key] = $id;
+}
+
+$sql = "SELECT id FROM campus WHERE id IN (" . implode(", ", $placeholders) . ")";
 $response = $db->execute_query($sql, $params);
 if ($response->status != 'success' || empty($response->results)) {
     $res->set_status('error');
@@ -24,16 +53,38 @@ if ($response->status != 'success' || empty($response->results)) {
     $res->response();
     exit;
 }
-
-$jwt = new JwtAuth();
-$tokenJWT = $jwt->get_jwt_by_header();
-$resultJWT = $jwt->validate_token($tokenJWT);
-$user_id = $resultJWT['id'];
+$validIds = array_map(fn($item) => $item->id, $response->results);
 
 
-$sql = "INSERT INTO user_campus(user_id,campus_id) VALUES(:user_id,:campus_id)";
-$params = ['campus_id' => $campus_id,'user_id' => $user_id];
+
+
+if ($user_role == "student") {
+    $campus_id = $validIds[0];
+    $sql = "DELETE FROM user_campus WHERE user_id = :user_id";
+    $params = ['user_id' => $user_id];
+    $response = $db->execute_non_query($sql, $params);
+    if ($response->status != 'success') {
+        $res->set_status('error');
+        $res->set_error_message($response->mensagem);
+        $res->response();
+        exit;
+    }
+}
+
+$values = [];
+$params = [];
+$i = 0;
+
+foreach ($validIds as $campus_id) {
+    $values[] = "(:user_id, :campus_id$i)";
+    $params[":campus_id$i"] = $campus_id;
+}
+$params[':user_id'] = $user_id;
+
+$sql = "INSERT INTO user_campus (user_id, campus_id) VALUES " . implode(", ", $values);
+
 $response = $db->execute_non_query($sql, $params);
+
 if ($response->status != 'success') {
     $res->set_status('error');
     $res->set_error_message($response->mensagem);
@@ -42,11 +93,3 @@ if ($response->status != 'success') {
 }
 
 $res->response();
-
-
-
-
-
-
-
-?>

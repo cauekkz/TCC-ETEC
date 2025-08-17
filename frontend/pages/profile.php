@@ -1,7 +1,13 @@
 <header>
     <img id="btnBack" src="frontend/static/img/left-arrow.png" alt="icon de voltar a pagina"> <span style="font-size: 1.3rem;">Perfil</span>
 </header>
-
+<?php
+if (!isset($_GET['profile'])) {
+    header("Location: /");
+    exit;
+}
+$profile_id = $_GET['profile'];
+?>
 <section>
     <div id="profile-div">
         <div id="profile-box">
@@ -25,6 +31,7 @@
                 </span>
             </div>
             <div id="social-info-div">
+
                 <div id="post-qtn-div">
                     <span id="post-qtn"></span>
                     <span>Posts</span>
@@ -39,93 +46,114 @@
                 </div>
 
             </div>
+            <?php if ($profile_id === "mine"): ?>
 
-            <button class="perfil-button" id="edit-profile-button">
-                Editar perfil
-            </button>
-            <button class="perfil-button" id="leave-account-button">
-                Sair da conta
-            </button>
+                <button class="perfil-button" id="edit-profile-button">
+                    Editar perfil
+                </button>
+                <button class="perfil-button" id="leave-account-button">
+                    Sair da conta
+                </button>
+            <?php else: ?>
+                <button class="perfil-button">
+                    Seguir
+                </button>
+
+                <!--fazer essa desgraça dps-->
+
+            <?php endif; ?>
+
         </div>
-
 
     </div>
 
     <div id="posts-div">
-        <h3>Suas publicações</h3>
-        <h4>Todas as suas postagens na Eteconnect</h4>
+        <?php if ($profile_id === "mine"): ?>
+
+            <h3>Suas publicações</h3>
+            <h4>Todas as suas postagens na Eteconnect</h4>
+        <?php else: ?>
+            <h3>Publicações</h3>
+            <h4>Todas as postagens na Eteconnect</h4>
+
+        <?php endif; ?>
+
         <div id="posts-box">
 
         </div>
 
 
     </div>
-    <dialog id="edit-profile-modal">
-        <div id="modal-header">
-            <div>
-                <span style="font-size: 1.5rem;font-weight:500;">Editar Perfil</span>
-                <span aria-label="Fechar janela" id="close-modal-btn">X</span>
-            </div>
-            <span style="color:#666666;">Atualize suas informações pessoais</span>
-        </div>
-        <form id="update-form">
-            <div id="update-photo-div">
-                <input type="file" id="profilePic" style="display:none" value="nochange" />
+    <?php if ($profile_id === "mine"): ?>
 
-
-                <label for="profilePic" id="photo-label" title="Clique para alterar foto">
-                </label>
-                <i class="bi bi-pencil-fill" id="edit-icon" style="font-size: 0.85rem;position:relative;left:-1.5rem;bottom:-2rem;background:white;border-radius:50%;padding:0.25rem;border:1px solid black"></i>
-
-                <span aria-label="reset imagem de perfil" id="remove-pic" style="position:relative;left:-1.5rem;bottom:-2rem;background:white;border-radius:50%;padding: 0.25rem ;border:1px solid black;width: 1.5rem;height: 1.5rem;display:flex;justify-content:center;align-items:center;cursor:pointer;display:none;" title="clique para remover a foto">X</span>
-
-
-            </div>
-            <div id="update-user-div">
-                <label for="name-update">Nome</label>
-                <input type="text" id="name-update" name="name" placeholder="nome">
-                <label for="email-update">Email</label>
-                <input type="email" id="email-update" name="email" placeholder="email@etec.sp.gov.br">
-                <label for="phone-update">Telefone</label>
-                <input type="tel" id="phone-update" name="phone" placeholder="xxxxxxx-xxxx">
-                <label>ETEC</label>
-                <div id="campus-update-div">
-                    <select class="campus-select" id="campus-select-1">
-                        <option disabled selected value="monstro">selecione</option>
-                    </select>
-                    <button type="button" id="add-campus-btn">+</button>
+        <dialog id="edit-profile-modal">
+            <div id="modal-header">
+                <div>
+                    <span style="font-size: 1.5rem;font-weight:500;">Editar Perfil</span>
+                    <span aria-label="Fechar janela" id="close-modal-btn">X</span>
                 </div>
-                <!--Se for aluno-->
-                <label for="course-select">Curso</label>
-                <div id="course-update-div">
+                <span style="color:#666666;">Atualize suas informações pessoais</span>
+            </div>
+            <form id="update-form">
+                <div id="update-photo-div">
+                    <input type="file" id="profilePic" style="display:none" value="nochange" />
 
-                    <button type="button" id="add-course-btn">+</button>
+
+                    <label for="profilePic" id="photo-label" title="Clique para alterar foto">
+                    </label>
+                    <i class="bi bi-pencil-fill" id="edit-icon" style="font-size: 0.85rem;position:relative;left:-1.5rem;bottom:-2rem;background:white;border-radius:50%;padding:0.25rem;border:1px solid black"></i>
+
+                    <span aria-label="reset imagem de perfil" id="remove-pic" style="position:relative;left:-1.5rem;bottom:-2rem;background:white;border-radius:50%;padding: 0.25rem ;border:1px solid black;width: 1.5rem;height: 1.5rem;display:flex;justify-content:center;align-items:center;cursor:pointer;display:none;" title="clique para remover a foto">X</span>
+
 
                 </div>
+                <div id="update-user-div">
+                    <label for="name-update">Nome</label>
+                    <input type="text" id="name-update" name="name" placeholder="nome">
+                    <label for="email-update">Email</label>
+                    <input type="email" id="email-update" name="email" placeholder="email@etec.sp.gov.br">
+                    <label for="phone-update">Telefone</label>
+                    <input type="tel" id="phone-update" name="phone" placeholder="xxxxxxx-xxxx">
+                    <label>ETEC</label>
+                    <div id="campus-update-div">
+                        <select class="campus-select" id="campus-select-1">
+                            <option disabled selected value="monstro">selecione</option>
+                        </select>
+                        <button type="button" id="add-campus-btn">+</button>
+                    </div>
+                    <!--Se for aluno-->
+                    <label for="course-select">Curso</label>
+                    <div id="course-update-div">
+
+                        <button type="button" id="add-course-btn">+</button>
+
+                    </div>
 
 
-            </div>
-            <div id="update-address-div">
-                <label for="street-update">Rua</label>
-                <input type="text" id="street-update" name="street" placeholder="Rua">
+                </div>
+                <div id="update-address-div">
+                    <label for="street-update">Rua</label>
+                    <input type="text" id="street-update" name="street" placeholder="Rua">
 
-                <label for="address-number-update">Número</label>
-                <input type="text" id="address-number-update" name="address_number" placeholder="Número">
+                    <label for="address-number-update">Número</label>
+                    <input type="text" id="address-number-update" name="address_number" placeholder="Número">
 
-                <label for="city-update">Cidade</label>
-                <input type="text" id="city-update" name="city" placeholder="Cidade">
+                    <label for="city-update">Cidade</label>
+                    <input type="text" id="city-update" name="city" placeholder="Cidade">
 
-                <label for="state-update">Estado</label>
-                <input type="text" id="state-update" name="state" placeholder="UF" maxlength="2">
+                    <label for="state-update">Estado</label>
+                    <input type="text" id="state-update" name="state" placeholder="UF" maxlength="2">
 
-                <label for="zip-code-update">CEP</label>
-                <input type="text" id="zip-code-update" name="zip_code" placeholder="CEP">
+                    <label for="zip-code-update">CEP</label>
+                    <input type="text" id="zip-code-update" name="zip_code" placeholder="CEP">
 
-            </div>
-            <button type="submit">Enviar</button>
-        </form>
+                </div>
+                <button type="submit">Enviar</button>
+            </form>
 
-    </dialog>
+        </dialog>
+    <?php endif; ?>
+
 </section>
 
 <script src="frontend/static/js/likeFunctions.js"></script>
@@ -133,11 +161,10 @@
 <script src="frontend/static/js/executeWithRefresh.js"></script>
 <script src="frontend/static/js/getUserPosts.js"></script>
 <script src="frontend/static/js/addPostBox.js"></script>
-<script src="frontend/static/js/getPayload.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', async function() {
 
-        const userData = await executeWithRefresh(loadUserInformation, 'mine')
+        const userData = await executeWithRefresh(loadUserInformation, <?= json_encode($profile_id) ?>)
         sessionStorage.setItem('userData', JSON.stringify(userData?.data));
 
         const userInfo = userData?.data?.user ?? null
@@ -232,7 +259,7 @@
         }
 
         if (userInfo?.role === "teacher") {
-            const userPostData = await executeWithRefresh(getUserPosts, 'mine')
+            const userPostData = await executeWithRefresh(getUserPosts, <?= json_encode($profile_id) ?>)
 
             const postsInfos = userPostData?.data?.posts ?? []
             const campusInfos = userPostData?.data?.campus ?? ["ETEC"]

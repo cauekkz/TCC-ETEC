@@ -102,7 +102,6 @@ if (!empty($response->results)) {
 }
 
 
-// Conta quantos usuários seguem o user (followers_count)
 $sql = "SELECT COUNT(*) AS followers_count FROM follower WHERE followed_id = :user_id";
 $params = ['user_id' => $user_query_id];
 $response = $db->execute_query($sql, $params);

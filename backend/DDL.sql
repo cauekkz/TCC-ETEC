@@ -41,8 +41,10 @@ CREATE TABLE user_course(
   user_id int,
   course_id int,
   Foreign Key (course_id) REFERENCES course(id),
-  FOREIGN KEY (user_id) REFERENCES user(id)
-)
+  FOREIGN KEY (user_id) REFERENCES user(id),
+  UNIQUE KEY unique_user_course (user_id, course_id)
+
+);
 CREATE TABLE user_campus(
   id INT PRIMARY KEY AUTO_INCREMENT,
   user_id int,
@@ -51,7 +53,7 @@ CREATE TABLE user_campus(
   FOREIGN KEY (user_id) REFERENCES user(id),
   UNIQUE KEY unique_user_campus (user_id, campus_id)
 
-)
+);
 CREATE TABLE refresh_tokens (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,

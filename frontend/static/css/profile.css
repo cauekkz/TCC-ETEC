@@ -100,7 +100,7 @@ section {
 
 }
 
-#user-etec {
+.user-etec {
     color: #666666;
 }
 
@@ -273,7 +273,7 @@ section {
 
 .post-etec {
     color: #666666;
-    font-size: 0.85rem;
+    font-size: 0.65rem;
 }
 
 .post-role {
@@ -418,7 +418,7 @@ form label {
 
 form input,
 form select,
-#add-campus-btn {
+#add-campus-btn,#add-course-btn {
     font-weight: 400;
     line-height: 1.5;
     padding: 0.5rem 0.75rem;
@@ -427,6 +427,19 @@ form select,
     font-size: 1rem;
     box-sizing: border-box;
     margin-bottom: 1rem;
+}
+
+.pod-div {
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.3rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    position: relative;
+
 }
 
 form input:focus,
@@ -447,29 +460,40 @@ form button[type="submit"] {
     margin-top: 0.5rem;
 }
 
+.delete-campus-btn {
+    position: absolute;
+    top: 0%;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: Helvetica, sans-serif;
+    color: #666666;
+    user-select: none;
+}
 
-
-#campus-update-div {
+#campus-update-div ,#course-update-div{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
 }
 
-#add-campus-btn {
+#add-campus-btn,#add-course-btn {
     background-color: #d63031;
     color: white;
     border: none;
     padding: 0 0.5rem;
 }
 
-form button:hover,#add-campus-btn:hover {
+form button:hover,
+#add-campus-btn:hover,#add-course-btn:hover {
     background-color: #e74c3c;
 }
 
-#campus-update-div select {
+#campus-update-div select,#course-update-div select {
     width: 8rem;
 }
+
 
 @media (max-width: 1024px) {
     :root {

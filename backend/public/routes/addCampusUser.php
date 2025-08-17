@@ -2,7 +2,6 @@
 require("../../_inc/init.php");
 check_request_method($_SERVER['REQUEST_METHOD'], "POST");
 
-//require_once __DIR__ . '/../../_inc/filters/isTeacher.php';
 require_once __DIR__ . '/../../_inc/filters/isLogged.php';
 
 $data = $_POST;
@@ -69,6 +68,7 @@ if ($user_role == "student") {
         $res->response();
         exit;
     }
+    
 }
 
 $values = [];
@@ -78,11 +78,11 @@ $i = 0;
 foreach ($validIds as $campus_id) {
     $values[] = "(:user_id, :campus_id$i)";
     $params[":campus_id$i"] = $campus_id;
+    $i++; 
 }
 $params[':user_id'] = $user_id;
 
 $sql = "INSERT INTO user_campus (user_id, campus_id) VALUES " . implode(", ", $values);
-
 $response = $db->execute_non_query($sql, $params);
 
 if ($response->status != 'success') {
@@ -90,6 +90,18 @@ if ($response->status != 'success') {
     $res->set_error_message($response->mensagem);
     $res->response();
     exit;
+}
+if ($user_role == "student") {
+    $sql = "DELETE FROM user_course WHERE user_id = :user_id";
+    $params = ['user_id' => $user_id];
+    $response = $db->execute_non_query($sql, $params);
+    if ($response->status != 'success') {
+        $res->set_status('error');
+        $res->set_error_message($response->mensagem);
+        $res->response();
+        exit;
+    }
+    
 }
 
 $res->response();

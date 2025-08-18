@@ -20,8 +20,6 @@ CREATE TABLE campus (
   email VARCHAR(255),
   FOREIGN KEY (address_id) REFERENCES campus_address(id)
 );
-
-
 CREATE TABLE user (
   id INT PRIMARY KEY AUTO_INCREMENT,
   profile_photo_path VARCHAR(255) DEFAULT NULL,
@@ -34,7 +32,6 @@ CREATE TABLE user (
   role ENUM('student', 'teacher') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   password_hash VARCHAR(255) NOT NULL
-  
 );
 CREATE TABLE user_course(
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -43,7 +40,6 @@ CREATE TABLE user_course(
   Foreign Key (course_id) REFERENCES course(id),
   FOREIGN KEY (user_id) REFERENCES user(id),
   UNIQUE KEY unique_user_course (user_id, course_id)
-
 );
 CREATE TABLE user_campus(
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -52,7 +48,6 @@ CREATE TABLE user_campus(
   Foreign Key (campus_id) REFERENCES campus(id),
   FOREIGN KEY (user_id) REFERENCES user(id),
   UNIQUE KEY unique_user_campus (user_id, campus_id)
-
 );
 CREATE TABLE refresh_tokens (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -126,7 +121,9 @@ CREATE TABLE follower (
   follower_id INT NOT NULL,
   followed_id INT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  
   FOREIGN KEY (follower_id) REFERENCES user(id),
-  FOREIGN KEY (followed_id) REFERENCES user(id)
+  FOREIGN KEY (followed_id) REFERENCES user(id),
+  UNIQUE KEY unique_follow (follower_id, followed_id),
+  CHECK (follower_id != followed_id)
+
 );

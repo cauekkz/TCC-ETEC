@@ -33,13 +33,13 @@ $sql = "SELECT
   u.profile_photo_path
 FROM post p
 LEFT JOIN likes l ON l.content_type = 'post' AND l.content_id = p.id
-LEFT JOIN likes l2 ON l2.content_type = 'post' AND l2.content_id = p.id AND l2.user_id = :user_query_id
+LEFT JOIN likes l2 ON l2.content_type = 'post' AND l2.content_id = p.id AND l2.user_id = :user_id
 LEFT JOIN user u ON u.id = p.id_author
 WHERE p.id_author = :user_query_id
 GROUP BY p.id, p.id_author, p.content, p.created_at, user_liked, u.name, u.role, u.profile_photo_path
 ORDER BY p.created_at DESC
 ";
-$params = ['user_query_id' => $user_query_id];
+$params = ['user_query_id' => $user_query_id,'user_id'=>$user_id];
 $response = $db->execute_query($sql, $params);
 
 $data = [];

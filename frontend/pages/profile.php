@@ -48,19 +48,19 @@ $profile_id = $_GET['profile'];
             </div>
             <?php if ($profile_id === "mine"): ?>
 
-                <button class="perfil-button" id="edit-profile-button">
+                <button class="perfil-button loki" id="edit-profile-button">
                     Editar perfil
                 </button>
-                <button class="perfil-button" id="leave-account-button">
+                <button class="perfil-button loki" id="leave-account-button">
                     Sair da conta
                 </button>
             <?php else: ?>
-                <button class="perfil-button">
-                    Seguir
+                <button class="perfil-button" id="follower-button" data-follower="0">
+
                 </button>
-
-                <!--fazer essa desgraça dps-->
-
+                <button class="perfil-button loki" id="chat-button">
+                    Chat
+                </button>
             <?php endif; ?>
 
         </div>
@@ -161,6 +161,11 @@ $profile_id = $_GET['profile'];
 <script src="frontend/static/js/executeWithRefresh.js"></script>
 <script src="frontend/static/js/getUserPosts.js"></script>
 <script src="frontend/static/js/addPostBox.js"></script>
+<?php if ($profile_id !== "mine"): ?>
+    <script src="frontend/static/js/followFunctions.js"></script>
+<?php endif; ?>
+
+
 <script>
     document.addEventListener('DOMContentLoaded', async function() {
 
@@ -269,14 +274,18 @@ $profile_id = $_GET['profile'];
                 const post = addPostBox(postInfo)
                 const likebtn = post.querySelector(".post-like-icon")
                 const postId = postInfo.id
+                console.log(post.dataset.user_liked)
                 likebtn.addEventListener("click", async () => {
 
                     if (post.dataset.user_liked == 0) {
                         const data = await executeWithRefresh(addLike, 'post', postId)
                         changeFrontLike(post, true)
                         post.dataset.user_liked = 1
+                        console.log(data)
                     } else {
                         const data = await executeWithRefresh(deleteLike, 'post', postId)
+                        console.log(data)
+
                         changeFrontLike(post, false)
                         post.dataset.user_liked = 0
                     }
@@ -289,28 +298,272 @@ $profile_id = $_GET['profile'];
             document.querySelector("#post-qtn-div").style.display = "none"
         }
 
-        document.querySelector("#leave-account-button").addEventListener("click", () => {
-            localStorage.clear()
-            window.location.href = "/login"
+        <?php if ($profile_id === "mine"): ?>
+
+            document.querySelector("#leave-account-button").addEventListener("click", () => {
+                localStorage.clear()
+                window.location.href = "/login"
 
 
-        })
-        const remove_campus_id_array = []
-        const remove_course_id_array = []
+            })
 
-        document.querySelector("#edit-profile-button").addEventListener("click", () => {
-            const modal = document.querySelector("#edit-profile-modal")
-            modal.showModal();
-            const userData = JSON.parse(sessionStorage.getItem('userData'));
-            const userInfo = userData?.user ?? null
-            const addressInfo = userData?.address ?? null
-            const campusInfos = userData?.campus ?? null
-            const coursesInfos = userData?.course ?? null
-            const role = userInfo?.role
+            const remove_campus_id_array = []
+            const remove_course_id_array = []
+
+            document.querySelector("#edit-profile-button").addEventListener("click", () => {
+                const modal = document.querySelector("#edit-profile-modal")
+                modal.showModal();
+                const userData = JSON.parse(sessionStorage.getItem('userData'));
+                const userInfo = userData?.user ?? null
+                const addressInfo = userData?.address ?? null
+                const campusInfos = userData?.campus ?? null
+                const coursesInfos = userData?.course ?? null
+                const role = userInfo?.role
 
 
 
-            if (userInfo != null) {
+                if (userInfo != null) {
+                    const username = userInfo?.name ?? "usuario"
+
+                    const role = userInfo?.role ?? "user"
+                    const roleColor = (role == "student") ? "#D32F2F" : "#2f32d3ff"
+
+                    const profilePath = userInfo.profile_photo_path
+                    const userPhoto = document.querySelector("#photo-label")
+
+                    userPhoto.style.backgroundImage = profilePath ?
+                        `url("${profilePath}")` :
+                        "none";
+
+                    userPhoto.style.backgroundColor = profilePath ?
+                        "transparent" :
+                        roleColor;
+
+                    userPhoto.innerText = profilePath ?
+                        "" :
+                        getProfileLetter(username);
+
+                    userPhoto.style.backgroundRepeat = "no-repeat";
+                    userPhoto.style.backgroundPosition = "center";
+                    userPhoto.style.backgroundSize = "cover";
+
+
+                    const email = userInfo?.email ?? ""
+                    const phone = userInfo?.phone ?? ""
+
+                    document.querySelector("#name-update").value = username
+                    document.querySelector("#email-update").value = email
+                    document.querySelector("#phone-update").value = phone
+
+                }
+                if (addressInfo != null) {
+                    document.querySelector("#street-update").value = addressInfo.street ?? "";
+                    document.querySelector("#address-number-update").value = addressInfo.address_number ?? "";
+                    document.querySelector("#city-update").value = addressInfo.city ?? "";
+                    document.querySelector("#state-update").value = addressInfo.state ?? "";
+                    document.querySelector("#zip-code-update").value = addressInfo.zip_code ?? "";
+                }
+                if (campusInfos !== null) {
+                    if (role === "teacher") {
+                        campusInfo.forEach((campusInfo) => {
+                            const btn = document.querySelector("#add-campus-btn")
+                            const div = document.createElement("div")
+                            div.classList.add("pod-div")
+                            div.innerText = `${campusInfo.name}`
+                            document.querySelector("#campus-update-div").prepend(div);
+                            //calmo frio me mantenho leve
+                            const btnDeleteCampus = document.createElement("btn")
+                            btnDeleteCampus.classList.add("delete-campus-btn")
+                            btnDeleteCampus.dataset.id = campusInfo.id
+                            btnDeleteCampus.innerText = "X"
+                            div.append(btnDeleteCampus)
+                            btnDeleteCampus.addEventListener("click", () => {
+                                remove_campus_id_array.push(btnDeleteCampus.dataset.id)
+                                div.remove();
+                            })
+                        })
+                    } else {
+                        const campusInfo = campusInfos[0]
+                        const campusSelect1 = document.querySelector("#campus-select-1")
+                        const selectedOption = campusSelect1.options[campusSelect1.selectedIndex];
+                        selectedOption.text = campusInfo.name
+                        selectedOption.value = "ameno murakomo no tsurugi"
+                        campusSelect1.dataset.campusId = campusInfo.id
+                    }
+                }
+                if (coursesInfos !== null) {
+                    coursesInfos.forEach((courseInfo) => {
+                        const btn = document.querySelector("#add-course-btn")
+                        const div = document.createElement("div")
+                        div.classList.add("pod-div")
+                        div.innerText = `${courseInfo.name}`
+                        document.querySelector("#course-update-div").prepend(div);
+                        //calmo frio me mantenho leve
+                        const btnDeleteCourse = document.createElement("btn")
+                        btnDeleteCourse.classList.add("delete-campus-btn")
+                        btnDeleteCourse.dataset.id = courseInfo.id
+                        btnDeleteCourse.innerText = "X"
+                        div.append(btnDeleteCourse)
+                        btnDeleteCourse.addEventListener("click", () => {
+                            remove_course_id_array.push(btnDeleteCourse.dataset.id)
+                            div.remove();
+                        })
+
+
+                    })
+
+
+                }
+
+                const campusSelect = document.querySelector("#campus-select-1")
+                campusSelect.addEventListener("click", async (event) => {
+                    const select = campusSelect
+                    if (select.options.length !== 1) {
+                        return
+                    }
+                    const response = await fetch("/api/getAllEtecsNames")
+                    if (!response.ok) {
+                        return
+                    }
+                    const data = await response.json();
+                    if (data.status !== "success") {
+                        return
+                    }
+                    data.data.forEach((dt) => {
+                        const option = document.createElement("option")
+                        option.innerText = dt.name
+                        option.value = dt.id
+                        select.appendChild(option)
+                    })
+                })
+                if (role === "teacher") {
+                    document.querySelector("#course-update-div").style.display = "none"
+                    document.querySelector("#add-campus-btn").addEventListener("click", (event) => {
+                        const btn = event.target
+                        const select = document.createElement("select")
+                        select.classList.add("campus-select")
+                        select.innerHTML = "<option disabled selected value='monstro'>selecione</option>"
+                        document.querySelector("#campus-update-div").insertBefore(select, btn);
+
+                        select.addEventListener("click", async (event) => {
+                            if (select.options.length !== 1) {
+                                return
+                            }
+                            const response = await fetch("/api/getAllEtecsNames")
+                            if (!response.ok) {
+                                return
+                            }
+                            const data = await response.json();
+                            if (data.status !== "success") {
+                                return
+                            }
+                            data.data.forEach((dt) => {
+                                const option = document.createElement("option")
+                                option.innerText = dt.name
+                                option.value = dt.id
+                                select.appendChild(option)
+                            })
+                        })
+
+
+                    })
+                    campusSelect.style.display = "none"
+
+                } else {
+                    document.querySelector("#add-campus-btn").style.display = "none"
+                    campusSelect.addEventListener("change", async (event) => {
+                        if (campusSelect.value == "monstro") {
+                            //selecione uma etec primeiro
+                            return
+                        }
+
+
+                        const response = await fetch(`/api/getCoursesByEtec?campus_id=${campusSelect.value}`)
+                        if (!response.ok) {
+                            return
+                        }
+                        const data = await response.json();
+                        if (data.status !== "success") {
+                            return
+                        }
+                        const selects = document.querySelectorAll(".course-select")
+                        selects.forEach((select) => {
+                            select.innerHTML = "<option disabled selected >selecione</option>"
+                            data.data.forEach((dt) => {
+                                const option = document.createElement("option")
+                                option.innerText = dt.name
+                                option.value = dt.id
+                                select.appendChild(option)
+                            })
+
+                        })
+
+                    })
+
+                    document.querySelector("#add-course-btn").addEventListener("click", async (event) => {
+                        const btn = event.target
+                        const select = document.createElement("select")
+                        select.classList.add("course-select")
+                        select.innerHTML = "<option disabled selected value='monstro'>selecione</option>"
+                        document.querySelector("#course-update-div").insertBefore(select, btn);
+
+                        if (campusSelect.value == "monstro") {
+                            //selecione uma etec primeiro
+                            return
+                        }
+                        const campusSelect1 = document.querySelector("#campus-select-1")
+
+                        const campusIdSearchQuery = (campusSelect.value === "ameno murakomo no tsurugi") ? campusSelect1.dataset.campusId : campusSelect.value
+                        console.log(campusIdSearchQuery)
+
+                        const response = await fetch(`/api/getCoursesByEtec?campus_id=${campusIdSearchQuery}`)
+                        if (!response.ok) {
+                            return
+                        }
+                        const data = await response.json();
+                        if (data.status !== "success") {
+                            return
+                        }
+
+                        select.innerHTML = "<option disabled selected >selecione</option>"
+                        data.data.forEach((dt) => {
+                            const option = document.createElement("option")
+                            option.innerText = dt.name
+                            option.value = dt.id
+                            select.appendChild(option)
+
+                        })
+
+
+                    })
+                }
+
+            });
+
+
+            document.querySelector("#close-modal-btn").addEventListener("click", () => {
+                const modal = document.querySelector("#edit-profile-modal")
+                modal.close();
+
+            })
+            const inputFile = document.querySelector("#profilePic")
+            inputFile.addEventListener('change', () => {
+                const file = inputFile.files[0];
+                if (file) {
+                    const url = URL.createObjectURL(file);
+                    const photoLabel = document.querySelector("#photo-label")
+                    photoLabel.style.backgroundImage = `url("${url}")`;
+                    photoLabel.style.backgroundColor = "none"
+                    photoLabel.innerText = ""
+                    document.querySelector("#remove-pic").style.display = "flex";
+                    document.querySelector("#edit-icon").style.display = "none";
+                }
+            });
+
+            document.querySelector("#remove-pic").addEventListener("click", () => {
+
+                inputFile.value = "";
+
                 const username = userInfo?.name ?? "usuario"
 
                 const role = userInfo?.role ?? "user"
@@ -336,403 +589,200 @@ $profile_id = $_GET['profile'];
                 userPhoto.style.backgroundSize = "cover";
 
 
-                const email = userInfo?.email ?? ""
-                const phone = userInfo?.phone ?? ""
+                document.querySelector("#remove-pic").style.display = "none";
+                document.querySelector("#edit-icon").style.display = "block";
 
-                document.querySelector("#name-update").value = username
-                document.querySelector("#email-update").value = email
-                document.querySelector("#phone-update").value = phone
-
-            }
-            if (addressInfo != null) {
-                document.querySelector("#street-update").value = addressInfo.street ?? "";
-                document.querySelector("#address-number-update").value = addressInfo.address_number ?? "";
-                document.querySelector("#city-update").value = addressInfo.city ?? "";
-                document.querySelector("#state-update").value = addressInfo.state ?? "";
-                document.querySelector("#zip-code-update").value = addressInfo.zip_code ?? "";
-            }
-            if (campusInfos !== null) {
-                if (role === "teacher") {
-                    campusInfo.forEach((campusInfo) => {
-                        const btn = document.querySelector("#add-campus-btn")
-                        const div = document.createElement("div")
-                        div.classList.add("pod-div")
-                        div.innerText = `${campusInfo.name}`
-                        document.querySelector("#campus-update-div").prepend(div);
-                        //calmo frio me mantenho leve
-                        const btnDeleteCampus = document.createElement("btn")
-                        btnDeleteCampus.classList.add("delete-campus-btn")
-                        btnDeleteCampus.dataset.id = campusInfo.id
-                        btnDeleteCampus.innerText = "X"
-                        div.append(btnDeleteCampus)
-                        btnDeleteCampus.addEventListener("click", () => {
-                            remove_campus_id_array.push(btnDeleteCampus.dataset.id)
-                            div.remove();
-                        })
-                    })
-                } else {
-                    const campusInfo = campusInfos[0]
-                    const campusSelect1 = document.querySelector("#campus-select-1")
-                    const selectedOption = campusSelect1.options[campusSelect1.selectedIndex];
-                    selectedOption.text = campusInfo.name
-                    selectedOption.value = "ameno murakomo no tsurugi"
-                    campusSelect1.dataset.campusId = campusInfo.id
-                }
-            }
-            if (coursesInfos !== null) {
-                coursesInfos.forEach((courseInfo) => {
-                    const btn = document.querySelector("#add-course-btn")
-                    const div = document.createElement("div")
-                    div.classList.add("pod-div")
-                    div.innerText = `${courseInfo.name}`
-                    document.querySelector("#course-update-div").prepend(div);
-                    //calmo frio me mantenho leve
-                    const btnDeleteCourse = document.createElement("btn")
-                    btnDeleteCourse.classList.add("delete-campus-btn")
-                    btnDeleteCourse.dataset.id = courseInfo.id
-                    btnDeleteCourse.innerText = "X"
-                    div.append(btnDeleteCourse)
-                    btnDeleteCourse.addEventListener("click", () => {
-                        remove_course_id_array.push(btnDeleteCourse.dataset.id)
-                        div.remove();
-                    })
-
-
-                })
-
-
-            }
-
-            const campusSelect = document.querySelector("#campus-select-1")
-            campusSelect.addEventListener("click", async (event) => {
-                const select = campusSelect
-                if (select.options.length !== 1) {
-                    return
-                }
-                const response = await fetch("/api/getAllEtecsNames")
-                if (!response.ok) {
-                    return
-                }
-                const data = await response.json();
-                if (data.status !== "success") {
-                    return
-                }
-                data.data.forEach((dt) => {
-                    const option = document.createElement("option")
-                    option.innerText = dt.name
-                    option.value = dt.id
-                    select.appendChild(option)
-                })
             })
-            if (role === "teacher") {
-                document.querySelector("#course-update-div").style.display = "none"
-                document.querySelector("#add-campus-btn").addEventListener("click", (event) => {
-                    const btn = event.target
-                    const select = document.createElement("select")
-                    select.classList.add("campus-select")
-                    select.innerHTML = "<option disabled selected value='monstro'>selecione</option>"
-                    document.querySelector("#campus-update-div").insertBefore(select, btn);
+            //simoh hayha
 
-                    select.addEventListener("click", async (event) => {
-                        if (select.options.length !== 1) {
-                            return
-                        }
-                        const response = await fetch("/api/getAllEtecsNames")
-                        if (!response.ok) {
-                            return
-                        }
-                        const data = await response.json();
-                        if (data.status !== "success") {
-                            return
-                        }
-                        data.data.forEach((dt) => {
-                            const option = document.createElement("option")
-                            option.innerText = dt.name
-                            option.value = dt.id
-                            select.appendChild(option)
-                        })
-                    })
+            const form = document.querySelector("#update-form")
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                const formData = new FormData();
+
+                formData.append("name", form.name.value);
+                formData.append("email", form.email.value);
+                formData.append("phone", form.phone.value);
+                formData.append("street", form.street.value);
+                formData.append("address_number", form.address_number.value);
+                formData.append("city", form.city.value);
+                formData.append("state", form.state.value);
+                formData.append("zip_code", form.zip_code.value);
+                //bug de mira fds vamo abusa
+                const has_address = (form.street.value.length === 0) ? false : true
+                formData.append("has_address", has_address);
 
 
+                if (form.profilePic.files.length > 0) {
+                    formData.append("profilePic", form.profilePic.files[0]);
+                }
+                const updateUser = async (formData) => {
+                    const token = localStorage.getItem("jwt_token");
+                    const response = await fetch("/api/updateuser", {
+                        method: "POST",
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: formData
+                    });
+                    return response.json();
+                };
+
+                // Aqui você chama o executeWithRefresh, passando a função updateUser e o formData
+                const result = await executeWithRefresh(updateUser, formData);
+                if (result.status !== "success") {
+                    return
+                }
+                const campusSelects = document.querySelectorAll(".campus-select")
+                const campusIds = []
+                campusSelects.forEach((campusSelect) => {
+                    const value = campusSelect.value
+                    if (!isNaN(value)) {
+                        campusIds.push(value)
+                    }
                 })
-                campusSelect.style.display = "none"
+                if (remove_campus_id_array.length) {
+                    const formCampus = new FormData();
+
+                    formCampus.append("campus_Ids", remove_campus_id_array)
+
+
+                    const deleteCampus = async (formData) => {
+                        const token = localStorage.getItem("jwt_token");
+                        const response = await fetch("/api/deleteCampusUser", {
+                            method: "POST",
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: formData
+                        });
+                        return response.json();
+                    };
+
+                    const resultCampus = await executeWithRefresh(deleteCampus, formCampus);
+                    console.log("resultCampus")
+                    console.log(resultCampus)
+                }
+                const uniqueCampusIds = [...new Set(campusIds)];
+                if (uniqueCampusIds.length) {
+
+                    const formCampus = new FormData();
+
+                    formCampus.append("campus_Ids", uniqueCampusIds)
+
+
+                    const updateCampus = async (formData) => {
+                        const token = localStorage.getItem("jwt_token");
+                        const response = await fetch("/api/addCampusUser", {
+                            method: "POST",
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: formData
+                        });
+                        return response.json();
+                    };
+
+                    const resultCampus = await executeWithRefresh(updateCampus, formCampus);
+                }
+
+                const coursesSelects = document.querySelectorAll(".course-select")
+                console.log(coursesSelects)
+                const coursesIds = []
+                coursesSelects.forEach((courseSelect) => {
+                    const value = courseSelect.value
+                    if (!isNaN(value)) {
+                        coursesIds.push(value)
+                    }
+                })
+                if (remove_course_id_array.length) {
+                    const formCourses = new FormData();
+
+                    formCourses.append("courses_Ids", remove_course_id_array)
+
+
+                    const deleteCourse = async (formData) => {
+                        const token = localStorage.getItem("jwt_token");
+                        const response = await fetch("/api/deleteCourseUser", {
+                            method: "POST",
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: formData
+                        });
+                        return response.json();
+                    };
+
+                    const resultCourse = await executeWithRefresh(deleteCourse, formCourses);
+                    console.log(resultCourse)
+                }
+
+
+                const uniqueCourseIds = [...new Set(coursesIds)];
+                if (uniqueCourseIds.length) {
+
+                    const formCourse = new FormData();
+
+                    formCourse.append("courses_ids", uniqueCourseIds)
+
+
+                    const updateCourse = async (formData) => {
+                        const token = localStorage.getItem("jwt_token");
+                        const response = await fetch("/api/addCourseUser", {
+                            method: "POST",
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: formData
+                        });
+                        return response.json();
+                    };
+
+                    const resultCourse = await executeWithRefresh(updateCourse, formCourse);
+                    console.log(resultCourse)
+                }
+
+                // window.location.reload();
+
+            })
+        <?php else: ?>
+            const followerBtn = document.querySelector("#follower-button");
+            const isFollowedData = await executeWithRefresh(isFollowed, <?= json_encode($profile_id) ?>)
+            const isfollow = isFollowedData?.data ?? 0
+            if (isfollow) {
+                changeFrontBtn(followerBtn, true)
+                followerBtn.dataset.follower = 1
 
             } else {
-                document.querySelector("#add-campus-btn").style.display = "none"
-                campusSelect.addEventListener("change", async (event) => {
-                    if (campusSelect.value == "monstro") {
-                        //selecione uma etec primeiro
-                        return
-                    }
+                changeFrontBtn(followerBtn, false)
+                followerBtn.dataset.follower = 0
 
-
-                    const response = await fetch(`/api/getCoursesByEtec?campus_id=${campusSelect.value}`)
-                    if (!response.ok) {
-                        return
-                    }
-                    const data = await response.json();
-                    if (data.status !== "success") {
-                        return
-                    }
-                    const selects = document.querySelectorAll(".course-select")
-                    selects.forEach((select) => {
-                        select.innerHTML = "<option disabled selected >selecione</option>"
-                        data.data.forEach((dt) => {
-                            const option = document.createElement("option")
-                            option.innerText = dt.name
-                            option.value = dt.id
-                            select.appendChild(option)
-                        })
-
-                    })
-
-                })
-
-                document.querySelector("#add-course-btn").addEventListener("click", async (event) => {
-                    const btn = event.target
-                    const select = document.createElement("select")
-                    select.classList.add("course-select")
-                    select.innerHTML = "<option disabled selected value='monstro'>selecione</option>"
-                    document.querySelector("#course-update-div").insertBefore(select, btn);
-
-                    if (campusSelect.value == "monstro") {
-                        //selecione uma etec primeiro
-                        return
-                    }
-                    const campusSelect1 = document.querySelector("#campus-select-1")
-
-                    const campusIdSearchQuery = (campusSelect.value === "ameno murakomo no tsurugi") ? campusSelect1.dataset.campusId : campusSelect.value
-                    console.log(campusIdSearchQuery)
-
-                    const response = await fetch(`/api/getCoursesByEtec?campus_id=${campusIdSearchQuery}`)
-                    if (!response.ok) {
-                        return
-                    }
-                    const data = await response.json();
-                    if (data.status !== "success") {
-                        return
-                    }
-
-                    select.innerHTML = "<option disabled selected >selecione</option>"
-                    data.data.forEach((dt) => {
-                        const option = document.createElement("option")
-                        option.innerText = dt.name
-                        option.value = dt.id
-                        select.appendChild(option)
-
-                    })
-
-
-                })
             }
+            followerBtn.addEventListener("click", async () => {
+                const followers_count_span = document.querySelector("#followers_count")
+                if (followerBtn.dataset.follower === "0") {
+                    const data = await executeWithRefresh(follow, <?= json_encode($profile_id) ?>)
+                    if (data.status == "success") {
+                        changeFrontBtn(followerBtn, true)
+                        followerBtn.dataset.follower = 1
+                        const newCount = parseInt(followers_count_span.innerText) + 1
+                        followers_count_span.innerText = newCount
+                    }
+                } else {
+                    const data = await executeWithRefresh(unfollow, <?= json_encode($profile_id) ?>)
 
-        });
+                    if (data.status == "success") {
+                        changeFrontBtn(followerBtn, false)
+                        followerBtn.dataset.follower = 0
+                        const newCount = parseInt(followers_count_span.innerText) - 1
+                        followers_count_span.innerText = newCount
 
-
-        document.querySelector("#close-modal-btn").addEventListener("click", () => {
-            const modal = document.querySelector("#edit-profile-modal")
-            modal.close();
-
-        })
-        const inputFile = document.querySelector("#profilePic")
-        inputFile.addEventListener('change', () => {
-            const file = inputFile.files[0];
-            if (file) {
-                const url = URL.createObjectURL(file);
-                const photoLabel = document.querySelector("#photo-label")
-                photoLabel.style.backgroundImage = `url("${url}")`;
-                photoLabel.style.backgroundColor = "none"
-                photoLabel.innerText = ""
-                document.querySelector("#remove-pic").style.display = "flex";
-                document.querySelector("#edit-icon").style.display = "none";
-            }
-        });
-
-        document.querySelector("#remove-pic").addEventListener("click", () => {
-
-            inputFile.value = "";
-
-            const username = userInfo?.name ?? "usuario"
-
-            const role = userInfo?.role ?? "user"
-            const roleColor = (role == "student") ? "#D32F2F" : "#2f32d3ff"
-
-            const profilePath = userInfo.profile_photo_path
-            const userPhoto = document.querySelector("#photo-label")
-
-            userPhoto.style.backgroundImage = profilePath ?
-                `url("${profilePath}")` :
-                "none";
-
-            userPhoto.style.backgroundColor = profilePath ?
-                "transparent" :
-                roleColor;
-
-            userPhoto.innerText = profilePath ?
-                "" :
-                getProfileLetter(username);
-
-            userPhoto.style.backgroundRepeat = "no-repeat";
-            userPhoto.style.backgroundPosition = "center";
-            userPhoto.style.backgroundSize = "cover";
-
-
-            document.querySelector("#remove-pic").style.display = "none";
-            document.querySelector("#edit-icon").style.display = "block";
-
-        })
-        //simoh hayha
-
-        const form = document.querySelector("#update-form")
-        form.addEventListener("submit", async (event) => {
-            event.preventDefault();
-            const formData = new FormData();
-
-            formData.append("name", form.name.value);
-            formData.append("email", form.email.value);
-            formData.append("phone", form.phone.value);
-            formData.append("street", form.street.value);
-            formData.append("address_number", form.address_number.value);
-            formData.append("city", form.city.value);
-            formData.append("state", form.state.value);
-            formData.append("zip_code", form.zip_code.value);
-            //bug de mira fds vamo abusa
-            const has_address = (form.street.value.length === 0) ? false : true
-            formData.append("has_address", has_address);
-
-
-            if (form.profilePic.files.length > 0) {
-                formData.append("profilePic", form.profilePic.files[0]);
-            }
-            const updateUser = async (formData) => {
-                const token = localStorage.getItem("jwt_token");
-                const response = await fetch("/api/updateuser", {
-                    method: "POST",
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: formData
-                });
-                return response.json();
-            };
-
-            // Aqui você chama o executeWithRefresh, passando a função updateUser e o formData
-            const result = await executeWithRefresh(updateUser, formData);
-            if (result.status !== "success") {
-                return
-            }
-            const campusSelects = document.querySelectorAll(".campus-select")
-            const campusIds = []
-            campusSelects.forEach((campusSelect) => {
-                const value = campusSelect.value
-                if (!isNaN(value)) {
-                    campusIds.push(value)
+                    }
                 }
             })
-            if (remove_campus_id_array.length) {
-                const formCampus = new FormData();
 
-                formCampus.append("campus_Ids", remove_campus_id_array)
+        <?php endif; ?>
 
-
-                const deleteCampus = async (formData) => {
-                    const token = localStorage.getItem("jwt_token");
-                    const response = await fetch("/api/deleteCampusUser", {
-                        method: "POST",
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: formData
-                    });
-                    return response.json();
-                };
-
-                const resultCampus = await executeWithRefresh(deleteCampus, formCampus);
-                console.log("resultCampus")
-                console.log(resultCampus)
-            }
-            const uniqueCampusIds = [...new Set(campusIds)];
-            if (uniqueCampusIds.length) {
-
-                const formCampus = new FormData();
-
-                formCampus.append("campus_Ids", uniqueCampusIds)
-
-
-                const updateCampus = async (formData) => {
-                    const token = localStorage.getItem("jwt_token");
-                    const response = await fetch("/api/addCampusUser", {
-                        method: "POST",
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: formData
-                    });
-                    return response.json();
-                };
-
-                const resultCampus = await executeWithRefresh(updateCampus, formCampus);
-            }
-
-            const coursesSelects = document.querySelectorAll(".course-select")
-            console.log(coursesSelects)
-            const coursesIds = []
-            coursesSelects.forEach((courseSelect) => {
-                const value = courseSelect.value
-                if (!isNaN(value)) {
-                    coursesIds.push(value)
-                }
-            })
-            if (remove_course_id_array.length) {
-                const formCourses = new FormData();
-
-                formCourses.append("courses_Ids", remove_course_id_array)
-
-
-                const deleteCourse = async (formData) => {
-                    const token = localStorage.getItem("jwt_token");
-                    const response = await fetch("/api/deleteCourseUser", {
-                        method: "POST",
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: formData
-                    });
-                    return response.json();
-                };
-
-                const resultCourse = await executeWithRefresh(deleteCourse, formCourses);
-                console.log(resultCourse)
-            }
-
-
-            const uniqueCourseIds = [...new Set(coursesIds)];
-            if (uniqueCourseIds.length) {
-
-                const formCourse = new FormData();
-
-                formCourse.append("courses_ids", uniqueCourseIds)
-
-
-                const updateCourse = async (formData) => {
-                    const token = localStorage.getItem("jwt_token");
-                    const response = await fetch("/api/addCourseUser", {
-                        method: "POST",
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: formData
-                    });
-                    return response.json();
-                };
-
-                const resultCourse = await executeWithRefresh(updateCourse, formCourse);
-                console.log(resultCourse)
-            }
-
-            // window.location.reload();
-
-        })
         document.getElementById('btnBack').addEventListener('click', function() {
             const referrer = document.referrer;
             const currentHost = window.location.host;

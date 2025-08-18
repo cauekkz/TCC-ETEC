@@ -161,27 +161,26 @@ section {
     height: 1.75rem;
 
 }
-
-#edit-profile-button {
+.loki,.follow {
     background-color: #D32F2F;
 
     color: white;
 }
 
-#edit-profile-button:hover {
+.loki:hover,.follow:hover{
     border: #b33333 solid 1px;
 
     background-color: #b33333;
 
 }
 
-#leave-account-button {
+#leave-account-button,.unfollow {
     background-color: white;
     color: #D32F2F;
 }
 
 #leave-account-button:hover {
-    background-color: D32F2F;
+    background-color: #D32F2F;
     color: white;
 }
 

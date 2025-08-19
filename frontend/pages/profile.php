@@ -72,6 +72,22 @@ $profile_id = $_GET['profile'];
 
             <h3>Suas publicações</h3>
             <h4>Todas as suas postagens na Eteconnect</h4>
+            <dialog id="post-modal">
+                <ul>
+                    <li>
+                        <span id="icon-edit" class="icon bi bi-pencil-fill"></span>
+
+                        <span class="text">Editar</span>
+
+                    </li>
+                    <li id="delete-post-li">
+                        <span id="icon-delete" class="icon bi bi-trash-fill"></span>
+
+                        <span class="text">Excluir</span>
+
+                    </li>
+                </ul>
+            </dialog>
         <?php else: ?>
             <h3>Publicações</h3>
             <h4>Todas as postagens na Eteconnect</h4>
@@ -84,6 +100,8 @@ $profile_id = $_GET['profile'];
 
 
     </div>
+
+
     <?php if ($profile_id === "mine"): ?>
 
         <dialog id="edit-profile-modal">
@@ -161,10 +179,13 @@ $profile_id = $_GET['profile'];
 <script src="frontend/static/js/executeWithRefresh.js"></script>
 <script src="frontend/static/js/getUserPosts.js"></script>
 <script src="frontend/static/js/addPostBox.js"></script>
-<?php if ($profile_id !== "mine"): ?>
-    <script src="frontend/static/js/followFunctions.js"></script>
-<?php endif; ?>
+<?php if ($profile_id == "mine"): ?>
+    <script src="frontend/static/js/deletePost.js"></script>
 
+<?php else: ?>
+    <script src="frontend/static/js/followFunctions.js"></script>
+
+<?php endif; ?>
 
 <script>
     document.addEventListener('DOMContentLoaded', async function() {
@@ -291,6 +312,87 @@ $profile_id = $_GET['profile'];
                     }
 
                 })
+                <?php if ($profile_id === "mine"): ?>
+                    const postModal = document.querySelector("#post-modal")
+
+                    const openModalFunction = (e, id) => {
+                        const postModal = document.querySelector("#post-modal")
+
+                        if (!postModal.open) {
+                            postModal.dataset.postId = id
+                            postModal.style.visibility = 'hidden';
+                            postModal.style.display = 'block';
+
+                            e.preventDefault();
+
+                            const clickX = e.pageX;
+                            const clickY = e.pageY;
+
+                            const windowWidth = window.innerWidth;
+                            const windowHeight = window.innerHeight;
+
+                            const modalWidth = postModal.offsetWidth;
+                            const modalHeight = postModal.offsetHeight;
+
+                            let left = clickX;
+                            let top = clickY;
+
+                            if (clickX + modalWidth > windowWidth) {
+                                left = clickX - modalWidth;
+                            }
+
+                            if (clickY + modalHeight > windowHeight) {
+                                top = clickY - modalHeight;
+                            }
+
+                            postModal.style.left = `${left}px`;
+                            postModal.style.top = `${top}px`;
+                            postModal.style.visibility = '';
+                            postModal.style.display = '';
+
+                            postModal.show()
+                            const handleOutClick = (event) => {
+                                if (!postModal.contains(event.target)) {
+                                    postModal.close();
+                                    document.removeEventListener('click', handleOutClick);
+                                }
+                            };
+
+                            setTimeout(() => {
+                                document.addEventListener('click', handleOutClick);
+                            }, 0);
+                        } else {
+                            postModal.close();
+                        }
+
+                    }
+                    const authorNameDiv = post.querySelector(".author-name-div")
+                    const spanmenu = document.createElement("span")
+                    spanmenu.classList.add("menu-post")
+                    spanmenu.innerText = "⋮"
+                    authorNameDiv.append(spanmenu)
+                    spanmenu.addEventListener("click", (e) => openModalFunction(e, postId))
+                    post.addEventListener('contextmenu', (e) => openModalFunction(e, postId));
+
+                    const deleteli = document.querySelector("#delete-post-li")
+                    deleteli.addEventListener("click", async () => {
+                        const postModal = document.querySelector("#post-modal")
+
+                        const postId = postModal.dataset.postId
+
+                        const data = await executeWithRefresh(deletePost, postId)
+                        console.log(data)
+                        if (data.status === "sucess") {
+                            post.classList.add("post-deleting");
+                            setTimeout(() => {
+                                post.remove();
+                            }, 400); 
+
+                        }
+
+                    })
+                <?php endif; ?>
+
                 document.querySelector("#posts-box").appendChild(post)
             });
         }
@@ -745,6 +847,8 @@ $profile_id = $_GET['profile'];
                 // window.location.reload();
 
             })
+
+
         <?php else: ?>
             const followerBtn = document.querySelector("#follower-button");
             const isFollowedData = await executeWithRefresh(isFollowed, <?= json_encode($profile_id) ?>)

@@ -23,7 +23,7 @@ function addPostBox(postInfo) {
         etecSpans += `<span class="post-etec"> ${campus.name}. </span> `
 
     });
-    
+
 
     const likeIcon = (postInfo.user_liked === 1) ? `
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#D32F2F" viewBox="0 0 16 16">
@@ -52,10 +52,14 @@ function addPostBox(postInfo) {
                 <div class="user-photo-post" style='background-color:${color}; background-image:${url};'>
                     ${userPhotoText}
                 </div>
+
             </div>
             <div class="post-info-div">
                 <div class="post-sec-1">
+                    <div class="author-name-div" style="display:flex;justify-content:space-between;width:100%">
                     <span class="post-username">${authorName}</span>
+                    
+                    </div>
                     <span class="post-role" style='background:${roleColor}'>${authorRole}</span>
                     <div style="display:flex;gap:0.2rem">
                     ${etecSpans}

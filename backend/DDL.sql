@@ -127,3 +127,11 @@ CREATE TABLE follower (
   CHECK (follower_id != followed_id)
 
 );
+CREATE TABLE post_media (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  post_id INT NOT NULL,
+  media_url VARCHAR(255) NOT NULL,
+  media_type ENUM('image', 'video') NOT NULL,
+  media_order INT DEFAULT 0,
+  FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE
+);

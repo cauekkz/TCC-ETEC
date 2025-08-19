@@ -161,20 +161,24 @@ section {
     height: 1.75rem;
 
 }
-.loki,.follow {
+
+.loki,
+.follow {
     background-color: #D32F2F;
 
     color: white;
 }
 
-.loki:hover,.follow:hover{
+.loki:hover,
+.follow:hover {
     border: #b33333 solid 1px;
 
     background-color: #b33333;
 
 }
 
-#leave-account-button,.unfollow {
+#leave-account-button,
+.unfollow {
     background-color: white;
     color: #D32F2F;
 }
@@ -227,8 +231,16 @@ section {
     background-color: white;
     box-shadow: 0 0 0 1px rgb(228, 228, 228);
     display: flex;
-
     border-radius: 10px;
+    transition: opacity 0.4s ease, height 0.4s ease, margin 0.4s ease;
+
+}
+
+.post.post-deleting {
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .post-icon-div {
@@ -308,7 +320,71 @@ section {
     color: #D32F2F;
 }
 
+#post-modal {
+    position: absolute;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 0;
+    min-width: 150px;
+    z-index: 1000;
+    font-family: sans-serif;
+    outline: none;
+    overflow: hidden;
+}
 
+#post-modal ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#post-modal li {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease;
+    color: black;
+}
+
+#post-modal li:hover {
+    background-color: #f0f0f0;
+    /* fundo bem clarinho e suave */
+}
+
+#icon-edit {
+    color: black;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+#icon-delete {
+    color: black;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+#icon-edit:hover,
+#icon-edit:focus,
+li:hover #icon-edit {
+    color: #d4a000;
+}
+
+#icon-delete:hover,
+#icon-delete:focus,
+li:hover #icon-delete {
+    color: #d32f2f;
+}
+
+
+.menu-post {
+    cursor: pointer;
+    font-size: 1.1rem;
+    user-select: none;
+}
 
 h3 {
     margin-top: 4.1rem;
@@ -417,7 +493,8 @@ form label {
 
 form input,
 form select,
-#add-campus-btn,#add-course-btn {
+#add-campus-btn,
+#add-course-btn {
     font-weight: 400;
     line-height: 1.5;
     padding: 0.5rem 0.75rem;
@@ -470,14 +547,16 @@ form button[type="submit"] {
     user-select: none;
 }
 
-#campus-update-div ,#course-update-div{
+#campus-update-div,
+#course-update-div {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
 }
 
-#add-campus-btn,#add-course-btn {
+#add-campus-btn,
+#add-course-btn {
     background-color: #d63031;
     color: white;
     border: none;
@@ -485,11 +564,13 @@ form button[type="submit"] {
 }
 
 form button:hover,
-#add-campus-btn:hover,#add-course-btn:hover {
+#add-campus-btn:hover,
+#add-course-btn:hover {
     background-color: #e74c3c;
 }
 
-#campus-update-div select,#course-update-div select {
+#campus-update-div select,
+#course-update-div select {
     width: 8rem;
 }
 

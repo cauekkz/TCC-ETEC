@@ -312,6 +312,7 @@ $profile_id = $_GET['profile'];
                     }
 
                 })
+                //tira essa desgraça do foreach aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa porraaaaaaaaaaaaaaaaaaa porraaaaaaaaaaaaaaaaaaaaaaaa
                 <?php if ($profile_id === "mine"): ?>
                     const postModal = document.querySelector("#post-modal")
 

@@ -26,11 +26,26 @@ $resultJWT = $jwt->validate_token($tokenJWT);
 $user_id = $resultJWT['id'];
 $user_role = $resultJWT['role'];
 
-if (($user_role === "student" && count($campusArray) !== 1) || count($campusArray) <= 0) {
-    $errors[] = 'invalid ID Campus';
+// Validações de segurança
+if (count($campusArray) <= 0) {
     $res->set_status("error");
-    $res->set_error_message("Invalid Form");
-    $res->set_response_data($errors);
+    $res->set_error_message("At least one campus is required");
+    $res->response();
+    exit;
+}
+
+// Estudantes só podem ter 1 campus, professores podem ter múltiplos
+if ($user_role === "student" && count($campusArray) !== 1) {
+    $res->set_status("error");
+    $res->set_error_message("Students can only have one campus");
+    $res->response();
+    exit;
+}
+
+// Limitar número máximo de campus (prevenir spam)
+if (count($campusArray) > 10) {
+    $res->set_status("error");
+    $res->set_error_message("Maximum 10 campuses allowed");
     $res->response();
     exit;
 }

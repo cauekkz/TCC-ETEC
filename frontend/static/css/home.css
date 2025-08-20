@@ -100,6 +100,133 @@ header {
   transition: 0.5s ease;
 }
 
+/* Estilos para o formulário de criação de post */
+#mediaPreview {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f8f9fa;
+}
+
+#previewContainer {
+  gap: 8px;
+}
+
+#previewContainer .position-relative {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#previewContainer .btn-sm {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  font-size: 12px;
+  line-height: 1;
+  border-radius: 50%;
+}
+
+#btnAddMedia {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#btnAddMedia svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Estilo para o botão de criar post quando não é professor */
+#btnCreate[style*="display: none"] {
+  display: none !important;
+}
+
+/* Estilos para posts dinâmicos */
+.post {
+  width: 100%;
+  min-height: 12rem;
+  padding: 1rem 1rem 1rem;
+  background-color: white;
+  box-shadow: 0 0 0 1px rgb(228, 228, 228);
+  display: flex;
+  border-radius: 10px;
+  transition: opacity 0.6s ease, height 0.6s ease;
+  margin-bottom: 1rem;
+}
+
+.post-icon-div {
+  width: 8%;
+  min-width: 4rem;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.user-photo-post {
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #D32F2F;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.post-info-div {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.post-sec-1 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.post-role {
+  align-self: start;
+  font-size: 0.75rem;
+  color: white;
+  background-color: #D32F2F;
+  border-radius: 7px;
+  padding: 0.1rem 0.3rem;
+}
+
+.post-etec {
+  color: #666666;
+  font-size: 0.85rem;
+}
+
+.post-content {
+  margin-top: 0.2rem;
+}
+
+.post-sec-2 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  word-spacing: 0.2rem;
+}
+
+.post-like-icon {
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.post-like-icon:hover {
+  color: #D32F2F;
+}
+
 
 .col-used {
   background-color: rgba(211, 47, 47, 255);

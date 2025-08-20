@@ -1,4 +1,6 @@
 function addPostBox(postInfo) {
+    console.log("addPostBox chamado com:", postInfo);
+    
     const formatter = new Intl.NumberFormat('pt-BR', { notation: 'compact' });
 
     const post = document.createElement("div")
@@ -65,6 +67,17 @@ function addPostBox(postInfo) {
                     ${etecSpans}
                     </div>
                     <span class="post-content">${content}</span>
+                    ${postInfo.media && postInfo.media.length > 0 ? `
+                        <div class="post-media">
+                            ${postInfo.media.map(media => {
+                                if (media.media_type === 'video') {
+                                    return `<video src="${media.media_url}" controls class="post-video" onclick="openVideoModal('${media.media_url}')"></video>`;
+                                } else {
+                                    return `<img src="${media.media_url}" alt="Post media" class="post-image" onclick="openImageModal('${media.media_url}')">`;
+                                }
+                            }).join('')}
+                        </div>
+                    ` : ''}
                 </div>
 
                 <div class="post-sec-2">
@@ -121,5 +134,75 @@ function getProfileLetter(str) {
     const last = words[words.length - 1][0];
     return (firts + last).toUpperCase();
 
+}
+
+// Função para abrir modal de imagem
+function openImageModal(imageUrl) {
+    // Criar modal se não existir
+    let modal = document.getElementById('image-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'image-modal';
+        modal.className = 'image-modal';
+        modal.innerHTML = `
+            <span class="close-image-modal">&times;</span>
+            <img class="image-modal-content" id="modal-image">
+        `;
+        document.body.appendChild(modal);
+        
+        // Event listener para fechar modal
+        modal.querySelector('.close-image-modal').onclick = function() {
+            modal.style.display = 'none';
+        };
+        
+        // Fechar modal ao clicar fora da imagem
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    }
+    
+    // Mostrar imagem
+    document.getElementById('modal-image').src = imageUrl;
+    modal.style.display = 'block';
+}
+
+// Função para abrir modal de vídeo
+function openVideoModal(videoUrl) {
+    // Criar modal se não existir
+    let modal = document.getElementById('video-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'video-modal';
+        modal.className = 'video-modal';
+        modal.innerHTML = `
+            <span class="close-video-modal">&times;</span>
+            <video class="video-modal-content" id="modal-video" controls>
+                <source src="" type="video/mp4">
+                Seu navegador não suporta vídeos.
+            </video>
+        `;
+        document.body.appendChild(modal);
+        
+        // Event listener para fechar modal
+        modal.querySelector('.close-video-modal').onclick = function() {
+            modal.style.display = 'none';
+            document.getElementById('modal-video').pause();
+        };
+        
+        // Fechar modal ao clicar fora do vídeo
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.getElementById('modal-video').pause();
+            }
+        };
+    }
+    
+    // Mostrar vídeo
+    const video = document.getElementById('modal-video');
+    video.src = videoUrl;
+    modal.style.display = 'block';
 }
 

@@ -6,11 +6,18 @@ require_once __DIR__ . '/../../_inc/filters/isStudent.php';
 
 $data = $_POST;
 
+// Validações de segurança
 if (empty($data['courses_ids'])) {
-    $errors[] = 'invalid ID Course';
     $res->set_status("error");
-    $res->set_error_message("Invalid Form");
-    $res->set_response_data($errors);
+    $res->set_error_message("At least one course is required");
+    $res->response();
+    exit;
+}
+
+// Limitar número máximo de cursos (prevenir spam)
+if (count($coursesArray) > 5) {
+    $res->set_status("error");
+    $res->set_error_message("Maximum 5 courses allowed");
     $res->response();
     exit;
 }

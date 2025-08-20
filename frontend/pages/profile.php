@@ -261,13 +261,73 @@ $profile_id = $_GET['profile'];
                 parent.appendChild(span)
 
             } else {
+                // Criar span clicável para ETECS
                 const span = document.createElement("span")
                 span.classList.add("user-etec")
-                span.innerText = "ETECS..."
+                span.innerText = "ETECS"
+                span.style.cursor = "pointer"
+                span.style.color = "#D32F2F"
                 parent.appendChild(span)
 
-                campusInfo.forEach((campus) => {
-                    span.title += campus.name + ". "
+                // Criar modal
+                const modal = document.createElement("div")
+                modal.id = "etecs-modal"
+                modal.style.display = "none"
+                
+                const modalTitle = <?php if ($profile_id === "mine"): ?>"Suas ETECs"<?php else: ?>"ETECs de " + (userInfo?.name ?? "usuário")<?php endif; ?>
+                
+                modal.innerHTML = `
+                    <div class="etecs-modal-content">
+                        <div class="etecs-modal-header">
+                            <h3>${modalTitle}</h3>
+                            <button class="close-etecs-modal">×</button>
+                        </div>
+                        <div class="etecs-modal-body">
+                            <ul class="etecs-list">
+                                ${campusInfo.map(campus => `<li>${campus.name}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `
+                document.body.appendChild(modal)
+
+                // Função para abrir modal
+                const openModal = (e) => {
+                    e.stopPropagation()
+                    const rect = span.getBoundingClientRect()
+                    const profileBox = document.querySelector("#profile-box")
+                    const profileBoxRect = profileBox.getBoundingClientRect()
+                    
+                    // Posicionar modal centralizado
+                    const modalWidth = 300
+                    const spanCenter = rect.left + (rect.width / 2)
+                    const modalLeft = spanCenter - (modalWidth / 2)
+                    
+                    // Limitar dentro da div do perfil
+                    const maxLeft = profileBoxRect.right - modalWidth - 20
+                    const minLeft = profileBoxRect.left + 20
+                    const finalLeft = Math.max(minLeft, Math.min(modalLeft, maxLeft))
+                    
+                    modal.style.position = "absolute"
+                    modal.style.top = (rect.bottom + 10) + "px"
+                    modal.style.left = finalLeft + "px"
+                    modal.style.display = "block"
+                    span.style.pointerEvents = "none"
+                }
+
+                // Função para fechar modal
+                const closeModal = () => {
+                    modal.style.display = "none"
+                    span.style.pointerEvents = "auto"
+                }
+
+                // Event listeners
+                span.addEventListener("click", openModal)
+                modal.querySelector(".close-etecs-modal").addEventListener("click", closeModal)
+                document.addEventListener("click", (e) => {
+                    if (!modal.contains(e.target) && e.target !== span) {
+                        closeModal()
+                    }
                 })
             }
 
@@ -375,27 +435,35 @@ $profile_id = $_GET['profile'];
                     spanmenu.addEventListener("click", (e) => openModalFunction(e, postId))
                     post.addEventListener('contextmenu', (e) => openModalFunction(e, postId));
 
-                    const deleteli = document.querySelector("#delete-post-li")
-                    deleteli.addEventListener("click", async () => {
-                        const postModal = document.querySelector("#post-modal")
-
-                        const postId = postModal.dataset.postId
-
-                        const data = await executeWithRefresh(deletePost, postId)
-                        console.log(data)
-                        if (data.status === "sucess") {
-                            post.classList.add("post-deleting");
-                            setTimeout(() => {
-                                post.remove();
-                            }, 400); 
-
-                        }
-
-                    })
                 <?php endif; ?>
 
                 document.querySelector("#posts-box").appendChild(post)
             });
+            <?php if ($profile_id === "mine"): ?>
+
+                const deleteli = document.querySelector("#delete-post-li")
+                deleteli.addEventListener("click", async () => {
+                    const postModal = document.querySelector("#post-modal")
+
+                    const postId = postModal.dataset.postId
+                    const post = document.querySelector(`.post[data-post-id="${postId}"]`);
+
+                    const data = await executeWithRefresh(deletePost, postId)
+                    if (data.status === "success") {
+
+                        post.classList.add("post-deleting");
+                        postModal.close()
+
+                        setTimeout(() => {
+                            post.remove();
+                        }, 600);
+                    }
+
+
+                })
+
+            <?php endif; ?>
+
         }
         if (userInfo?.role === "student") {
             document.querySelector("#post-qtn-div").style.display = "none"
@@ -898,6 +966,6 @@ $profile_id = $_GET['profile'];
                 window.location.href = '/';
             }
         });
-
+      
     })
-</script>
+</script>  

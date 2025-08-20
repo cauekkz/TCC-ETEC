@@ -227,20 +227,19 @@ section {
 .post {
     width: 100%;
     min-height: 12rem;
+    min-height:fit-content;
     padding: 1rem 1rem 1rem;
     background-color: white;
     box-shadow: 0 0 0 1px rgb(228, 228, 228);
     display: flex;
     border-radius: 10px;
-    transition: opacity 0.4s ease, height 0.4s ease, margin 0.4s ease;
-
+    transition: opacity 0.6s ease, height 0.6s ease;
+    
 }
 
 .post.post-deleting {
     opacity: 0;
-    height: 0;
-    margin: 0;
-    padding: 0;
+
 }
 
 .post-icon-div {
@@ -623,4 +622,235 @@ form button:hover,
     :root {
         font-size: 12px;
     }
+}
+
+/* Modal das ETECs */
+#etecs-modal {
+    border: none;
+    border-radius: 10px;
+    padding: 0;
+    background: transparent;
+    position: absolute;
+    z-index: 1000;
+    max-width: 300px;
+    width: auto;
+    max-height: 300px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    animation: modalSlideIn 0.2s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.etecs-modal-content {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.etecs-modal-header {
+    background: #D32F2F;
+    color: white;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.etecs-modal-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.close-etecs-modal {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.close-etecs-modal:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.etecs-modal-body {
+    padding: 1rem;
+    flex: 1;
+    overflow-y: auto;
+    max-height: 200px;
+}
+
+.etecs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.etecs-list li {
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.25rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-left: 3px solid #D32F2F;
+    font-size: 0.85rem;
+    color: #333;
+    transition: all 0.2s ease;
+}
+
+/* Removido o hover dos itens da lista */
+
+.etecs-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* Estilo para o texto ETECS clicável */
+.user-etec[style*="cursor: pointer"] {
+    transition: all 0.2s ease;
+}
+
+.user-etec[style*="cursor: pointer"]:hover:not([style*="pointer-events: none"]) {
+    color: #b33333 !important;
+    transform: scale(1.05);
+}
+
+/* Estilos para mídia dos posts */
+.post-media {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.post-image {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    object-fit: cover;
+}
+
+.post-image:hover {
+    transform: scale(1.05);
+}
+
+.post-video {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    object-fit: cover;
+}
+
+.post-video:hover {
+    transform: scale(1.05);
+}
+
+/* Modal para visualizar imagens */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    animation: fadeIn 0.3s ease;
+}
+
+.image-modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+}
+
+.close-image-modal {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+}
+
+.close-image-modal:hover {
+    color: #bbb;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Modal para visualizar vídeos */
+.video-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    animation: fadeIn 0.3s ease;
+}
+
+.video-modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+}
+
+.close-video-modal {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+}
+
+.close-video-modal:hover {
+    color: #bbb;
 }

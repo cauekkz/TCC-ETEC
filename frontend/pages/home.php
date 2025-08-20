@@ -157,7 +157,7 @@
         <div class="col-6 flex-grow-1 overflow-auto px-3 " style="min-height: 0;">
             <div class="feed mt-4 px-4">
                 <div class="card-profile-edit">
-                    
+
                 </div>
                 <div class="d-flex align-items-center div-feed">
                     <div class="px-4">
@@ -167,171 +167,56 @@
                 </div>
 
 
-                <!-- Mudar para a parte do bd dps -->
-                <!-- Tbm é só pra ter uma estrutura do card em um geral -->
+                <!-- Container para posts dinâmicos -->
                 <div class="posts row mt-5 px-3">
-                    <div class="card-post p-3 mb-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
-                            <div>
-                                <p class="name-text mb-0"><strong>Ana Silva</strong></p>
-                                <span class="badge bg-dark">Aluna - Desenvolvimento de Sistemas</span>
-                                <p class="sub-text mb-0">ETEC Zona Leste</p>
-                            </div>
-                        </div>
+                    <!-- Os posts serão carregados dinamicamente aqui -->
+                </div>
 
 
-                        <p id="textPost" class="mb-2">
-                            Acabei de apresentar meu TCC sobre automação industrial! Muito feliz com o resultado.
-                            Obrigada aos professores pelo apoio e aos colegas pelas dicas 🎓✨
-                            <span class="text-primary">#ETEC #TCC #AutomacaoIndustrial</span>
-                        </p>
-                        <hr>
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="like-post d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-heart me-1" viewBox="0 0 16 16">
-                                    <path
-                                        d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
-                                </svg>
-                                <span id="qntLikes">0</span>
-                            </div>
-
-
-                            <div class="comments d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-chat me-1" viewBox="0 0 16 16">
-                                    <path
-                                        d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
-                                </svg>
-                                <span id="qntComments">0</span>
-                            </div>
+                <div class="card-post p-3 mb-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
+                        <div>
+                            <p class="name-text mb-0"><strong>Prof. Carlos Mendes</strong></p>
+                            <span class="badge bg-dark">Professor - Informática</span>
+                            <p class="sub-text mb-0">ETEC Centro-Oeste</p>
                         </div>
                     </div>
 
 
-                    <div class="card-post p-3 mb-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
-                            <div>
-                                <p class="name-text mb-0"><strong>Prof. Carlos Mendes</strong></p>
-                                <span class="badge bg-dark">Professor - Informática</span>
-                                <p class="sub-text mb-0">ETEC Centro-Oeste</p>
-                            </div>
+                    <p id="textPost" class="mb-2">
+                        Lembrete importante: As inscrições para o projeto de extensão em Python
+                        estão abertas até sexta-feira! Não percam essa
+                        oportunidade de aprender mais sobre programação. 🐍💻
+                    </p>
+                    <hr>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="like-post d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-heart me-1" viewBox="0 0 16 16">
+                                <path
+                                    d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
+                            </svg>
+                            <span id="qntLikes">0</span>
                         </div>
 
 
-                        <p id="textPost" class="mb-2">
-                            Lembrete importante: As inscrições para o projeto de extensão em Python
-                            estão abertas até sexta-feira! Não percam essa
-                            oportunidade de aprender mais sobre programação. 🐍💻
-                        </p>
-                        <hr>
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="like-post d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-heart me-1" viewBox="0 0 16 16">
-                                    <path
-                                        d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
-                                </svg>
-                                <span id="qntLikes">0</span>
-                            </div>
-
-
-                            <div class="comments d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-chat me-1" viewBox="0 0 16 16">
-                                    <path
-                                        d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
-                                </svg>
-                                <span id="qntComments">0</span>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="card-post p-3 mb-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
-                            <div>
-                                <p class="name-text mb-0"><strong>Prof. Carlos Mendes</strong></p>
-                                <span class="badge bg-dark">Professor - Informática</span>
-                                <p class="sub-text mb-0">ETEC Centro-Oeste</p>
-                            </div>
-                        </div>
-
-
-                        <p id="textPost" class="mb-2">
-                            Lembrete importante: As inscrições para o projeto de extensão em Python
-                            estão abertas até sexta-feira! Não percam essa
-                            oportunidade de aprender mais sobre programação. 🐍💻
-                        </p>
-                        <hr>
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="like-post d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-heart me-1" viewBox="0 0 16 16">
-                                    <path
-                                        d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
-                                </svg>
-                                <span id="qntLikes">0</span>
-                            </div>
-
-
-                            <div class="comments d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-chat me-1" viewBox="0 0 16 16">
-                                    <path
-                                        d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
-                                </svg>
-                                <span id="qntComments">0</span>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="card-post p-3 mb-3">
-                        <div class="d-flex align-items-center mb-2">
-                            <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
-                            <div>
-                                <p class="name-text mb-0"><strong>Prof. Carlos Mendes</strong></p>
-                                <span class="badge bg-dark">Professor - Informática</span>
-                                <p class="sub-text mb-0">ETEC Centro-Oeste</p>
-                            </div>
-                        </div>
-
-
-                        <p id="textPost" class="mb-2">
-                            Lembrete importante: As inscrições para o projeto de extensão em Python
-                            estão abertas até sexta-feira! Não percam essa
-                            oportunidade de aprender mais sobre programação. 🐍💻
-                        </p>
-                        <hr>
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="like-post d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-heart me-1" viewBox="0 0 16 16">
-                                    <path
-                                        d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
-                                </svg>
-                                <span id="qntLikes">0</span>
-                            </div>
-
-
-                            <div class="comments d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-chat me-1" viewBox="0 0 16 16">
-                                    <path
-                                        d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
-                                </svg>
-                                <span id="qntComments">0</span>
-                            </div>
+                        <div class="comments d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chat me-1" viewBox="0 0 16 16">
+                                <path
+                                    d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
+                            </svg>
+                            <span id="qntComments">0</span>
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
+</div>
 </div>
 
 
@@ -423,30 +308,89 @@
 
 
             <div class="form-create-container mt-3">
-                <form class="form-create">
+                <form class="form-create" id="formCreatePost">
                     <textarea name="createPost" id="textareaCreate" class="form-control p-3" placeholder="O que você quer compartilhar com a comunidade ETEC?"></textarea>
+                    
+                    <!-- Input para mídia (imagens e vídeos) -->
+                    <input type="file" id="mediaInput" name="media[]" multiple accept="image/*,video/*" class="d-none">
+                    
+                    <!-- Preview das mídias selecionadas -->
+                    <div id="mediaPreview" class="mt-3 d-none">
+                        <div class="d-flex flex-wrap gap-2" id="previewContainer"></div>
+                    </div>
 
 
+                    <hr>
+                    <div class="row d-flex gap-3 mt-3">
+                        <button type="button" class="btn btn-light w-25" id="btnAddMedia">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+                                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" />
+                            </svg>
+                            Mídia
+                        </button>
+                        <button type="button" class="w-25 btn btn-light btn-space" id="btnCancel">Cancelar</button>
+                        <button type="submit" class="w-25 btn btn-danger" id="btnPublish" disabled>Publicar</button>
+                    </div>
+                </form>
             </div>
+            <!-- 
+                Observação:
+                - Todos os inputs estão dentro do <form>.
+                - O botão "Publicar" é type="submit", então o form dispara o evento submit normalmente.
+                - O JS (provavelmente em createPost.js ou addPostBox.js) deve estar ouvindo o submit do form com id="formCreatePost".
+                - Se não estiver, adicione um eventListener para o submit desse form no JS.
+            -->
 
 
-            <hr>
-            <div class="row d-flex gap-3 mt-3">
-                <button class="btn btn-light w-25"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
-                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-                        <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" />
-                    </svg></button>
-                <button class="w-25 btn btn-light btn-space">Cancelar</button>
-                <button class="w-25 btn btn-danger" id="btnPublish">Publicar</button>
-            </div>
-            </form>
+
+
         </div>
-
-
-
-
     </div>
-</div>
 
 
-<script src="/frontend/static/js/home.js"></script>
+    <script src="/frontend/static/js/createPost.js"></script>
+    <script src="/frontend/static/js/addPostBox.js"></script>
+    <script src="/frontend/static/js/home.js"></script>
+    <script src="/frontend/static/js/executeWithRefresh.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded',async function () {
+
+        const formCreatePost = document.querySelector("#formCreatePost");
+        formCreatePost.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            console.log("submit")
+            const postContent = textareaCreate.value.trim();
+            if (!postContent) {
+                alert("Digite o conteúdo do post!");
+                return;
+            }
+
+            try {
+                btnPublish.disabled = true;
+                btnPublish.textContent = "Publicando...";
+
+                // Usar a função createPost do createPost.js
+                // Porra, o post vai pro server 1 por enquanto, beleza?
+                const result = await createPost(postContent, 1, selectedFiles); // server_id = 1 (fixo)
+                console.log(result)
+                if (result.status === "success") {
+                    alert("Post criado com sucesso!");
+                    containerCreate.classList.add("d-none");
+                    resetForm();
+
+                    // Recarregar posts
+                    loadPosts();
+                } else {
+                    alert("Erro ao criar post: " + (result.error_message || "Erro desconhecido"));
+                }
+            } catch (error) {
+                console.error("Erro ao criar post:", error);
+                alert("Erro ao criar post. Tente novamente.");
+            } finally {
+                btnPublish.disabled = false;
+                btnPublish.textContent = "Publicar";
+            }
+        });
+    });
+    </script>

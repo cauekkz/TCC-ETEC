@@ -17,8 +17,8 @@ RewriteRule ^img/(.+\.(png|jpeg|jpg|gif|svg))$  frontend/static/img/$1 [L,NC]
 RewriteRule ^audio/(.+\.mp3)$  frontend/static/audio/$1 [L,NC]
 
 #uploads
-RewriteRule ^uploads/([^/]+)/([^/]+)/(.+\.(png|jpe?g|gif|svg))$ backend/uploads/$1/$2/$3 [L,NC]
-RewriteRule ^uploads/([^/]+)/([^/]+\.(png|jpe?g|gif|svg))$ backend/uploads/$1/$2 [L,NC]
+RewriteRule ^uploads/([^/]+)/([^/]+)/(.+\.(png|jpe?g|gif|svg|mp4))$ backend/uploads/$1/$2/$3 [L,NC]
+RewriteRule ^uploads/([^/]+)/([^/]+\.(png|jpe?g|gif|svg|mp4))$ backend/uploads/$1/$2 [L,NC]
 
 #api
 RewriteRule ^api/([a-zA-Z0-9_-]+)$ backend/public/routes/$1.php [L,NC,QSA]

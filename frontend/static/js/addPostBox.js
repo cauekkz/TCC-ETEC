@@ -16,6 +16,7 @@ function addPostBox(postInfo) {
     const userPhotoText = (profilePath) ? "" : getProfileLetter(authorName)
 
     const content = postInfo.content
+   
     const total_likes = formatter.format(postInfo.total_likes).replace(/\s+/g, '')
     const id = postInfo.id
     const post_time = formatTimeAgo(postInfo.created_at)
@@ -25,9 +26,9 @@ function addPostBox(postInfo) {
         etecSpans += `<span class="post-etec"> ${campus.name}. </span> `
 
     });
-
-
-    const likeIcon = (postInfo.user_liked === 1) ? `
+    console.log("maldita:")
+    
+    const likeIcon = (parseInt(postInfo.user_liked) === 1) ? `
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#D32F2F" viewBox="0 0 16 16">
     <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
   </svg>
@@ -43,7 +44,6 @@ function addPostBox(postInfo) {
            C13.486.878 10.4.28 8.717 2.01z"/>
 </svg>`
     post.classList.add("post")
-
     post.dataset.postId = id
     post.dataset.authorId = author_id
     post.dataset.user_liked = postInfo.user_liked

@@ -43,7 +43,7 @@ async function unfollow(followed_id) {
 function changeFrontBtn(btn, follower) {
 
     if (follower) {
-        btn.classList.remove("fallow");
+        btn.classList.remove("follow");
         btn.classList.add("unfollow");
         btn.innerText = "Deixar de seguir"
 

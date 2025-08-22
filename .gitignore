@@ -3,3 +3,6 @@
 
 /backend/uploads/profilePhotos/*
 !/backend/uploads/profilePhotos/.gitkeep
+
+/backend/uploads/mediaPost/*
+!/backend/uploads/mediaPost/.gitkeep

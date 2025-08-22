@@ -172,6 +172,7 @@ $profile_id = $_GET['profile'];
         </dialog>
     <?php endif; ?>
 
+    
 </section>
 
 <script src="frontend/static/js/likeFunctions.js"></script>
@@ -346,7 +347,8 @@ $profile_id = $_GET['profile'];
 
         if (userInfo?.role === "teacher") {
             const userPostData = await executeWithRefresh(getUserPosts, <?= json_encode($profile_id) ?>)
-
+            console.log("oko")
+            console.log(userPostData)
             const postsInfos = userPostData?.data?.posts ?? []
             const campusInfos = userPostData?.data?.campus ?? ["ETEC"]
             document.querySelector("#post-qtn").innerText = postsInfos?.length ?? 0
@@ -372,7 +374,6 @@ $profile_id = $_GET['profile'];
                     }
 
                 })
-                //tira essa desgraça do foreach aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa porraaaaaaaaaaaaaaaaaaa porraaaaaaaaaaaaaaaaaaaaaaaa
                 <?php if ($profile_id === "mine"): ?>
                     const postModal = document.querySelector("#post-modal")
 

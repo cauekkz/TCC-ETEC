@@ -15,12 +15,14 @@ if (empty($data['courses_ids'])) {
 }
 
 // Limitar número máximo de cursos (prevenir spam)
+/*
 if (count($coursesArray) > 5) {
     $res->set_status("error");
     $res->set_error_message("Maximum 5 courses allowed");
     $res->response();
     exit;
 }
+    */
 $course_id = $data['courses_ids'];
 
 $courses_Ids_string = $data['courses_ids'];

@@ -20,30 +20,33 @@ if ($user_query_id === null) {
     $res->response();
     exit;
 }
-
+//arrumar isso aqui pra deixar em query separada pois ele faz 2 imgs url nao sei pq
 $sql = "SELECT
   p.id,
   p.id_author,
   p.content,
-  COUNT(l.id) AS total_likes,
+  COUNT(DISTINCT l.id) AS total_likes,
   CASE WHEN l2.id IS NULL THEN 0 ELSE 1 END AS user_liked,
   p.created_at,
   u.name AS author_name,
   u.role,
   u.profile_photo_path,
-  GROUP_CONCAT(
-      CONCAT(pm.media_url, '|', pm.media_type, '|', pm.media_order) 
-      ORDER BY pm.media_order ASC 
-      SEPARATOR ';'
-  ) AS media_data
+  pm_agg.media_data
 FROM post p
 LEFT JOIN likes l ON l.content_type = 'post' AND l.content_id = p.id
 LEFT JOIN likes l2 ON l2.content_type = 'post' AND l2.content_id = p.id AND l2.user_id = :user_id
 LEFT JOIN user u ON u.id = p.id_author
-LEFT JOIN post_media pm ON pm.post_id = p.id
+LEFT JOIN (
+    SELECT
+        post_id,
+        GROUP_CONCAT(CONCAT(media_url, '|', media_type, '|', media_order) ORDER BY media_order ASC SEPARATOR ';') AS media_data
+    FROM post_media
+    GROUP BY post_id
+) AS pm_agg ON pm_agg.post_id = p.id
 WHERE p.id_author = :user_query_id
-GROUP BY p.id, p.id_author, p.content, p.created_at, user_liked, u.name, u.role, u.profile_photo_path
+GROUP BY p.id, p.id_author, p.content, p.created_at, user_liked, u.name, u.role, u.profile_photo_path, pm_agg.media_data
 ORDER BY p.created_at DESC
+
 ";
 $params = ['user_query_id' => $user_query_id,'user_id'=>$user_id];
 $response = $db->execute_query($sql, $params);

@@ -307,42 +307,7 @@
             </div>
 
 
-            <div class="form-create-container mt-3">
-                <form class="form-create" id="formCreatePost">
-                    <textarea name="createPost" id="textareaCreate" class="form-control p-3" placeholder="O que você quer compartilhar com a comunidade ETEC?"></textarea>
-                    
-                    <!-- Input para mídia (imagens e vídeos) -->
-                    <input type="file" id="mediaInput" name="media[]" multiple accept="image/*,video/*" class="d-none">
-                    
-                    <!-- Preview das mídias selecionadas -->
-                    <div id="mediaPreview" class="mt-3 d-none">
-                        <div class="d-flex flex-wrap gap-2" id="previewContainer"></div>
-                    </div>
-
-
-                    <hr>
-                    <div class="row d-flex gap-3 mt-3">
-                        <button type="button" class="btn btn-light w-25" id="btnAddMedia">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
-                                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-                                <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" />
-                            </svg>
-                            Mídia
-                        </button>
-                        <button type="button" class="w-25 btn btn-light btn-space" id="btnCancel">Cancelar</button>
-                        <button type="submit" class="w-25 btn btn-danger" id="btnPublish" disabled>Publicar</button>
-                    </div>
-                </form>
-            </div>
-            <!-- 
-                Observação:
-                - Todos os inputs estão dentro do <form>.
-                - O botão "Publicar" é type="submit", então o form dispara o evento submit normalmente.
-                - O JS (provavelmente em createPost.js ou addPostBox.js) deve estar ouvindo o submit do form com id="formCreatePost".
-                - Se não estiver, adicione um eventListener para o submit desse form no JS.
-            -->
-
-
+w
 
 
         </div>
@@ -370,16 +335,13 @@
                 btnPublish.disabled = true;
                 btnPublish.textContent = "Publicando...";
 
-                // Usar a função createPost do createPost.js
-                // Porra, o post vai pro server 1 por enquanto, beleza?
-                const result = await createPost(postContent, 1, selectedFiles); // server_id = 1 (fixo)
+                // Porra, o post vai pro server 2 por enquanto, beleza?
+                const result = await createPost(postContent, 1, selectedFiles);
                 console.log(result)
                 if (result.status === "success") {
-                    alert("Post criado com sucesso!");
                     containerCreate.classList.add("d-none");
                     resetForm();
 
-                    // Recarregar posts
                     loadPosts();
                 } else {
                     alert("Erro ao criar post: " + (result.error_message || "Erro desconhecido"));

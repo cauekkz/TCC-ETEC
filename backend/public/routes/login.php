@@ -21,11 +21,13 @@ if (!empty($errors)) {
 $email = $data["email"];
 $password = $data['password'];
 
+
 $sql = "select id,name,email,password_hash,role from user where email = :email";
 $params = ['email' => $email];
 $response = $db->execute_query($sql, $params);
 
-if (empty($response->results) && $response->mensagem != "success") {
+
+if (empty($response->results) || $response->mensagem != "success") {
     $res->set_status("error");
     $res->set_error_message("non-existent email");
 

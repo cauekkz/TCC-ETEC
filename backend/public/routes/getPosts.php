@@ -82,9 +82,8 @@ foreach ($posts as $post) {
     unset($post->media_data); // Remover campo temporário
 }
 
-//quando pedir no front se o result for [] parar de pedir
 
-$res->set_response_data($response);
+$res->set_response_data($posts);
 $res->response();
 
 

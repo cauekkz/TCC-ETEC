@@ -22,16 +22,16 @@ if ($user_query_id === null) {
 }
 //arrumar isso aqui pra deixar em query separada pois ele faz 2 imgs url nao sei pq
 $sql = "SELECT
-  p.id,
-  p.id_author,
-  p.content,
-  COUNT(DISTINCT l.id) AS total_likes,
-  CASE WHEN l2.id IS NULL THEN 0 ELSE 1 END AS user_liked,
-  p.created_at,
-  u.name AS author_name,
-  u.role,
-  u.profile_photo_path,
-  pm_agg.media_data
+    p.id,
+    p.id_author,
+    p.content,
+    COUNT(DISTINCT l.id) AS total_likes,
+    CASE WHEN l2.id IS NULL THEN 0 ELSE 1 END AS user_liked,
+    p.created_at,
+    u.name AS author_name,
+    u.role,
+    u.profile_photo_path,
+    pm_agg.media_data
 FROM post p
 LEFT JOIN likes l ON l.content_type = 'post' AND l.content_id = p.id
 LEFT JOIN likes l2 ON l2.content_type = 'post' AND l2.content_id = p.id AND l2.user_id = :user_id
@@ -45,12 +45,10 @@ LEFT JOIN (
 ) AS pm_agg ON pm_agg.post_id = p.id
 WHERE p.id_author = :user_query_id
 GROUP BY p.id, p.id_author, p.content, p.created_at, user_liked, u.name, u.role, u.profile_photo_path, pm_agg.media_data
-ORDER BY p.created_at DESC
-
-";
+ORDER BY p.created_at DESC;";
 $params = ['user_query_id' => $user_query_id,'user_id'=>$user_id];
 $response = $db->execute_query($sql, $params);
-
+//pegar campus dp user por aqui tbm
 $data = [];
 if ($response->status != 'success') {
     $res->set_status('error');

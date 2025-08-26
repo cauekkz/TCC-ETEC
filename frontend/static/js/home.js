@@ -163,7 +163,7 @@ async function loadPosts() {
             console.error("Token não encontrado");
             return;
         }
-
+        //acho
         const response = await fetch("/api/getPosts?server_id=1", {
             method: "GET",
             headers: {
@@ -172,8 +172,9 @@ async function loadPosts() {
                 'X-Limit': '10'
             }
         });
-
         const result = await response.json();
+
+        console.log("explicar:")
 
         if (result.status === "success") {
             console.log("Posts carregados com sucesso:", result.data);
@@ -182,15 +183,14 @@ async function loadPosts() {
             const postsContainer = document.querySelector(".posts");
             console.log("Container de posts encontrado:", postsContainer);
 
-            if (postsContainer && result.data.results) {
-                console.log("Número de posts:", result.data.results.length);
+            if (postsContainer && result.data) {
+                console.log("Número de posts:", result.data.length);
 
                 // Limpar posts existentes
                 postsContainer.innerHTML = "";
 
                 // Adicionar novos posts
-                result.data.results.forEach((postInfo, index) => {
-                    console.log(`Criando post ${index + 1}:`, postInfo);
+                result.data.forEach((postInfo) => {
                     const postElement = addPostBox(postInfo);
                     postsContainer.appendChild(postElement);
                 });
@@ -257,7 +257,7 @@ function showMediaPreview(files) {
             e.stopPropagation(); // <-- isso evita que o clique feche o form
             removeFile(index);
         };
-        
+
         if (file.type.startsWith("image/")) {
             const img = document.createElement("img");
             img.src = URL.createObjectURL(file);

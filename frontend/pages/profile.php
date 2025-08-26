@@ -8,6 +8,7 @@ if (!isset($_GET['profile'])) {
 }
 $profile_id = $_GET['profile'];
 ?>
+
 <section>
     <div id="profile-div">
         <div id="profile-box">
@@ -172,7 +173,7 @@ $profile_id = $_GET['profile'];
         </dialog>
     <?php endif; ?>
 
-    
+
 </section>
 
 <script src="frontend/static/js/likeFunctions.js"></script>
@@ -274,9 +275,10 @@ $profile_id = $_GET['profile'];
                 const modal = document.createElement("div")
                 modal.id = "etecs-modal"
                 modal.style.display = "none"
-                
-                const modalTitle = <?php if ($profile_id === "mine"): ?>"Suas ETECs"<?php else: ?>"ETECs de " + (userInfo?.name ?? "usuário")<?php endif; ?>
-                
+
+                const modalTitle = <?php if ($profile_id === "mine"): ?> "Suas ETECs"
+            <?php else: ?> "ETECs de " + (userInfo?.name ?? "usuário") <?php endif; ?>
+
                 modal.innerHTML = `
                     <div class="etecs-modal-content">
                         <div class="etecs-modal-header">
@@ -298,17 +300,17 @@ $profile_id = $_GET['profile'];
                     const rect = span.getBoundingClientRect()
                     const profileBox = document.querySelector("#profile-box")
                     const profileBoxRect = profileBox.getBoundingClientRect()
-                    
+
                     // Posicionar modal centralizado
                     const modalWidth = 300
                     const spanCenter = rect.left + (rect.width / 2)
                     const modalLeft = spanCenter - (modalWidth / 2)
-                    
+
                     // Limitar dentro da div do perfil
                     const maxLeft = profileBoxRect.right - modalWidth - 20
                     const minLeft = profileBoxRect.left + 20
                     const finalLeft = Math.max(minLeft, Math.min(modalLeft, maxLeft))
-                    
+
                     modal.style.position = "absolute"
                     modal.style.top = (rect.bottom + 10) + "px"
                     modal.style.left = finalLeft + "px"
@@ -352,11 +354,19 @@ $profile_id = $_GET['profile'];
             const postsInfos = userPostData?.data?.posts ?? []
             const campusInfos = userPostData?.data?.campus ?? ["ETEC"]
             document.querySelector("#post-qtn").innerText = postsInfos?.length ?? 0
+            //tirar
+          
+
+            //
             postsInfos.forEach(postInfo => {
                 postInfo["campus"] = campusInfos
                 const post = addPostBox(postInfo)
                 const likebtn = post.querySelector(".post-like-icon")
                 const postId = postInfo.id
+                //tirar
+
+                //
+
                 console.log(post.dataset.user_liked)
                 likebtn.addEventListener("click", async () => {
 
@@ -967,6 +977,6 @@ $profile_id = $_GET['profile'];
                 window.location.href = '/';
             }
         });
-      
+
     })
-</script>  
+</script>

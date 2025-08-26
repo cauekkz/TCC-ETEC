@@ -63,7 +63,7 @@
                 <div class="col">
                     <div class="d-flex">
                         <div class="mt-2 px-2">
-                            <img src="" alt=" " class="img-fluid img-profile">
+                            <div src="" alt=" " class="img-fluid img-profile" id="profile-pic-user"></div>
                         </div>
                         <div class="row flex-column">
                             <p class="name-text mt-2"> <strong>Maria silva</strong> <span class="badge bg-dark">Aluno</span></p>
@@ -307,52 +307,126 @@
             </div>
 
 
-w
+            <div class="form-create-container mt-3">
+                <form class="form-create" id="formCreatePost">
+                    <textarea name="createPost" id="textareaCreate" class="form-control p-3" placeholder="O que você quer compartilhar com a comunidade ETEC?"></textarea>
+
+                    <!-- Input para mídia (imagens e vídeos) -->
+                    <input type="file" id="mediaInput" name="media[]" multiple accept="image/*,video/*" class="d-none">
+
+                    <!-- Preview das mídias selecionadas -->
+                    <div id="mediaPreview" class="mt-3 d-none">
+                        <div class="d-flex flex-wrap gap-2" id="previewContainer"></div>
+                    </div>
+
+
+                    <hr>
+                    <div class="row d-flex gap-3 mt-3">
+                        <button type="button" class="btn btn-light w-25" id="btnAddMedia">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+                                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" />
+                            </svg>
+                            Mídia
+                        </button>
+                        <button type="button" class="w-25 btn btn-light btn-space" id="btnCancel">Cancelar</button>
+                        <button type="submit" class="w-25 btn btn-danger" id="btnPublish" disabled>Publicar</button>
+                    </div>
+                </form>
+            </div>
+
 
 
         </div>
-    </div>
 
+    </div>
 
     <script src="/frontend/static/js/createPost.js"></script>
     <script src="/frontend/static/js/addPostBox.js"></script>
     <script src="/frontend/static/js/home.js"></script>
     <script src="/frontend/static/js/executeWithRefresh.js"></script>
+    <script src="frontend/static/js/loaduserinformation.js"></script>
+
     <script>
-        document.addEventListener('DOMContentLoaded',async function () {
+        document.addEventListener('DOMContentLoaded', async function() {
 
-        const formCreatePost = document.querySelector("#formCreatePost");
-        formCreatePost.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            console.log("submit")
-            const postContent = textareaCreate.value.trim();
-            if (!postContent) {
-                alert("Digite o conteúdo do post!");
-                return;
-            }
-
-            try {
-                btnPublish.disabled = true;
-                btnPublish.textContent = "Publicando...";
-
-                // Porra, o post vai pro server 2 por enquanto, beleza?
-                const result = await createPost(postContent, 1, selectedFiles);
-                console.log(result)
-                if (result.status === "success") {
-                    containerCreate.classList.add("d-none");
-                    resetForm();
-
-                    loadPosts();
-                } else {
-                    alert("Erro ao criar post: " + (result.error_message || "Erro desconhecido"));
+            const formCreatePost = document.querySelector("#formCreatePost");
+            formCreatePost.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                console.log("submit")
+                const postContent = textareaCreate.value.trim();
+                if (!postContent) {
+                    alert("Digite o conteúdo do post!");
+                    return;
                 }
-            } catch (error) {
-                console.error("Erro ao criar post:", error);
-                alert("Erro ao criar post. Tente novamente.");
-            } finally {
-                btnPublish.disabled = false;
-                btnPublish.textContent = "Publicar";
+
+                try {
+                    btnPublish.disabled = true;
+                    btnPublish.textContent = "Publicando...";
+
+                    // Porra, o post vai pro server 2 por enquanto, beleza?
+                    const result = await createPost(postContent, 1, selectedFiles);
+                    console.log(result)
+                    if (result.status === "success") {
+                        containerCreate.classList.add("d-none");
+                        resetForm();
+
+                        loadPosts();
+                    } else {
+                        alert("Erro ao criar post: " + (result.error_message || "Erro desconhecido"));
+                    }
+                } catch (error) {
+                    console.error("Erro ao criar post:", error);
+                    alert("Erro ao criar post. Tente novamente.");
+                } finally {
+                    btnPublish.disabled = false;
+                    btnPublish.textContent = "Publicar";
+                }
+            });
+
+
+            const userData = await executeWithRefresh(loadUserInformation, "mine")
+            sessionStorage.setItem('userData', JSON.stringify(userData?.data));
+
+            const userInfo = userData?.data?.user ?? null
+            const addressInfo = userData?.data?.address ?? null
+            const campusInfo = userData?.data?.campus ?? null
+            if (userInfo !== null) {
+                const userRole = userInfo.role
+                const username = userInfo.name
+                console.log("desgraça")
+                console.log(document.querySelector(".name-text.mt-2 strong"))
+                document.querySelector(".name-text.mt-2 strong").innerText = username
+                const roleSpan = document.querySelector(".name-text.mt-2 span")
+                roleSpan.innerText = userRole
+                const roleColor = (userRole == "student") ? "#D32F2F" : "#2f32d3ff"
+                roleSpan.style.setProperty('background-color', roleColor, 'important');
+
+
+                const profilePath = userInfo.profile_photo_path
+
+                const userPhoto = document.querySelector("#profile-pic-user")
+
+                userPhoto.style.backgroundImage = profilePath ?
+                    `url("${profilePath}")` :
+                    "none";
+
+                userPhoto.style.backgroundColor = profilePath ?
+                    "transparent" :
+                    roleColor;
+
+                userPhoto.innerText = profilePath ?
+                    "" :
+                    getProfileLetter(username);
+
+                userPhoto.style.backgroundRepeat = "no-repeat";
+                userPhoto.style.backgroundPosition = "center";
+                userPhoto.style.backgroundSize = "cover";
+
+
+
             }
+            console.log(userData)
+
         });
-    });
     </script>

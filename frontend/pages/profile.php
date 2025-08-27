@@ -95,7 +95,7 @@ $profile_id = $_GET['profile'];
 
         <?php endif; ?>
 
-        <div id="posts-box">
+        <div id="posts-box" class=" posts row mt-5 px-3">
 
         </div>
 
@@ -176,6 +176,7 @@ $profile_id = $_GET['profile'];
 
 </section>
 
+<link rel="stylesheet" href="/frontend/static/css/posts.css">
 <script src="frontend/static/js/likeFunctions.js"></script>
 <script src="frontend/static/js/loaduserinformation.js"></script>
 <script src="frontend/static/js/executeWithRefresh.js"></script>
@@ -449,6 +450,43 @@ $profile_id = $_GET['profile'];
                 <?php endif; ?>
 
                 document.querySelector("#posts-box").appendChild(post)
+                
+                // Forçar o posicionamento correto dos posts no profile
+                const postInfoDiv = post.querySelector('.post-info-div');
+                const postSec1 = post.querySelector('.post-sec-1');
+                const postSec2 = post.querySelector('.post-sec-2');
+                
+                if (postInfoDiv) {
+                    postInfoDiv.style.position = 'relative';
+                    postInfoDiv.style.width = '100%';
+                    postInfoDiv.style.height = '100%';
+                    postInfoDiv.style.paddingBottom = '3rem';
+                }
+                
+                if (postSec1) {
+                    postSec1.style.height = '100%';
+                    postSec1.style.flex = '1';
+                }
+                
+                // Garantir que o post tenha altura mínima
+                post.style.minHeight = '15rem';
+                post.style.display = 'flex';
+                
+                if (postSec2) {
+                    postSec2.style.position = 'absolute';
+                    postSec2.style.bottom = '0';
+                    postSec2.style.left = '0';
+                    postSec2.style.right = '0';
+                    postSec2.style.width = '100%';
+                    postSec2.style.display = 'flex';
+                    postSec2.style.justifyContent = 'space-between';
+                    postSec2.style.fontSize = '1rem';
+                    postSec2.style.wordSpacing = '0.2rem';
+                    postSec2.style.padding = '0.5rem 0';
+                    postSec2.style.borderTop = '1px solid #f0f0f0';
+                    postSec2.style.backgroundColor = 'white';
+                    postSec2.style.zIndex = '10';
+                }
             });
             <?php if ($profile_id === "mine"): ?>
 

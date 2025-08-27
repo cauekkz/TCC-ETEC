@@ -41,24 +41,7 @@ rightArrow.addEventListener("click", () => {
 }); */
 
 
-const cardPost = document.querySelectorAll(".card-post");
-const postFocus = document.querySelector(".container-post-focus");
 
-
-cardPost.forEach((cards) => {
-    // Passar os values por aq, img, nome, etec, 'função'
-    cards.addEventListener("click", () => {
-        postFocus.classList.remove("d-none");
-    });
-});
-
-
-postFocus.addEventListener("click", (e) => {
-    const conteudo = document.querySelector(".post-focus");
-    if (!conteudo.contains(e.target)) {
-        postFocus.classList.add("d-none");
-    }
-});
 
 
 const btnSendComment = document.querySelector("#btnSend");
@@ -155,58 +138,47 @@ async function checkUserRole() {
 // Carregar informações do usuário ao iniciar
 checkUserRole();
 
-// Função para carregar posts
+// Função para carregar posts (agora usando loadHomePosts.js)
 async function loadPosts() {
-    try {
-        const token = localStorage.getItem("jwt_token");
-        if (!token) {
-            console.error("Token não encontrado");
-            return;
-        }
-        //acho
-        const response = await fetch("/api/getPosts?server_id=1", {
-            method: "GET",
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'X-Page': '1',
-                'X-Limit': '10'
-            }
-        });
-        const result = await response.json();
-
-        console.log("explicar:")
-
-        if (result.status === "success") {
-            console.log("Posts carregados com sucesso:", result.data);
-
-            // Renderizar posts usando addPostBox
-            const postsContainer = document.querySelector(".posts");
-            console.log("Container de posts encontrado:", postsContainer);
-
-            if (postsContainer && result.data) {
-                console.log("Número de posts:", result.data.length);
-
-                // Limpar posts existentes
-                postsContainer.innerHTML = "";
-
-                // Adicionar novos posts
-                result.data.forEach((postInfo) => {
-                    const postElement = addPostBox(postInfo);
-                    postsContainer.appendChild(postElement);
-                });
-            } else {
-                console.log("Container não encontrado ou sem resultados");
-            }
-        } else {
-            console.error("Erro ao carregar posts:", result);
-        }
-    } catch (error) {
-        console.error("Erro na requisição de posts:", error);
-    }
 }
+
+
 
 // Carregar posts ao iniciar
 loadPosts();
+
+// Função para adicionar funcionalidade de like aos posts
+function addLikeFunctionalityToPosts() {
+    const posts = document.querySelectorAll('.post');
+    
+    posts.forEach(post => {
+        const likeBtn = post.querySelector('.post-like-icon');
+        if (likeBtn) {
+            // Remover event listeners antigos para evitar duplicação
+            const newLikeBtn = likeBtn.cloneNode(true);
+            likeBtn.parentNode.replaceChild(newLikeBtn, likeBtn);
+            
+            newLikeBtn.addEventListener('click', async () => {
+                const postId = post.dataset.postId;
+                
+                if (post.dataset.user_liked == 0) {
+                    const data = await executeWithRefresh(addLike, 'post', postId);
+                    changeFrontLike(post, true);
+                    post.dataset.user_liked = 1;
+                    console.log('Like adicionado:', data);
+                } else {
+                    const data = await executeWithRefresh(deleteLike, 'post', postId);
+                    changeFrontLike(post, false);
+                    post.dataset.user_liked = 0;
+                    console.log('Like removido:', data);
+                }
+            });
+        }
+    });
+}
+
+// Adicionar funcionalidade de like quando posts são carregados
+// Removido pois já é chamado no loadHomePosts.js
 
 // Controle do botão de publicar
 textareaCreate.addEventListener("input", () => {

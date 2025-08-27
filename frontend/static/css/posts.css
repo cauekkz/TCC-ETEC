@@ -1,0 +1,283 @@
+/* Estilos para posts */
+.post {
+    width: 100%;
+    min-height: 12rem;
+    
+    padding: 1rem 1rem 1rem;
+    background-color: white;
+    box-shadow: 0 0 0 1px rgb(228, 228, 228);
+    display: flex;
+    border-radius: 10px;
+    transition: opacity 0.6s ease, height 0.6s ease;
+}
+
+.post.post-deleting {
+    opacity: 0;
+}
+
+.post-icon-div {
+    width: 8%;
+    min-width: 4rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.user-photo-post {
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D32F2F;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.post-info-div {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding-bottom: 3rem;
+}
+
+.post-sec-1 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.post-etec {
+    color: #666666;
+    font-size: 0.65rem;
+}
+
+.post-role {
+    align-self: start;
+    font-size: 0.75rem;
+    color: white;
+    background-color: #D32F2F;
+    border-radius: 7px;
+    padding: 0.1rem 0.3rem;
+}
+
+.post-content {
+    margin-top: 0.2rem;
+}
+
+.post-sec-2 {
+    position: absolute ;
+    bottom: 0 ;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    word-spacing: 0.2rem;
+    padding: 0.5rem 0;
+    border-top: 1px solid #f0f0f0;
+    background-color: white ;
+    z-index: 10;
+}
+
+
+/* Seletor específico para o profile */
+
+/* Seletor mais específico possível */
+/* CSS inline para forçar o posicionamento */
+
+.post-like-icon {
+    user-select: none;
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+.post-like-icon:hover {
+    color: #D32F2F;
+}
+
+/* Modal de opções do post */
+#post-modal {
+    position: absolute;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 0;
+    min-width: 150px;
+    z-index: 1000;
+    font-family: sans-serif;
+    outline: none;
+    overflow: hidden;
+}
+
+#post-modal ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#post-modal li {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease;
+    color: black;
+}
+
+#post-modal li:hover {
+    background-color: #f0f0f0;
+}
+
+#icon-edit {
+    color: black;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+#icon-delete {
+    color: black;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+#icon-edit:hover,
+#icon-edit:focus,
+li:hover #icon-edit {
+    color: #d4a000;
+}
+
+#icon-delete:hover,
+#icon-delete:focus,
+li:hover #icon-delete {
+    color: #d32f2f;
+}
+
+.menu-post {
+    cursor: pointer;
+    font-size: 1.1rem;
+    user-select: none;
+}
+
+/* Estilos para mídia dos posts */
+.post-media {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.post-image {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    object-fit: cover;
+}
+
+.post-image:hover {
+    transform: scale(1.05);
+}
+
+.post-video {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    object-fit: cover;
+}
+
+.post-video:hover {
+    transform: scale(1.05);
+}
+
+/* Modal para visualizar imagens */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    animation: fadeIn 0.3s ease;
+}
+
+.image-modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+}
+
+.close-image-modal {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+}
+
+.close-image-modal:hover {
+    color: #bbb;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Modal para visualizar vídeos */
+.video-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    animation: fadeIn 0.3s ease;
+}
+
+.video-modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+}
+
+.close-video-modal {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001;
+}
+
+.close-video-modal:hover {
+    color: #bbb;
+}

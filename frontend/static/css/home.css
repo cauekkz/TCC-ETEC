@@ -212,6 +212,8 @@ header {
 .post-etec {
   color: #666666;
   font-size: 0.85rem;
+  margin-right: 0.5rem;
+  display: inline-block;
 }
 
 .post-content {
@@ -293,9 +295,7 @@ header {
 }
 
 
-.comment-box {
-  background-color: #f9f9f9;
-}
+
 
 
 form input:focus,
@@ -306,19 +306,7 @@ form select:focus,
 }
 
 
-.img-profile-post {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
 
-
-.like-post:hover,
-.comments:hover {
-  color: rgba(211, 47, 47, 255);
-  transition: 0.5s ease;
-  cursor: pointer;
-}
 
 
 .tab-infos {
@@ -358,7 +346,6 @@ form select:focus,
 }
 
 
-.container-post-focus,
 .container-create {
   position: fixed;
   top: 0;
@@ -370,14 +357,6 @@ form select:focus,
   justify-content: center;
   align-items: center;
   z-index: 1000;
-}
-
-
-.post-focus {
-  background-color: white;
-  width: 50rem;
-  padding: 20px;
-  border-radius: 0.4rem;
 }
 
 

@@ -223,6 +223,7 @@
 <div class="container-post-focus d-none">
     <div class="d-flex justify-content-center align-items-center">
         <div class="post-focus">
+            <button class="close-post-focus" onclick="closePostFocus()">&times;</button>
             <div class="d-flex align-items-center mb-2">
                 <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
                 <div>
@@ -236,6 +237,11 @@
                 Obrigada aos professores pelo apoio e aos colegas pelas dicas 🎓✨
                 <span class="text-primary">#ETEC #TCC #AutomacaoIndustrial</span>
             </p>
+            
+            <!-- Container para mídia do post -->
+            <div id="postFocusMedia" class="post-focus-media mt-3 d-none">
+                <div class="d-flex flex-wrap gap-2" id="postFocusMediaContainer"></div>
+            </div>
             <hr>
             <div class="d-flex align-items-center gap-3">
                 <div class="like-post d-flex align-items-center">
@@ -248,7 +254,7 @@
                 </div>
 
 
-                <div class="comments d-flex align-items-center">
+                <div class="comments d-flex align-items-center" onclick="toggleCommentsFocus()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-chat me-1" viewBox="0 0 16 16">
                         <path
@@ -290,6 +296,31 @@
     </div>
 </div>
 
+
+<!-- Modal apenas para comentários -->
+<div class="container-comments-only d-none">
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="comments-only-modal">
+            <button class="close-comments-only" onclick="closeCommentsOnly()">&times;</button>
+            <h5 class="mb-3">Comentários</h5>
+            <div id="commentsOnlyContainer">
+                <!-- Comentários serão carregados aqui -->
+            </div>
+            <form class="form-comment mt-3">
+                <div class="write-comment">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control p-2" placeholder="Seu comentário" aria-label="Seu comentário" name="comment">
+                        <button class="btn btn-outline-secondary" type="button" id="btnSendCommentsOnly">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div class="container-create d-none">
     <div>
@@ -341,11 +372,16 @@
 
     </div>
 
+    <link rel="stylesheet" href="/frontend/static/css/posts.css">
+    <link rel="stylesheet" href="/frontend/static/css/post-focus.css">
+    <script src="/frontend/static/js/executeWithRefresh.js"></script>
+    <script src="/frontend/static/js/likeFunctions.js"></script>
     <script src="/frontend/static/js/createPost.js"></script>
     <script src="/frontend/static/js/addPostBox.js"></script>
     <script src="/frontend/static/js/home.js"></script>
-    <script src="/frontend/static/js/executeWithRefresh.js"></script>
     <script src="frontend/static/js/loaduserinformation.js"></script>
+    <script src="/frontend/static/js/loadHomePosts.js"></script>
+    <script src="/frontend/static/js/postClickHandler.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', async function() {

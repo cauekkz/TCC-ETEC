@@ -5,24 +5,25 @@ html {
   padding: 0;
 }
 
-.container-post-focus.d-none {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+/* Estilos para o container-post-focus */
+.container-post-focus {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 .post-focus {
-  background-color: white;
-  width: 50rem;
-  padding: 20px;
-  border-radius: 0.4rem;
+    background-color: white;
+    width: 50rem;
+    padding: 20px;
+    border-radius: 0.4rem;
 }
 
 .d-flex {
@@ -97,6 +98,8 @@ hr {
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
+  user-select: none;
+  transition: 0.2s ease;
 }
 
 .like-post svg,
@@ -107,15 +110,49 @@ hr {
 
 .like-post:hover,
 .comments:hover {
-  color: rgba(211, 47, 47, 255);
-  transition: 0.5s ease;
+    color: #D32F2F;
 }
 
+/* Estado do like quando curtido */
+.like-post.liked {
+    color: #D32F2F;
+}
+
+.like-post.liked svg {
+    fill: #D32F2F !important;
+}
+
+/* Animação para o like */
+.like-post:active {
+    transform: scale(0.95);
+}
+
+/* Estilos para comentários */
 .comment-box {
-  background-color: #f9f9f9;
-  padding: 15px;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+/* Estilos para o formulário de comentário */
+.form-comment input:focus {
+    border: 2px solid red !important;
+    box-shadow: none !important;
+}
+
+/* Estilos para o botão de fechar */
+.close-post-focus {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.close-post-focus:hover {
+    color: #333;
 }
 
 .comment-box .d-flex {
@@ -168,6 +205,69 @@ hr {
 
 #btnSend {
   padding: 0.5rem;
+}
+
+/* Estilos para mídia no post focus */
+.post-focus-media {
+  margin-top: 1rem;
+}
+
+.post-focus-media img,
+.post-focus-media video {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  object-fit: cover;
+}
+
+.post-focus-media img:hover,
+.post-focus-media video:hover {
+  transform: scale(1.05);
+}
+
+.post-focus-media video {
+  background-color: #000;
+}
+
+/* Modal apenas para comentários */
+.container-comments-only {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.comments-only-modal {
+    background-color: white;
+    width: 40rem;
+    max-height: 80vh;
+    padding: 20px;
+    border-radius: 0.4rem;
+    overflow-y: auto;
+}
+
+.close-comments-only {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.close-comments-only:hover {
+    color: #333;
 }
 
 @media (max-width: 768px) {

@@ -24,9 +24,7 @@ function addPostBox(postInfo) {
     let etecSpans = ""
     postInfo.campus.forEach(campus => {
         etecSpans += `<span class="post-etec"> ${campus.name}. </span> `
-
     });
-    console.log("maldita:")
     
     const likeIcon = (parseInt(postInfo.user_liked) === 1) ? `
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#D32F2F" viewBox="0 0 16 16">
@@ -85,7 +83,7 @@ function addPostBox(postInfo) {
                         <span class="post-like-icon"><span class="like_icon">${likeIcon}</span> <span class="total_likes">${total_likes} </span>
                         </span>
 
-                        <span class="post-comments-icon">
+                        <span class="post-comments-icon" onclick="openCommentsOnly(${id})">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-chat me-1" viewBox="0 0 16 16">
                                     <path
@@ -205,4 +203,3 @@ function openVideoModal(videoUrl) {
     video.src = videoUrl;
     modal.style.display = 'block';
 }
-

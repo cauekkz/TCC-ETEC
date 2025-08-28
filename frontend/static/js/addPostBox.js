@@ -121,18 +121,7 @@ function formatTimeAgo(created_at) {
     return `${diffSec}s`;
 }
 
-function getProfileLetter(str) {
-    const words = str.trim().split(/\s+/);
-    const firts = words[0][0];
 
-    if (words.length === 1) {
-        return firts.toUpperCase();
-    }
-
-    const last = words[words.length - 1][0];
-    return (firts + last).toUpperCase();
-
-}
 
 // Função para abrir modal de imagem
 function openImageModal(imageUrl) {

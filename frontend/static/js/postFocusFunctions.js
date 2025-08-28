@@ -53,7 +53,7 @@ async function loadPostInFocus(postId) {
         
         if (result && result.status === "success") {
             console.log("Post carregado com sucesso:", result.data);
-            
+            document.querySelector(".container-post-focus").dataset.postId= result.data.id
             // Atualizar o conteúdo do post focus
             updatePostFocusContent(result.data);
         } else {
@@ -112,6 +112,9 @@ function updatePostFocusContent(postData) {
     
     // Configurar funcionalidade de like no post focus
     setupPostFocusLike(postData);
+    
+    // Carregar comentários do post
+    loadCommentsForPost(postData.id);
 }
 
 // Função para atualizar a foto do perfil no post focus
@@ -139,19 +142,7 @@ function updatePostFocusProfilePhoto(postData) {
     }
 }
 
-// Função para obter a primeira letra do nome para o avatar
-function getProfileLetter(name) {
-    if (!name) return "?";
-    const words = name.trim().split(/\s+/);
-    const first = words[0][0];
-    
-    if (words.length === 1) {
-        return first.toUpperCase();
-    }
-    
-    const last = words[words.length - 1][0];
-    return (first + last).toUpperCase();
-}
+
 
 // Função para fechar o post focus
 function closePostFocus() {
@@ -328,6 +319,7 @@ function toggleCommentsFocus() {
 function openCommentsOnly(postId) {
     const commentsModal = document.querySelector('.container-comments-only');
     if (commentsModal) {
+        commentsModal.dataset.postId = postId;
         commentsModal.classList.remove('d-none');
         loadCommentsOnly(postId);
     }
@@ -341,54 +333,70 @@ function closeCommentsOnly() {
     }
 }
 
-// Função para carregar comentários no modal
+// Função para carregar comentários no modal usando getComments
 async function loadCommentsOnly(postId) {
     try {
-        const result = await executeWithRefresh(getPostById, postId);
+        console.log('Carregando comentários para modal, post:', postId);
+        const result = await getComments(postId, 1);
+        console.log('Resultado getComments modal:', result);
         
         if (result && result.status === "success") {
             const commentsContainer = document.querySelector('#commentsOnlyContainer');
             if (commentsContainer) {
                 commentsContainer.innerHTML = '';
                 
-                if (result.data.comments && result.data.comments.length > 0) {
-                    result.data.comments.forEach(comment => {
+                if (result.data && result.data.length > 0) {
+                    console.log('Comentários encontrados no modal:', result.data.length);
+                    result.data.forEach(comment => {
                         const commentElement = createCommentElement(comment);
                         commentsContainer.appendChild(commentElement);
                     });
                 } else {
+                    console.log('Nenhum comentário encontrado no modal');
                     commentsContainer.innerHTML = '<p class="text-muted">Nenhum comentário ainda.</p>';
                 }
+            } else {
+                console.error('Container de comentários do modal não encontrado');
             }
+        } else {
+            console.error('Erro no resultado do modal:', result);
+        }
+    } catch (error) {
+        console.error('Erro ao carregar comentários no modal:', error);
+    }
+}
+
+// Função para carregar comentários do post focus usando getComments
+async function loadCommentsForPost(postId) {
+    try {
+        console.log('Carregando comentários para post:', postId);
+        const result = await getComments(postId, 1);
+        console.log('Resultado getComments:', result);
+        
+        if (result && result.status === "success") {
+            const commentsContainer = document.querySelector('.post-focus .comment .comment-list');
+            if (commentsContainer) {
+                commentsContainer.innerHTML = '';
+                
+                if (result.data && result.data.length > 0) {
+                    console.log('Comentários encontrados:', result.data.length);
+                    result.data.forEach(comment => {
+                        const commentElement = createCommentElement(comment);
+                        commentsContainer.appendChild(commentElement);
+                    });
+                } else {
+                    console.log('Nenhum comentário encontrado');
+                    commentsContainer.innerHTML = '<p class="text-muted">Nenhum comentário ainda.</p>';
+                }
+            } else {
+                console.error('Container de comentários não encontrado');
+            }
+        } else {
+            console.error('Erro no resultado:', result);
         }
     } catch (error) {
         console.error('Erro ao carregar comentários:', error);
     }
-}
-
-// Função para criar elemento de comentário
-function createCommentElement(comment) {
-    const commentDiv = document.createElement('div');
-    commentDiv.className = 'comment-box p-3 my-2 shadow-sm border rounded';
-    
-    const roleColor = comment.user_role === 'student' ? '#D32F2F' : '#2f32d3ff';
-    
-    commentDiv.innerHTML = `
-        <div class="d-flex align-items-center pt-3">
-            <div class="d-flex">
-                <div class="img-profile-post me-2" style="background-color: ${roleColor}; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">
-                    ${getProfileLetter(comment.user_name)}
-                </div>
-                <div class="flex-column">
-                    <p class="name-text mb-0"><strong>${comment.user_name}</strong></p>
-                    <span class="badge" style="background-color: ${roleColor}">${comment.user_role === 'student' ? 'Aluno' : 'Professor'}</span>
-                </div>
-            </div>
-        </div>
-        <p>${comment.content}</p>
-    `;
-    
-    return commentDiv;
 }
 
 // Configurar evento para fechar o post focus ao clicar fora
@@ -413,4 +421,69 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Event listener para o form de comentários do modal apenas
+    const commentModalForm = document.querySelector(".container-comments-only .form-comment");
+    if (commentModalForm) {
+        commentModalForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const input = commentModalForm.querySelector("input[name='comment']");
+            const commentText = input.value.trim();
+            if (!commentText) return;
+
+            try {
+                const postId = document.querySelector(".container-comments-only").dataset.postId;
+                await executeWithRefresh(addComment, postId, commentText);
+                input.value = "";
+                await loadCommentsOnly(postId); // Recarrega comentários
+            } catch (error) {
+                console.error("Erro ao adicionar comentário:", error);
+            }
+        });
+    }
+
+    // Event listener para o botão de enviar comentários do modal
+    const btnSendCommentsOnly = document.querySelector(".container-comments-only #btnSendCommentsOnly");
+    if (btnSendCommentsOnly) {
+        btnSendCommentsOnly.addEventListener("click", () => {
+            const form = btnSendCommentsOnly.closest(".form-comment");
+            if (form) {
+                form.dispatchEvent(new Event('submit'));
+            }
+        });
+    }
+
+    // Event listener para o form de comentários do post focus
+    const commentForm = document.querySelector(".post-focus .form-comment");
+    if (commentForm) {
+        commentForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const input = commentForm.querySelector("input[name='comment']");
+            const commentText = input.value.trim();
+            if (!commentText) return;
+
+            try {
+                const postId = document.querySelector(".container-post-focus").dataset.postId;
+                await executeWithRefresh(addComment, postId, commentText);
+                input.value = "";
+                await loadCommentsForPost(postId); // Recarrega comentários
+            } catch (error) {
+                console.error("Erro ao adicionar comentário:", error);
+            }
+        });
+    }
+
+    // Event listener para o botão de enviar comentários do post focus
+    const btnSend = document.querySelector(".post-focus #btnSend");
+    if (btnSend) {
+        btnSend.addEventListener("click", () => {
+            const form = btnSend.closest(".form-comment");
+            if (form) {
+                form.dispatchEvent(new Event('submit'));
+            }
+        });
+    }
+
 });

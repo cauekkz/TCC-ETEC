@@ -22,8 +22,14 @@ html {
 .post-focus {
     background-color: white;
     width: 50rem;
-    padding: 20px;
-    border-radius: 0.4rem;
+    max-height: 90vh;
+    padding: 24px;
+    border-radius: 12px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .d-flex {
@@ -129,14 +135,72 @@ hr {
 
 /* Estilos para comentários */
 .comment-box {
-    background-color: #f9f9f9;
+    background-color: #ffffff;
+
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
 }
 
-/* Estilos para o formulário de comentário */
-.form-comment input:focus {
-    border: 2px solid red !important;
-    box-shadow: none !important;
+.comment-box:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
 }
+.comment-box p{
+    word-wrap: break-word;
+  overflow-wrap: break-word;
+
+}
+/* Seção de comentários com flex */
+.comment {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+/* Container de comentários com scroll */
+.comment-list {
+    max-height: 280px;
+    min-height: 80px;
+    overflow-y: auto;
+    margin-bottom: 0;
+    padding-right: 8px;
+    flex: 1;
+}
+
+/* Scrollbar personalizada */
+.comment-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.comment-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.comment-list::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.comment-list::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Form de comentário sempre visível */
+.form-comment {
+    background-color: white;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+
 
 /* Estilos para o botão de fechar */
 .close-post-focus {
@@ -157,21 +221,41 @@ hr {
 
 .comment-box .d-flex {
   align-items: center;
+  margin-bottom: 8px;
+}
+
+.comment-box p:last-child {
+  margin: 0;
+  color: #495057;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .comment-box .img-profile-post {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .comment-box .name-text {
   margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.comment-box .badge {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 6px;
 }
 
 .write-comment {
   display: flex;
-  margin-top: 1rem;
+  margin-top: 0;
 }
 
 .write-comment .input-group {
@@ -180,22 +264,39 @@ hr {
 
 .write-comment .input-group input {
   width: 100%;
-  padding: 0.5rem;
+  padding: 12px 16px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.write-comment .input-group input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
 .btn-outline-secondary {
-  background-color: transparent;
-  border-color: #ddd;
-  transition: 0.3s ease;
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  padding: 12px 16px;
 }
 
 .btn-outline-secondary:hover {
-  background-color: #f0f0f0;
+  background-color: #0056b3;
+  border-color: #0056b3;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 #interactionComment {
   font-weight: bold;
   font-size: 16px;
+  flex-shrink: 0;
 }
 
 #qntLikes,
@@ -249,9 +350,50 @@ hr {
     background-color: white;
     width: 40rem;
     max-height: 80vh;
-    padding: 20px;
-    border-radius: 0.4rem;
+    padding: 24px;
+    border-radius: 12px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Container de comentários do modal com scroll */
+#commentsOnlyContainer {
+    max-height: 280px;
+    min-height: 80px;
+    overflow-y: auto;
+    margin-bottom: 0;
+    padding-right: 8px;
+    flex: 1;
+}
+
+/* Scrollbar personalizada para o modal */
+#commentsOnlyContainer::-webkit-scrollbar {
+    width: 6px;
+}
+
+#commentsOnlyContainer::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+#commentsOnlyContainer::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+#commentsOnlyContainer::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Form de comentário do modal sempre visível */
+.container-comments-only .form-comment {
+    background-color: white;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+    z-index: 10;
 }
 
 .close-comments-only {
@@ -264,6 +406,12 @@ hr {
     cursor: pointer;
     color: #666;
     transition: color 0.3s ease;
+}
+
+/* Título do modal sticky */
+.comments-only-modal h5 {
+    flex-shrink: 0;
+    margin-bottom: 1rem;
 }
 
 .close-comments-only:hover {

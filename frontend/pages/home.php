@@ -267,22 +267,8 @@
 
             <div class="comment mt-3">
                 <p id="interactionComment"><strong>Comentários</strong></p>
-                <div class="comment-box p-3 my-2 shadow-sm border rounded">
-                    <div class="d-flex align-items-center pt-3">
-
-
-                        <div class="d-flex">
-                            <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
-                            <div class="flex-column">
-                                <p class="name-text mb-0 "><strong>Prof. Carlos Mendes</strong></p>
-                                <span class="badge bg-dark">Professor - Informática</span>
-                            </div>
-                        </div>
-                    </div>
-                    <p>Matheus Fiot Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis non natus molestias? Dolores animi necessitatibus a, eum saepe repellat mollitia maxime, culpa maiores aut quae delectus ipsa quod corporis aspernatur!</p>
-                </div>
                 <form class="form-comment">
-                    <div class="write-comment mt-5">
+                    <div class="write-comment">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control p-2" placeholder="Seu comentário" aria-label="Seu comentário" name="comment">
                             <button class="btn btn-outline-secondary" type="button" id="btnSend"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
@@ -291,6 +277,9 @@
                         </div>
                     </div>
                 </form>
+                <div class="comment-list">
+                    <!-- Comentários serão carregados aqui dinamicamente -->
+                </div>
             </div>
         </div>
     </div>
@@ -374,14 +363,16 @@
 
     <link rel="stylesheet" href="/frontend/static/css/posts.css">
     <link rel="stylesheet" href="/frontend/static/css/post-focus.css">
+    <script src="/frontend/static/js/commentsFunctions.js"></script>
     <script src="/frontend/static/js/executeWithRefresh.js"></script>
     <script src="/frontend/static/js/likeFunctions.js"></script>
+    <script src="/frontend/static/js/addCommentBox.js"></script>
     <script src="/frontend/static/js/createPost.js"></script>
     <script src="/frontend/static/js/addPostBox.js"></script>
     <script src="/frontend/static/js/home.js"></script>
     <script src="frontend/static/js/loaduserinformation.js"></script>
     <script src="/frontend/static/js/loadHomePosts.js"></script>
-    <script src="/frontend/static/js/postClickHandler.js"></script>
+    <script src="/frontend/static/js/postFocusFunctions.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', async function() {

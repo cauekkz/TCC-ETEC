@@ -35,12 +35,28 @@
         <p id="text-login">Já tem conta? <a href="/login" id="link-login" class="text-danger">Entrar</a></p>
     </div>
 </div>
-<script src="frontend/static/js/login.js">
-</script>
+<link rel="stylesheet" href="/frontend/static/css/alerts.css">
+<script src="frontend/static/js/alerts.js"></script>
+<script src="frontend/static/js/login.js"></script>
 <script>
     const form = document.getElementById('signupForm')
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
+        
+        // Validação das senhas
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        if (password !== confirmPassword) {
+            showError('As senhas não coincidem');
+            return;
+        }
+        
+        if (password.length < 6) {
+            showWarning('A senha deve ter pelo menos 6 caracteres');
+            return;
+        }
+        
         const body = {
             name: form.name.value,
             email: form.email.value,
@@ -49,32 +65,46 @@
             birthday: form.birthday.value,
             registration: form.registration.value
         }
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
-        const response = await fetch("/api/signup", {
-            method: 'POST',
-            body: JSON.stringify(body)
-        })
-        if (!response.ok) {
-            //500
-        }
-        const data = await response.json()
-        console.log(data)
-        if (data.status !== "success") {
-            //error message
-            return;
-        }
         
-        const dataLogin = await login(form.email.value, form.password.value)
-        if (data.status !== "success") {
-            return;
+        try {
+            const response = await fetch("/api/signup", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                showBackendError(errorData, 'Erro ao criar conta');
+                return;
+            }
+            
+            const data = await response.json()
+            if (data.status !== "success") {
+                showBackendError(data, 'Erro ao criar conta');
+                return;
+            }
+            
+            showSuccess('Conta criada com sucesso! Fazendo login...');
+            
+            // Fazer login automaticamente
+            const dataLogin = await login(form.email.value, form.password.value)
+            if (dataLogin.status !== "success") {
+                showBackendError(dataLogin, 'Conta criada, mas erro ao fazer login');
+                return;
+            }
+            
+            localStorage.setItem('jwt_token', dataLogin.data);
+            setCookie("logged", "1", 1440 * 7);
+            
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 1500);
+            
+        } catch (error) {
+            showBackendError(error, 'Erro ao conectar com o servidor');
         }
-        localStorage.setItem('jwt_token', dataLogin.data);
-        console.log(dataLogin.data)
-        setCookie("logged", "1", 1440 * 7);
-        window.location.href = "/"
-
-
-
     });
 </script>

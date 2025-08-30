@@ -12,7 +12,7 @@ $errors = validate($data);
 
 if (!empty($errors)) {
     $res->set_status("error");
-    $res->set_error_message("Invalid Form");
+    $res->set_error_message("erro ao fazer login");
     $res->set_response_data($errors);
     $res->response();
     exit;
@@ -29,7 +29,7 @@ $response = $db->execute_query($sql, $params);
 
 if (empty($response->results) || $response->mensagem != "success") {
     $res->set_status("error");
-    $res->set_error_message("non-existent email");
+    $res->set_error_message("email não encontrado");
 
     $res->response();
     exit;
@@ -39,7 +39,7 @@ $user = $response->results[0];
 
 if (!password_verify($password, $user->password_hash)) {
     $res->set_status("error");
-    $res->set_error_message("incorrect password");
+    $res->set_error_message("senha incorreta");
 
     $res->response();
     exit;
@@ -51,7 +51,7 @@ $refreshToken->user_id = $user->id;
 $resultSaveToken = RefreshToken::save_token($refreshToken, $db);
 
 if (!$resultSaveToken) {
-    $res->set_aditional_fields("warning", "refresh token not created");
+    $res->set_aditional_fields("warning", "refresh token não criado");
 } else {
     $twoWeeks = 60 * 60 * 24 * 14;
     setcookie('refreshToken', $refreshToken->token, time() + $twoWeeks, '/', '', false, false);

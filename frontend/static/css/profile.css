@@ -3,7 +3,7 @@
 @import url('frontend/static/css/post-focus.css');
 
 body {
-    background-color: #F8F9FA;
+    background-color:#FAF9F6 ;
     font-family: "roboto";
 }
 
@@ -244,6 +244,7 @@ h4 {
     margin: auto;
     outline: none;
     padding: 0.5rem 1rem;
+    z-index: 1;
     overflow: auto;
 }
 

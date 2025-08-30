@@ -27,7 +27,7 @@ function validate($data)
             $errors[] = 'Data de nascimento Invalida';
         } 
     }
-    if(empty($data["registration"]) || !is_numeric($data["registration"])){
+    if(empty($data["registration"]) || !is_numeric($data["registration"]) || strlen($data["registration"]) > 11){
             $errors[] = 'Matrícula invalida';
     }
     return $errors;

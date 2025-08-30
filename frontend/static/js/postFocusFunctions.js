@@ -2,7 +2,7 @@
 function addPostClickEvent(postElement, postInfo) {
     postElement.addEventListener('click', (e) => {
         // Não abrir se clicou em botões de interação
-        if (e.target.closest('.post-like-icon') || e.target.closest('.post-comments-icon')) {
+        if (e.target.closest('.interactive')) {
             return;
         }
         
@@ -52,7 +52,6 @@ async function loadPostInFocus(postId) {
         const result = await executeWithRefresh(getPostById, postId);
         
         if (result && result.status === "success") {
-            console.log("Post carregado com sucesso:", result.data);
             document.querySelector(".container-post-focus").dataset.postId= result.data.id
             // Atualizar o conteúdo do post focus
             updatePostFocusContent(result.data);
@@ -75,9 +74,9 @@ function updatePostFocusContent(postData) {
     // Atualizar role do autor
     const roleElement = document.querySelector('.post-focus .badge');
     if (roleElement) {
-        const roleText = postData.role === 'student' ? 'Aluno' : 'Professor';
+        const roleText = postData.role === 'estudante' ? 'Aluno' : 'Professor';
         roleElement.textContent = roleText;
-        const roleColor = postData.role === 'student' ? '#D32F2F' : '#2f32d3ff';
+        const roleColor = postData.role === 'estudante' ? '#D32F2F' : '#2f32d3ff';
         roleElement.style.backgroundColor = roleColor;
     }
     
@@ -119,18 +118,22 @@ function updatePostFocusContent(postData) {
 
 // Função para atualizar a foto do perfil no post focus
 function updatePostFocusProfilePhoto(postData) {
-    const profilePhoto = document.querySelector('.post-focus .img-profile-post');
+    console.log("updatePostFocusProfilePhoto")
+    console.log(postData)
+    const profilePhoto = document.querySelector('#profile-photo-post-focus');
     if (!profilePhoto) return;
     
     const profilePath = postData.profile_photo_path;
     const authorName = postData.author_name || 'Usuário';
-    const roleColor = postData.role === 'student' ? '#D32F2F' : '#2f32d3ff';
+    const roleColor = postData.role === 'estudante' ? '#D32F2F' : '#2f32d3ff';
     
     if (profilePath) {
-        profilePhoto.src = profilePath;
+        profilePhoto.style.backgroundImage = `url(${profilePath})`;
         profilePhoto.style.backgroundColor = 'transparent';
+        profilePhoto.style.backgroundSize = 'cover';
+        profilePhoto.style.backgroundPosition = 'center';
+        profilePhoto.style.backgroundRepeat = 'no-repeat';
     } else {
-        profilePhoto.src = '';
         profilePhoto.style.backgroundColor = roleColor;
         profilePhoto.textContent = getProfileLetter(authorName);
         profilePhoto.style.color = 'white';
@@ -154,8 +157,6 @@ function closePostFocus() {
 
 // Função para configurar funcionalidade de like no post focus
 function setupPostFocusLike(postData) {
-    console.log('Configurando like para post:', postData.id);
-    
     const likeBtn = document.querySelector('.post-focus .like-post');
     if (!likeBtn) {
         console.error('Botão de like não encontrado no post focus');
@@ -167,19 +168,11 @@ function setupPostFocusLike(postData) {
     likeBtn.dataset.totalLikes = postData.total_likes || 0;
     likeBtn.dataset.userLiked = postData.user_liked || 0;
     
-    console.log('Dataset configurado:', {
-        postId: likeBtn.dataset.postId,
-        totalLikes: likeBtn.dataset.totalLikes,
-        userLiked: likeBtn.dataset.userLiked
-    });
-    
     // Configurar estado visual inicial do like
     updatePostFocusLikeUI(postData.user_liked === 1);
     
     // Adicionar evento de clique no botão de like
     likeBtn.addEventListener('click', handlePostFocusLike);
-    
-    console.log('Evento de like configurado com sucesso');
 }
 
 // Função para atualizar a UI do like no post focus
@@ -239,7 +232,7 @@ async function handlePostFocusLike(e) {
                     likeCountElement.textContent = newCount;
                 }
                 
-                console.log('Like removido com sucesso');
+
             }
         } else {
             // Adicionar like
@@ -258,7 +251,7 @@ async function handlePostFocusLike(e) {
                     likeCountElement.textContent = newCount;
                 }
                 
-                console.log('Like adicionado com sucesso');
+
             }
         }
     } catch (error) {
@@ -333,12 +326,10 @@ function closeCommentsOnly() {
     }
 }
 
-// Função para carregar comentários no modal usando getComments
+// Função para carregar comentários no modal usando getRootComments
 async function loadCommentsOnly(postId) {
     try {
-        console.log('Carregando comentários para modal, post:', postId);
-        const result = await getComments(postId, 1);
-        console.log('Resultado getComments modal:', result);
+        const result = await getRootComments(postId, 1);
         
         if (result && result.status === "success") {
             const commentsContainer = document.querySelector('#commentsOnlyContainer');
@@ -346,13 +337,11 @@ async function loadCommentsOnly(postId) {
                 commentsContainer.innerHTML = '';
                 
                 if (result.data && result.data.length > 0) {
-                    console.log('Comentários encontrados no modal:', result.data.length);
                     result.data.forEach(comment => {
                         const commentElement = createCommentElement(comment);
                         commentsContainer.appendChild(commentElement);
                     });
                 } else {
-                    console.log('Nenhum comentário encontrado no modal');
                     commentsContainer.innerHTML = '<p class="text-muted">Nenhum comentário ainda.</p>';
                 }
             } else {
@@ -366,12 +355,10 @@ async function loadCommentsOnly(postId) {
     }
 }
 
-// Função para carregar comentários do post focus usando getComments
+// Função para carregar comentários do post focus usando getRootComments
 async function loadCommentsForPost(postId) {
     try {
-        console.log('Carregando comentários para post:', postId);
-        const result = await getComments(postId, 1);
-        console.log('Resultado getComments:', result);
+        const result = await getRootComments(postId, 1);
         
         if (result && result.status === "success") {
             const commentsContainer = document.querySelector('.post-focus .comment .comment-list');
@@ -379,13 +366,11 @@ async function loadCommentsForPost(postId) {
                 commentsContainer.innerHTML = '';
                 
                 if (result.data && result.data.length > 0) {
-                    console.log('Comentários encontrados:', result.data.length);
                     result.data.forEach(comment => {
                         const commentElement = createCommentElement(comment);
                         commentsContainer.appendChild(commentElement);
                     });
                 } else {
-                    console.log('Nenhum comentário encontrado');
                     commentsContainer.innerHTML = '<p class="text-muted">Nenhum comentário ainda.</p>';
                 }
             } else {
@@ -395,7 +380,7 @@ async function loadCommentsForPost(postId) {
             console.error('Erro no resultado:', result);
         }
     } catch (error) {
-        console.error('Erro ao carregar comentários:', error);
+        console.error('Erro ao carregar comentários:', result);
     }
 }
 

@@ -10,11 +10,11 @@ require_once __DIR__ . "/../jwt.php";
 
     if ($tokenJWT) {
         $resultJWT = $jwt->validate_token($tokenJWT);
-        if ($resultJWT && $resultJWT["role"] == "student") {
+        if ($resultJWT && $resultJWT["role"] == "estudante") {
             return;
         }
         $res->set_status('error');
-        $res->set_error_message("Logg in with Student account");
+        $res->set_error_message("Logg in with Estudante account");
         $res->response();
         exit;
     }
@@ -25,7 +25,7 @@ require_once __DIR__ . "/../jwt.php";
         exit;
     }
     $res->set_status('error');
-    $res->set_error_message("Logg in with Student account");
+    $res->set_error_message("Logg in with Estudante account");
     $res->response();
     exit;
 })($res);

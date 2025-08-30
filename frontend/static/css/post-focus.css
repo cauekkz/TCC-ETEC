@@ -18,6 +18,23 @@ html {
     align-items: center;
     z-index: 1000;
 }
+.post-focus::-webkit-scrollbar {
+    width: 5px;
+
+}
+
+.post-focus::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.post-focus::-webkit-scrollbar-thumb {
+    background-color: rgb(135, 135, 135);
+    border-radius: 1px;
+}
+
+.post-focus::-webkit-scrollbar-button {
+    display: none;
+}
 
 .post-focus {
     background-color: white;
@@ -83,6 +100,7 @@ html {
   line-height: 1;
   padding: 0.35em 0.65em;
   border-radius: 0.375rem;
+  background: #2f32d3ff !important;
 }
 
 .bg-dark {
@@ -166,7 +184,6 @@ hr {
 .comment-list {
     max-height: 280px;
     min-height: 80px;
-    overflow-y: auto;
     margin-bottom: 0;
     padding-right: 8px;
     flex: 1;
@@ -263,11 +280,12 @@ hr {
 }
 
 .write-comment .input-group input {
-  width: 100%;
+  width: 90%;
   padding: 12px 16px;
   border: 1px solid #e9ecef;
   border-radius: 8px;
   font-size: 14px;
+  display: flex;
   transition: all 0.2s ease;
 }
 
@@ -278,8 +296,8 @@ hr {
 }
 
 .btn-outline-secondary {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #D32F2F;
+  border-color: #ff0000;
   color: white;
   transition: all 0.2s ease;
   border-radius: 8px;
@@ -287,8 +305,8 @@ hr {
 }
 
 .btn-outline-secondary:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
+  background-color: #D32F2F;
+  border-color: #b30000;
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }

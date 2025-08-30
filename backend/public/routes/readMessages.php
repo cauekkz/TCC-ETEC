@@ -7,7 +7,7 @@ $data = json_decode(file_get_contents("php://input"), true);
 
 if (!isset($data['ids']) || !is_array($data['ids'])) {
     http_response_code(400);
-    echo json_encode(['error' => 'Parâmetro "ids" ausente ou inválido.']);
+    echo json_encode(['error' => 'erro ao ler mensagens']);
     exit;
 }
 
@@ -25,7 +25,7 @@ $params = ["user_id" => $user_id,"ids"=>$idsList];
 $response = $db->execute_non_query($sql, $params);
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message("erro ao ler mensagens");
     $res->response();
     exit;
 }

@@ -11,7 +11,7 @@ $errors = validate($data);
 
 if (!empty($errors)) {
     $res->set_status("error");
-    $res->set_error_message("Invalid Form");
+    $res->set_error_message("erro ao criar conta");
     $res->set_response_data($errors);
     $res->response();
     exit;
@@ -20,7 +20,7 @@ if (!empty($errors)) {
 $email = $data['email'];
 $name = $data['name'];
 $registration = $data['registration'];
-$role = (strlen($registration) == 6)? "teacher": "student";
+$role = (strlen($registration) == 6)? "professor": "estudante";
 $birthday =  $data['birthday'];
 $password_hash = password_hash($data['password'], PASSWORD_DEFAULT);
 
@@ -30,7 +30,7 @@ $response = $db->execute_non_query($sql, $params);
 
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message("erro ao criar conta");
     $res->response();
     exit;
 }

@@ -16,7 +16,7 @@ $user_query_id = isset($_GET["user_id"])
     : null;
 if ($user_query_id === null) {
     $res->set_status("error");
-    $res->set_error_message("Invalid Form");
+    $res->set_error_message("erro ao pegar posts");
     $res->response();
     exit;
 }
@@ -52,7 +52,7 @@ $response = $db->execute_query($sql, $params);
 $data = [];
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message("erro ao pegar posts");
     $res->response();
     exit;
 }
@@ -89,7 +89,7 @@ $response = $db->execute_query($sql, $params);
 
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message("erro ao pegar posts");
     $res->response();
     exit;
 }

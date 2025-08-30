@@ -1,41 +1,61 @@
-async function getComments(postId, page = 1) {
-    console.log('=== getComments INICIADO ===');
-    console.log('postId:', postId, 'page:', page);
-    
+async function getRootComments(postId, page = 1) {
     const token = localStorage.getItem("jwt_token");
-    console.log('Token encontrado:', !!token);
+    
     if (token) {
-        console.log('Token (primeiros 20 chars):', token.substring(0, 20) + '...');
-    }
-
-    try {
-        const url = `/api/getComments?id_post=${postId}`;
-        console.log('Fazendo requisição para:', url);
-        
-        const response = await fetch(url, {
-            method: "GET",
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'X-Page': page,
-                'X-Limit': 20
+        try {
+            const url = `/api/getPostRootComments?id_post=${postId}`;
+            
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'X-Page': page,
+                    'X-Limit': 20
+                }
+            });
+            
+            if (!response.ok) {
+                console.error('Response não ok:', response.status, response.statusText);
+                throw new Error("Erro ao buscar comentários");
             }
-        });
-        
-        console.log('Response recebida:', response.status, response.statusText);
-        
-        if (!response.ok) {
-            console.error('Response não ok:', response.status, response.statusText);
-            throw new Error("Erro ao buscar comentários");
-        }
 
-        const data = await response.json();
-        console.log('Response data:', data);
-        console.log('=== getComments FINALIZADO ===');
-        return data;
-    } catch (error) {
-        console.error('Erro em getComments:', error);
-        console.log('=== getComments COM ERRO ===');
-        throw error;
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Erro em getRootComments:', error);
+            throw error;
+        }
+    }
+}
+
+// Função para buscar comentários root de um post específico
+async function getComments(postId, page = 1) {
+    const token = localStorage.getItem("jwt_token");
+    
+    if (token) {
+        try {
+            const url = `/api/getComments?id_post=${postId}`;
+            
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'X-Page': page,
+                    'X-Limit': 20
+                }
+            });
+            
+            if (!response.ok) {
+                console.error('Response não ok:', response.status, response.statusText);
+                throw new Error("Erro ao buscar comentários");
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Erro em getComments:', error);
+            throw error;
+        }
     }
 }
 

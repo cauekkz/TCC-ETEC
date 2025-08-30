@@ -8,7 +8,7 @@ if (isset($_GET['server_id'])) {
     $server_id = $_GET['server_id'];
 } else {
     $res->set_status('error');
-    $res->set_error_message("Server ID");
+    $res->set_error_message("erro ao pegar posts");
     $res->response();
     exit;
 }
@@ -65,7 +65,7 @@ $params = ['server_id' => $server_id,"user_id"=>$user_id];
 $response = $db->execute_query($sql, $params);
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message("erro ao pegar posts");
     $res->response();
     exit;
 }

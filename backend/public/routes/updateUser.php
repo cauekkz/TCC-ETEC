@@ -13,7 +13,7 @@ $errors = validate($_POST);
 $has_address = ($_POST["has_address"] === "true") ? true : false;
 if (!empty($errors)) {
     $res->set_status("error");
-    $res->set_error_message("Invalid Form");
+    $res->set_error_message("erro ao atualizar perfil");
     $res->set_response_data($errors);
     $res->response();
     exit;
@@ -22,7 +22,7 @@ if ($has_address) {
     $errors = addressValidate($_POST);
     if (!empty($errors)) {
         $res->set_status("error");
-        $res->set_error_message("Invalid Form");
+        $res->set_error_message("endereço invalido");
         $res->set_response_data($errors);
         $res->response();
         exit;
@@ -78,7 +78,7 @@ if (isset($_FILES['profilePic']) && $_FILES['profilePic']['error'] == 0) {
 $response = $db->execute_non_query($sql, $params);
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message("erro ao atualizar perfil");
     $res->response();
     exit;
 }

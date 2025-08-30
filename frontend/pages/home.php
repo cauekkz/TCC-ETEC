@@ -34,30 +34,6 @@
 <div class="container-fluid container-style">
     <div class="col d-flex">
         <div class="tab d-flex flex-column px-3">
-            <!-- <div class="row row-arrows d-flex pt-3">
-                <img src="frontend/static/img/logo.png" alt="logo eteconnect" class="img-logo img-fluid">
-
-
-                <div class="col text-end">
-                    <!-- To left  <-
-                    <div class="col" id="left-arrow">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-                        </svg>
-                    </div>
-
-
-                    <!-- To right ->
-                    <div class="col d-none" id="right-arrow">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
-                        </svg>
-                    </div>
-                </div>
-
-
-            </div> -->
-
 
             <div class="row mt-4 row-profile">
                 <div class="col">
@@ -66,8 +42,7 @@
                             <div src="" alt=" " class="img-fluid img-profile" id="profile-pic-user"></div>
                         </div>
                         <div class="row flex-column">
-                            <p class="name-text mt-2"> <strong>Maria silva</strong> <span class="badge bg-dark">Aluno</span></p>
-                            <p class="sub-text">Desenvolvimento de sistemas</p>
+                            <p class="name-text mt-2"> <strong></strong> <span class="badge bg-dark"></span></p>
                         </div>
                     </div>
                 </div>
@@ -172,47 +147,6 @@
                     <!-- Os posts serão carregados dinamicamente aqui -->
                 </div>
 
-
-                <div class="card-post p-3 mb-3">
-                    <div class="d-flex align-items-center mb-2">
-                        <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
-                        <div>
-                            <p class="name-text mb-0"><strong>Prof. Carlos Mendes</strong></p>
-                            <span class="badge bg-dark">Professor - Informática</span>
-                            <p class="sub-text mb-0">ETEC Centro-Oeste</p>
-                        </div>
-                    </div>
-
-
-                    <p id="textPost" class="mb-2">
-                        Lembrete importante: As inscrições para o projeto de extensão em Python
-                        estão abertas até sexta-feira! Não percam essa
-                        oportunidade de aprender mais sobre programação. 🐍💻
-                    </p>
-                    <hr>
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="like-post d-flex align-items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-heart me-1" viewBox="0 0 16 16">
-                                <path
-                                    d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
-                            </svg>
-                            <span id="qntLikes">0</span>
-                        </div>
-
-
-                        <div class="comments d-flex align-items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-chat me-1" viewBox="0 0 16 16">
-                                <path
-                                    d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
-                            </svg>
-                            <span id="qntComments">0</span>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
         </div>
     </div>
@@ -225,19 +159,19 @@
         <div class="post-focus">
             <button class="close-post-focus" onclick="closePostFocus()">&times;</button>
             <div class="d-flex align-items-center mb-2">
-                <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
+                <div alt="perfil" class="img-profile-post me-2" id="profile-photo-post-focus">
+
+                </div>
                 <div>
-                    <p class="name-text mb-0"><strong>Prof. Carlos Mendes</strong></p>
-                    <span class="badge bg-dark">Professor - Informática</span>
-                    <p class="sub-text mb-0">ETEC Centro-Oeste</p>
+                    <p class="name-text mb-0"><strong></strong></p>
+                    <span class="badge "></span>
+                    <p class="sub-text mb-0"></p>
                 </div>
             </div>
             <p id="textPost" class="mb-2">
-                Acabei de apresentar meu TCC sobre automação industrial! Muito feliz com o resultado.
-                Obrigada aos professores pelo apoio e aos colegas pelas dicas 🎓✨
-                <span class="text-primary">#ETEC #TCC #AutomacaoIndustrial</span>
+                <span class="text-primary"></span>
             </p>
-            
+
             <!-- Container para mídia do post -->
             <div id="postFocusMedia" class="post-focus-media mt-3 d-none">
                 <div class="d-flex flex-wrap gap-2" id="postFocusMediaContainer"></div>
@@ -260,7 +194,6 @@
                         <path
                             d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
                     </svg>
-                    <span id="qntComments">1</span>
                 </div>
             </div>
 
@@ -318,10 +251,10 @@
             <p class="text-secondary" id="subTitleCreate">Compartilhe algo interessante com a comunidade da ETEConnect</p>
             <div class="align-items-center">
                 <div class="d-flex">
-                    <img src="frontend/static/img/profile1.png" alt="perfil" class="img-profile-post me-2" width="40" height="40">
+                    <div alt="perfil" class="img-profile-post me-2"></div>
                     <div class="flex-column">
-                        <p class="name-text mb-0 "><strong>Prof. Carlos Mendes</strong></p>
-                        <span class="badge bg-dark">Professor - Informática</span>
+                        <p class="name-text mb-0 "><strong></strong></p>
+                        <span class="badge">Professor</span>
                     </div>
                 </div>
             </div>
@@ -363,6 +296,10 @@
 
     <link rel="stylesheet" href="/frontend/static/css/posts.css">
     <link rel="stylesheet" href="/frontend/static/css/post-focus.css">
+    <link rel="stylesheet" href="/frontend/static/css/alerts.css">
+    <script src="/frontend/static/js/alerts.js"></script>
+
+
     <script src="/frontend/static/js/commentsFunctions.js"></script>
     <script src="/frontend/static/js/executeWithRefresh.js"></script>
     <script src="/frontend/static/js/likeFunctions.js"></script>
@@ -380,10 +317,9 @@
             const formCreatePost = document.querySelector("#formCreatePost");
             formCreatePost.addEventListener("submit", async (e) => {
                 e.preventDefault();
-                console.log("submit")
                 const postContent = textareaCreate.value.trim();
                 if (!postContent) {
-                    alert("Digite o conteúdo do post!");
+                    showWarning("Digite o conteúdo do post!");
                     return;
                 }
 
@@ -393,18 +329,18 @@
 
                     // Porra, o post vai pro server 2 por enquanto, beleza?
                     const result = await createPost(postContent, 1, selectedFiles);
-                    console.log(result)
                     if (result.status === "success") {
+                        showSuccess("Post criado com sucesso!");
                         containerCreate.classList.add("d-none");
                         resetForm();
 
                         loadPosts();
                     } else {
-                        alert("Erro ao criar post: " + (result.error_message || "Erro desconhecido"));
+                        showBackendError(result, "Erro ao criar post");
                     }
                 } catch (error) {
                     console.error("Erro ao criar post:", error);
-                    alert("Erro ao criar post. Tente novamente.");
+                    showBackendError(error, "Erro ao criar post. Tente novamente.");
                 } finally {
                     btnPublish.disabled = false;
                     btnPublish.textContent = "Publicar";
@@ -419,14 +355,13 @@
             const addressInfo = userData?.data?.address ?? null
             const campusInfo = userData?.data?.campus ?? null
             if (userInfo !== null) {
+
                 const userRole = userInfo.role
                 const username = userInfo.name
-                console.log("desgraça")
-                console.log(document.querySelector(".name-text.mt-2 strong"))
                 document.querySelector(".name-text.mt-2 strong").innerText = username
                 const roleSpan = document.querySelector(".name-text.mt-2 span")
                 roleSpan.innerText = userRole
-                const roleColor = (userRole == "student") ? "#D32F2F" : "#2f32d3ff"
+                const roleColor = (userRole == "estudante") ? "#D32F2F" : "#2f32d3ff"
                 roleSpan.style.setProperty('background-color', roleColor, 'important');
 
 
@@ -450,10 +385,37 @@
                 userPhoto.style.backgroundPosition = "center";
                 userPhoto.style.backgroundSize = "cover";
 
+                const addDivForm = document.querySelector(".container-create")
+
+                addDivForm.querySelector(".name-text>strong").innerText = `${username}`
+                const profileAddPost = addDivForm.querySelector(".img-profile-post")
+
+                profileAddPost.style.backgroundImage = profilePath ?
+                    `url("${profilePath}")` :
+                    "none";
+
+                profileAddPost.style.backgroundColor = profilePath ?
+                    "transparent" :
+                    roleColor;
+
+                profileAddPost.innerText = profilePath ?
+                    "" :
+                    getProfileLetter(username);
+
+
+                profileAddPost.style.justifyContent = "center";
+                profileAddPost.style.backgroundRepeat = "no-repeat";
+                profileAddPost.style.backgroundPosition = "center";
+                profileAddPost.style.backgroundSize = "cover";
 
 
             }
-            console.log(userData)
 
-        });
+            document.querySelector(".row-profile").addEventListener("click", () => {
+                window.location.href = "/profile?profile=mine"
+            });
+
+
+
+        })
     </script>

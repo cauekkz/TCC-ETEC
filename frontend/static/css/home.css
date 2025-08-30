@@ -10,6 +10,7 @@ html {
   height: 87.6vh !important;
   display: flex;
   padding-left: 0 !important;
+  background-color: #FAF9F6;
   margin-left: 0 !important;
 }
 
@@ -35,7 +36,12 @@ header {
   border-radius: 0.4rem;
   transition: 0.5s ease;
 }
-
+.img-profile-post{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
 
 .tab {
   background-color: #fff !important;

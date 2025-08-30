@@ -21,7 +21,7 @@ $user_id = $resultJWT['id'];
 // Verificar se o ID do post foi fornecido
 if (!isset($_GET['post_id'])) {
     $res->set_status('error');
-    $res->set_error_message('ID do post não fornecido');
+    $res->set_error_message('Post não encontrado');
     $res->response();
     exit;
 }
@@ -30,6 +30,7 @@ $postId = $_GET['post_id'];
 
 try {
     // Query para buscar o post específico com todas as informações
+    
     $sql = "SELECT 
         p.id, 
         p.id_author, 
@@ -65,7 +66,7 @@ try {
     
     if ($response->status != 'success') {
         $res->set_status('error');
-        $res->set_error_message($response->mensagem);
+        $res->set_error_message("erro ao pegar post");
         $res->response();
         exit;
     }
@@ -141,7 +142,7 @@ try {
 
 } catch (PDOException $e) {
     $res->set_status('error');
-    $res->set_error_message('Erro interno do servidor: ' . $e->getMessage());
+    $res->set_error_message('erro ao pegar post');
     $res->response();
     exit;
 }

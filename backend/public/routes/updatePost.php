@@ -9,7 +9,7 @@ if (empty($data['content']) || strlen(trim($data['content'])) < 5 || empty($data
     $errors[] = 'O conteúdo precisa ter pelo menos 5 caracteres';
 
     $res->set_status("error");
-    $res->set_error_message("Invalid Form");
+    $res->set_error_message("erro ao atualizar post");
     $res->set_response_data($errors);
     $res->response();
     exit;

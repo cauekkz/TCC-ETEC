@@ -35,24 +35,16 @@ async function renderHomePosts() {
         const result = await executeWithRefresh(loadHomePosts, 1); // Sempre página 1 por enquanto
 
         if (result && result.status === "success") {
-            console.log("Posts carregados com sucesso:", result.data);
-
             // Renderizar posts usando addPostBox
             const postsContainer = document.querySelector(".posts");
-            console.log("Container de posts encontrado:", postsContainer);
 
             if (postsContainer && result.data) {
-                console.log("Número de posts:", result.data.length);
-
                 // Limpar posts existentes
                 postsContainer.innerHTML = "";
                 // Adicionar novos posts
                 result.data.forEach((postInfo) => {
-                    console.log("postInfo")
                     const postElement = addPostBox(postInfo);
                     postsContainer.appendChild(postElement);
-                    console.log("belzebuu");
-                    console.log(typeof addPostClickEvent)
                     // Adicionar evento de clique para abrir post focus
                     addPostClickEvent(postElement, postInfo);
 
@@ -61,7 +53,7 @@ async function renderHomePosts() {
                 // Adicionar funcionalidade de like aos posts carregados
                 addLikeFunctionalityToPosts();
             } else {
-                console.log("Container não encontrado ou sem resultados");
+                console.warn("Container não encontrado ou sem resultados");
             }
         } else {
             console.error("Erro ao carregar posts:", result);

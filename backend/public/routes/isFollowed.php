@@ -7,7 +7,7 @@ $data = $_GET;
 if (empty($data['is_followed']) || !is_numeric($data["is_followed"])) {
     $errors[] = 'invalid ID followed';
     $res->set_status("error");
-    $res->set_error_message("Invalid Form");
+    $res->set_error_message("erro ao verificar se segue");
     $res->set_response_data($errors);
     $res->response();
     exit;
@@ -26,7 +26,7 @@ $response = $db->execute_query($sql, $params);
 
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message("já segue");
+    $res->set_error_message("erro ao verificar se segue");
     $res->response();
     exit;
 }

@@ -6,7 +6,7 @@ check_request_method($_SERVER['REQUEST_METHOD'], "GET");
 
 if (!isset($_GET['comment_root_id'])) {
     $res->set_status('error');
-    $res->set_error_message("comment_root_id");
+    $res->set_error_message("erro ao pegar comentarios");
     $res->response();
     exit;
 }
@@ -54,7 +54,7 @@ $response = $db->execute_query($sql, $params);
 
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message("erro ao pegar comentarios");
     $res->response();
     exit;
 }

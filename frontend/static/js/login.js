@@ -4,17 +4,25 @@ async function login(email, password) {
         password: password,
     }
 
-    const response = await fetch("/api/login", {
-        method: 'POST',
-        body: JSON.stringify(body)
-    })
+    try {
+        const response = await fetch("/api/login", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
 
-    if (!response.ok) {
-        //500
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw errorData;
+        }
+        
+        const data = await response.json()
+        return data
+    } catch (error) {
+        throw error;
     }
-    const data = await response.json()
-    return data
-
 }
 
 function setCookie(name, value, minutes) {

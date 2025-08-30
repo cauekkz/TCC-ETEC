@@ -35,6 +35,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    cursor: pointer;
 }
 
 .post-info-div {
@@ -97,7 +98,13 @@
 .post-like-icon:hover {
     color: #D32F2F;
 }
-
+.post-comments-icon{
+    cursor: pointer;
+    transition: color ease 0.5s;
+}
+.post-comments-icon:hover{
+    color: #D32F2F;
+}
 /* Modal de opções do post */
 #post-modal {
     position: absolute;
@@ -281,3 +288,41 @@ li:hover #icon-delete {
 .close-video-modal:hover {
     color: #bbb;
 }
+/* Super large devices (desktops, 1600px and up) */
+@media (max-width: 1600px) {
+  /* Estilos para dispositivos super grandes */
+  
+}
+
+/* Extra large devices (desktops, 1401px to 1600px) */
+@media (max-width: 1400px) {
+ 
+}
+
+/* Large devices (desktops, 1201px to 1400px) */
+@media (max-width: 1200px) {
+  /* Estilos para dispositivos maiores */
+ 
+}
+
+/* Medium devices (desktops, 1025px to 1200px) */
+@media (max-width: 1024px) {
+  /* Estilos para dispositivos médios */
+  
+}
+
+/* Small devices (tablets, 601px to 1024px) */
+@media (max-width: 768px) {
+  /* Estilos para dispositivos com tela pequena */
+ 
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media (max-width: 600px) {
+  /* Estilos para dispositivos pequenos */
+ 
+  .post-role,.satan,.post-etec{
+    display: none !important;
+  }
+}
+

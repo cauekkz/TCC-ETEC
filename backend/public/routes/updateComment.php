@@ -9,7 +9,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 $errors = validate($data);
 if (!empty($errors)) {
     $res->set_status("error");
-    $res->set_error_message("Invalid Form");
+    $res->set_error_message("erro ao atualizar comentario");
     $res->set_response_data($errors);
     $res->response();
     exit;
@@ -54,7 +54,7 @@ $response = $db->execute_non_query($sql, $params);
 
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message("erro ao atualizar comentario");
     $res->response();
     exit;
 }

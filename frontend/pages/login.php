@@ -29,22 +29,38 @@
         <p id="signup">Não tem conta? <a href="/signup" class="text-danger" id="linkSignup">Cadastre-se</a></p>
     </div>
 </div>
+<link rel="stylesheet" href="/frontend/static/css/alerts.css">
 
-<script src="frontend/static/js/login.js">
-</script>
+<script src="frontend/static/js/alerts.js"></script>
+<script src="frontend/static/js/alerts.js"></script>
+<script src="frontend/static/js/login.js"></script>
 <script>
     const form = document.getElementById('loginForm')
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
-        const data = await login(form.email.value,form.password.value)
-        console.log(data);
-        if(data.status !== "success"){
-            return;
+        
+        try {
+            const data = await login(form.email.value, form.password.value)
+            
+            if (data.status !== "success") {
+                // Mostrar erro do backend
+                showBackendError(data, 'Erro ao fazer login');
+                return;
+            }
+            
+            // Mostrar sucesso
+            showSuccess('Login realizado com sucesso!');
+            
+            localStorage.setItem('jwt_token', data.data);
+            setCookie("logged", "1", 1440 * 7);
+            
+            // Redirecionar após um pequeno delay para mostrar o sucesso
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 1000);
+            
+        } catch (error) {
+            showBackendError(error, 'Erro ao conectar com o servidor');
         }
-        localStorage.setItem('jwt_token', data.data);
-
-        setCookie("logged", "1", 1440 * 7);
-        window.location.href="/"
-
     })
 </script>

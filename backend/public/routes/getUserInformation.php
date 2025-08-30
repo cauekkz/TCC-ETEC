@@ -39,9 +39,9 @@ $params = ['user_id' => $user_query_id];
 $response = $db->execute_query($sql, $params);
 
 
-if ($response->status != 'success') {
+if ($response->status != 'success' || empty($response->results)) {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message("erro ao pegar informações");
     $res->response();
     exit;
 }
@@ -75,7 +75,7 @@ $response = $db->execute_query($sql, $params);
 
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message("erro ao pegar cursos");
     $res->response();
     exit;
 }
@@ -93,7 +93,7 @@ $response = $db->execute_query($sql, $params);
 
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message("erro ao pegar campus");
     $res->response();
     exit;
 }
@@ -107,7 +107,7 @@ $params = ['user_id' => $user_query_id];
 $response = $db->execute_query($sql, $params);
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message("erro ao pegar seguidores");
     $res->response();
     exit;
 }
@@ -120,7 +120,7 @@ $params = ['user_id' => $user_query_id];
 $response = $db->execute_query($sql, $params);
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message("erro ao pegar seguindo");
     $res->response();
     exit;
 }

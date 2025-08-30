@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../_inc/filters/isLogged.php';
 $data = json_decode(file_get_contents('php://input'), true);
 if (empty($data["followed_id"])) {
     $res->set_status("error");
-    $res->set_error_message("Invalid Form");
+    $res->set_error_message("erro ao desseguir");
     $res->response();
     exit;
 }
@@ -23,7 +23,7 @@ $response = $db->execute_non_query($sql, $params);
 
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message("maksa");
+    $res->set_error_message("erro ao desseguir");
     $res->response();
     exit;
 }

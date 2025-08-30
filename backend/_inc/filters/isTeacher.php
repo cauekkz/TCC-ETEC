@@ -10,11 +10,11 @@ require_once __DIR__ . "/../jwt.php";
 
     if ($tokenJWT) {
         $resultJWT = $jwt->validate_token($tokenJWT);
-        if ($resultJWT && $resultJWT["role"] == "teacher") {
+        if ($resultJWT && $resultJWT["role"] == "professor") {
             return;
         }
         $res->set_status('error');
-        $res->set_error_message("Logg in with Teacher account");
+        $res->set_error_message("Logg in with Professor account");
         $res->response();
         exit;
     }

@@ -117,15 +117,11 @@ async function checkUserRole() {
             userInfo = result.data.user;
             userRole = userInfo.role;
 
-            console.log("Role do usuário:", userRole); // Debug
-
             // Mostrar/ocultar botão de criar post baseado no role
-            if (userRole === "teacher") {
+            if (userRole === "professor") {
                 btnCreate.style.display = "block";
-                console.log("Botão de criar post mostrado para professor");
             } else {
                 btnCreate.style.display = "none";
-                console.log("Botão de criar post ocultado para não-professor");
             }
         } else {
             console.error("Erro ao obter informações do usuário:", result);
@@ -165,12 +161,10 @@ function addLikeFunctionalityToPosts() {
                     const data = await executeWithRefresh(addLike, 'post', postId);
                     changeFrontLike(post, true);
                     post.dataset.user_liked = 1;
-                    console.log('Like adicionado:', data);
                 } else {
                     const data = await executeWithRefresh(deleteLike, 'post', postId);
                     changeFrontLike(post, false);
                     post.dataset.user_liked = 0;
-                    console.log('Like removido:', data);
                 }
             });
         }

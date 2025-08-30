@@ -35,9 +35,9 @@ if (count($campusArray) <= 0) {
 }
 
 // Estudantes só podem ter 1 campus, professores podem ter múltiplos
-if ($user_role === "student" && count($campusArray) !== 1) {
+if ($user_role === "estudante" && count($campusArray) !== 1) {
     $res->set_status("error");
-    $res->set_error_message("Students can only have one campus");
+    $res->set_error_message("Estudantes can only have one campus");
     $res->response();
     exit;
 }
@@ -72,7 +72,7 @@ $validIds = array_map(fn($item) => $item->id, $response->results);
 
 
 
-if ($user_role == "student") {
+if ($user_role == "estudante") {
     $campus_id = $validIds[0];
     $sql = "DELETE FROM user_campus WHERE user_id = :user_id";
     $params = ['user_id' => $user_id];
@@ -106,7 +106,7 @@ if ($response->status != 'success') {
     $res->response();
     exit;
 }
-if ($user_role == "student") {
+if ($user_role == "estudante") {
     $sql = "DELETE FROM user_course WHERE user_id = :user_id";
     $params = ['user_id' => $user_id];
     $response = $db->execute_non_query($sql, $params);

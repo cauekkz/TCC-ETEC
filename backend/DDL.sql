@@ -27,9 +27,9 @@ CREATE TABLE user (
   phone varchar(50),
   email VARCHAR(100) UNIQUE NOT NULL,
   address VARCHAR(200) NULL,
-  registration VARCHAR(50) NOT NULL,
+  registration VARCHAR(11) NOT NULL,
   birthday DATE NOT NULL,
-  role ENUM('student', 'teacher') NOT NULL,
+  role ENUM('estudante', 'professor') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   password_hash VARCHAR(255) NOT NULL
 );

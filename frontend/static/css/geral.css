@@ -8,3 +8,6 @@
 body{
     overflow-x: hidden;
 }
+
+/* Importar sistema de alertas */
+@import url('alerts.css');

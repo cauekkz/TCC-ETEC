@@ -3,11 +3,10 @@ eteconnect
 
 ---
 
-**caue**: arrumar form de upload pra se for teacher ou student, mudar perfil pra poder ver o dos outros tbm . nice
+**caue**: arrumar posição do btn change theme e terminar de mudar o css do tema escuro
 
-**messi**: paginação dos post, conectar home com user, comentários, posts, add post, add comentario, curtida e outras paginas
-p paginação usar isso:
-
+**messi**: 
+Paginzação no header. lixo
 $page =isset($_SERVER['HTTP_X_PAGE']) ? (int)$_SERVER['HTTP_X_PAGE']: 1;
 $limit =isset($_SERVER['HTTP_X_LIMIT']) ? (int)$_SERVER['HTTP_X_LIMIT'] : 10;
 

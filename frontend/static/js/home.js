@@ -103,12 +103,22 @@ async function checkUserRole() {
 
         if (result.status === "success") {
             userInfo = result.data.user;
-            userRole = userInfo.role;
+            const userRole = userInfo?.role ?? null
+            const campusInfo = result?.data?.campus ?? null
 
-            // Mostrar/ocultar botão de criar post baseado no role
             if (userRole === "professor") {
-                btnCreate.style.display = "block";
+                const serverID = parseInt(localStorage.getItem("selectedServer"))
+
+                if (serverID == 1 || campusInfo.some(info => info.id == serverID - 1)) {
+                    btnCreate.style.display = "block";
+
+                } else {
+                    btnCreate.style.display = "none";
+                }
+
+
             } else {
+                console.log("Usuário não é professor");
                 btnCreate.style.display = "none";
             }
         } else {
@@ -128,17 +138,17 @@ checkUserRole();
 // Função para adicionar funcionalidade de like aos posts
 function addLikeFunctionalityToPosts() {
     const posts = document.querySelectorAll('.post');
-    
+
     posts.forEach(post => {
         const likeBtn = post.querySelector('.post-like-icon');
         if (likeBtn) {
             // Remover event listeners antigos para evitar duplicação
             const newLikeBtn = likeBtn.cloneNode(true);
             likeBtn.parentNode.replaceChild(newLikeBtn, likeBtn);
-            
+
             newLikeBtn.addEventListener('click', async () => {
                 const postId = post.dataset.postId;
-                
+
                 if (post.dataset.user_liked == 0) {
                     const data = await executeWithRefresh(addLike, 'post', postId);
                     changeFrontLike(post, true);

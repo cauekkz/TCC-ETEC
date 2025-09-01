@@ -388,8 +388,6 @@ if (is_numeric($server_id)) {
 
 
             const userInfo = userData?.user ?? null
-            const addressInfo = userData?.address ?? null
-            const campusInfo = userData?.campus ?? null
             if (userInfo !== null) {
 
                 const userRole = userInfo.role
@@ -444,6 +442,7 @@ if (is_numeric($server_id)) {
                 profileAddPost.style.backgroundRepeat = "no-repeat";
                 profileAddPost.style.backgroundPosition = "center";
                 profileAddPost.style.backgroundSize = "cover";
+
 
 
             }

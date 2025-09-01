@@ -10,7 +10,7 @@ CREATE TABLE campus_address (
 CREATE TABLE course (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
-  link VARCHAR(255) NOT NULL
+  --link VARCHAR(255) NOT NULL
 );
 CREATE TABLE campus (
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -37,16 +37,16 @@ CREATE TABLE user_course(
   id INT PRIMARY KEY AUTO_INCREMENT,
   user_id int,
   course_id int,
-  Foreign Key (course_id) REFERENCES course(id),
-  FOREIGN KEY (user_id) REFERENCES user(id),
+  Foreign Key (course_id) REFERENCES course(id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
   UNIQUE KEY unique_user_course (user_id, course_id)
 );
 CREATE TABLE user_campus(
   id INT PRIMARY KEY AUTO_INCREMENT,
   user_id int,
   campus_id int,
-  Foreign Key (campus_id) REFERENCES campus(id),
-  FOREIGN KEY (user_id) REFERENCES user(id),
+  Foreign Key (campus_id) REFERENCES campus(id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
   UNIQUE KEY unique_user_campus (user_id, campus_id)
 );
 CREATE TABLE refresh_tokens (
@@ -60,8 +60,11 @@ CREATE TABLE refresh_tokens (
 CREATE TABLE server (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(70) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  campus_id INT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (campus_id) REFERENCES campus(id) ON DELETE SET NULL
 );
+
 CREATE TABLE campus_course (
   id INT PRIMARY KEY AUTO_INCREMENT,
   campus_id INT NOT NULL,
@@ -93,7 +96,6 @@ CREATE TABLE comment (
   id_author INT,
   id_parent_comment INT DEFAULT NULL,
   content TEXT,
-  likes INT DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (id_post) REFERENCES post(id) on delete CASCADE,
   FOREIGN KEY (id_author) REFERENCES user(id) on delete
@@ -121,8 +123,8 @@ CREATE TABLE follower (
   follower_id INT NOT NULL,
   followed_id INT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (follower_id) REFERENCES user(id),
-  FOREIGN KEY (followed_id) REFERENCES user(id),
+  FOREIGN KEY (follower_id) REFERENCES user(id) ON DELETE CASCADE,
+  FOREIGN KEY (followed_id) REFERENCES user(id) ON DELETE CASCADE,
   UNIQUE KEY unique_follow (follower_id, followed_id),
   CHECK (follower_id != followed_id)
 
@@ -134,4 +136,21 @@ CREATE TABLE post_media (
   media_type ENUM('image', 'video') NOT NULL,
   media_order INT DEFAULT 0,
   FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE
+);
+CREATE TABLE events (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,        
+    description TEXT,
+    date DATE NOT NULL,                  
+    time TIME NOT NULL,                   
+    location VARCHAR(255) NOT NULL,       
+    capacity INT                   
+);
+CREATE TABLE event_participants (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    event_id INT NOT NULL,
+    user_id INT NOT NULL,
+    registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(event_id, user_id), 
+    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );

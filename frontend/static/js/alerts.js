@@ -49,6 +49,7 @@ class AlertManager {
      * @param {number} duration - Duração em milissegundos
      */
     error(message, duration = 4000) {
+        console.log(message)
         return this.show(message, 'error', duration);
     }
 
@@ -148,7 +149,7 @@ class AlertManager {
      */
     escapeHtml(text) {
         const div = document.createElement('div');
-        div.textContent = text;
+        div.textContent = String(text);
         return div.innerHTML;
     }
 
@@ -169,6 +170,8 @@ class AlertManager {
                 message = error.error_message;
             }
         }
+        console.log("louco")
+        console.log(error)
         return this.error(message);
     }
 

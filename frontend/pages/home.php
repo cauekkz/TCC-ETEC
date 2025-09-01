@@ -1,3 +1,24 @@
+<?php
+
+$server_id = (isset($_GET['server'])) ? $_GET['server'] : null;
+if (is_numeric($server_id)) {
+    $safe_id = json_encode((int)$server_id);
+
+?>
+    <script>
+        localStorage.setItem("selectedServer", (<?php echo $safe_id; ?>));
+    </script>
+<?php
+}
+?>
+<script>
+    const serverId = localStorage.getItem("selectedServer") ?? null;
+
+    if (serverId === null) {
+        window.location.href = "/servers";
+    }
+</script>
+
 <header>
     <div class="container-fluid">
         <div class="row d-flex justify-content-between align-items-center">
@@ -42,28 +63,29 @@
                             <div src="" alt=" " class="img-fluid img-profile" id="profile-pic-user"></div>
                         </div>
                         <div class="row flex-column">
-                            <p class="name-text mt-2"> <strong></strong> <span class="badge bg-dark"></span></p>
+                            <p class="name-text mt-2">
+                                <strong></strong>
+                                <span class="badge bg-dark"></span>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
 
 
-            <div class="row mt-3">
-                <div class="col d-flex col-used p-2">
-                    <div class="d-flex align-items-center px-1  ">
-                        <div class="mt-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
-                                <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z" />
-                            </svg>
-                        </div>
-                        <p class="px-2 mb-0" id="home">Feed</p>
+            <a href="/" class="row mt-2 aside-a">
+                <div class="col d-flex col-used col-hover">
+                    <div class="svg-style">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+                            <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z" />
+                        </svg>
                     </div>
+                    <p class="px-2 mt-1">Feed</p>
                 </div>
-            </div>
+            </a>
 
 
-            <div class="row mt-2">
+            <a href="/groups" class="row mt-2 aside-a">
                 <div class="col d-flex col-hover">
                     <div class="svg-style">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
@@ -72,10 +94,10 @@
                     </div>
                     <p class="px-2 mt-1">Grupos</p>
                 </div>
-            </div>
+            </a>
 
 
-            <div class="row mt-2 logout">
+            <a href="/notices" class="row mt-2 aside-a">
                 <div class="col d-flex col-hover">
                     <div class="svg-style">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
@@ -84,10 +106,10 @@
                     </div>
                     <p class="px-2 mt-1">Avisos</p>
                 </div>
-            </div>
+            </a>
 
 
-            <div class="row mt-2">
+            <a href="/projects" class="row mt-2 aside-a">
                 <div class="col d-flex col-hover">
                     <div class="svg-style">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mortarboard" viewBox="0 0 16 16">
@@ -97,10 +119,10 @@
                     </div>
                     <p class="px-2 mt-1">Projetos TCC</p>
                 </div>
-            </div>
+            </a>
 
 
-            <div class="row mt-2">
+            <a href="/events" class="row mt-2 aside-a">
                 <div class="col d-flex col-hover">
                     <div class="svg-style">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date" viewBox="0 0 16 16">
@@ -110,10 +132,20 @@
                     </div>
                     <p class="px-2 mt-1">Eventos</p>
                 </div>
-            </div>
+            </a>
 
+            <a href="/servers" class="row mt-2 aside-a">
+                <div class="col d-flex col-hover" id="server-col">
+                    <div class="svg-style">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-server" viewBox="0 0 16 16">
+                            <path d="M1 5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5zm0 6a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-2zm2.5-5a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1zm0 6a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1z" />
+                        </svg>
+                    </div>
+                    <p class="px-2 mt-1">Servidores</p>
+                </div>
+            </a>
 
-            <div class="row">
+            <a href="/logout" class="row mt-2 aside-a" id="logout-button">
                 <div class="col d-flex col-hover">
                     <div class="svg-style">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
@@ -123,17 +155,12 @@
                     </div>
                     <p class="px-2 mt-1">Sair</p>
                 </div>
-            </div>
-
-
-
+            </a>
 
         </div>
         <div class="col-6 flex-grow-1 overflow-auto px-3 " style="min-height: 0;">
             <div class="feed mt-4 px-4">
-                <div class="card-profile-edit">
 
-                </div>
                 <div class="d-flex align-items-center div-feed">
                     <div class="px-4">
                         <p id="feedTitle" class="mb-0 h4"><strong>Feed da comunidade</strong></p>
@@ -150,7 +177,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 
 
@@ -235,8 +261,8 @@
                         <button class="btn btn-outline-secondary" type="button" id="btnSendCommentsOnly">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
                                 <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
-                            </svg>
                         </button>
+
                     </div>
                 </div>
             </form>
@@ -294,12 +320,13 @@
 
     </div>
 
+    <link rel="stylesheet" href="/frontend/static/css/header.css">
+    <link rel="stylesheet" href="/frontend/static/css/aside-sec.css">
     <link rel="stylesheet" href="/frontend/static/css/posts.css">
     <link rel="stylesheet" href="/frontend/static/css/post-focus.css">
     <link rel="stylesheet" href="/frontend/static/css/alerts.css">
+
     <script src="/frontend/static/js/alerts.js"></script>
-
-
     <script src="/frontend/static/js/commentsFunctions.js"></script>
     <script src="/frontend/static/js/executeWithRefresh.js"></script>
     <script src="/frontend/static/js/likeFunctions.js"></script>
@@ -308,8 +335,9 @@
     <script src="/frontend/static/js/addPostBox.js"></script>
     <script src="/frontend/static/js/home.js"></script>
     <script src="frontend/static/js/loaduserinformation.js"></script>
-    <script src="/frontend/static/js/loadHomePosts.js"></script>
-    <script src="/frontend/static/js/postFocusFunctions.js"></script>
+    <script src="frontend/static/js/loadHomePosts.js"></script>
+    <script src="frontend/static/js/postFocusFunctions.js"></script>
+    <script src="/frontend/static/js/aside-sec.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
@@ -323,37 +351,45 @@
                     return;
                 }
 
-                try {
-                    btnPublish.disabled = true;
-                    btnPublish.textContent = "Publicando...";
+                btnPublish.disabled = true;
+                btnPublish.textContent = "Publicando...";
+                const serverId = localStorage.getItem("selectedServer");
+                console.log("ai ai: " + serverId)
+                // Porra, o post vai pro server 1 por enquanto
+                const result = await executeWithRefresh(createPost, postContent, serverId, selectedFiles);
+                console.log(result)
+                if (result.status === "success") {
+                    showSuccess("Post criado com sucesso!");
+                    containerCreate.classList.add("d-none");
+                    resetForm();
 
-                    // Porra, o post vai pro server 2 por enquanto, beleza?
-                    const result = await createPost(postContent, 1, selectedFiles);
-                    if (result.status === "success") {
-                        showSuccess("Post criado com sucesso!");
-                        containerCreate.classList.add("d-none");
-                        resetForm();
-
-                        loadPosts();
-                    } else {
-                        showBackendError(result, "Erro ao criar post");
-                    }
-                } catch (error) {
-                    console.error("Erro ao criar post:", error);
-                    showBackendError(error, "Erro ao criar post. Tente novamente.");
-                } finally {
-                    btnPublish.disabled = false;
-                    btnPublish.textContent = "Publicar";
+                    renderHomePosts();
+                } else {
+                    showBackendError(result, "Erro ao criar post");
                 }
+                btnPublish.disabled = false;
+                btnPublish.textContent = "Publicar";
+
             });
 
 
-            const userData = await executeWithRefresh(loadUserInformation, "mine")
-            sessionStorage.setItem('userData', JSON.stringify(userData?.data));
+            let userData = null;
+            try {
+                userData = JSON.parse(sessionStorage.getItem('userData'));
+            } catch (e) {
+                userData = null;
+            }
+            if (userData === null) {
+                userData = await executeWithRefresh(loadUserInformation, "mine");
+                sessionStorage.setItem('userData', JSON.stringify(userData?.data));
+                userData = userData?.data ?? null
+            }
+            fillAsideProfile(userData);
 
-            const userInfo = userData?.data?.user ?? null
-            const addressInfo = userData?.data?.address ?? null
-            const campusInfo = userData?.data?.campus ?? null
+
+            const userInfo = userData?.user ?? null
+            const addressInfo = userData?.address ?? null
+            const campusInfo = userData?.campus ?? null
             if (userInfo !== null) {
 
                 const userRole = userInfo.role
@@ -388,6 +424,7 @@
                 const addDivForm = document.querySelector(".container-create")
 
                 addDivForm.querySelector(".name-text>strong").innerText = `${username}`
+                console.log(addDivForm)
                 const profileAddPost = addDivForm.querySelector(".img-profile-post")
 
                 profileAddPost.style.backgroundImage = profilePath ?
@@ -411,9 +448,6 @@
 
             }
 
-            document.querySelector(".row-profile").addEventListener("click", () => {
-                window.location.href = "/profile?profile=mine"
-            });
 
 
 

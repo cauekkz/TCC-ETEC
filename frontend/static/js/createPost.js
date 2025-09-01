@@ -1,42 +1,33 @@
 // Função para criar post (sempre usa FormData)
 async function createPost(content, serverId, media = []) {
     const token = localStorage.getItem("jwt_token");
-    
+
     // Criar FormData para enviar dados multipart
     const formData = new FormData();
     formData.append("content", content);
     formData.append("server_id", serverId);
-    
+
     // Adicionar mídia ao FormData (imagens e vídeos)
     media.forEach((file, index) => {
         formData.append("media[]", file);
     });
-    
-    try {
-        const response = await fetch("/api/addPost", {
-            method: "POST",
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-            body: formData
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
 
-        const result = await response.json();
-        
-        if (result.status === "success") {
-            return result;
-        } else {
-            console.error("Erro ao criar post:", result);
-            throw new Error(result.error_message || "Erro desconhecido");
-        }
-    } catch (error) {
-        console.error("Erro na requisição:", error);
-        throw error;
+    const response = await fetch("/api/addPost", {
+        method: "POST",
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        body: formData
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const result = await response.json();
+
+    return result;
+
 }
 
 // Exemplo de uso:

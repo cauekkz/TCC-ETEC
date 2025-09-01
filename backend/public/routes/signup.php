@@ -30,7 +30,7 @@ $response = $db->execute_non_query($sql, $params);
 
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message("erro ao criar conta");
+    $res->set_error_message("email já registrado");
     $res->response();
     exit;
 }

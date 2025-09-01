@@ -1,0 +1,191 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.aside-a{
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.container-style {
+  height: 87.6vh !important;
+  display: flex;
+  padding-left: 0 !important;
+  background-color: var(--bg-primary);
+  margin-left: 0 !important;
+}
+
+.title-page {
+  margin-top: 0.8rem;
+}
+
+
+.div-feed {
+  margin-left: 15.5rem;
+}
+
+.moon:hover,
+.sun:hover {
+  background-color: var(--bg-tertiary);
+  border-radius: 0.4rem;
+  transition: 0.5s ease;
+}
+.img-profile-post{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.tab {
+  background-color: var(--bg-card) !important;
+  font-size: 0.75rem;
+  width: 12.5rem;
+  margin-left: 0;
+  border-right: 0.1rem solid var(--border-primary);
+  transition: width 0.5s ease, padding 0.5s ease;
+}
+
+
+.col-6.flex-grow-1.overflow-auto {
+  height: 87.6vh;
+  overflow-y: auto;
+}
+
+
+.col-6.flex-grow-1.overflow-auto::-webkit-scrollbar {
+  display: none;
+}
+
+
+.img-logo {
+  width: 3rem;
+}
+
+
+.img-profile {
+  border-radius: 50px;
+  font-size: 1.35rem;
+  padding: 0.3125rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  line-height: 100%;
+}
+
+
+.row-profile {
+  cursor: pointer;
+}
+
+
+.name-text {
+  font-size: 0.75rem !important;
+  font-weight: bolder ;
+  margin-bottom: 0;
+}
+
+.name-text .badge,
+.badge.bg-dark {
+  font-size: 0.6875rem !important;
+  padding: 0.25rem 0.5rem;
+  border-radius: 25px;
+  margin-left: 0.25rem;
+  vertical-align: middle;
+  background: #2f32d3ff !important;
+  color: #fff !important;
+  font-weight: 500;
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#name-text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+
+#btn {
+  width: 7.5rem;
+  font-size: 0.625rem;
+  margin: auto;
+  border-radius: 0.4rem;
+  background: transparent;
+}
+
+
+#btn:hover {
+  background-color: var(--bg-tertiary);
+  transition: 0.5s ease;
+}
+
+/* NÃO ALTERE O PROFILE! */
+/* Botões do menu lateral - padding confortável */
+
+
+.aside-a .col-used {
+  background-color: #D32F2F !important;
+  border-radius: 0.4rem !important;
+  color: white !important;
+}
+
+.col-hover,
+a .col-hover {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  min-height: 2.2rem !important;
+  box-sizing: border-box !important;
+  padding: 0.35rem 1rem !important;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.col-hover:hover,
+a .col-hover:hover {
+  background-color: var(--bg-tertiary);
+  border-radius: 0.4rem;
+}
+
+/* Botões do menu lateral - alinhamento vertical centralizado */
+.col-used,
+a .col-used,
+.col-hover,
+a .col-hover {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  min-height: 2.2rem;
+  box-sizing: border-box;
+  padding: 0.25rem 0.8rem; /* menos "gordo" */
+  gap: 0.5rem; /* espaço entre svg e texto */
+}
+
+.svg-style {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+ .tab .aside-a p {
+  margin: 0;
+  padding-left: 0;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  line-height: 1.5rem;
+}
+
+

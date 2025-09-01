@@ -65,12 +65,12 @@ function addPostBox(postInfo) {
                         </div>
                         <span class="post-content">${content}</span>
                         ${postInfo.media && postInfo.media.length > 0 ? `
-                            <div class="post-media interactive">
+                            <div class="post-media ">
                                 ${postInfo.media.map(media => {
         if (media.media_type === 'video') {
-            return `<video src="${media.media_url}" controls class="post-video" onclick="openVideoModal('${media.media_url}')"></video>`;
+            return `<video src="${media.media_url}" controls class="post-video interactive" onclick="openVideoModal('${media.media_url}')"></video>`;
         } else {
-            return `<img src="${media.media_url}" alt="Post media" class="post-image" onclick="openImageModal('${media.media_url}')">`;
+            return `<img src="${media.media_url}" alt="Post media showing the main subject shared by the author in a social post. The image is displayed within the post content area, surrounded by user information and comments. If the image contains visible text, it should be transcribed for accessibility. The emotional tone and context depend on the content shared by the user." class="post-image interactive" onclick="openImageModal('${media.media_url}')">`;
         }
     }).join('')}
                             </div>

@@ -3,19 +3,20 @@
 @import url('frontend/static/css/post-focus.css');
 
 body {
-    background-color:#FAF9F6 ;
+    background-color: var(--bg-primary);
     font-family: "roboto";
+    color: var(--text-primary);
 }
 
 header {
     width: 100vw;
     height: 10vh;
     max-height: 5rem;
-    background-color: #FFFFFF;
+    background-color: var(--bg-card);
     display: flex;
     align-items: center;
     font-family: "roboto";
-    box-shadow: 0 1px rgb(228, 228, 228);
+    box-shadow: 0 1px var(--border-primary);
 }
 
 header>img {
@@ -24,11 +25,12 @@ header>img {
     height: 1.15rem;
     cursor: pointer;
     border-radius: 50%;
+    filter: invert(var(--icon-invert));
 }
 
 header>img:hover {
-    background-color: rgba(0, 0, 0, 0.073);
-    outline: 0.45rem solid rgba(0, 0, 0, 0.073);
+    background-color: var(--overlay-outline);
+    outline: 0.45rem solid var(--overlay-outline);
 }
 
 section {
@@ -49,8 +51,8 @@ section {
 
 
 #profile-box {
-    background-color: white;
-    box-shadow: 0 0 0 1px rgb(228, 228, 228);
+    background-color: var(--bg-card);
+    box-shadow: 0 0 0 1px var(--border-primary);
     padding-bottom: 0.25rem;
     width: 70%;
     border-radius: 15px;
@@ -72,7 +74,7 @@ section {
 #user-photo {
     height: 7rem;
     width: 7rem;
-    background-color: #D32F2F;
+    background-color: var(--accent-primary);
 
     background-size: cover;
     background-repeat: no-repeat;
@@ -84,6 +86,7 @@ section {
     border-radius: 50%;
     font-size: 3rem;
     transition: filter 0.1s ease;
+    color: var(--text-inverse);
 
 }
 
@@ -93,8 +96,8 @@ section {
 
 #user-role {
     font-size: 0.75rem;
-    color: white;
-    background-color: #D32F2F;
+    color: var(--text-inverse);
+    background-color: var(--accent-primary);
     border-radius: 7px;
     padding: 0.1rem 0.3rem;
 
@@ -445,11 +448,12 @@ form button:hover,
     }
 
     #posts-div {
-        width: 100%;
+        width: auto;
     }
     
     #posts-box {
-        max-height: 60vh;
+        overflow: hidden;
+        max-height: 100%;
         padding: 0.5rem;
     }
     
@@ -591,4 +595,3 @@ form button:hover,
     transform: scale(1.05);
 }
 
-/* Estilos de mídia dos posts movidos para posts.css */

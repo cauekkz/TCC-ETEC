@@ -16,7 +16,9 @@ form {
     width: 27rem !important;
     max-width: 35rem;
     border-radius: 0.8rem;
-    box-shadow: 0px 0px 4px 0px black;
+    box-shadow: var(--shadow-medium);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-primary);
 }
 
 form label,
@@ -36,13 +38,13 @@ form input {
 
 form input:focus,
 form select:focus {
-    border: 2px solid red !important;
+    border: 2px solid var(--accent-primary) !important;
     box-shadow: none !important;
 }
 
 #hr-style {
     height: 3px;
-    background-color: red;
+    background-color: var(--accent-primary);
     border: none;
     width: 20px;
     margin: auto;

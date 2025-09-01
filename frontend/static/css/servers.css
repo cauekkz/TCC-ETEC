@@ -1,0 +1,130 @@
+.servers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+}
+
+.server-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--shadow-light);
+    display: flex;
+    gap: 1.5rem;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-secondary);
+    cursor: pointer;
+}
+
+.server-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+}
+
+.server-icon {
+    background: var(--text-primary);
+    color: var(--text-inverse);
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.server-info {
+    flex: 1;
+}
+
+.server-info h3 {
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.server-tags {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.tag {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.tag.etec {
+    background: #e74c3c;
+    color: white;
+}
+
+.tag.turma {
+    background: #95a5a6;
+    color: white;
+}
+
+.tag.interesse {
+    background: #3498db;
+    color: white;
+}
+
+.members {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.server-info p {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.btn-enter {
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+
+
+.server-actions {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #999;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.server-actions:hover {
+    color: #666;
+}
+
+/* Responsividade para servidores */
+@media (max-width: 768px) {
+    .servers-grid {
+        grid-template-columns: 1fr;
+    }
+    .server-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .server-icon {
+        align-self: center;
+    }
+}

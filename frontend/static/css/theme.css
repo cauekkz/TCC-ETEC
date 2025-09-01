@@ -1,0 +1,197 @@
+/* Sistema de Temas - EteConnect */
+
+:root {
+  /* Cores do modo claro */
+  --bg-primary: #f5f5f5;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --bg-card: #ffffff;
+  --bg-input: #ffffff;
+
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --text-inverse: #ffffff;
+
+  --border-primary: #dee2e6;
+  --border-secondary: #e9ecef;
+  --border-accent: #D32F2F;
+
+  --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-heavy: 0 8px 32px rgba(0, 0, 0, 0.12);
+
+  --accent-primary: #D32F2F;
+  --accent-secondary: #2ed573;
+  --accent-warning: #ffa502;
+  --accent-info: #3742fa;
+
+  --overlay-light: rgba(0, 0, 0, 0.05);
+  --overlay-medium: rgba(0, 0, 0, 0.1);
+  --overlay-heavy: rgba(0, 0, 0, 0.2);
+
+  --overlay-outline: rgba(0, 0, 0, 0.073);
+  --icon-invert: 0;
+
+}
+
+[data-theme="dark"] {
+  --bg-primary: #1d1c1c;
+  /* fundo principal bem escuro */
+  --bg-secondary: #1e1e1e;
+  /* fundo secundário um pouco mais claro */
+  --bg-tertiary: #2c2c2c;
+  /* usado para painéis ou seções */
+  --bg-card: #1f1f1f;
+  /* fundo de cartões */
+  --bg-input: #2a2a2a;
+  /* campos de input */
+
+  --text-primary: #F5F5F5;
+  /* texto principal branco */
+  --text-secondary: #e0e0e0;
+  /* texto secundário */
+  --text-muted: #a0a0a0;
+  /* texto desabilitado ou menos importante */
+  --text-inverse: #121212;
+  /* usado em botões com fundo claro ou colorido */
+
+  --border-primary: #2e2e2e;
+  /* borda padrão */
+  --border-secondary: #3a3a3a;
+  /* borda menos proeminente */
+  --border-accent: #ff6b6b;
+  /* borda em destaque */
+
+  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --shadow-heavy: 0 8px 16px rgba(0, 0, 0, 0.4);
+
+  --accent-primary: #D32F2F;
+  /* vermelho suave */
+  --accent-secondary: #1dd1a1;
+  /* verde menta */
+  --accent-warning: #feca57;
+  /* amarelo quente */
+  --accent-info: #54a0ff;
+  /* azul claro */
+
+  --overlay-light: rgba(255, 255, 255, 0.03);
+  --overlay-medium: rgba(255, 255, 255, 0.06);
+  --overlay-heavy: rgba(255, 255, 255, 0.1);
+
+
+    --overlay-outline: rgba(255, 255, 255, 0.516);
+
+    --icon-invert: 1;
+}
+
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Botão de alternar tema - usando as classes existentes */
+.light-dark {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.light-dark .moon,
+.light-dark .sun {
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  transition: background 0.3s ease;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.light-dark .moon:hover,
+.light-dark .sun:hover {
+  background: var(--bg-tertiary);
+  transform: scale(1.05);
+}
+
+.light-dark .sun {
+  display: none;
+}
+
+.light-dark .moon {
+  display: flex;
+}
+
+[data-theme="dark"] .light-dark .sun {
+  display: flex;
+}
+
+[data-theme="dark"] .light-dark .moon {
+  display: none;
+}
+
+.bg-primary {
+  background-color: var(--bg-primary) !important;
+}
+
+.bg-secondary {
+  background-color: var(--bg-secondary) !important;
+}
+
+.bg-tertiary {
+  background-color: var(--bg-tertiary) !important;
+}
+
+.bg-card {
+  background-color: var(--bg-card) !important;
+}
+
+.bg-input {
+  background-color: var(--bg-input) !important;
+}
+
+.text-primary {
+  color: var(--text-primary) !important;
+}
+
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.text-inverse {
+  color: var(--text-inverse) !important;
+}
+
+.border-primary {
+  border-color: var(--border-primary) !important;
+}
+
+.border-secondary {
+  border-color: var(--border-secondary) !important;
+}
+
+.border-accent {
+  border-color: var(--border-accent) !important;
+}
+
+.shadow-light {
+  box-shadow: var(--shadow-light) !important;
+}
+
+.shadow-medium {
+  box-shadow: var(--shadow-medium) !important;
+}
+
+.shadow-heavy {
+  box-shadow: var(--shadow-heavy) !important;
+}
+
+* {
+  transition: background-color 0.1s ease, color 0.1s ease, border-color 0.1s ease, box-shadow 0.1s ease !important;
+}

@@ -19,6 +19,9 @@ $router->map('GET', '/signup', function () {
 $router->map('GET', '/profile', function () {
     require __DIR__ . '/pages/profile.php';
 }, "profile");
+$router->map('GET', '/servers', function () {
+    require __DIR__ . '/pages/servers.php';
+}, "servers");
 
 
 $match = $router->match();

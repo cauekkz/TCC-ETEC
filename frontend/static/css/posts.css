@@ -1,14 +1,16 @@
 /* Estilos para posts */
 .post {
-    width: 100%;
-    min-height: 12rem;
-    
-    padding: 1rem 1rem 1rem;
-    background-color: white;
-    box-shadow: 0 0 0 1px rgb(228, 228, 228);
-    display: flex;
-    border-radius: 10px;
-    transition: opacity 0.6s ease, height 0.6s ease;
+  width: 100%;
+  min-height: 12rem;
+  padding: 1rem 1rem 1rem;
+  background: var(--bg-card) !important;
+  box-shadow: 0 0 0 1px var(--border-primary) !important;
+  display: flex;
+  border-radius: 10px;
+  transition: opacity 0.6s ease, height 0.6s ease;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border-secondary);
+  cursor: pointer;
 }
 
 .post.post-deleting {
@@ -79,15 +81,10 @@
     word-spacing: 0.2rem;
     padding: 0.5rem 0;
     border-top: 1px solid #f0f0f0;
-    background-color: white ;
     z-index: 10;
 }
 
 
-/* Seletor específico para o profile */
-
-/* Seletor mais específico possível */
-/* CSS inline para forçar o posicionamento */
 
 .post-like-icon {
     user-select: none;
@@ -325,4 +322,6 @@ li:hover #icon-delete {
     display: none !important;
   }
 }
+
+
 

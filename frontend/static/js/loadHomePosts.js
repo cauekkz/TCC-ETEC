@@ -4,9 +4,9 @@ async function loadHomePosts(page = 1) {
         console.error("Token não encontrado");
         return;
     }
-
+    const serverId = localStorage.getItem("selectedServer") ?? null;
     try {
-        const response = await fetch(`/api/getPosts?server_id=1`, {
+        const response = await fetch(`/api/getPosts?server_id=${serverId}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,

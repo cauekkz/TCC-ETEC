@@ -44,18 +44,6 @@ rightArrow.addEventListener("click", () => {
 
 
 
-const btnSendComment = document.querySelector("#btnSend");
-const form = document.querySelector(".form-comment");
-
-
-btnSendComment.addEventListener("click", () => {
-    if (!form.comment.value) {
-        return;
-    }
-
-
-    // manda pra API, só arruma bgl de cada post antes
-});
 
 
 const btnCreate = document.querySelector("#btnCreate");
@@ -134,14 +122,8 @@ async function checkUserRole() {
 // Carregar informações do usuário ao iniciar
 checkUserRole();
 
-// Função para carregar posts (agora usando loadHomePosts.js)
-async function loadPosts() {
-}
 
 
-
-// Carregar posts ao iniciar
-loadPosts();
 
 // Função para adicionar funcionalidade de like aos posts
 function addLikeFunctionalityToPosts() {

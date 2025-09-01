@@ -234,49 +234,47 @@
     pointer-events: auto;
 }
 
-/* Modo escuro (opcional) */
-@media (prefers-color-scheme: dark) {
-    .alert {
-        background: #2d3748;
-        color: #e2e8f0;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-    }
-    
-    .alert.success {
-        background: linear-gradient(135deg, #1a202c, #2d3748);
-    }
-    
-    .alert.warning {
-        background: linear-gradient(135deg, #1a202c, #2d3748);
-    }
-    
-    .alert.info {
-        background: linear-gradient(135deg, #1a202c, #2d3748);
-    }
-    
-    .alert.error {
-        background: linear-gradient(135deg, #1a202c, #2d3748);
-    }
-    
-    .alert-title {
-        color: #e2e8f0;
-    }
-    
-    .alert-message {
-        color: #cbd5e0;
-    }
-    
-    .alert-header {
-        border-bottom-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .alert-close {
-        background: rgba(255, 255, 255, 0.1);
-        color: #cbd5e0;
-    }
-    
-    .alert-close:hover {
-        background-color: rgba(211, 47, 47, 0.2);
-        color: #ff6b6b;
-    }
+/* Modo escuro usando variáveis CSS */
+[data-theme="dark"] .alert {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-heavy);
+}
+
+[data-theme="dark"] .alert.success {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+}
+
+[data-theme="dark"] .alert.warning {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+}
+
+[data-theme="dark"] .alert.info {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+}
+
+[data-theme="dark"] .alert.error {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--bg-card));
+}
+
+[data-theme="dark"] .alert-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .alert-message {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .alert-header {
+    border-bottom-color: var(--border-primary);
+}
+
+[data-theme="dark"] .alert-close {
+    background: var(--overlay-light);
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .alert-close:hover {
+    background-color: var(--overlay-medium);
+    color: var(--accent-primary);
 }

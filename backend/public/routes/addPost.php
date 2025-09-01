@@ -41,14 +41,39 @@ if (!is_numeric($serverId) || $serverId <= 0) {
     exit;
 }
 
-// Inserir o post
+$sqlAuthCheck = "
+SELECT s.id
+FROM server s
+LEFT JOIN user_campus uc ON s.campus_id = uc.campus_id AND uc.user_id = :userId
+WHERE 
+  s.id = :serverId
+  AND (
+    s.id = 1
+    OR LOWER(s.name) = 'geral'
+    OR uc.id IS NOT NULL
+  )
+LIMIT 1;
+";
+$paramsAuthCheck = [
+    'userId' => $user_id,
+    'serverId' => $serverId
+];
+
+$authResult = $db->execute_query($sqlAuthCheck, $paramsAuthCheck);
+if (count($authResult->results) === 0) {
+    $res->set_status("error");
+    $res->set_error_message("Você não tem permissão para postar neste servidor.");
+    $res->response();
+    exit;
+}
+
 $sql = "INSERT INTO post (id_author, content, server_id) VALUES (:id_author, :content, :serverId)";
 $params = ['content' => $content, "id_author" => $user_id, "serverId" => $serverId];
 $response = $db->execute_non_query($sql, $params);
 
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message("erro ao criar post");
     $res->response();
     exit;
 }
@@ -83,12 +108,10 @@ if ($uploadedFiles && !empty($uploadedFiles['name'][0])) {
                 continue; // Pular arquivo inválido
             }
             
-            // Validar tamanho
             if ($fileSize > $maxFileSize) {
-                continue; // Pular arquivo muito grande
+                continue; 
             }
             
-            // Validar extensão do arquivo
             $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
             $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'mp4', 'avi', 'mov', 'wmv', 'flv', 'webm'];
             if (!in_array($fileExtension, $allowedExtensions)) {

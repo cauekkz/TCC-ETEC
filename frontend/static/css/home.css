@@ -8,9 +8,14 @@
   padding: 10px;
   background-color: var(--bg-secondary);
 }
-  
+
 #previewContainer {
   gap: 8px;
+}
+
+.justify-content-end {
+  display: flex;
+  align-items: center;
 }
 
 #previewContainer .position-relative {
@@ -31,6 +36,9 @@
 #btnAddMedia {
   display: flex;
   align-items: center;
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border: 1px solid var(--overlay-outline);
   gap: 5px;
 }
 
@@ -115,6 +123,7 @@
 
 
 #btnCreate {
+  display: none;
   border-radius: 0.4rem;
   width: 10rem;
   background-color: rgba(211, 47, 47, 255);
@@ -207,31 +216,42 @@ form select:focus,
 
 
 .create-card {
-  background-color: white;
+  background-color: var(--bg-card) !important;
   border-radius: 0.4rem;
 }
 
 
 #subTitleCreate,
 #titleCreate {
-  font-size: 14px;
+  font-size: 1.5rem;
 }
 
 
 #textareaCreate::placeholder {
-  font-size: 12px;
+  font-size: 1rem;
 }
 
 
 #textareaCreate {
-  font-size: 12px;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-secondary) !important;
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+#btnCancel {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-secondary) !important;
+  font-size: 1rem;
+  color: var(--text-secondary);
+
 }
 
 
 .btn-space {
   margin-left: 3.7rem !important;
 }
-  
+
 
 
 .create-card {
@@ -259,4 +279,3 @@ form select:focus,
 .btn-space {
   margin-left: 3.7rem !important;
 }
-

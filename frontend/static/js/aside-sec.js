@@ -30,17 +30,20 @@ function fillAsideProfile(userData) {
         userPhoto.style.backgroundSize = "cover";
     }
 }
-document.querySelector(".row-profile").addEventListener("click", () => {
-    window.location.href = "/profile?profile=mine"
-});
 function getProfileLetter(name) {
     return name ? name.charAt(0).toUpperCase() : '?';
 }
 
-document.querySelector("#logout-button").addEventListener("click", (e) => {
-    e.preventDefault()
-    localStorage.clear()
-    sessionStorage.clear()
-    window.location.href = "/login"
-})
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector(".row-profile").addEventListener("click", () => {
+        window.location.href = "/profile?profile=mine"
+    });
+    console.log("porra")
 
+    document.querySelector("#logout-button").addEventListener("click", (e) => {
+        e.preventDefault()
+        localStorage.clear()
+        sessionStorage.clear()
+        window.location.href = "/login"
+    })
+})

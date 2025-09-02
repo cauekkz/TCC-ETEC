@@ -15,8 +15,11 @@ header {
     background-color: var(--bg-card);
     display: flex;
     align-items: center;
-    font-family: "roboto";
+    position: relative;
+    font-family: "roboto";  
     box-shadow: 0 1px var(--border-primary);
+      border-bottom: 0.1rem solid rgba(211, 211, 211, 0.4);
+
 }
 
 header>img {
@@ -27,7 +30,10 @@ header>img {
     border-radius: 50%;
     filter: invert(var(--icon-invert));
 }
-
+.light-dark{
+    position: absolute;
+    right: 1.5rem;
+}
 header>img:hover {
     background-color: var(--overlay-outline);
     outline: 0.45rem solid var(--overlay-outline);
@@ -96,7 +102,7 @@ section {
 
 #user-role {
     font-size: 0.75rem;
-    color: var(--text-inverse);
+    color: #f8f9fa;
     background-color: var(--accent-primary);
     border-radius: 7px;
     padding: 0.1rem 0.3rem;
@@ -104,7 +110,7 @@ section {
 }
 
 .user-etec {
-    color: #666666;
+    color: var(--text-muted);
 }
 
 #perfil-icon-div {
@@ -121,7 +127,7 @@ section {
     gap: 0.5rem;
     font-size: 0.75rem;
     height: 50%;
-    color: #666666;
+    color: var(--text-muted);
 
 }
 
@@ -167,14 +173,14 @@ section {
 
 .loki,
 .follow {
-    background-color: #D32F2F;
+    background-color: var(--accent-primary);
 
     color: white;
 }
 
 .loki:hover,
 .follow:hover {
-    border: #b33333 solid 1px;
+    border: var(--border-accent) solid 1px;
 
     background-color: #b33333;
 
@@ -182,7 +188,7 @@ section {
 
 #leave-account-button,
 .unfollow {
-    background-color: white;
+    background-color: transparent;;
     color: #D32F2F;
 }
 
@@ -228,7 +234,6 @@ section {
 }
 
 
-/* Estilos dos posts movidos para posts.css */
 
 h3 {
     margin-top: 4.1rem;
@@ -249,6 +254,7 @@ h4 {
     padding: 0.5rem 1rem;
     z-index: 1;
     overflow: auto;
+    background-color: var(--bg-card);
 }
 
 #edit-profile-modal::backdrop {
@@ -262,7 +268,7 @@ h4 {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-
+    color: var(--text-secondary);
 
 }
 
@@ -277,7 +283,7 @@ h4 {
     font-size: 1.25rem;
     font-weight: 600;
     font-family: Helvetica, sans-serif;
-    color: #666666;
+    color: var(--text-muted);
     user-select: none;
     cursor: pointer;
 }
@@ -330,24 +336,27 @@ h4 {
 
 
 
-form label {
+#update-form label {
     font-weight: 400;
     font-size: 0.9rem;
     margin-bottom: 0.25rem;
+    color: var(--text-primary);
 }
 
-form input,
-form select,
+#update-form input,
+#update-form select,
 #add-campus-btn,
 #add-course-btn {
+    background-color: var(--bg-input);
     font-weight: 400;
     line-height: 1.5;
     padding: 0.5rem 0.75rem;
     border-radius: 0.3rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-secondary) !important;
     font-size: 1rem;
     box-sizing: border-box;
     margin-bottom: 1rem;
+    color: var(--text-secondary);
 }
 
 .pod-div {
@@ -355,22 +364,22 @@ form select,
     line-height: 1.5;
     padding: 0.5rem 0.75rem;
     border-radius: 0.3rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-secondary);
     font-size: 1rem;
     box-sizing: border-box;
     margin-bottom: 1rem;
     position: relative;
-
+    color: var(--text-secondary);
 }
 
-form input:focus,
-form select:focus {
-    border-color: #d63031;
+#update-form input:focus,
+#update-form select:focus {
+    border-color: #d63031 !important;
     outline: none;
     box-shadow: none;
 }
 
-form button[type="submit"] {
+#update-form button[type="submit"] {
     background-color: #d63031;
     color: white;
     font-size: 1rem;
@@ -388,7 +397,7 @@ form button[type="submit"] {
     cursor: pointer;
     font-weight: 600;
     font-family: Helvetica, sans-serif;
-    color: #666666;
+    color: var(--text-muted);
     user-select: none;
 }
 
@@ -408,7 +417,7 @@ form button[type="submit"] {
     padding: 0 0.5rem;
 }
 
-form button:hover,
+#update-form button:hover,
 #add-campus-btn:hover,
 #add-course-btn:hover {
     background-color: #e74c3c;
@@ -416,6 +425,7 @@ form button:hover,
 
 #campus-update-div select,
 #course-update-div select {
+    color: var(--text-secondary);
     width: 8rem;
 }
 
@@ -511,7 +521,7 @@ form button:hover,
 }
 
 .etecs-modal-content {
-    background: white;
+    background: var(--bg-card);
     border-radius: 15px;
     overflow: hidden;
     height: 100%;
@@ -571,11 +581,11 @@ form button:hover,
 .etecs-list li {
     padding: 0.5rem 0.75rem;
     margin-bottom: 0.25rem;
-    background: #f8f9fa;
+    background: color-mix(in srgb, var(--bg-card), white 1%);
     border-radius: 6px;
     border-left: 3px solid #D32F2F;
     font-size: 0.85rem;
-    color: #333;
+    color: var(--text-secondary);
     transition: all 0.2s ease;
 }
 

@@ -19,6 +19,7 @@ form {
     box-shadow: var(--shadow-medium);
     background-color: var(--bg-card);
     border: 1px solid var(--border-primary);
+    position: relative;
 }
 
 form label,
@@ -34,6 +35,10 @@ form input {
     line-height: 1.5;
     padding: 1rem;
     border-radius: 0.3rem;
+    background-color: var(--bg-input) !important;
+    color: var(--text-secondary) !important;
+    border: 1px solid var(--border-secondary) !important;
+
 }
 
 form input:focus,
@@ -42,8 +47,11 @@ form select:focus {
     box-shadow: none !important;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
 form label {
-    background-color: var(--bg-secondary);
     font-size: 13px !important;
 }
 
@@ -56,14 +64,23 @@ form label {
     margin-bottom: 10px;
 }
 
-#link-login{
+#link-login {
     text-decoration: none;
 }
 
-#link-login:hover{
+#link-login:hover {
     text-decoration: underline;
 }
 
-.text-style, .text-entrar{
-    font-size:14px;
+.text-style,
+.text-entrar {
+    font-size: 14px;
+}
+
+.light-dark {
+    position: absolute;
+    right: 0.5rem;
+    top: 1.5rem;
+    cursor: pointer;
+    z-index: 1000;
 }

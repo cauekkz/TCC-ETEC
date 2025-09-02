@@ -1,9 +1,11 @@
 // Função para criar elemento de comentário igual ao estático do home
 function createCommentElement(comment) {
     const commentDiv = document.createElement('div');
-    commentDiv.className = 'comment-box p-3 my-2 shadow-sm border rounded';
-    const roleColor = comment.user_role === 'estudante' ? '#D32F2F' : '#2f32d3ff';
+    commentDiv.className = 'comment-box p-3 my-2 shadow-sm rounded';
+    const roleColor = (comment.user_role === 'estudante') ? '#D32F2F' : '#2f32d3ff';
     console.log(comment)
+    console.log(comment.user_role)
+    console.log(roleColor)
     // Lógica para foto do usuário (igual ao addPostBox.js)
     const profilePath = comment?.profile_photo_path ?? null;
     const color = (profilePath) ? "transparent" : roleColor;

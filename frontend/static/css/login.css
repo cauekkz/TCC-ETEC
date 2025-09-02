@@ -19,8 +19,15 @@ form {
     box-shadow: var(--shadow-medium);
     background-color: var(--bg-card);
     border: 1px solid var(--border-primary);
+    position: relative;
 }
-
+.light-dark{
+    position: absolute;
+    right: 0.5rem;
+    top: 1.5rem;
+    cursor: pointer;
+    z-index: 1000;
+}
 form label,
 form input,
 form select,
@@ -34,6 +41,9 @@ form input {
     line-height: 1.5;
     padding: 1rem;
     border-radius: 0.3rem;
+    background-color: var(--bg-input)!important;
+    color: var(--text-secondary)!important;
+    border: 1px solid var(--border-secondary)!important;
 }
 
 form input:focus,

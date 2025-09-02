@@ -54,7 +54,7 @@
 }
 
 .post-etec {
-    color: #666666;
+    color: var(--text-muted);
     font-size: 0.65rem;
 }
 
@@ -105,10 +105,10 @@
 /* Modal de opções do post */
 #post-modal {
     position: absolute;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-secondary);
     border-radius: 10px;
-    background-color: white;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    background-color: var(--bg-secondary);
+    box-shadow: 0 8px 20px var(--shadow-heavy);
     padding: 0.5rem 0;
     min-width: 150px;
     z-index: 1000;
@@ -130,21 +130,21 @@
     align-items: center;
     gap: 0.5rem;
     transition: background-color 0.3s ease;
-    color: black;
+    color: var(--text-secondary);
 }
 
 #post-modal li:hover {
-    background-color: #f0f0f0;
+    background-color: var(--bg-tertiary);
 }
 
 #icon-edit {
-    color: black;
+    color: var(--text-secondary);
     font-size: 1.2rem;
     transition: color 0.3s ease;
 }
 
 #icon-delete {
-    color: black;
+    color: var(--text-secondary);
     font-size: 1.2rem;
     transition: color 0.3s ease;
 }

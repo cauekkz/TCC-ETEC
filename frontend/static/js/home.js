@@ -108,7 +108,8 @@ async function checkUserRole() {
 
             if (userRole === "professor") {
                 const serverID = parseInt(localStorage.getItem("selectedServer"))
-
+                console.log("serverid")
+                console.log(serverID)
                 if (serverID == 1 || campusInfo.some(info => info.id == serverID - 1)) {
                     btnCreate.style.display = "block";
 

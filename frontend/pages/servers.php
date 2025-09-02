@@ -126,7 +126,7 @@
                 </div>
             </a>
 
-            <a href="/logout" class="row mt-2 aside-a">
+            <a href="/logout" class="row mt-2 aside-a" id="logout-button">
                 <div class="col d-flex col-hover">
                     <div class="svg-style">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
@@ -142,9 +142,9 @@
 
         <div class="col-6 flex-grow-1 overflow-auto px-3 " style="min-height: 0;">
             <div class="feed mt-4 px-4">
-                <div class="d-flex align-items-center div-feed">
+                <div class="d-flex  ">
                     <div class="px-4">
-                        <p id="feedTitle" class="mb-0 h4"><strong>Servidores</strong></p>
+                        <p id="feedTitle" class="mb-0 h2"><strong>Servidores</strong></p>
                     </div>
                 </div>
 
@@ -184,8 +184,10 @@
         }
         if (userData === null) {
             userData = await executeWithRefresh(loadUserInformation, "mine");
-            sessionStorage.setItem('userData', JSON.stringify(userData?.data));
+            userData = userData.data
+            sessionStorage.setItem('userData', JSON.stringify(userData));
         }
+        console.log(userData)
         fillAsideProfile(userData);
         const serversGrid = document.querySelector('.servers-grid');
         const response = await executeWithRefresh(fetch, "/api/getAllServers")

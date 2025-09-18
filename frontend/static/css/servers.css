@@ -120,10 +120,12 @@
     .servers-grid {
         grid-template-columns: 1fr;
     }
+
     .server-card {
         flex-direction: column;
         text-align: center;
     }
+
     .server-icon {
         align-self: center;
     }

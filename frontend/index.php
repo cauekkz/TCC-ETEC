@@ -22,6 +22,16 @@ $router->map('GET', '/profile', function () {
 $router->map('GET', '/servers', function () {
     require __DIR__ . '/pages/servers.php';
 }, "servers");
+$router->map('GET', '/events', function () {
+    require __DIR__ . '/pages/events.php';
+}, "events");
+$router->map('GET', '/projects', function () {
+    require __DIR__ . '/pages/projects.php';
+}, "projects");
+$router->map('GET', '/notices', function () {
+    require __DIR__ . '/pages/notices.php';
+}, "notices");
+
 
 
 $match = $router->match();
@@ -34,8 +44,10 @@ if ($match && is_callable($match['target'])) {
 
     require __DIR__ . '/static/template/footer.php';
 } else {
-    http_response_code(404);
-    echo "Página não encontrada";
+    $pageTitle = "404";
+    require __DIR__ . '/static/template/header.php';
+    require __DIR__ . '/pages/404.php';
+    require __DIR__ . '/static/template/footer.php';
 }
 
 /*

@@ -19,9 +19,6 @@ html {
   margin-left: 0 !important;
 }
 
-.title-page {
-  margin-top: 0.8rem;
-}
 
 
 .div-feed {
@@ -62,9 +59,7 @@ html {
 }
 
 
-.img-logo {
-  width: 3rem;
-}
+
 
 
 .img-profile {
@@ -89,14 +84,16 @@ html {
   font-size: 0.75rem !important;
   font-weight: bolder ;
   margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .name-text .badge,
 .badge.bg-dark {
-  font-size: 0.6875rem !important;
+  font-size: 0.625rem !important;
   padding: 0.25rem 0.5rem;
   border-radius: 25px;
-  margin-left: 0.25rem;
   vertical-align: middle;
   background: #2f32d3ff !important;
   color: #fff !important;

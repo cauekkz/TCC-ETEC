@@ -56,7 +56,7 @@
 
 
 
-            <a href="/" class="row mt-2 aside-a">
+            <a href="/" class="row mt-4 aside-a">
                 <div class="col d-flex col-hover">
                     <div class="svg-style">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
@@ -66,16 +66,7 @@
                     <p class="px-2 mt-1">Feed</p>
                 </div>
             </a>
-            <a href="/groups" class="row mt-2 aside-a">
-                <div class="col d-flex col-hover">
-                    <div class="svg-style">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
-                        </svg>
-                    </div>
-                    <p class="px-2 mt-1">Grupos</p>
-                </div>
-            </a>
+
 
 
             <a href="/notices" class="row mt-2 aside-a">
@@ -102,7 +93,6 @@
                 </div>
             </a>
 
-
             <a href="/events" class="row mt-2 aside-a">
                 <div class="col d-flex col-hover">
                     <div class="svg-style">
@@ -112,6 +102,16 @@
                         </svg>
                     </div>
                     <p class="px-2 mt-1">Eventos</p>
+                </div>
+            </a>
+            <a href="/messages" class="row mt-2 aside-a">
+                <div class="col d-flex col-hover">
+                    <div class="svg-style">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414l-3.707 3.707A1 1 0 0 1 0 14.293V2a1 1 0 0 1 1-1h13z" />
+                        </svg>
+                    </div>
+                    <p class="px-2 mt-1">Mensagens</p>
                 </div>
             </a>
 

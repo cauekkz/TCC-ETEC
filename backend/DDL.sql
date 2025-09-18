@@ -9,8 +9,7 @@ CREATE TABLE campus_address (
 );
 CREATE TABLE course (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(255) NOT NULL,
-  --link VARCHAR(255) NOT NULL
+  name VARCHAR(255) NOT NULL
 );
 CREATE TABLE campus (
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -62,9 +61,9 @@ CREATE TABLE server (
   name VARCHAR(70) NOT NULL,
   campus_id INT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (campus_id) REFERENCES campus(id) ON DELETE SET NULL
+  FOREIGN KEY (campus_id) REFERENCES campus(id) ON DELETE
+  SET NULL
 );
-
 CREATE TABLE campus_course (
   id INT PRIMARY KEY AUTO_INCREMENT,
   campus_id INT NOT NULL,
@@ -127,7 +126,6 @@ CREATE TABLE follower (
   FOREIGN KEY (followed_id) REFERENCES user(id) ON DELETE CASCADE,
   UNIQUE KEY unique_follow (follower_id, followed_id),
   CHECK (follower_id != followed_id)
-
 );
 CREATE TABLE post_media (
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -137,20 +135,63 @@ CREATE TABLE post_media (
   media_order INT DEFAULT 0,
   FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE
 );
+--coisas sobre eventos
 CREATE TABLE events (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(255) NOT NULL,        
-    description TEXT,
-    date DATE NOT NULL,                  
-    time TIME NOT NULL,                   
-    location VARCHAR(255) NOT NULL,       
-    capacity INT                   
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  date DATE NOT NULL,
+  time TIME NOT NULL,
+  location VARCHAR(255) NOT NULL,
+  capacity INT
 );
 CREATE TABLE event_participants (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    event_id INT NOT NULL,
-    user_id INT NOT NULL,
-    registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE(event_id, user_id), 
-    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  event_id INT NOT NULL,
+  user_id INT NOT NULL,
+  registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(event_id, user_id),
+  FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
+);
+--coisas sobre avisos
+CREATE TABLE notice (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  server_id INT NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  notice_date DATE NOT NULL,
+  type ENUM('evento', 'importante') NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (server_id) REFERENCES server(id) ON DELETE CASCADE
+);
+--coisas sobre projetos tcc
+CREATE TABLE tcc_project (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  course_id INT,
+  campus_id INT,
+  grade ENUM('I', 'R', 'B', 'MB'),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE
+  SET NULL,
+    FOREIGN KEY (campus_id) REFERENCES campus(id) ON DELETE
+  SET NULL
+);
+CREATE TABLE tcc_project_members (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  project_id INT NOT NULL,
+  user_id INT NOT NULL,
+  FOREIGN KEY (project_id) REFERENCES tcc_project(id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+  UNIQUE (project_id, user_id)
+);
+CREATE TABLE tcc_project_file (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  project_id INT NOT NULL,
+  file_url VARCHAR(255) NOT NULL,
+  file_name VARCHAR(255),
+  file_type ENUM('image', 'video', 'pdf', 'zip') NOT NULL,
+  uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (project_id) REFERENCES tcc_project(id) ON DELETE CASCADE
 );

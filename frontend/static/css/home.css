@@ -49,21 +49,22 @@
 
 #borboleta {
   position: relative;
-  padding-bottom: 2.25rem;
-
+  height: 100%;
 }
 
 #loadingPostIcon {
   position: absolute;
+  display: none;
   width: 2rem;
   height: 2rem;
-  bottom: 0%;
   left: 50%;
   border-radius: 50%;
   border: 2px solid;
   border-color: #D32F2F #D32F2F #D32F2F transparent;
+  transition: margin 3s ease;
   animation: nevasca infinite 1.5s ease;
-;}
+  
+  }
 
 @keyframes nevasca {
  100%{

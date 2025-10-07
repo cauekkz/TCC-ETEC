@@ -28,7 +28,7 @@ async function loadHomePosts(page = 1) {
         return null;
     }
 }
-
+let hasPost = true
 // Função para renderizar posts no home
 async function renderHomePosts(page = 1) {
     try {
@@ -50,7 +50,7 @@ async function renderHomePosts(page = 1) {
                 // Adicionar funcionalidade de like aos posts carregados
                 addLikeFunctionalityToPosts();
             } else {
-                console.warn("Container não encontrado ou sem resultados");
+                hasPost = false
             }
         } else {
             console.error("Erro ao carregar posts:", result);
@@ -72,12 +72,18 @@ document.addEventListener('DOMContentLoaded', function () {
         const chorar = postsContainer.scrollTop
         const oni = postsContainer.clientHeight
         const isAtEnd = chorar + oni >= pumoes - 1;
-        if (isAtEnd) {
+        if (isAtEnd && hasPost) {
             console.log('akaza-dono')
+            loadingIcon.style.display = "block"
             page++
-            loadingIcon.style.bottom = "-200"
-            //renderHomePosts(page);
 
+            renderHomePosts(page);
+            loadingIcon.style.display = "none"
+
+
+        }
+        if (!hasPost && isAtEnd ) {
+            showInfo("que ruim")
         }
     })
 });

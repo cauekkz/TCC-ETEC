@@ -30,22 +30,19 @@ async function loadHomePosts(page = 1) {
 }
 
 // Função para renderizar posts no home
-async function renderHomePosts() {
+async function renderHomePosts(page = 1) {
     try {
-        const result = await executeWithRefresh(loadHomePosts, 1); // Sempre página 1 por enquanto
+        const result = await executeWithRefresh(loadHomePosts, page);
 
         if (result && result.status === "success") {
             // Renderizar posts usando addPostBox
             const postsContainer = document.querySelector(".posts");
 
             if (postsContainer && result.data) {
-                // Limpar posts existentes
-                postsContainer.innerHTML = "";
-                // Adicionar novos posts
+
                 result.data.forEach((postInfo) => {
                     const postElement = addPostBox(postInfo);
                     postsContainer.appendChild(postElement);
-                    // Adicionar evento de clique para abrir post focus
                     addPostClickEvent(postElement, postInfo);
 
                 });
@@ -64,6 +61,23 @@ async function renderHomePosts() {
 }
 
 // Carregar posts quando a página carregar
+
 document.addEventListener('DOMContentLoaded', function () {
-    renderHomePosts();
+    let page = 1;
+    renderHomePosts(page);
+    const postsContainer = document.querySelector("#borboleta");
+    const loadingIcon = document.querySelector("#loadingPostIcon")
+    postsContainer.addEventListener("scroll", () => {
+        const pumoes = postsContainer.scrollHeight
+        const chorar = postsContainer.scrollTop
+        const oni = postsContainer.clientHeight
+        const isAtEnd = chorar + oni >= pumoes - 1;
+        if (isAtEnd) {
+            console.log('akaza-dono')
+            page++
+            loadingIcon.style.bottom = "-200"
+            //renderHomePosts(page);
+
+        }
+    })
 });

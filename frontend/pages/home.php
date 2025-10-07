@@ -2,7 +2,7 @@
 <script src="/frontend/static/js/alerts.js"></script>
 
 <?php
-
+//pedir pro gpt mudar a logica preguiça triste triste. deixar sem await sabe pro codigo abaixo desse fetch nao rodar enquanto a busca ocorre.
 $server_id = (isset($_GET['server'])) ? $_GET['server'] : null;
 if (is_numeric($server_id)) {
     $safe_id = json_encode((int)$server_id);
@@ -11,7 +11,7 @@ if (is_numeric($server_id)) {
         (async function() {
             const response = await fetch("/api/getServerById?serverId=<?php echo $safe_id; ?>")
             if (!response.ok) {
-                
+
                 showBackendError("error")
                 return
             }
@@ -35,7 +35,6 @@ if (is_numeric($server_id)) {
             document.querySelector("#consecultivos").innerText = `Acompanhe as novidades do servidor ${serverName}`
 
         }())
-        
     </script>
 <?php
 }
@@ -46,6 +45,7 @@ if (is_numeric($server_id)) {
     if (serverId === null) {
         window.location.href = "/servers";
     }
+    //
 </script>
 <header>
     <div class="container-fluid">
@@ -188,7 +188,7 @@ if (is_numeric($server_id)) {
             </a>
 
         </div>
-        <div class="col-6 flex-grow-1 overflow-auto px-3 " style="min-height: 0;">
+        <div id="borboleta" class="col-6 flex-grow-1 overflow-auto px-3 " style="min-height: 0;">
             <div class="feed mt-4 px-4">
 
                 <div class="d-flex ">
@@ -203,6 +203,9 @@ if (is_numeric($server_id)) {
                 <div class="posts row mt-5 px-3">
                     <!-- Os posts serão carregados dinamicamente aqui -->
                 </div>
+
+            </div>
+            <div id="loadingPostIcon">
 
             </div>
         </div>

@@ -47,6 +47,30 @@
   height: 16px;
 }
 
+#borboleta {
+  position: relative;
+  padding-bottom: 2.25rem;
+
+}
+
+#loadingPostIcon {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  bottom: 0%;
+  left: 50%;
+  border-radius: 50%;
+  border: 2px solid;
+  border-color: #D32F2F #D32F2F #D32F2F transparent;
+  animation: nevasca infinite 1.5s ease;
+;}
+
+@keyframes nevasca {
+ 100%{
+    transform: rotate(365deg);
+  }
+}
+
 /* Estilo para o botão de criar post quando não é professor */
 #btnCreate[style*="display: none"] {
   display: none !important;

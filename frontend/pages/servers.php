@@ -187,7 +187,6 @@
             userData = userData.data
             sessionStorage.setItem('userData', JSON.stringify(userData));
         }
-        console.log(userData)
         fillAsideProfile(userData);
         const serversGrid = document.querySelector('.servers-grid');
         const response = await executeWithRefresh(fetch, "/api/getAllServers")

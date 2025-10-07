@@ -31,6 +31,9 @@ $router->map('GET', '/projects', function () {
 $router->map('GET', '/notices', function () {
     require __DIR__ . '/pages/notices.php';
 }, "notices");
+$router->map('GET', '/messages', function () {
+    require __DIR__ . '/pages/messages.php';
+}, "messages");
 
 
 

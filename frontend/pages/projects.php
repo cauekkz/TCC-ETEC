@@ -174,13 +174,6 @@ if (is_numeric($server_id)) {
                 </div>
                 <div class="projects-grid">
                     <div class="project-card">
-                        <div class="project-image">
-
-                            <div class="project-rating">
-                                <i class="fas fa-star"></i>
-                                <span>MB</span>
-                            </div>
-                        </div>
                         <div class="project-info">
                             <h3>Sistema de Gestão Escolar</h3>
                             <div class="project-tags">
@@ -199,13 +192,6 @@ if (is_numeric($server_id)) {
                     </div>
 
                     <div class="project-card">
-                        <div class="project-image">
-
-                            <div class="project-rating">
-                                <i class="fas fa-star"></i>
-                                <span>MB</span>
-                            </div>
-                        </div>
                         <div class="project-info">
                             <h3>App de Monitoramento Ambiental</h3>
                             <div class="project-tags">

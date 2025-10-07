@@ -1,7 +1,7 @@
 function addServerBox(server) {
     const serverBox = document.createElement('div');
     console.log(server)
-    serverBox.classList.add('server-card');
+    serverBox.classList.add('server-card')
     serverBox.innerHTML = `
     
     <div class="server-icon">
@@ -22,7 +22,6 @@ function addServerBox(server) {
 
     serverBox.addEventListener("click", (e) => {
         
-        localStorage.setItem("selectedServer", JSON.stringify(server.id));
         window.location.href = `/?server=${server.id}`;
     });
 

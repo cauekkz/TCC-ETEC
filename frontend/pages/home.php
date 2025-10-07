@@ -1,12 +1,41 @@
+<link rel="stylesheet" href="/frontend/static/css/alerts.css">
+<script src="/frontend/static/js/alerts.js"></script>
+
 <?php
 
 $server_id = (isset($_GET['server'])) ? $_GET['server'] : null;
 if (is_numeric($server_id)) {
     $safe_id = json_encode((int)$server_id);
-
 ?>
     <script>
-        localStorage.setItem("selectedServer", (<?php echo $safe_id; ?>));
+        (async function() {
+            const response = await fetch("/api/getServerById?serverId=<?php echo $safe_id; ?>")
+            if (!response.ok) {
+                
+                showBackendError("error")
+                return
+            }
+            console.log("conesecultivos ")
+
+            const data = await response.json()
+            console.log("oni")
+            if (data.status !== "success") {
+
+                showBackendError(data)
+                return
+            }
+            const server = data.data[0];
+            localStorage.setItem("selectedServerName", server.name);
+            localStorage.setItem("selectedServer", JSON.stringify(server.id));
+
+
+
+            const serverName = localStorage.getItem("selectedServerName") ?? null;
+
+            document.querySelector("#consecultivos").innerText = `Acompanhe as novidades do servidor ${serverName}`
+
+        }())
+        
     </script>
 <?php
 }
@@ -18,7 +47,6 @@ if (is_numeric($server_id)) {
         window.location.href = "/servers";
     }
 </script>
-
 <header>
     <div class="container-fluid">
         <div class="row d-flex justify-content-between align-items-center">
@@ -166,7 +194,7 @@ if (is_numeric($server_id)) {
                 <div class="d-flex ">
                     <div class="px-1">
                         <p id="feedTitle" class="mb-0 h2"><strong>Feed da comunidade</strong></p>
-                        <p class="text-secondary">Acompanhe as novidades da sua ETEC</p>
+                        <p class="text-secondary" id="consecultivos"></p>
                     </div>
                 </div>
 
@@ -327,9 +355,9 @@ if (is_numeric($server_id)) {
     <link rel="stylesheet" href="/frontend/static/css/aside-sec.css">
     <link rel="stylesheet" href="/frontend/static/css/posts.css">
     <link rel="stylesheet" href="/frontend/static/css/post-focus.css">
-    <link rel="stylesheet" href="/frontend/static/css/alerts.css">
+    <!---->
 
-    <script src="/frontend/static/js/alerts.js"></script>
+    <!---->
     <script src="/frontend/static/js/commentsFunctions.js"></script>
     <script src="/frontend/static/js/executeWithRefresh.js"></script>
     <script src="/frontend/static/js/likeFunctions.js"></script>
@@ -357,8 +385,6 @@ if (is_numeric($server_id)) {
                 btnPublish.disabled = true;
                 btnPublish.textContent = "Publicando...";
                 const serverId = localStorage.getItem("selectedServer");
-                console.log("ai ai: " + serverId)
-                // Porra, o post vai pro server 1 por enquanto
                 const result = await executeWithRefresh(createPost, postContent, serverId, selectedFiles);
                 console.log(result)
                 if (result.status === "success") {
@@ -451,8 +477,6 @@ if (is_numeric($server_id)) {
 
 
             }
-
-
 
 
         })

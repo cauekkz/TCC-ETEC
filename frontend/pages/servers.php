@@ -190,10 +190,12 @@
         fillAsideProfile(userData);
         const serversGrid = document.querySelector('.servers-grid');
         const response = await executeWithRefresh(fetch, "/api/getAllServers")
+        console.log(response);
         if (!response.ok) {
             return
         }
         const AllEtecsData = await response.json();
+        console.log(AllEtecsData);
         if (AllEtecsData.status !== "success") {
             return
         }

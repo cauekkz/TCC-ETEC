@@ -21,7 +21,6 @@ header {
 
 .light-dark {
     cursor: pointer;
-    transform: translateY(-50%);
     z-index: 1000;
 }
 .moon, .sun {

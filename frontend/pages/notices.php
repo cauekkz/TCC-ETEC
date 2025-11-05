@@ -27,9 +27,10 @@ if (is_numeric($server_id)) {
                 <img src="frontend/static/img/logo.png" alt="logo eteconnect" class="img-logo img-fluid">
                 <h5 class="text-danger title-page">ETEConnect</h5>
             </div>
-            <div class="col d-flex mt-3 justify-content-end">
+            <div class="col d-flex  justify-content-end align-items-center">
 
 
+                <button id="btnCreate" class="btn btn-danger">+ Novo aviso</button>
                 <div class="light-dark px-3 mt-2">
                     <div class="moon p-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon" viewBox="0 0 16 16">
@@ -222,7 +223,33 @@ if (is_numeric($server_id)) {
 <script src="/frontend/static/js/alerts.js"></script>
 <script src="/frontend/static/js/aside-sec.js"></script>
 <script src="/frontend/static/js/executeWithRefresh.js"></script>
+<dialog class="molested">
+    <div class="modal-header">
+        <h5 class="modal-title">Criar Novo Aviso</h5>
+        <button type="button" class="btn-close" id="closeModal" aria-label="Close">X</button>
+    </div>
+    <div class="modal-body">
+        <form id="createNoticeForm">
+            <div class="mb-3">
+                <label for="noticeTitle" class="form-label">Título do Aviso</label>
+                <input type="text" class="form-control" id="noticeTitle" required name="title">
+            </div>
+            <div class="mb-3">
+                <label for="noticeContent" class="form-label">Conteúdo do Aviso</label>
+                <textarea class="form-control" id="noticeContent" rows="4" required name="description"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="noticeUrgency" class="form-label">Tipo de Aviso</label>
+                <select class="form-select" id="noticeUrgency" required name="type">
+                    <option value="evento">Evento</option>
+                    <option value="importante">Importante</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Criar Aviso</button>
+        </form>
+    </div>
 
+</dialog>
 <script>
     document.addEventListener("DOMContentLoaded", async () => {
         let userData = null;
@@ -239,20 +266,51 @@ if (is_numeric($server_id)) {
         }
 
         fillAsideProfile(userData);
+
+
+        const btnCreate = document.getElementById("btnCreate");
+
+        if (userData.user.role === "professor") {
+            btnCreate.style.display = "block";
+        }
+        const modal = document.querySelector(".molested");
+
+        btnCreate.addEventListener("click", () => {
+            modal.showModal();
+
+        });
+        const closeModalBtn = document.querySelector(".btn-close");
+        document.getElementById('createNoticeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            formData.append('server_id', localStorage.getItem("selectedServer"));
+
+            const data = Object.fromEntries(formData.entries());
+            const result = await executeWithRefresh(async () => {
+                return await fetch("/api/addNotice", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${localStorage.getItem("jwt_token")}`
+                    },
+                    body: JSON.stringify(data)
+                }).then(res => res.json());
+            });
+            console.log(result);
+            return
+            if (result.status !== "success") {
+                showBackendError(result || "Erro ao criar aviso.");
+                return;
+            }
+
+            console.log(result)
+
+        })
+        closeModalBtn.addEventListener("click", () => {
+            modal.close();
+        });
+
     });
+
 </script>
-
-<!--
-<main class="main-content">
-    <div class="content-header">
-        <h1>Avisos</h1>
-    </div>
-
-</main>
-</div>
-
-<script src="avisos.js"></script>
-</body>
-
-</html>
--->

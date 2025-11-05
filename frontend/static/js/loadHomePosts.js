@@ -46,7 +46,6 @@ async function renderHomePosts(page = 1) {
                     addPostClickEvent(postElement, postInfo);
 
                 });
-
                 // Adicionar funcionalidade de like aos posts carregados
                 addLikeFunctionalityToPosts();
             } else {
@@ -78,12 +77,14 @@ document.addEventListener('DOMContentLoaded', function () {
             page++
 
             renderHomePosts(page);
+
             loadingIcon.style.display = "none"
 
-
         }
-        if (!hasPost && isAtEnd ) {
-            showInfo("que ruim")
+
+        if (!hasPost) {
+            document.querySelector("#palavras").style.display = "flex"
+            console.log("info")
         }
     })
 });

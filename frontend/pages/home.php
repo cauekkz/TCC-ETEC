@@ -1,52 +1,55 @@
-<link rel="stylesheet" href="/frontend/static/css/alerts.css">
-<script src="/frontend/static/js/alerts.js"></script>
-
 <?php
-//pedir pro gpt mudar a logica preguiça triste triste. deixar sem await sabe pro codigo abaixo desse fetch nao rodar enquanto a busca ocorre.
 $server_id = (isset($_GET['server'])) ? $_GET['server'] : null;
 if (is_numeric($server_id)) {
     $safe_id = json_encode((int)$server_id);
 ?>
     <script>
-        (async function() {
-            const response = await fetch("/api/getServerById?serverId=<?php echo $safe_id; ?>")
-            if (!response.ok) {
+        localStorage.setItem("selectedServer", <?php echo $safe_id; ?>);
 
-                showBackendError("error")
-                return
+        fetch("/api/getServerById?serverId=<?php echo $safe_id; ?>")
+            .then(response => {
+                if (!response.ok) {
+                    showBackendError("error");
+                    throw new Error("Response not OK");
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.status !== "success") {
+                    showBackendError(data);
+                    throw new Error("Backend returned error");
+                }
+
+                const server = data.data[0];
+                console.log(data)
+                localStorage.setItem("selectedServerName", server.name);
+
+                const serverName = localStorage.getItem("selectedServerName") ?? null;
+                document.querySelector("#consecultivos").innerText =
+                    `Acompanhe as novidades do servidor ${serverName}`;
+
+                continueAfterServerLoad();
+            })
+            .catch(err => {
+                console.error("Erro ao buscar servidor:", err);
+            });
+
+        // função que só roda depois que o servidor foi carregado
+        function continueAfterServerLoad() {
+            const serverId = localStorage.getItem("selectedServer") ?? null;
+            if (serverId === null) {
+                window.location.href = "/servers";
+                return;
             }
-            console.log("conesecultivos ")
 
-            const data = await response.json()
-            console.log("oni")
-            if (data.status !== "success") {
+            console.log("Servidor carregado:", serverId);
 
-                showBackendError(data)
-                return
-            }
-            const server = data.data[0];
-            localStorage.setItem("selectedServerName", server.name);
-            localStorage.setItem("selectedServer", JSON.stringify(server.id));
-
-
-
-            const serverName = localStorage.getItem("selectedServerName") ?? null;
-
-            document.querySelector("#consecultivos").innerText = `Acompanhe as novidades do servidor ${serverName}`
-
-        }())
+        }
     </script>
 <?php
 }
 ?>
-<script>
-    const serverId = localStorage.getItem("selectedServer") ?? null;
 
-    if (serverId === null) {
-        window.location.href = "/servers";
-    }
-    //
-</script>
 <header>
     <div class="container-fluid">
         <div class="row d-flex justify-content-between align-items-center">
@@ -54,10 +57,9 @@ if (is_numeric($server_id)) {
                 <img src="frontend/static/img/logo.png" alt="logo eteconnect" class="img-logo img-fluid">
                 <h5 class="text-danger title-page">ETEConnect</h5>
             </div>
-            <div class="col d-flex mt-3 justify-content-end">
+            <div class="col d-flex justify-content-end align-items-center">
 
-
-                <button id="btnCreate" class="btn btn-danger mb-3">+ Nova postagem</button>
+                <button id="btnCreate" class="btn btn-danger">+ Nova postagem</button>
                 <div class="light-dark px-3 mt-2">
                     <div class="moon p-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon" viewBox="0 0 16 16">
@@ -205,9 +207,15 @@ if (is_numeric($server_id)) {
                 </div>
 
             </div>
-            <div id="loadingPostIcon">
 
-            </div>
+                <div id="loadingPostIcon">
+
+                </div>
+                <div id="palavras">
+                    Sem mais resultados
+                </div>
+
+
         </div>
     </div>
 </div>
@@ -358,9 +366,12 @@ if (is_numeric($server_id)) {
     <link rel="stylesheet" href="/frontend/static/css/aside-sec.css">
     <link rel="stylesheet" href="/frontend/static/css/posts.css">
     <link rel="stylesheet" href="/frontend/static/css/post-focus.css">
+    <link rel="stylesheet" href="/frontend/static/css/alerts.css">
+
     <!---->
 
     <!---->
+    <script src="/frontend/static/js/alerts.js"></script>
     <script src="/frontend/static/js/commentsFunctions.js"></script>
     <script src="/frontend/static/js/executeWithRefresh.js"></script>
     <script src="/frontend/static/js/likeFunctions.js"></script>
@@ -394,6 +405,8 @@ if (is_numeric($server_id)) {
                     showSuccess("Post criado com sucesso!");
                     containerCreate.classList.add("d-none");
                     resetForm();
+                    const postsContainer = document.querySelector(".posts");
+                    postsContainer.innerHTML = ""
 
                     renderHomePosts();
                 } else {

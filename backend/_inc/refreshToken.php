@@ -2,7 +2,7 @@
 
 use bng\System\Database;
 
-class RefreshToken
+class   RefreshToken
 {
 
     public static function generate_token()

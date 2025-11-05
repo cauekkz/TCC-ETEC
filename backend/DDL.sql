@@ -159,7 +159,7 @@ CREATE TABLE notice (
   server_id INT NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
-  notice_date DATE NOT NULL,
+--  notice_date DATE NOT NULL,
   type ENUM('evento', 'importante') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (server_id) REFERENCES server(id) ON DELETE CASCADE

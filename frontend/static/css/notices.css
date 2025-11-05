@@ -85,6 +85,137 @@
     margin: 0;
 }
 
+#btnCreate{
+  display: none;
+  cursor: pointer;
+}
+/* === Estilo do Dialog === */
+dialog.molested {
+    border: none;
+    border-radius: 1rem;
+    padding: 0;
+    background-color: var(--bg-card);
+    box-shadow: var(--shadow-large, 0 8px 30px rgba(0, 0, 0, 0.25));
+    width: 32rem;
+    max-width: 90vw;
+    color: var(--text-primary);
+    animation: fadeIn 0.25s ease-out;
+        margin: auto;
+
+}
+
+/* Efeito de fundo escurecido ao abrir */
+::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+}
+
+/* === Cabeçalho do Modal === */
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-primary);
+    background-color: var(--bg-card);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+
+}
+
+.modal-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.btn-close {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.btn-close:focus {
+    outline: none;
+}
+.btn-close:hover {
+    color: var(--accent-primary);
+}
+
+/* === Corpo do Modal === */
+.modal-body {
+    padding: 1.5rem;
+}
+
+/* === Formulário dentro do modal === */
+#createNoticeForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#createNoticeForm label {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+#createNoticeForm input,
+#createNoticeForm textarea,
+#createNoticeForm select {
+    width: 100%;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0.9rem 1rem;
+    border-radius: 0.3rem;
+    background-color: var(--bg-input) !important;
+    color: var(--text-secondary) !important;
+    border: 1px solid var(--border-secondary) !important;
+    transition: border 0.2s ease;
+}
+
+#createNoticeForm input:focus,
+#createNoticeForm textarea:focus,
+#createNoticeForm select:focus {
+    border: 2px solid var(--accent-primary) !important;
+    outline: none;
+    box-shadow: none;
+}
+
+/* Botão de envio */
+#createNoticeForm button[type="submit"] {
+    background-color: var(--accent-primary);
+    color: #fff;
+    font-weight: 500;
+    border: none;
+    border-radius: 0.4rem;
+    padding: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#createNoticeForm button[type="submit"]:hover {
+    background-color: var(--accent-primary-hover, #0078d7);
+}
+
+/* === Animação de entrada === */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
 
 /* Responsive */
 @media (max-width: 768px) {

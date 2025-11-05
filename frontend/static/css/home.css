@@ -53,7 +53,7 @@
 }
 
 #loadingPostIcon {
-  position: absolute;
+  position: relative;
   display: none;
   width: 2rem;
   height: 2rem;
@@ -62,16 +62,22 @@
   border: 2px solid;
   border-color: #D32F2F #D32F2F #D32F2F transparent;
   transition: margin 3s ease;
-  animation: nevasca infinite 1.5s ease;
-  
-  }
+  animation: nevasca 1.25s ease infinite;
+}
+
 
 @keyframes nevasca {
- 100%{
+  100% {
     transform: rotate(365deg);
   }
 }
-
+#palavras{
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color:var(--text-muted  );
+}
 /* Estilo para o botão de criar post quando não é professor */
 #btnCreate[style*="display: none"] {
   display: none !important;

@@ -11,7 +11,12 @@ if (!isset($_COOKIE["refreshToken"])) {
     exit;
 }
 $refresh_token = $_COOKIE["refreshToken"] ?? null;
-
+if ($refresh_token === null) {
+    $res->set_status('error');
+    $res->set_error_message("Logg in");
+    $res->response();
+    exit;
+}
 $token_data = RefreshToken::validate_token($refresh_token, $db);
 $user_id = $token_data?->user_id ?? null;
 

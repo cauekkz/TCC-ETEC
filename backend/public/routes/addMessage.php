@@ -23,7 +23,7 @@ $user_id = $resultJWT['id'];
 
 $mediaUrl = null;
 $mediatype = $_POST["media_type"] ?? null;
-$recevier_id = $_POST['receiver_id'];
+$receiver_id = $_POST['receiver_id'];
 $content = $_POST["content"] ?? null;
 if (isset($_FILES['media_file'])) {
     $file = $_FILES['media_file'];
@@ -36,8 +36,8 @@ if (isset($_FILES['media_file'])) {
     $mediaUrl = 'uploads/mediaMessage/' . $filename;
 }
 
-$sql = "INSERT INTO message (sender_id,receiver_id,content,media_url,media_type) VALUES (:user_id,:recevier_id,:content,:mediaUrl,:mediatype)";
-$params = ['content' => $content, "user_id" => $user_id, "recevier_id" => $recevier_id, "mediaUrl" => $mediaUrl, "mediatype" => $mediatype];
+$sql = "INSERT INTO message (sender_id,receiver_id,content,media_url,media_type) VALUES (:user_id,:receiver_id,:content,:mediaUrl,:mediatype)";
+$params = ['content' => $content, "user_id" => $user_id, "receiver_id" => $receiver_id, "mediaUrl" => $mediaUrl, "mediatype" => $mediatype];
 $response = $db->execute_non_query($sql, $params);
 
 if ($response->status != 'success') {

@@ -135,7 +135,7 @@ CREATE TABLE post_media (
   media_order INT DEFAULT 0,
   FOREIGN KEY (post_id) REFERENCES post(id) ON DELETE CASCADE
 );
---coisas sobre eventos
+-- coisas sobre eventos
 CREATE TABLE events (
   id INT PRIMARY KEY AUTO_INCREMENT,
   title VARCHAR(255) NOT NULL,
@@ -153,7 +153,7 @@ CREATE TABLE event_participants (
   UNIQUE(event_id, user_id),
   FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
---coisas sobre avisos
+-- coisas sobre avisos
 CREATE TABLE notice (
   id INT PRIMARY KEY AUTO_INCREMENT,
   server_id INT NOT NULL,
@@ -164,7 +164,7 @@ CREATE TABLE notice (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (server_id) REFERENCES server(id) ON DELETE CASCADE
 );
---coisas sobre projetos tcc
+-- coisas sobre projetos tcc
 CREATE TABLE tcc_project (
   id INT PRIMARY KEY AUTO_INCREMENT,
   title VARCHAR(255) NOT NULL,

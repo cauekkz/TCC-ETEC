@@ -1,4 +1,3 @@
-
 <header>
     <div class="container-fluid">
         <div class="row d-flex justify-content-between align-items-center">
@@ -140,49 +139,49 @@
 
         </div>
         <div class="col-6 flex-grow-1 px-3 " style="min-height: 0;">
-      <section class="messages">
-        <div class="contacts">
-          <input type="text" class="search" placeholder="Buscar conversas...">
-          <div class="contact active">
-            <div class="contact-avatar">PM</div>
-            <div class="contact-info">
-              <h4>Prof. Maria Santos</h4>
-              <p>Olá! Como está o desenvolvimento do seu projeto?</p>
-            </div>
-            <span class="time">14:05</span>
-            <span class="badge">2</span>
-          </div>
-          <div class="contact">
-            <div class="contact-avatar">AS</div>
-            <div class="contact-info">
-              <h4>Ana Silva</h4>
-              <p>Perfeito! Obrigado pela ajuda.</p>
-            </div>
-            <span class="time">12:35</span>
-          </div>
-        </div>
+            <section class="messages">
+                <div class="contacts">
+                    <input type="text" class="search" placeholder="Buscar conversas...">
+                    <div class="contact active">
+                        <div class="contact-avatar">PM</div>
+                        <div class="contact-info">
+                            <h4>Prof. Maria Santos</h4>
+                            <p>Olá! Como está o desenvolvimento do seu projeto?</p>
+                        </div>
+                        <span class="time">14:05</span>
+                        <span class="badge">2</span>
+                    </div>
+                    <div class="contact">
+                        <div class="contact-avatar">AS</div>
+                        <div class="contact-info">
+                            <h4>Ana Silva</h4>
+                            <p>Perfeito! Obrigado pela ajuda.</p>
+                        </div>
+                        <span class="time">12:35</span>
+                    </div>
+                </div>
 
-        <div class="chat">
-          <div class="chat-header">
-            <div class="contact-avatar">PM</div>
-            <h4>Prof. Maria Santos</h4>
-          </div>
-          <div class="chat-messages">
-            <div class="msg received">
-              <p>Olá! Como está o desenvolvimento do seu projeto?</p>
-              <span class="msg-time">14:05</span>
-            </div>
-            <div class="msg received">
-              <p>Lembre-se da entrega na próxima semana.</p>
-              <span class="msg-time">14:10</span>
-            </div>
-          </div>
-          <div class="chat-input">
-            <input type="text" placeholder="Digite sua mensagem...">
-            <button class="send">📨</button>
-          </div>
-        </div>
-      </section>
+                <div class="chat">
+                    <div class="chat-header">
+                        <div class="contact-avatar">PM</div>
+                        <h4>Prof. Maria Santos</h4>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="msg received">
+                            <p>Olá! Como está o desenvolvimento do seu projeto?</p>
+                            <span class="msg-time">14:05</span>
+                        </div>
+                        <div class="msg received">
+                            <p>Lembre-se da entrega na próxima semana.</p>
+                            <span class="msg-time">14:10</span>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" placeholder="Digite sua mensagem...">
+                        <button class="send">📨</button>
+                    </div>
+                </div>
+            </section>
 
         </div>
     </div>
@@ -192,6 +191,8 @@
 <link rel="stylesheet" href="/frontend/static/css/aside-sec.css">
 <script src="/frontend/static/js/executeWithRefresh.js"></script>
 <script src="/frontend/static/js/aside-sec.js"></script>
+<script src="/frontend/static/js/sendMessages.js"></script>
+<script src="/frontend/static/js/seeMessages.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', async function() {
         let userData = null;
@@ -208,9 +209,28 @@
         }
 
         fillAsideProfile(userData);
+        console.log(userData.user.id)
+        /* const data = await executeWithRefresh(seeMessages, 'get', userData.user.id)
+        console.log(data)  */
+
+        document.querySelector(".send").addEventListener("click", async (e) => {
+            e.preventDefault()
+
+            const input = document.querySelector(".chat-input input")
+            const content = input.value.trim()
+            if (!content) return
+
+            
+            const receiver_id = 2
+
+            const result = await executeWithRefresh(sendMessage, receiver_id, content)
+
+            console.log(result)
+
+            
+            input.value = ""
+        })
 
     })
 </script>
 <!-- Main Content -->
-       
-

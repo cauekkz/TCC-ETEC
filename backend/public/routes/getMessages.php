@@ -20,6 +20,10 @@ if ($response->status != 'success') {
     $res->response();
     exit;
 }
+
+var_dump($recevier_id, $user_id);
+exit;
+
 $res->set_response_data($response->results);
 $res->response();
 exit;

@@ -21,9 +21,6 @@ if ($response->status != 'success') {
     exit;
 }
 
-var_dump($recevier_id, $user_id);
-exit;
-
 $res->set_response_data($response->results);
 $res->response();
 exit;

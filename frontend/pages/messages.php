@@ -210,8 +210,8 @@
 
         fillAsideProfile(userData);
         console.log(userData.user.id)
-        /* const data = await executeWithRefresh(seeMessages, 'get', userData.user.id)
-        console.log(data)  */
+        const data = await executeWithRefresh(seeMessages, 'get', userData.user.id)
+        console.log(data)
 
         document.querySelector(".send").addEventListener("click", async (e) => {
             e.preventDefault()

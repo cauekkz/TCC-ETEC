@@ -958,6 +958,10 @@ $profile_id = $_GET['profile'];
                     return;
                 }
 
+                userData = await executeWithRefresh(loadUserInformation, <?= json_encode($profile_id) ?>);
+                sessionStorage.setItem('userData', userData);
+                
+
                 const campusSelects = document.querySelectorAll(".campus-select")
                 const campusIds = []
                 campusSelects.forEach((campusSelect) => {

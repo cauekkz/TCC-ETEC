@@ -143,26 +143,15 @@
                 <div class="contacts">
                     <input type="text" class="search" placeholder="Buscar conversas...">
                     <div class="contact active">
-                        <div class="contact-avatar">PM</div>
-                        <div class="contact-info">
-                            <h4>Prof. Maria Santos</h4>
-                            <p>Olá! Como está o desenvolvimento do seu projeto?</p>
-                        </div>
-                        <span class="time">14:05</span>
-                        <span class="badge">2</span>
+
                     </div>
                     <div class="contact">
-                        <div class="contact-avatar">AS</div>
-                        <div class="contact-info">
-                            <h4>Ana Silva</h4>
-                            <p>Perfeito! Obrigado pela ajuda.</p>
-                        </div>
-                        <span class="time">12:35</span>
+
                     </div>
                 </div>
 
                 <div class="chat">
-                    <div class="chat-header">
+                    <!-- <div class="chat-header">
                         <div class="contact-avatar">PM</div>
                         <h4>Prof. Maria Santos</h4>
                     </div>
@@ -179,7 +168,7 @@
                     <div class="chat-input">
                         <input type="text" placeholder="Digite sua mensagem...">
                         <button class="send">📨</button>
-                    </div>
+                    </div> -->
                 </div>
             </section>
 
@@ -187,12 +176,143 @@
     </div>
 </div>
 
+<style>
+    .chat-messages {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px;
+        max-height: 65vh;
+        overflow-y: auto;
+        background-color: #121212;
+        /* fundo escuro */
+        color: #e5e5e5;
+        border-top: 1px solid #2a2a2a;
+    }
+
+    .msg {
+        max-width: 70%;
+        padding: 10px 14px;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        word-wrap: break-word;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Mensagens enviadas (usuário atual) */
+    .msg.sent {
+        align-self: flex-end;
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: #fff;
+        border-bottom-right-radius: 0;
+    }
+
+    /* Mensagens recebidas */
+    .msg.received {
+        align-self: flex-start;
+        background: #1e1e1e;
+        color: #e0e0e0;
+        border-bottom-left-radius: 0;
+    }
+
+    /* Texto das mensagens */
+    .msg p {
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    /* Horário */
+    .msg-time {
+        font-size: 0.75rem;
+        opacity: 0.8;
+        margin-top: 4px;
+        text-align: right;
+        color: #b0b0b0;
+    }
+
+    /* Data */
+    .msg-date {
+        font-size: 0.7rem;
+        opacity: 0.6;
+        text-align: right;
+        color: #8c8c8c;
+    }
+
+    /* Scrollbar personalizada */
+    .chat-messages::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb {
+        background-color: #333;
+        border-radius: 3px;
+    }
+
+    .chat-messages::-webkit-scrollbar-track {
+        background-color: #1a1a1a;
+    }
+
+    /* Campo de envio */
+    .chat-input {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background-color: #1a1a1a;
+        border-top: 1px solid #2a2a2a;
+    }
+
+    .chat-input input {
+        flex: 1;
+        background-color: #262626;
+        border: none;
+        outline: none;
+        color: #e5e5e5;
+        padding: 10px 14px;
+        border-radius: 20px;
+        margin-right: 10px;
+    }
+
+    .chat-input input::placeholder {
+        color: #888;
+    }
+
+    .chat-input .send {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: 0.2s ease;
+    }
+
+    .chat-input .send:hover {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        transform: scale(1.05);
+    }
+
+    /* Contato ativo */
+    .contact.active {
+        background-color: #1e1e1e;
+        border-left: 3px solid #3b82f6;
+    }
+</style>
+
 <link rel="stylesheet" href="/frontend/static/css/header.css">
 <link rel="stylesheet" href="/frontend/static/css/aside-sec.css">
+<link rel="stylesheet" href="/frontend/static/css/messages.css">
 <script src="/frontend/static/js/executeWithRefresh.js"></script>
 <script src="/frontend/static/js/aside-sec.js"></script>
 <script src="/frontend/static/js/sendMessages.js"></script>
 <script src="/frontend/static/js/seeMessages.js"></script>
+<script src="/frontend/static/js/contacts.js"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', async function() {
         let userData = null;
@@ -201,36 +321,221 @@
         } catch (e) {
             userData = null;
         }
-        if (userData === null) {
-            userData = await executeWithRefresh(loadUserInformation, "mine");
-            userData = userData?.data
 
+        if (!userData) {
+            const userInfo = await executeWithRefresh(loadUserInformation, "mine");
+            userData = userInfo?.data;
             sessionStorage.setItem('userData', JSON.stringify(userData));
         }
 
         fillAsideProfile(userData);
-        console.log(userData.user.id)
-        const data = await executeWithRefresh(seeMessages, 'get', userData.user.id)
-        console.log(data)
 
-        document.querySelector(".send").addEventListener("click", async (e) => {
-            e.preventDefault()
+        const token = localStorage.getItem("jwt_token");
+        const response = await fetch('/api/contacts', {
+            method: "GET",
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+        });
 
-            const input = document.querySelector(".chat-input input")
-            const content = input.value.trim()
-            if (!content) return
+        const contacts_resp = await response.json();
+        const contacts = contacts_resp.data;
 
-            
-            const receiver_id = 2
+        const contactsContainer = document.querySelector('.contacts');
+        contactsContainer.innerHTML = `<input type="text" class="search" placeholder="Buscar conversas...">`;
+        contacts.forEach(contact => {
+            console.log(contact)
+            const firstLetter = contact.name.charAt(0).toUpperCase();
+            const date = contact.last_message_at ? new Date(contact.last_message_at) : null;
+            const formattedTime = date ? `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}` : "--:--";
+            const lastMessage = contact.last_message_content || "Sem mensagens ainda";
 
-            const result = await executeWithRefresh(sendMessage, receiver_id, content)
+            contactsContainer.innerHTML += `
+            <div class="contact" data-id="${contact.user_id}">
+                <div class="contact-avatar">${firstLetter}</div>
+                <div class="contact-info">
+                    <h4>${contact.name}</h4>
+                    <p>${lastMessage}</p>
+                </div>
+                <span class="time">${formattedTime}</span>
+                <span class="badge">${contact.unread_count || 0}</span>
+            </div>
+        `;
+        });
 
-            console.log(result)
+        window.send = async function(e) {
+            e.preventDefault();
 
-            
-            input.value = ""
-        })
+            const input = document.querySelector(".chat-input input");
+            const content = input.value.trim();
+            if (!content) return;
 
-    })
+            const activeContact = document.querySelector(".contact.active");
+            if (!activeContact) return alert("Selecione um contato");
+            const receiver_id = parseInt(activeContact.dataset.id, 10);
+            const result = await executeWithRefresh(sendMessage, receiver_id, content, null, null);
+
+            const chatMessages = document.querySelector(".chat-messages");
+            const now = new Date();
+
+            chatMessages.innerHTML += `
+        <div class="msg sent">
+            <p>${content}</p>
+            <span class="msg-time">${now.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</span>
+            <span class="msg-date">${now.toLocaleDateString('pt-BR')}</span>
+        </div>
+    `;
+            input.value = "";
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        };
+        document.querySelectorAll('.contact').forEach(contactEl => {
+            contactEl.addEventListener('click', async () => {
+
+                const resp = await fetch('/api/contacts', {
+                    method: "GET",
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                });
+
+                const contacts_resp = await resp.json();
+                const contacts = contacts_resp.data;
+
+                contacts.forEach(contact => {
+                    const firstLetter = contact.name.charAt(0).toUpperCase();
+                    document.querySelector(".chat").innerHTML = `<div class="chat-header">
+                        <div class="contact-avatar">${firstLetter}</div>
+                        <h4>${contact.name}</h4>
+                    </div>
+                    <div class="chat-messages">
+                        
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" placeholder="Digite sua mensagem...">
+                        <button class="send" onclick="send(event)">📨</button>
+                    </div>`
+                })
+                document.querySelectorAll('.contact').forEach(c => c.classList.remove('active'));
+                contactEl.classList.add('active');
+
+                const receiver_id = contactEl.dataset.id;
+
+                let chatInterval = null;
+                let activeReceiverId = null;
+
+                function startChatInterval() {
+                    if (chatInterval) clearInterval(chatInterval);
+                    if (!activeReceiverId) return;
+                    updateChat(); // primeira atualização imediata
+                    chatInterval = setInterval(updateChat, 3000);
+                }
+
+                document.querySelectorAll('.contact').forEach(contactEl => {
+                    contactEl.addEventListener('click', async () => {
+                        document.querySelectorAll('.contact').forEach(c => c.classList.remove('active'));
+                        contactEl.classList.add('active');
+
+                        activeReceiverId = contactEl.dataset.id; // define contato ativo
+                        startChatInterval();
+                    });
+                });
+
+                async function updateChat() {
+                    try {
+                        const response = await fetch('/api/getMessages?contact_id=' + receiver_id, {
+                            method: "GET",
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            },
+                        });
+
+                        if (!response.ok) {
+                            console.error("Erro ao buscar mensagens:", response.status);
+                            return;
+                        }
+
+                        const data = await response.json();
+                        const messages = data.data;
+
+                        const chatMessages = document.querySelector('.chat-messages');
+                        chatMessages.innerHTML = '';
+
+                        messages.forEach(msg => {
+                            const isSent = msg.sender_id === userData.user.id;
+                            const msgClass = isSent ? 'sent' : 'received';
+                            const dateObj = new Date(msg.created_at);
+                            const time = dateObj.toLocaleTimeString([], {
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            });
+                            const date = dateObj.toLocaleDateString('pt-BR');
+
+                            chatMessages.innerHTML += `
+                <div class="msg ${msgClass}">
+                    <p>${msg.content}</p>
+                    <span class="msg-time">${time}</span>
+                    <span class="msg-date">${date}</span>
+                </div>
+            `;
+                        });
+
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                    } catch (err) {
+                        console.error("Erro na requisição:", err);
+                    }
+                }
+
+                updateChat();
+                setInterval(updateChat, 1000);
+
+
+
+                const response = await fetch('/api/getMessages?contact_id=' + receiver_id, {
+                    method: "GET",
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                });
+
+                if (!response.ok) {
+                    console.error("Erro ao buscar mensagens:", response.status);
+                    return;
+                }
+
+                const data = await response.json();
+                const messages = data.data;
+                const unreadIds = messages
+                    .filter(msg =>
+                        msg.receiver_id === userData.user.id &&
+                        !Boolean(Number(msg.is_read))
+                    ).map(msg => msg.id);
+                console.log(unreadIds)
+
+                if (unreadIds.length > 0) {
+                    const token = localStorage.getItem("jwt_token");
+                    await fetch("/api/readMessages", {
+                        method: "PATCH",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            ids: unreadIds
+                        })
+                    });
+
+                    const badgeElement = contactEl.querySelector('.badge');
+                    if (badgeElement) {
+                        badgeElement.textContent = '0';
+                        badgeElement.style.display = 'none';
+                    }
+
+                }
+            });
+        });
+
+
+
+    });
 </script>
-<!-- Main Content -->

@@ -3,7 +3,7 @@
 const userData = sessionStorage.getItem("userData")
 
 async function seeMessages(idUser){
-    const response = await fetch('/api/getMessages?id=' + idUser, {
+    const response = await fetch('/api/getMessages?contact_id=' + idUser, {
         method: "GET",
         headers: {
             'Authorization': `Bearer ${token}`

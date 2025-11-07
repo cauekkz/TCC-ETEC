@@ -40,11 +40,8 @@ document.getElementById('createNoticeForm').addEventListener('submit', async (e)
         body: formData
     }).then(res => res.json());
 
-    if (result.success) {
+    
         location.reload();
-    } else {
-        alert("Erro ao criar evento!");
-    }
 });
 
 

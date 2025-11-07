@@ -25,8 +25,6 @@ async function sendMessage(receiver_id, content, mediafile = null, mediatype = n
         body: formData
     })
 
-    console.log("Receiver ID:", receiver_id)
-
     const data = await response.json()
     return data
 }

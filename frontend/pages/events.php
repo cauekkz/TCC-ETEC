@@ -19,6 +19,8 @@ if (is_numeric($server_id)) {
     }
 </script>
 
+<style></style>
+
 <header>
     <div class="container-fluid">
         <div class="row d-flex justify-content-between align-items-center">
@@ -28,7 +30,7 @@ if (is_numeric($server_id)) {
             </div>
             <div class="col d-flex mt-3 justify-content-end">
 
-
+                <button class="btn btn-danger btnCreate">+ Novo evento</button>
                 <div class="light-dark px-3 mt-2">
                     <div class="moon p-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon" viewBox="0 0 16 16">
@@ -216,7 +218,7 @@ if (is_numeric($server_id)) {
                         </div>
                         <p class="event-description">
                             Cerimônia de formatura dos cursos técnicos do segundo semestre de 2024.
-                            
+
                         </p>
                         <div class="event-details">
                             <div class="detail-item">
@@ -251,13 +253,168 @@ if (is_numeric($server_id)) {
     </div>
 </div>
 
+<!-- <div class="container-post-focus d-none">
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="post-focus">
+            <!-- Botão de fechar 
+            <button class="close-post-focus" onclick="closeCreateEvent()">&times;</button>
+
+            <!-- Header 
+            <div class="modal-header mb-3">
+                <h2>Criar Novo Evento</h2>
+            </div>
+
+            <!-- Corpo do modal
+            <div class="modal-body">
+                <form class="create-event-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventTitle">Título do Evento *</label>
+                            <input type="text" id="eventTitle" placeholder="Ex: Feira de Profissões 2024" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventCategory">Categoria *</label>
+                            <select id="eventCategory" required>
+                                <option value="">Selecione a categoria</option>
+                                <option value="educacional">Educacional</option>
+                                <option value="cerimonia">Cerimônia</option>
+                                <option value="esportivo">Esportivo</option>
+                                <option value="cultural">Cultural</option>
+                                <option value="tecnico">Técnico</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventDescription">Descrição *</label>
+                        <textarea id="eventDescription" placeholder="Descreva o evento, objetivos e informações importantes" rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eventDate">Data *</label>
+                            <input type="date" id="eventDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventTime">Horário *</label>
+                            <input type="time" id="eventTime" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventLocation">Local *</label>
+                        <input type="text" id="eventLocation" placeholder="Ex: Auditório Central - ETEC Cidade Tiradentes" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="maxParticipants">Máximo de Participantes</label>
+                            <input type="number" id="maxParticipants" placeholder="Ex: 300" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="eventType">Tipo de Evento</label>
+                            <select id="eventType">
+                                <option value="presencial">Presencial</option>
+                                <option value="online">Online</option>
+                                <option value="hibrido">Híbrido</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-actions mt-3 d-flex justify-content-end gap-2">
+                        <button type="button" class="action-btn secondary cancel-btn" onclick="closeCreateEvent()">Cancelar</button>
+                        <button type="submit" class="action-btn primary">Criar Evento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<dialog class="molested">
+    <div class="modal-header">
+        <h5 class="modal-title">Criar Novo Evento</h5>
+        <button type="button" class="btn-close" id="closeModal" aria-label="Close">X</button>
+    </div>
+    <div class="modal-body">
+        <form id="createNoticeForm" method="POST">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="eventTitle">Título do Evento *</label>
+                    <input type="text" id="eventTitle" name="title" placeholder="Ex: Feira de Profissões 2024" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventCategory">Categoria *</label>
+                    <select id="eventCategory" name="category" required>
+                        <option value="">Selecione a categoria</option>
+                        <option value="educacional">Educacional</option>
+                        <option value="cerimonia">Cerimônia</option>
+                        <option value="esportivo">Esportivo</option>
+                        <option value="cultural">Cultural</option>
+                        <option value="tecnico">Técnico</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="eventDescription">Descrição *</label>
+                <textarea id="eventDescription" name="description" placeholder="Descreva o evento, objetivos e informações importantes" rows="4" required></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="eventDate">Data *</label>
+                    <input type="date" id="eventDate" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventTime">Horário *</label>
+                    <input type="time" id="eventTime" name="time" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="eventLocation">Local *</label>
+                <input type="text" id="eventLocation" name="location" placeholder="Ex: Auditório Central - ETEC Cidade Tiradentes" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="maxParticipants">Máximo de Participantes</label>
+                    <input type="number" id="maxParticipants" name="capacity" placeholder="Ex: 300" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="eventType">Tipo de Evento</label>
+                    <select id="eventType" name="type">
+                        <option value="presencial">Presencial</option>
+                        <option value="online">Online</option>
+                        <option value="hibrido">Híbrido</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-actions mt-3 d-flex justify-content-end gap-2">
+                <button type="submit" class="action-btn primary">Criar Evento</button>
+            </div>
+        </form>
+    </div>
+</dialog>
+
+
+
+
+
 <link rel="stylesheet" href="/frontend/static/css/header.css">
+<link rel="stylesheet" href="/frontend/static/css/post-focus.css">
 <link rel="stylesheet" href="/frontend/static/css/aside-sec.css">
 <link rel="stylesheet" href="/frontend/static/css/alerts.css">
+
 
 <script src="/frontend/static/js/alerts.js"></script>
 <script src="/frontend/static/js/executeWithRefresh.js"></script>
 <script src="frontend/static/js/loaduserinformation.js"></script>
+<!-- <script src="/frontend/static/js/events.js"></script> -->
 
 <script src="/frontend/static/js/aside-sec.js"></script>
 <script>
@@ -276,8 +433,48 @@ if (is_numeric($server_id)) {
         }
 
         fillAsideProfile(userData);
+
+        console.log(userData)
+        if (userData.user.role != "professor") {
+            btnCreate.style.display = "none";
+        }
+
+        const modal = document.querySelector(".molested");
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.close();
+            }
+        });
+        const btnCreate = document.querySelector(".btnCreate");
+        btnCreate.addEventListener("click", () => {
+            modal.showModal();
+
+        });
+        const closeModalBtn = document.querySelector(".btn-close");
+        document.getElementById('createAlertForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form); // envia como form-data
+            formData.append('server_id', localStorage.getItem("selectedServer"));
+
+            const result = await fetch("/api/addEvents", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("jwt_token")}`
+                },
+                body: formData
+            }).then(res => res.json());
+
+            console.log(result);
+        });
+
+        closeModalBtn.addEventListener("click", () => {
+            modal.close();
+        });
     });
 </script>
+
+
 <!--
 <main class="main-content">
     <div class="content-header">

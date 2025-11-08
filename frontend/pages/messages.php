@@ -185,7 +185,6 @@
         max-height: 65vh;
         overflow-y: auto;
         background-color: #121212;
-        /* fundo escuro */
         color: #e5e5e5;
         border-top: 1px solid #2a2a2a;
     }
@@ -200,7 +199,7 @@
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
     }
 
-    /* Mensagens enviadas (usuário atual) */
+
     .msg.sent {
         align-self: flex-end;
         background: linear-gradient(135deg, #2563eb, #1d4ed8);
@@ -208,7 +207,7 @@
         border-bottom-right-radius: 0;
     }
 
-    /* Mensagens recebidas */
+
     .msg.received {
         align-self: flex-start;
         background: #1e1e1e;
@@ -216,13 +215,13 @@
         border-bottom-left-radius: 0;
     }
 
-    /* Texto das mensagens */
+    
     .msg p {
         margin: 0;
         line-height: 1.4;
     }
 
-    /* Horário */
+   
     .msg-time {
         font-size: 0.75rem;
         opacity: 0.8;
@@ -231,7 +230,7 @@
         color: #b0b0b0;
     }
 
-    /* Data */
+    
     .msg-date {
         font-size: 0.7rem;
         opacity: 0.6;
@@ -239,7 +238,7 @@
         color: #8c8c8c;
     }
 
-    /* Scrollbar personalizada */
+    
     .chat-messages::-webkit-scrollbar {
         width: 6px;
     }
@@ -297,7 +296,7 @@
         transform: scale(1.05);
     }
 
-    /* Contato ativo */
+   
     .contact.active {
         background-color: #1e1e1e;
         border-left: 3px solid #3b82f6;
@@ -426,7 +425,7 @@
                 function startChatInterval() {
                     if (chatInterval) clearInterval(chatInterval);
                     if (!activeReceiverId) return;
-                    updateChat(); // primeira atualização imediata
+                    updateChat();
                     chatInterval = setInterval(updateChat, 3000);
                 }
 
@@ -435,7 +434,7 @@
                         document.querySelectorAll('.contact').forEach(c => c.classList.remove('active'));
                         contactEl.classList.add('active');
 
-                        activeReceiverId = contactEl.dataset.id; // define contato ativo
+                        activeReceiverId = contactEl.dataset.id; 
                         startChatInterval();
                     });
                 });

@@ -3,8 +3,7 @@ require("../../_inc/init.php");
 require_once __DIR__ . '/../../_inc/filters/isLogged.php';
 check_request_method($_SERVER['REQUEST_METHOD'], "GET");
 
-// --- 1. CAPTURA O ID DO CONTATO ---
-// Assumindo que o front-end envia o ID do contato como parâmetro GET (ex: ?contact_id=123)
+
 $contact_id = $_GET['contact_id'] ?? null;
 
 if (!$contact_id || !is_numeric($contact_id)) {
@@ -12,14 +11,14 @@ if (!$contact_id || !is_numeric($contact_id)) {
     echo json_encode(['error' => 'ID do contato inválido ou ausente.']);
     exit;
 }
-$contact_id = (int) $contact_id; // Sanitiza para inteiro
+$contact_id = (int) $contact_id; 
 
 $jwt = new JwtAuth();
 $tokenJWT = $jwt->get_jwt_by_header();
 $resultJWT = $jwt->validate_token($tokenJWT);
 $user_id = $resultJWT['id'];
 
-// --- 2. CORREÇÃO DA QUERY SQL ---
+
 $sql = "SELECT 
             id, sender_id, receiver_id, content, created_at, is_read 
         FROM 
@@ -33,7 +32,7 @@ $sql = "SELECT
 
 $params = [
     "user_id" => $user_id,
-    "contact_id" => $contact_id // Adicionado o parâmetro do contato
+    "contact_id" => $contact_id
 ];
 
 $response = $db->execute_query($sql, $params);

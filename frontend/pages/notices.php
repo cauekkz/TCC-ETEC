@@ -173,44 +173,7 @@ if (is_numeric($server_id)) {
 
 
                 <div class="notices-container">
-                    <div class="notice-card ">
-                        <div class="notice-header">
-                            <h3>Inscrições abertas para o Vestibulinho 2025</h3>
-                            <div class="urgency-tag">Urgente</div>
-                        </div>
-                        <div class="notice-meta">
-                            <div class="meta-item">
-                                <i class="fas fa-exclamation-triangle"></i>
-                                <span>Importante</span>
-                            </div>
-                            <div class="meta-separator">•</div>
-                            <div class="meta-item">
-                                <span>30/11/2024</span>
-                            </div>
-                        </div>
-                        <div class="notice-content">
-                            <p>As inscrições para o Vestibulinho das ETECs 2025 estão abertas até 15 de dezembro. Não perca essa oportunidade!</p>
-                        </div>
-                    </div>
 
-                    <div class="notice-card ">
-                        <div class="notice-header">
-                            <h3>Feira de Profissões - 18 de dezembro</h3>
-                        </div>
-                        <div class="notice-meta">
-                            <div class="meta-item">
-                                <i class="far fa-star"></i>
-                                <span>Evento</span>
-                            </div>
-                            <div class="meta-separator">•</div>
-                            <div class="meta-item">
-                                <span>04/12/2024</span>
-                            </div>
-                        </div>
-                        <div class="notice-content">
-                            <p>Venha conhecer os cursos técnicos e tecnológicos oferecidos pelas ETECs. Evento gratuito com palestras e demonstrações.</p>
-                        </div>
-                    </div>
                 </div>
 
             </div>
@@ -223,6 +186,7 @@ if (is_numeric($server_id)) {
 <script src="/frontend/static/js/alerts.js"></script>
 <script src="/frontend/static/js/aside-sec.js"></script>
 <script src="/frontend/static/js/executeWithRefresh.js"></script>
+<script src="/frontend/static/js/addNoticeBox.js"></script>
 <dialog class="molested">
     <div class="modal-header">
         <h5 class="modal-title">Criar Novo Aviso</h5>
@@ -296,20 +260,40 @@ if (is_numeric($server_id)) {
                     },
                     body: JSON.stringify(data)
                 }).then(res => res.json());
-            });
-            console.log(result);
-            return
+            });            
             if (result.status !== "success") {
                 showBackendError(result || "Erro ao criar aviso.");
                 return;
             }
 
-            console.log(result)
+            showSuccess("Aviso criado com sucesso!");
 
         })
         closeModalBtn.addEventListener("click", () => {
             modal.close();
         });
+
+        const data = await executeWithRefresh(async () => {
+            return await fetch(`/api/getNoticeByEtec?server_id=${serverId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("jwt_token")}`
+                }
+            }).then(res => res.json());
+        });
+        console.log("eiei")
+        console.log(data);
+        if(data.status !== "success"){
+            showBackendError(data || "Erro ao carregar avisos.");
+            return;
+        }   
+        const noticeConteiner = document.querySelector(".notices-container");
+        data.data.forEach(noticeInfo => {
+            const noticeElement = addNoticeBox(noticeInfo);
+            noticeConteiner.appendChild(noticeElement);
+        });
+
 
     });
 

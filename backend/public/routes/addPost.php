@@ -26,7 +26,7 @@ if (empty($content) || empty($serverId)) {
 
 // Validar conteúdo (prevenir XSS e código malicioso)
 $content = trim($content);
-if (strlen($content) > 5000) { // Limite de 5000 caracteres
+if (strlen($content) > 5000) { 
     $res->set_status("error");
     $res->set_error_message("Content too long (max 5000 characters)");
     $res->response();

@@ -260,13 +260,15 @@ if (is_numeric($server_id)) {
                     },
                     body: JSON.stringify(data)
                 }).then(res => res.json());
-            });            
+            });
+            
             if (result.status !== "success") {
                 showBackendError(result || "Erro ao criar aviso.");
                 return;
             }
 
             showSuccess("Aviso criado com sucesso!");
+            modal.close();
 
         })
         closeModalBtn.addEventListener("click", () => {
@@ -277,17 +279,14 @@ if (is_numeric($server_id)) {
             return await fetch(`/api/getNoticeByEtec?server_id=${serverId}`, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.getItem("jwt_token")}`
                 }
             }).then(res => res.json());
         });
-        console.log("eiei")
-        console.log(data);
-        if(data.status !== "success"){
+        if (data.status !== "success") {
             showBackendError(data || "Erro ao carregar avisos.");
             return;
-        }   
+        }
         const noticeConteiner = document.querySelector(".notices-container");
         data.data.forEach(noticeInfo => {
             const noticeElement = addNoticeBox(noticeInfo);
@@ -296,5 +295,4 @@ if (is_numeric($server_id)) {
 
 
     });
-
 </script>

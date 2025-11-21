@@ -79,7 +79,7 @@ function addPostBox(postInfo) {
 
                 <div class="post-sec-2">
                     <div>
-                        <span class="post-like-icon interactive"><span class="like_icon ">${likeIcon}</span> <span class="total_likes">${total_likes} </span>
+                        <span class="post-like-icon interactive"><span class="like_icon">${likeIcon}</span> <span class="total_likes">${total_likes} </span>
                         </span>
 
                         <span class="post-comments-icon interactive" onclick="openCommentsOnly(${id})">

@@ -26,11 +26,12 @@ CREATE TABLE user (
   phone varchar(50),
   email VARCHAR(100) UNIQUE NOT NULL,
   address VARCHAR(200) NULL,
-  registration VARCHAR(11) NOT NULL,
+  registration VARCHAR(11) NOT NULL UNIQUE,
   birthday DATE NOT NULL,
   role ENUM('estudante', 'professor') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  password_hash VARCHAR(255) NOT NULL
+  password_hash VARCHAR(255) NOT NULL,
+  
 );
 CREATE TABLE user_course(
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -171,7 +172,6 @@ CREATE TABLE tcc_project (
   description TEXT NOT NULL,
   course_id INT,
   campus_id INT,
-  grade ENUM('I', 'R', 'B', 'MB'),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE
   SET NULL,

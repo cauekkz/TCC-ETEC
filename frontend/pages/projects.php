@@ -28,9 +28,10 @@ if (is_numeric($server_id)) {
                 <img src="frontend/static/img/logo.png" alt="logo eteconnect" class="img-logo img-fluid">
                 <h5 class="text-danger title-page">ETEConnect</h5>
             </div>
-            <div class="col d-flex mt-3 justify-content-end">
+            <div class="col d-flex  justify-content-end align-items-center">
 
 
+                <button id="btnCreate" class="btn btn-danger">+ Novo Projeto</button>
                 <div class="light-dark px-3 mt-2">
                     <div class="moon p-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon" viewBox="0 0 16 16">
@@ -52,6 +53,8 @@ if (is_numeric($server_id)) {
         </div>
 
     </div>
+
+
 
 </header>
 
@@ -173,41 +176,7 @@ if (is_numeric($server_id)) {
                     </div>
                 </div>
                 <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-info">
-                            <h3>Sistema de Gestão Escolar</h3>
-                            <div class="project-tags">
-                                <span class="project-tag">Desenvolvimento de Sistemas</span>
-                                <span class="project-institution">ETEC Cidade Tiradentes</span>
-                            </div>
-                            <p class="project-description">Aplicação web para gerenciamento de dados escolares, com interface moderna e funcionalidades completas para administração acadêmica.</p>
-                            <div class="project-actions">
-                                <button class="view-project-btn">Ver Projeto</button>
-                                <button class="like-btn">
-                                    <i class="far fa-heart"></i>
-                                    <span>24</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="project-card">
-                        <div class="project-info">
-                            <h3>App de Monitoramento Ambiental</h3>
-                            <div class="project-tags">
-                                <span class="project-tag">Meio Ambiente</span>
-                                <span class="project-institution">ETEC Paulistano</span>
-                            </div>
-                            <p class="project-description">Aplicativo mobile para monitoramento da qualidade do ar e água, com sensores IoT e dashboard em tempo real.</p>
-                            <div class="project-actions">
-                                <button class="view-project-btn">Ver Projeto</button>
-                                <button class="like-btn">
-                                    <i class="far fa-heart"></i>
-                                    <span>18</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
 
@@ -215,82 +184,132 @@ if (is_numeric($server_id)) {
         </div>
     </div>
 </div>
+<dialog id="projectModal" class="molested modal-dialog bg-card border-primary shadow-heavy">
 
+    <form id="querubim" method="dialog" class="modal-content">
 
-<!--
-<div class="container">
+        <!-- HEADER -->
+        <header class="modal-header bg-secondary border-secondary">
+            <h2 class="text-primary">Novo Projeto de TCC</h2>
+            <button type="button" class="close-btn text-primary closeModalBtn">×</button>
+        </header>
 
-    <main class="main-content">
-        <div class="content-header">
-            <h1>Projetos de TCC</h1>
-            <div class="section-title">
-                <i class="fas fa-star"></i>
-                <span>Projetos em Destaque</span>
-            </div>
-        </div>
+        <!-- BODY -->
+        <section class="modal-body">
 
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-image">
-                    <div class="project-placeholder">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <div class="project-rating">
-                        <i class="fas fa-star"></i>
-                        <span>9.5</span>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <h3>Sistema de Gestão Escolar</h3>
-                    <div class="project-tags">
-                        <span class="project-tag">Desenvolvimento de Sistemas</span>
-                        <span class="project-institution">ETEC Cidade Tiradentes</span>
-                    </div>
-                    <p class="project-description">Aplicação web para gerenciamento de dados escolares, com interface moderna e funcionalidades completas para administração acadêmica.</p>
-                    <div class="project-actions">
-                        <button class="view-project-btn">Ver Projeto</button>
-                        <button class="like-btn">
-                            <i class="far fa-heart"></i>
-                            <span>24</span>
-                        </button>
-                    </div>
-                </div>
+            <!-- Título -->
+            <div class="form-group">
+                <label class="text-primary">Título</label>
+                <input type="text" name="title" required class="input bg-input border-primary text-primary">
             </div>
 
-            <div class="project-card">
-                <div class="project-image">
-                    <div class="project-placeholder nature">
-                        <i class="fas fa-leaf"></i>
-                    </div>
-                    <div class="project-rating">
-                        <i class="fas fa-star"></i>
-                        <span>9.2</span>
-                    </div>
+            <!-- Descrição -->
+            <div class="form-group">
+                <label class="text-primary">Descrição</label>
+                <textarea name="description" rows="4" class="input bg-input border-primary text-primary" required></textarea>
+            </div>
+
+            <!-- Curso  -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="text-primary">Escola</label>
+                    <select name="campus_id" class="input bg-input border-primary text-primary"></select>
+                    <label class="text-primary">Curso</label>
+                    <select name="course_id" class="input bg-input border-primary text-primary"></select>
                 </div>
-                <div class="project-info">
-                    <h3>App de Monitoramento Ambiental</h3>
-                    <div class="project-tags">
-                        <span class="project-tag">Meio Ambiente</span>
-                        <span class="project-institution">ETEC Paulistano</span>
-                    </div>
-                    <p class="project-description">Aplicativo mobile para monitoramento da qualidade do ar e água, com sensores IoT e dashboard em tempo real.</p>
-                    <div class="project-actions">
-                        <button class="view-project-btn">Ver Projeto</button>
-                        <button class="like-btn">
-                            <i class="far fa-heart"></i>
-                            <span>18</span>
-                        </button>
-                    </div>
+
+            </div>
+
+            <!-- Membros -->
+            <div class="form-group">
+                <label class="text-primary">Membros do grupo</label>
+
+                <input type="text" id="memberSearch" placeholder="Digite a matricula do estudante..."
+                    class="input bg-input border-primary text-primary">
+
+                <div id="memberResults" class="results-box bg-secondary border-primary"></div>
+
+                <div id="selectedMembers" class="selected-members">
+
+
                 </div>
             </div>
-        </div>
-    </main>
-</div>
--->
+
+            <!-- Arquivos -->
+            <div class="form-group">
+                <label class="text-primary">Arquivos</label>
+                <input type="file" id="files" multiple class="input bg-input border-primary text-primary">
+            </div>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="modal-footer bg-secondary border-secondary">
+            <button type="button" class="btn cancel-btn" onclick="closeProjectModal()">Cancelar</button>
+            <button type="submit" class="btn save-btn">Salvar</button>
+        </footer>
+
+    </form>
+</dialog>
+
+<dialog id="viewProjectModal" class="modal-dialog bg-card border-primary shadow-heavy" aria-hidden="true">
+
+    <div class="modal-content" role="document">
+
+        <!-- HEADER -->
+        <header class="modal-header bg-secondary border-secondary">
+            <div class="modal-header-left">
+                <h2 id="viewProjectTitle" class="text-primary">Título do Projeto</h2>
+                <div class="meta small text-muted" id="viewProjectMeta">23/11/2025</div>
+            </div>
+
+        </header>
+
+        <!-- BODY -->
+        <section class="modal-body">
+            <div class="project-tags">
+                <span id="viewProjectCourse" class="project-tag"></span>
+                <span id="viewProjectCampus" class="project-institution"></span>
+            </div>
+            <p id="viewProjectDescription" class="text-primary"></p>
+
+
+
+            <h3 class="text-primary">Integrantes</h3>
+            <ul id="viewProjectMembers" class="member-list text-primary"></ul>
+
+            <h3 class="text-primary">Arquivos</h3>
+
+            <!-- Slider for images/videos -->
+            <div id="mediaCarouselWrap" class="media-carousel-wrap" hidden>
+                <button class="carousel-arrow left" id="carouselPrev" aria-label="Anterior">‹</button>
+                <div id="mediaCarousel" class="media-carousel" tabindex="0" role="group" aria-roledescription="carousel"></div>
+                <button class="carousel-arrow right" id="carouselNext" aria-label="Próximo">›</button>
+                <div id="carouselDots" class="carousel-dots" aria-hidden="true"></div>
+            </div>
+
+            <!-- Files list (pdf / zip) -->
+            <div id="viewProjectFiles" class="file-list"></div>
+
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="modal-footer bg-secondary border-secondary">
+            <button type="button" class="btn cancel-btn" id="absurdo">Fechar</button>
+        </footer>
+
+    </div>
+</dialog>
+
+
+
+
+
 <link rel="stylesheet" href="/frontend/static/css/header.css">
 <link rel="stylesheet" href="/frontend/static/css/aside-sec.css">
 <link rel="stylesheet" href="/frontend/static/css/alerts.css">
 
+<script src="/frontend/static/js/likeFunctions.js"></script>
 <script src="/frontend/static/js/alerts.js"></script>
 <script src="/frontend/static/js/executeWithRefresh.js"></script>
 
@@ -312,5 +331,439 @@ if (is_numeric($server_id)) {
 
         fillAsideProfile(userData);
 
-    })
+        const btnCreate = document.getElementById("btnCreate");
+        if (userData.user.role === "professor") {
+            btnCreate.style.display = "block";
+        }
+
+        const serverId = localStorage.getItem("selectedServer");
+
+        const responseCampus = await fetch(`/api/getCampusIdByServerId?server_id=${serverId}`)
+        if (!responseCampus.ok) {
+            showAlert("error", "Erro ao carregar informações do servidor");
+            return;
+        }
+        const resultCampus = await responseCampus.json();
+        if (resultCampus.status !== "success") {
+            showAlert("error", "Erro ao carregar informações do servidor");
+            return;
+        }
+        const campusId = resultCampus.data[0].campus_id;
+
+        const responseProjects = await fetch(`/api/getTCCProjectsByCampusId?campus_id=${campusId}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("jwt_token")}`
+            }
+        });
+
+        if (!responseProjects.ok) {
+            showAlert("error", "Erro ao carregar projetos");
+            return;
+        }
+        const resultProjects = await responseProjects.json();
+        if (resultProjects.status !== "success") {
+            showAlert("error", "Erro ao carregar projetos");
+            return;
+        }
+
+        function createMemberAvatar(member) {
+            const roleColor = "#D32F2F";
+            const profilePath = member.profile_photo_path;
+            const letter = getProfileLetter(member.name);
+
+            return `
+        <div class="member-avatar" 
+             style="
+                width: 42px;
+                height: 42px;
+                border-radius: 50%;
+                background-color: ${profilePath ? "transparent" : roleColor};
+                background-image: ${profilePath ? `url('${profilePath}')` : "none"};
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-weight: bold;
+                font-size: 18px;
+             ">
+            ${profilePath ? "" : letter}
+        </div>
+    `;
+        }
+
+
+
+
+
+        async function openProjectModal(projectId) {
+            const modal = document.getElementById("viewProjectModal");
+
+            // limpar tudo antes
+            document.getElementById("viewProjectTitle").textContent = "Carregando...";
+            document.getElementById("viewProjectDescription").textContent = "";
+            document.getElementById("viewProjectCourse").textContent = "";
+            document.getElementById("viewProjectCampus").textContent = "";
+            document.getElementById("viewProjectMembers").innerHTML = "";
+            document.getElementById("viewProjectFiles").innerHTML = "";
+            document.getElementById("mediaCarousel").innerHTML = "";
+            document.getElementById("carouselDots").innerHTML = "";
+            document.getElementById("mediaCarouselWrap").hidden = true;
+
+            try {
+                const res = await fetch(`/api/getTCCProjectById?id=${projectId}`, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("jwt_token")}`
+                    }
+                });
+
+
+
+
+                const json = await res.json();
+                if (json.status !== "success") return;
+
+                const p = json.data.project;
+                const date = new Date(p.created_at);
+
+                document.getElementById("viewProjectMeta").textContent = date.toLocaleDateString('pt-BR');
+
+                // ============================
+                //  INFO PRINCIPAL
+                // ============================
+                document.getElementById("viewProjectTitle").textContent = p.title;
+                document.getElementById("viewProjectDescription").textContent = p.description;
+                document.getElementById("viewProjectCourse").textContent = p.course_name;
+                document.getElementById("viewProjectCampus").textContent = p.campus_name;
+
+                // ============================
+                //  INTEGRANTES (com foto)
+                // ============================
+                const membersEl = document.getElementById("viewProjectMembers");
+                membersEl.innerHTML = json.data.members
+                    .map(m => `
+        <li class="member-item" style='cursor: pointer;' onclick="window.location.href='/profile?profile=${m.id}'">
+            ${createMemberAvatar(m)}
+            <span>${m.name}</span>
+        </li>
+    `)
+                    .join("");
+
+                // ============================
+                //  ARQUIVOS
+                // ============================
+                const files = json.data.files;
+                const filesEl = document.getElementById("viewProjectFiles");
+
+                // separar tipos
+                const mediaFiles = files.filter(f => ["image", "video"].includes(f.file_type));
+                const downloadFiles = files.filter(f => ["pdf", "zip"].includes(f.file_type));
+
+                // ----------------------------
+                //  SLIDER (img / video)
+                // ----------------------------
+                if (mediaFiles.length > 0) {
+                    const mediaWrap = document.getElementById("mediaCarouselWrap");
+                    const carousel = document.getElementById("mediaCarousel");
+                    const dots = document.getElementById("carouselDots");
+
+                    mediaWrap.hidden = false;
+                    let currentIndex = 0;
+
+                    // montar slides
+                    carousel.innerHTML = mediaFiles.map((f, i) => `
+                <div class="carousel-item ${i === 0 ? "active" : ""}">
+                    ${
+                        f.file_type === "image"
+                            ? `<img src="${f.file_url}" class="carousel-media">`
+                            : `<video src="${f.file_url}" class="carousel-media" controls></video>`
+                    }
+                </div>
+            `).join("");
+
+                    // dots
+                    dots.innerHTML = mediaFiles.map((_, i) => `
+                <span class="dot ${i === 0 ? "active" : ""}" data-index="${i}"></span>
+            `).join("");
+
+                    const items = document.querySelectorAll(".carousel-item");
+                    const dotsEl = document.querySelectorAll(".dot");
+
+                    function updateCarousel(newIndex) {
+                        items[currentIndex].classList.remove("active");
+                        dotsEl[currentIndex].classList.remove("active");
+
+                        currentIndex = newIndex;
+
+                        items[currentIndex].classList.add("active");
+                        dotsEl[currentIndex].classList.add("active");
+                    }
+
+                    document.getElementById("carouselPrev").onclick = () => {
+                        const next = (currentIndex - 1 + items.length) % items.length;
+                        updateCarousel(next);
+                    };
+
+                    document.getElementById("carouselNext").onclick = () => {
+                        const next = (currentIndex + 1) % items.length;
+                        updateCarousel(next);
+                    };
+
+                    dotsEl.forEach(dot => {
+                        dot.onclick = () => updateCarousel(Number(dot.dataset.index));
+                    });
+                }
+
+                // ----------------------------
+                //  PDF / ZIP estilizados
+                // ----------------------------
+                filesEl.innerHTML = downloadFiles.map(f => `
+            <div class="file-item styled-file">
+                <div class="file-icon">
+                    ${f.file_type === "pdf" ? "📄" : "🗂️"}
+                </div>
+                <div class="file-info">
+                    <span>${f.file_name}</span>
+                    <a class="download-btn" href="${f.file_url}" download>Baixar</a>
+                </div>
+            </div>
+        `).join("");
+
+            } catch (err) {
+                console.error(err);
+            }
+
+            modal.showModal();
+        }
+
+        document.querySelector("#absurdo").addEventListener("click", () => {
+            document.getElementById("viewProjectModal").close();
+        });
+
+
+        const projectsGrid = document.querySelector(".projects-grid");
+        console.log(resultProjects)
+        resultProjects.data.forEach(project => {
+            const projectCard = document.createElement("div");
+            projectCard.classList.add("project-card");
+            const liked = (project.user_liked == 1) ? true : false;
+            projectCard.dataset.id = project.id;
+            projectCard.dataset.total_likes = project.total_likes;
+            projectCard.innerHTML = `
+                <div class="project-info">
+                    <h3>${project.title}</h3>
+                    <div class="project-tags">
+                        <span class="project-tag">${project.course_name}</span>
+                        <span class="project-institution">${project.campus_name}</span>
+                    </div>
+                    <p class="project-description">${project.description}</p>
+                    <div class="project-actions">
+                        <button class="view-project-btn">Ver Projeto</button>
+                        <button class="like-btn">
+                            <span class="like_icon"></span>
+                            <span class="total_likes">${project.total_likes}</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            const viewProjectBtn = projectCard.querySelector(".view-project-btn");
+            viewProjectBtn.addEventListener("click", () => {
+                openProjectModal(project.id);
+            });
+
+
+
+            if (liked) {
+                projectCard.dataset.user_liked = 1
+                projectCard.querySelector(".like_icon").innerHTML = `  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#D32F2F" viewBox="0 0 16 16">
+    <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+  </svg>`
+
+            } else {
+                projectCard.dataset.user_liked = 0
+                projectCard.querySelector(".like_icon").innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
+     fill="none" stroke="currentColor" stroke-width="1" 
+     viewBox="0 0 16 16">
+  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 
+           1.4 3.053c-.523 1.023-.641 2.5.314 
+           4.385.92 1.815 2.834 3.989 6.286 
+           6.357 3.452-2.368 5.365-4.542 
+           6.286-6.357.955-1.886.838-3.362.314-4.385
+           C13.486.878 10.4.28 8.717 2.01z"/>
+</svg>`
+            }
+            const likeBtn = projectCard.querySelector(".like-btn");
+            likeBtn.addEventListener("click", () => {
+                if (projectCard.dataset.user_liked == 1) {
+                    deleteLike("tcc_project", project.id);
+                    changeFrontLike(projectCard, false);
+                } else {
+                    addLike("tcc_project", project.id);
+                    changeFrontLike(projectCard, true);
+                }
+
+
+            });
+
+
+
+
+            projectsGrid.appendChild(projectCard);
+        });
+
+
+
+
+
+        const modal = document.querySelector(".molested");
+
+        btnCreate.addEventListener("click", () => {
+            modal.showModal();
+
+        });
+        modal.querySelector(".closeModalBtn").addEventListener("click", () => {
+            modal.close();
+        });
+        const AllCampus = await fetch("/api/getAllEtecsNames").then(res => res.json());
+        if (AllCampus === null || AllCampus.status !== "success") {
+            showAlert("error", "Erro ao carregar");
+            return;
+        }
+        AllCampus.data.forEach(campus => {
+            const option = document.createElement("option");
+            option.value = campus.id;
+            option.textContent = campus.name;
+            modal.querySelector("select[name='campus_id']").appendChild(option);
+        });
+        modal.querySelector("select[name='campus_id']").addEventListener("change", async function() {
+            const selectedCampusId = this.value;
+            const courseSelect = modal.querySelector("select[name='course_id']");
+            courseSelect.innerHTML = "";
+
+            const response = await fetch(`/api/getCoursesByEtec?campus_id=${selectedCampusId}`);
+            const result = await response.json();
+            if (result.status !== "success") {
+                showAlert("error", "Erro ao carregar cursos");
+                return;
+            }
+            result.data.forEach(course => {
+                const option = document.createElement("option");
+                option.value = course.id;
+                option.textContent = course.name;
+                courseSelect.appendChild(option);
+            });
+        })
+        modal.querySelector("#memberSearch").addEventListener("input", async () => {
+            const query = modal.querySelector("#memberSearch").value.trim();
+            const resultsBox = modal.querySelector("#memberResults");
+            resultsBox.innerHTML = "";
+
+            if (query.length < 3) {
+                return;
+            }
+
+            const response = await fetch(`/api/getStudentByRegistrationLike?registration_param=${encodeURIComponent(query)}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("jwt_token")}`
+                }
+            });
+            const result = await response.json();
+            console.log("rei nada mal")
+
+            if (result.status !== "success") {
+                showAlert("error", "Erro ao buscar estudantes");
+                return;
+            }
+
+
+            result.data?.forEach(student => {
+                const studentDiv = document.createElement("div");
+
+                console.log(student)
+
+                studentDiv.classList.add("result-item");
+                studentDiv.textContent = `${student.name}  (${student.registration})`;
+
+                studentDiv.addEventListener("click", () => {
+                    const selectedMembersDiv = modal.querySelector("#selectedMembers");
+
+                    const memberSpan = document.createElement("span");
+                    memberSpan.classList.add("member-tag");
+                    memberSpan.textContent = `${student.name} (${student.registration})`;
+                    memberSpan.dataset.studentId = student.id;
+
+                    const removeBtn = document.createElement("button");
+                    removeBtn.type = "button";
+                    removeBtn.classList.add("remove");
+                    removeBtn.textContent = "×";
+                    removeBtn.addEventListener("click", () => {
+                        selectedMembersDiv.removeChild(memberSpan);
+                    });
+
+                    memberSpan.appendChild(removeBtn);
+                    selectedMembersDiv.appendChild(memberSpan);
+
+                    resultsBox.innerHTML = "";
+                    modal.querySelector("#memberSearch").value = "";
+                });
+
+                resultsBox.appendChild(studentDiv);
+            });
+
+        })
+        modal.querySelector("#memberSearch").addEventListener("focus", () => {
+            const resultsBox = modal.querySelector("#memberResults");
+            resultsBox.style.display = "block";
+        });
+
+        modal.querySelector("#querubim").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const title = modal.querySelector("input[name='title']").value.trim();
+            const description = modal.querySelector("textarea[name='description']").value.trim();
+            const campusId = modal.querySelector("select[name='campus_id']").value;
+            const courseId = modal.querySelector("select[name='course_id']").value;
+
+            const selectedMemberSpans = modal.querySelectorAll("#selectedMembers .member-tag");
+            const memberIds = Array.from(selectedMemberSpans).map(span => span.dataset.studentId);
+
+            const filesInput = modal.querySelector("#files");
+            const files = filesInput.files;
+
+            const formData = new FormData();
+            formData.append("title", title);
+            formData.append("description", description);
+            formData.append("campus_id", campusId);
+            formData.append("course_id", courseId);
+            memberIds.forEach(id => formData.append("member_ids[]", id));
+            for (let i = 0; i < files.length; i++) {
+                formData.append("files[]", files[i]);
+            }
+
+            const response = await fetch("/api/addTCCProject", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("jwt_token")}`
+                },
+                body: formData
+            });
+            const result = await response.json();
+            console.log(result)
+            if (result.status === "success") {
+                showSuccess("Projeto criado com sucesso!");
+                modal.close();
+            } else {
+                showBackendError(result, "Erro ao criar projeto");
+            }
+        });
+
+
+
+    });
 </script>

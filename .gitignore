@@ -6,3 +6,6 @@
 
 /backend/uploads/mediaPost/*
 !/backend/uploads/mediaPost/.gitkeep
+
+/backend/uploads/tcc_projects/*
+!/backend/uploads/tcc_projects/.gitkeep

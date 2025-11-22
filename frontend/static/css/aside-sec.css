@@ -185,4 +185,138 @@ a .col-hover {
   line-height: 1.5rem;
 }
 
+/* Menu Mobile Toggle */
+.mobile-menu-toggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  background: var(--bg-card);
+  border: 1px solid var(--border-primary);
+  border-radius: 0.4rem;
+  padding: 0.75rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-medium);
+  transition: all 0.3s ease;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-menu-toggle:hover {
+  background: var(--bg-tertiary);
+  transform: scale(1.05);
+}
+
+.mobile-menu-toggle svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--text-primary);
+}
+
+/* Overlay do Menu Mobile */
+.mobile-menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.mobile-menu-overlay.active {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Responsividade do Aside */
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: flex !important;
+  }
+  
+  .tab {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    height: 100vh;
+    width: 75%;
+    max-width: 300px;
+    z-index: 1000;
+    transition: left 0.3s ease;
+    box-shadow: var(--shadow-heavy);
+    overflow-y: auto;
+    padding-top: 1rem;
+  }
+  
+  .tab.open {
+    left: 0;
+  }
+  
+  .container-style {
+    flex-direction: column;
+    position: relative;
+  }
+  
+  .col-6.flex-grow-1.overflow-auto {
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding: 0.5rem !important;
+  }
+  
+  .div-feed {
+    margin-left: 0;
+  }
+  
+  .mobile-menu-overlay {
+    display: block;
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .tab {
+    width: 80%;
+    max-width: 280px;
+  }
+  
+  .mobile-menu-toggle {
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.6rem;
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  .mobile-menu-toggle svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  
+  .col-hover,
+  a .col-hover {
+    min-height: 44px !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+  
+  .svg-style {
+    height: 1.75rem;
+    width: 1.75rem;
+  }
+  
+  .img-profile {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
+  }
+}
+
 

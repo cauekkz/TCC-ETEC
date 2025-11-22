@@ -21,6 +21,13 @@ if (is_numeric($server_id)) {
     }
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const serverName = localStorage.getItem("selectedServerName") ?? null;
+        document.querySelector("#consecultivos").innerText =
+            `Projetos TCC de ${serverName}`;
+    });
+</script>
 <header>
     <div class="container-fluid">
         <div class="row d-flex justify-content-between align-items-center">
@@ -172,7 +179,7 @@ if (is_numeric($server_id)) {
                 <div class="d-flex ">
                     <div class="px-1">
                         <p id="feedTitle" class="mb-0 h2"><strong>Projetos de TCC</strong></p>
-                        <p class="text-secondary"></p>
+                        <p class="text-secondary" id="consecultivos"></p>
                     </div>
                 </div>
                 <div class="projects-grid">
@@ -245,7 +252,6 @@ if (is_numeric($server_id)) {
 
         <!-- FOOTER -->
         <footer class="modal-footer bg-secondary border-secondary">
-            <button type="button" class="btn cancel-btn" onclick="closeProjectModal()">Cancelar</button>
             <button type="submit" class="btn save-btn">Salvar</button>
         </footer>
 
@@ -547,7 +553,7 @@ if (is_numeric($server_id)) {
 
         const projectsGrid = document.querySelector(".projects-grid");
         console.log(resultProjects)
-        resultProjects.data.forEach(project => {
+        resultProjects?.data?.forEach(project => {
             const projectCard = document.createElement("div");
             projectCard.classList.add("project-card");
             const liked = (project.user_liked == 1) ? true : false;

@@ -3,36 +3,151 @@ header {
     box-shadow: var(--shadow-light);
     display: flex;
     align-items: center;
-    padding: 0.5rem 0;
+    padding: 0.5rem 1rem;
     position: relative;
-    height: 5rem;
+    min-height: 5rem;
+    border-bottom: 0.1rem solid rgba(211, 211, 211, 0.4);
 }
+
 .img-logo {
     height: 1.5rem;
     width: auto;
     margin-right: 10px;
+    max-width: 100%;
 }
+
 .title-page {
     font-weight: bold;
     font-size: 1.5rem;
-      margin-top: 0.8rem;
-
+    margin-top: 0.8rem;
 }
 
 .light-dark {
     cursor: pointer;
     z-index: 1000;
 }
+
 .moon, .sun {
     border-radius: 50%;
     background: var(--bg-secondary);
     transition: background 0.3s;
 }
+
 .moon:hover, .sun:hover {
     background: var(--bg-tertiary);
 }
 
+/* Responsividade do Header */
+@media (max-width: 768px) {
+    header {
+        padding: 0.5rem 0.75rem;
+        min-height: 4rem;
+    }
+    
+    .img-logo {
+        height: 1.2rem;
+        margin-right: 8px;
+    }
+    
+    .title-page {
+        font-size: 1.2rem;
+        margin-top: 0.6rem;
+    }
+    
+    .light-dark {
+        padding: 0.25rem !important;
+    }
+    
+    /* Esconder texto do botão e mostrar apenas '+' no mobile - mesmo tamanho do light-dark */
+    #btnCreate,
+    .btnCreate {
+        font-size: 0 !important;
+        padding: 0.4rem !important;
+        width: auto !important;
+        height: auto !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 50% !important;
+        position: relative;
+    }
+    
+    #btnCreate::before,
+    .btnCreate::before {
+        content: '+';
+        font-size: 1.5rem !important;
+        font-weight: bold;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #btnCreate *,
+    .btnCreate * {
+        display: none !important;
+    }
+}
 
-header {
-  border-bottom: 0.1rem solid rgba(211, 211, 211, 0.4);
+@media (max-width: 480px) {
+    header {
+        padding: 0.5rem 0.75rem;
+        min-height: 3.5rem;
+    }
+    
+    .img-logo {
+        height: 1.1rem;
+        margin-right: 8px;
+    }
+    
+    .title-page {
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
+    }
+    
+    /* Esconder texto do botão e mostrar apenas '+' no mobile - mesmo tamanho do light-dark */
+    #btnCreate,
+    .btnCreate {
+        font-size: 0 !important;
+        padding: 0.4rem !important;
+        width: auto !important;
+        height: auto !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 50% !important;
+        position: relative;
+    }
+    
+    #btnCreate::before,
+    .btnCreate::before {
+        content: '+';
+        font-size: 1.5rem !important;
+        font-weight: bold;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #btnCreate *,
+    .btnCreate * {
+        display: none !important;
+    }
+    
+    .light-dark {
+        padding: 0.4rem !important;
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    .moon, .sun {
+        padding: 0.4rem !important;
+        min-width: 36px;
+        min-height: 36px;
+    }
 }

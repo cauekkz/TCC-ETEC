@@ -129,4 +129,49 @@
     .server-icon {
         align-self: center;
     }
+    
+    .servers-grid {
+        gap: 1rem;
+    }
+    
+    .server-card {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .server-card {
+        padding: 1rem;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .server-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .server-info h3 {
+        font-size: 1.1rem;
+    }
+    
+    .server-info p {
+        font-size: 0.85rem;
+    }
+    
+    .btn-enter {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+        min-height: 44px;
+        width: 100%;
+    }
+    
+    .server-card {
+        padding: 1.25rem;
+    }
+    
+    .server-info h3 {
+        font-size: 1.1rem;
+    }
 }

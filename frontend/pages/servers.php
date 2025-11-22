@@ -28,6 +28,13 @@
         </div>
     </div>
 </header>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const serverName = localStorage.getItem("selectedServerName") ?? null;
+        document.querySelector("#consecultivos").innerText =
+            `Acompanhe as novidades do servidor ${serverName}`;
+    });
+</script>
 
 
 <div class="container-fluid container-style">

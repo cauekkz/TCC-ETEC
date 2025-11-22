@@ -23,10 +23,10 @@ if (is_numeric($server_id)) {
                 const server = data.data[0];
                 console.log(data)
                 localStorage.setItem("selectedServerName", server.name);
-
                 const serverName = localStorage.getItem("selectedServerName") ?? null;
                 document.querySelector("#consecultivos").innerText =
                     `Acompanhe as novidades do servidor ${serverName}`;
+
 
                 continueAfterServerLoad();
             })
@@ -49,7 +49,13 @@ if (is_numeric($server_id)) {
 <?php
 }
 ?>
-
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const serverName = localStorage.getItem("selectedServerName") ?? null;
+        document.querySelector("#consecultivos").innerText =
+            `Acompanhe as novidades do servidor ${serverName}`;
+    });
+</script>
 <header>
     <div class="container-fluid">
         <div class="row d-flex justify-content-between align-items-center">
@@ -208,12 +214,12 @@ if (is_numeric($server_id)) {
 
             </div>
 
-                <div id="loadingPostIcon">
+            <div id="loadingPostIcon">
 
-                </div>
-                <div id="palavras">
-                    Sem mais resultados
-                </div>
+            </div>
+            <div id="palavras">
+                Sem mais resultados
+            </div>
 
 
         </div>

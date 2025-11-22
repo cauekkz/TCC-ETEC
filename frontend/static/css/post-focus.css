@@ -15,7 +15,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 10001;
 }
 
 .post-focus::-webkit-scrollbar {
@@ -348,12 +348,13 @@ hr {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 10001;
 }
 
 .comments-only-modal {
   background-color: var(--bg-card);
   width: 40rem;
+  max-width: 90vw;
   max-height: 80vh;
   padding: 24px;
   border-radius: 12px;
@@ -361,6 +362,7 @@ hr {
   display: flex;
   flex-direction: column;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
 }
 
 /* Container de comentários do modal com scroll */
@@ -424,24 +426,146 @@ hr {
 
 @media (max-width: 768px) {
   .post-focus {
-    width: 100%;
-    padding: 15px;
+    width: 95vw !important;
+    max-height: 95vh !important;
+    padding: 1rem;
+    border-radius: 0.75rem;
   }
 
   .post-content {
     margin-top: 0;
+    font-size: 0.9rem;
   }
 
   .comment-box {
-    padding: 10px;
+    padding: 0.75rem;
   }
 
   .write-comment input {
-    font-size: 12px;
+    font-size: 0.9rem;
+    padding: 0.75rem;
+    min-height: 44px;
   }
 
   .img-profile-post {
     width: 35px;
     height: 35px;
+  }
+  
+  .comments-only-modal {
+    width: 95% !important;
+    max-width: 95% !important;
+    max-height: 90vh;
+    padding: 1rem;
+    border-radius: 0.75rem;
+  }
+  
+  .container-comments-only {
+    padding: 0.5rem;
+    align-items: flex-start;
+    padding-top: 1rem;
+  }
+  
+  #commentsOnlyContainer {
+    max-height: calc(90vh - 200px);
+  }
+  
+  .form-comment {
+    padding: 0.75rem 0;
+  }
+  
+  .form-comment input {
+    min-height: 44px;
+    padding: 0.75rem;
+    max-width: 80%;
+    
+  }
+  
+  .form-comment button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-focus {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+  }
+  
+  .close-post-focus, .close-comments-only {
+    font-size: 20px;
+    top: 8px;
+    right: 10px;
+  }
+  
+  .post-focus-media img,
+  .post-focus-media video {
+    max-width: 100%;
+    max-height: 150px;
+  }
+  
+  .comments-only-modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 100vh;
+    height: 100vh;
+    padding: 0.75rem;
+    border-radius: 0;
+  }
+  
+  .container-comments-only {
+    padding: 0;
+    align-items: stretch;
+  }
+  
+  .close-comments-only {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+  
+  #commentsOnlyContainer {
+    max-height: calc(100vh - 180px);
+    padding-right: 0.5rem;
+  }
+  
+  .write-comment .input-group input {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    min-height: 44px;
+  }
+  
+  .form-comment input {
+    min-height: 44px;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  #btnSend {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.5rem;
+  }
+  
+  .form-comment button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  .like-post,
+  .comments {
+    min-width: 36px;
+    min-height: 36px;
+  }
+  
+  .comment-box {
+    padding: 0.5rem;
   }
 }

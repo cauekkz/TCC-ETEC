@@ -21,6 +21,13 @@ if (is_numeric($server_id)) {
 
 <style></style>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const serverName = localStorage.getItem("selectedServerName") ?? null;
+        document.querySelector("#consecultivos").innerText =
+            `Eventos em destaque de ${serverName}`;
+    });
+</script>
 <header>
     <div class="container-fluid">
         <div class="row d-flex justify-content-between align-items-center">
@@ -169,7 +176,7 @@ if (is_numeric($server_id)) {
                 <div class="d-flex ">
                     <div class="px-1">
                         <p id="feedTitle" class="mb-0 h2"><strong>Eventos</strong></p>
-                        <p class="text-secondary">Eventos em destaque</p>
+                        <p class="text-secondary" id="consecultivos"> </p>
                     </div>
 
                 </div>

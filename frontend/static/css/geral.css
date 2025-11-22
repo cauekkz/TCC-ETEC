@@ -3,11 +3,86 @@
     margin: 0px;
     box-sizing: border-box;
     /* font-family: 'escolher'; */
-    
+    -webkit-tap-highlight-color: transparent;
 }
+
 body{
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Melhorias para Touch/Smartphone */
+button, a, input, select, textarea {
+    touch-action: manipulation;
+}
+
+button, .btn, a.aside-a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Importar sistema de alertas */
 @import url('alerts.css');
+
+/* Responsividade Geral */
+@media (max-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+    
+    h1, .h1 {
+        font-size: 1.75rem;
+    }
+    
+    h2, .h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3, .h3 {
+        font-size: 1.25rem;
+    }
+    
+    h4, .h4 {
+        font-size: 1.1rem;
+    }
+    
+    h5, .h5 {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+    
+    h1, .h1 {
+        font-size: 1.5rem;
+    }
+    
+    h2, .h2 {
+        font-size: 1.3rem;
+    }
+    
+    h3, .h3 {
+        font-size: 1.1rem;
+    }
+    
+    h4, .h4 {
+        font-size: 1rem;
+    }
+    
+    h5, .h5 {
+        font-size: 0.95rem;
+    }
+    
+    /* Melhor espaçamento para touch */
+    button, .btn {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+}

@@ -70,7 +70,7 @@
             setCookie("logged", "1", 1440 * 7);
 
             setTimeout(() => {
-                window.location.href = "/";
+                window.location.href = "/servers";
             }, 800);
 
         } catch (error) {

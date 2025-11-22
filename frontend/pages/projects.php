@@ -731,6 +731,16 @@ if (is_numeric($server_id)) {
         modal.querySelector("#querubim").addEventListener("submit", async (e) => {
             e.preventDefault();
 
+            // Confirmação antes de criar projeto
+            const confirmed = await confirmAction(
+                "Deseja criar este projeto TCC?",
+                "Confirmar Criação de Projeto"
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
             const title = modal.querySelector("input[name='title']").value.trim();
             const description = modal.querySelector("textarea[name='description']").value.trim();
             const campusId = modal.querySelector("select[name='campus_id']").value;

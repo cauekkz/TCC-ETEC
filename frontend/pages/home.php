@@ -402,6 +402,16 @@ if (is_numeric($server_id)) {
                     return;
                 }
 
+                // Confirmação antes de criar post
+                const confirmed = await confirmAction(
+                    "Deseja publicar esta publicação?",
+                    "Confirmar Publicação"
+                );
+
+                if (!confirmed) {
+                    return;
+                }
+
                 btnPublish.disabled = true;
                 btnPublish.textContent = "Publicando...";
                 const serverId = localStorage.getItem("selectedServer");

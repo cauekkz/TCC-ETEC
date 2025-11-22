@@ -62,6 +62,16 @@
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
 
+            // Confirmação antes de criar conta
+            const confirmed = await confirmAction(
+                "Deseja criar sua conta com essas informações?",
+                "Confirmar Cadastro"
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
             // Validação das senhas
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;

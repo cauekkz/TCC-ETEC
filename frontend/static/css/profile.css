@@ -252,14 +252,24 @@ h4 {
     margin: auto;
     outline: none;
     padding: 0.5rem 1rem;
-    z-index: 1;
+    z-index: 10002;
     overflow: auto;
     background-color: var(--bg-card);
+    position: fixed;
+    inset: 0;
+}
+
+#edit-profile-modal[open] {
+    display: block;
+    position: fixed;
+    margin: auto;
+    inset: 0;
 }
 
 #edit-profile-modal::backdrop {
     background-color: rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(2px);
+    z-index: 10001;
 }
 
 #modal-header {
@@ -486,7 +496,14 @@ h4 {
         border-radius: 10px;
         margin: auto;
         outline: none;
+        position: fixed;
+        inset: 0;
+    }
 
+    #edit-profile-modal[open] {
+        position: fixed;
+        margin: auto;
+        inset: 0;
     }
 
 

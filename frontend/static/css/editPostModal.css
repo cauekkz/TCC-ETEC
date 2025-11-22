@@ -1,0 +1,226 @@
+/* Modal de Edição de Post - EteConnect */
+
+#edit-post-modal {
+    border: none;
+    border-radius: 12px;
+    padding: 0;
+    background: transparent;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    margin: auto;
+    position: fixed;
+    inset: 0;
+    z-index: 10003;
+}
+
+#edit-post-modal::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 10002;
+}
+
+/* Garantir que o modal fique centralizado quando aberto */
+#edit-post-modal[open] {
+    display: block;
+    position: fixed;
+    margin: auto;
+    inset: 0;
+}
+
+.edit-post-modal-content {
+    background: var(--bg-card);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.edit-post-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-primary);
+    background: var(--bg-secondary);
+}
+
+.edit-post-modal-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.edit-post-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.edit-post-modal-close:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.edit-post-modal-body {
+    padding: 1.5rem;
+    flex: 1;
+}
+
+.edit-post-textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    background: var(--bg-input);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 150px;
+    box-sizing: border-box;
+}
+
+.edit-post-textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+}
+
+.edit-post-help-text {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 0;
+}
+
+.edit-post-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-top: 1px solid var(--border-primary);
+    background: var(--bg-secondary);
+}
+
+.edit-post-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 100px;
+}
+
+.edit-post-btn-save {
+    background: var(--accent-primary);
+    color: white;
+}
+
+.edit-post-btn-save:hover {
+    background: #b33333;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.edit-post-btn-save:active {
+    transform: translateY(0);
+}
+
+.edit-post-btn-save:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.edit-post-btn-cancel {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+}
+
+.edit-post-btn-cancel:hover {
+    background: var(--bg-primary);
+    border-color: var(--border-secondary);
+}
+
+.edit-post-btn:focus {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #edit-post-modal {
+        width: 95%;
+        max-width: 95%;
+        margin: auto;
+        position: fixed;
+        inset: 0;
+    }
+
+    #edit-post-modal[open] {
+        position: fixed;
+        margin: auto;
+        inset: 0;
+    }
+
+    .edit-post-modal-header,
+    .edit-post-modal-body,
+    .edit-post-modal-footer {
+        padding: 1rem;
+    }
+
+    .edit-post-modal-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .edit-post-textarea {
+        min-height: 120px;
+        font-size: 0.95rem;
+    }
+
+    .edit-post-btn {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.95rem;
+        min-width: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    #edit-post-modal {
+        width: 95%;
+        max-width: 95%;
+        margin: auto;
+        position: fixed;
+        inset: 0;
+    }
+
+    #edit-post-modal[open] {
+        position: fixed;
+        margin: auto;
+        inset: 0;
+    }
+
+    .edit-post-modal-footer {
+        flex-direction: column-reverse;
+    }
+
+    .edit-post-btn {
+        width: 100%;
+    }
+}
+

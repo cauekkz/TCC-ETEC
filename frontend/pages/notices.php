@@ -252,6 +252,17 @@ if (is_numeric($server_id)) {
         const closeModalBtn = document.querySelector(".btn-close");
         document.getElementById('createNoticeForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // Confirmação antes de criar aviso
+            const confirmed = await confirmAction(
+                "Deseja criar este aviso?",
+                "Confirmar Criação de Aviso"
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
             const form = e.target;
             const formData = new FormData(form);
             formData.append('server_id', localStorage.getItem("selectedServer"));

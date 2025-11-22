@@ -28,6 +28,17 @@ closeModalBtn.addEventListener("click", () => {
 
 document.getElementById('createNoticeForm').addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // Confirmação antes de criar evento
+    const confirmed = await confirmAction(
+        "Deseja criar este evento?",
+        "Confirmar Criação de Evento"
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
     const form = e.target;
     const formData = new FormData(form);
     formData.append('server_id', localStorage.getItem("selectedServer"));
@@ -86,6 +97,16 @@ async function getParticipants(event) {
 }
 
 async function deleteEvent(event_id){
+    // Confirmação antes de excluir evento
+    const confirmed = await confirmAction(
+        "Tem certeza que deseja excluir este evento? Esta ação não pode ser desfeita.",
+        "Confirmar Exclusão"
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
     body = {event_id}
     const response = await fetch("/api/deleteEvent", {
         method: "DELETE",

@@ -1,3 +1,138 @@
+<!-- Modal de Termos e Políticas -->
+<div id="termsModal" class="terms-modal">
+    <div class="terms-dialog">
+        <h2>Termos e Políticas – ETEConnect</h2>
+
+        <div id="termsScroll" class="terms-scroll">
+            <!-- --- Conteúdo completo dos termos --- -->
+            <section>
+                <h3>1. Termos de Serviço</h3>
+                <p>Ao acessar ou utilizar a ETEConnect, você concorda com estes Termos de Serviço e com a Política de Privacidade. Caso não concorde, não utilize a Plataforma.</p>
+
+                <h4>1.2 Quem pode usar</h4>
+                <p>O uso é permitido apenas para pessoas com matrícula em instituições de ensino autorizadas a participar da ETEConnect.</p>
+
+                <h4>1.3 Cadastro</h4>
+                <p>Para utilizar a Plataforma, é necessário fornecer informações verdadeiras e atualizadas. O usuário é responsável por manter a confidencialidade de sua senha e pela atividade realizada em sua conta.</p>
+
+                <h4>1.4 Uso permitido</h4>
+                <p>Você se compromete a utilizar a Plataforma de forma ética, respeitando leis, regulamentos e os direitos de terceiros. É proibido:</p>
+                <ul>
+                    <li>Publicar conteúdo ofensivo, discriminatório ou ilegal;</li>
+                    <li>Compartilhar informações falsas ou enganosas;</li>
+                    <li>Utilizar a Plataforma para fins comerciais não autorizados;</li>
+                    <li>Invadir contas ou comprometer a segurança do sistema.</li>
+                </ul>
+
+                <h4>1.5 Suspensão e exclusão de conta</h4>
+                <p>A ETEConnect pode suspender ou excluir contas que violem estes termos, sem aviso prévio.</p>
+
+                <h4>1.6 Limitação de responsabilidade</h4>
+                <p>A ETEConnect não se responsabiliza por danos causados por mau uso da Plataforma ou por conteúdos publicados por usuários.</p>
+
+                <h4>1.7 Alterações</h4>
+                <p>Podemos alterar estes Termos a qualquer momento, sem aviso prévio.</p>
+            </section>
+
+            <section>
+                <h3>2. Política de Privacidade</h3>
+                <p>A Política de Privacidade descreve como coletamos, usamos, armazenamos e compartilhamos os dados pessoais dos usuários da ETEConnect.</p>
+
+                <h4>2.1 Dados que coletamos</h4>
+                <ul>
+                    <li>Nome completo</li>
+                    <li>E-mail</li>
+                    <li>Matrícula escolar</li>
+                    <li>Data de nascimento</li>
+                    <li>Telefone</li>
+                    <li>Senha cadastrada</li>
+                    <li>Perfil (Aluno ou Professor)</li>
+                    <li>Curso</li>
+                    <li>Conteúdo criado na Plataforma</li>
+                    <li>Data e horário de acesso</li>
+                    <li>Endereço IP e identificadores de dispositivo</li>
+                    <li>Informações sobre o navegador ou aplicativo utilizado</li>
+                </ul>
+
+                <h4>2.2 Finalidade do uso dos dados</h4>
+                <ul>
+                    <li>Criar e gerenciar sua conta</li>
+                    <li>Identificar perfil e curso</li>
+                    <li>Melhorar a experiência de uso</li>
+                    <li>Desenvolver novos recursos</li>
+                    <li>Proteger contra fraudes</li>
+                    <li>Cumprir obrigações legais</li>
+                </ul>
+
+                <h4>2.3 Compartilhamento</h4>
+                <ul>
+                    <li>Parceiros técnicos para funcionamento da Plataforma</li>
+                    <li>Autoridades públicas quando exigido por lei</li>
+                    <li><strong>Não vendemos seus dados</strong></li>
+                </ul>
+
+                <h4>2.4 Controles do usuário</h4>
+                <p>Você pode alterar ou excluir os seus dados.</p>
+
+                <h4>2.5 Segurança</h4>
+                <p>Usamos medidas para proteger informações. Senhas são criptografadas.</p>
+
+                <h4>2.6 Alterações</h4>
+                <p>Podemos atualizar esta política a qualquer momento, sem aviso prévio.</p>
+
+                <h4>2.7 Contato</h4>
+                <p>Email: eteconnect123@gmail.com | Telefone: 97446-4553</p>
+            </section>
+
+            <section>
+                <h3>3. Termo de Uso</h3>
+
+                <h4>3.1 Objetivo</h4>
+                <p>Este Termo de Uso estabelece as regras de conduta e responsabilidades dos usuários da ETEConnect.</p>
+
+                <h4>3.2 Conduta esperada</h4>
+                <ul>
+                    <li>Respeitar colegas, professores e demais membros</li>
+                    <li>Utilizar a Plataforma para fins acadêmicos e de interação saudável</li>
+                    <li>Manter a veracidade das informações</li>
+                    <li>Respeitar direitos autorais e de imagem</li>
+                </ul>
+
+                <h4>3.3 Conduta proibida</h4>
+                <ul>
+                    <li>Publicar conteúdo ofensivo, discriminatório ou ilegal</li>
+                    <li>Fazer spam ou propaganda não autorizada</li>
+                    <li>Compartilhar dados pessoais de terceiros sem consentimento</li>
+                    <li>Utilizar a Plataforma para fins ilícitos</li>
+                </ul>
+
+                <h4>3.4 Responsabilidade</h4>
+                <p>O usuário é responsável por todo conteúdo que publica. A ETEConnect pode remover conteúdos que violem este termo.</p>
+
+                <h4>3.5 Penalidades</h4>
+                <p>O descumprimento das regras pode resultar em exclusão da conta.</p>
+
+                <h4>3.6 Alterações</h4>
+                <p>Este Termo pode ser atualizado, sem aviso prévio.</p>
+            </section>
+        </div>
+
+        <div class="terms-footer">
+            <label class="checkbox-area">
+                <input type="checkbox" id="acceptTerms" disabled>
+                <span class="checkmark"></span>
+                Aceito os Termos e Políticas
+            </label>
+
+
+            <button id="continueBtn" disabled>Aceitar e Continuar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Span para reabrir modal -->
+
+
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <img src="frontend/static/img/logo.png" alt="logo eteconnect" class="img-logo img-fluid">
@@ -38,11 +173,21 @@
 
             <label for="password" class="form-label">Senha</label>
             <input type="password" id="password" name="password" class="form-control" placeholder="Sua senha" required>
+            <div id="password-rules" style="font-size: 0.8rem;">
+                <span id="rule-length" class="password-rule">• Mínimo 8 caracteres</span><br>
+                <span id="rule-letter" class="password-rule">• Pelo menos 1 letra</span><br>
+                <span id="rule-number" class="password-rule">• Pelo menos 1 número</span><br>
+                <span id="rule-special" class="password-rule">• Pelo menos 1 caractere especial</span>
+            </div>
 
             <label for="confirmPassword" class="form-label">Confirmar Senha</label>
             <input type="password" id="confirmPassword" name="conf_password" class="form-control" placeholder="Confirme a senha" required>
+            <input type="hidden" id="acceptedTermsInput" name="accepted_terms" value="0">
+
 
             <button type="submit" class="btn btn-danger mt-2">Cadastrar-se</button>
+            <span id="openTermsAgain" class="open-terms-link" style="display: block; text-align: center; margin: 0 auto;">Ver termos novamente</span>
+
         </form>
     </div>
 
@@ -56,6 +201,69 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+
+
+        const termsModal = document.getElementById("termsModal");
+        const termsScroll = document.getElementById("termsScroll");
+        const acceptTermsCheckbox = document.getElementById("acceptTerms");
+        const continueBtn = document.getElementById("continueBtn");
+        const acceptedTermsInput = document.getElementById("acceptedTermsInput");
+        const openTermsAgain = document.getElementById("openTermsAgain");
+
+        // Habilitar checkbox ao chegar no final do scroll
+        termsScroll.addEventListener("scroll", () => {
+            if (termsScroll.scrollTop + termsScroll.offsetHeight >= termsScroll.scrollHeight - 5) {
+                acceptTermsCheckbox.disabled = false;
+            }
+        });
+
+        // Habilitar botão ao marcar checkbox
+        acceptTermsCheckbox.addEventListener("change", () => {
+            continueBtn.disabled = !acceptTermsCheckbox.checked;
+            acceptedTermsInput.value = acceptTermsCheckbox.checked ? "1" : "0";
+        });
+
+        // Fechar modal ao clicar no botão
+        continueBtn.addEventListener("click", () => {
+            termsModal.style.display = "none";
+        });
+
+        // Reabrir modal via span
+        openTermsAgain.addEventListener("click", () => {
+            termsModal.style.display = "flex";
+        });
+
+        const passwordInput = document.getElementById('password');
+
+        const ruleLength = document.getElementById('rule-length');
+        const ruleLetter = document.getElementById('rule-letter');
+        const ruleNumber = document.getElementById('rule-number');
+        const ruleSpecial = document.getElementById('rule-special');
+
+        passwordInput.addEventListener('input', () => {
+            const value = passwordInput.value;
+
+            // 8 caracteres
+            toggleRule(ruleLength, value.length >= 8);
+
+            // pelo menos 1 letra
+            toggleRule(ruleLetter, /[A-Za-z]/.test(value));
+
+            // pelo menos 1 número
+            toggleRule(ruleNumber, /\d/.test(value));
+
+            // caractere especial
+            toggleRule(ruleSpecial, /[\W_]/.test(value));
+        });
+
+        function toggleRule(element, isValid) {
+            if (isValid) {
+                element.classList.add("valid");
+
+            } else {
+                element.classList.remove("valid");
+            }
+        }
 
 
         const form = document.getElementById('signupForm')
@@ -92,7 +300,8 @@
                 password: form.password.value,
                 conf_password: form.conf_password.value,
                 birthday: form.birthday.value,
-                registration: form.registration.value
+                registration: form.registration.value,
+                acceptedTerms: form.acceptedTermsInput.value
             }
 
             try {

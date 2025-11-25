@@ -222,6 +222,75 @@ form label {
     border-radius: 4px;
 }
 
+.terms-block {
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-secondary);
+}
+
+/* Espaço entre sub-seções */
+.terms-section {
+    margin-top: 18px;
+}
+
+/* Títulos principais (h3) */
+.terms-block > h3 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+/* Subtítulos (h4) */
+.terms-section h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+}
+
+/* Parágrafos mais confortáveis */
+.terms-section p {
+    line-height: 1.55;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+}
+
+/* Listas mais profissionais */
+.terms-section ul {
+    margin: 8px 0 4px 20px;
+    line-height: 1.55;
+}
+
+/* Itens da lista mais discretos */
+.terms-section ul li {
+    margin-bottom: 4px;
+    color: var(--text-secondary);
+}
+
+/* Melhor scroll suave */
+.terms-scroll {
+    scroll-behavior: smooth;
+    padding-right: 14px;
+}
+
+/* Divisor fino entre grandes seções */
+.terms-dialog h2 {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-primary);
+}
+
+/* Footer mais espaçado */
+.terms-footer {
+    margin-top: 16px;
+}
+
+/* Checkbox alinhado */
+.checkbox-area {
+    padding: 4px 0;
+}
+
+
 
 /* Responsividade */
 @media (max-width: 768px) {

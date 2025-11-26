@@ -1,21 +1,30 @@
-// check if have one endpoint about send message
-// check if the message is "correct" to send
-// send the message and try to read the messages with the file readMessages.js
-
 let token = localStorage.getItem("jwt_token")
-// certo
-// console.log(token, userData)
-async function sendMessage(receiver_id, content, media = [], media_type) { 
+
+async function sendMessage(receiver_id, content, fileObjectOrInput, media_type) { 
     const token = localStorage.getItem("jwt_token")
     const formData = new FormData()
-    
-    if (media.length > 0) {
-        formData.append("media_file", media[0]); 
+
+    let fileToSend = null;
+    if (fileObjectOrInput) {
+        if (fileObjectOrInput instanceof FileList && fileObjectOrInput.length > 0) {
+            fileToSend = fileObjectOrInput[0];
+        } 
+        
+        else if (fileObjectOrInput instanceof File) {
+            fileToSend = fileObjectOrInput;
+        }
     }
-    
-    formData.append("content", content)
+
+    if (fileToSend) {
+        formData.append("media_file", fileToSend); 
+        console.log(`Anexando arquivo: ${fileToSend.name}`);
+    }
+
+    const messageContent = content.trim() || "ㅤ"; 
+
+    formData.append("content", messageContent)
     formData.append("receiver_id", receiver_id)
-    formData.append("media_type", media_type) 
+    formData.append("media_type", media_type || "");
 
     const response = await fetch("/api/addMessage", {
         method: "POST",

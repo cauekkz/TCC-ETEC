@@ -20,7 +20,7 @@ $user_id = $resultJWT['id'];
 
 
 $sql = "SELECT 
-            id, sender_id, receiver_id, content, created_at, is_read 
+            id, sender_id, receiver_id, content, media_url, media_type,  created_at, is_read 
         FROM 
             message 
         WHERE

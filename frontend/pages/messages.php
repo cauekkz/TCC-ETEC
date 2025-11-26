@@ -53,7 +53,7 @@
 
 
             <a href="/" class="row mt-4 aside-a">
-                <div class="col d-flex  col-hover">
+                <div class="col d-flex  col-hover">
                     <div class="svg-style">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
                             <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z" />
@@ -80,7 +80,7 @@
 
 
             <a href="/projects" class="row mt-2 aside-a">
-                <div class="col d-flex  col-hover">
+                <div class="col d-flex  col-hover">
                     <div class="svg-style">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mortarboard" viewBox="0 0 16 16">
                             <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917zM8 8.46 1.758 5.965 8 3.052l6.242 2.913z" />
@@ -103,7 +103,7 @@
                     <p class="px-2 mt-1">Eventos</p>
                 </div>
             </a>
-            <a href="/messages" class="row mt-2  aside-a">
+            <a href="/messages" class="row mt-2  aside-a">
                 <div class="col d-flex col-used col-hover">
                     <div class="svg-style">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left" viewBox="0 0 16 16">
@@ -151,25 +151,7 @@
                 </div>
 
                 <div class="chat">
-                    <!-- <div class="chat-header">
-                        <div class="contact-avatar">PM</div>
-                        <h4>Prof. Maria Santos</h4>
                     </div>
-                    <div class="chat-messages">
-                        <div class="msg received">
-                            <p>Olá! Como está o desenvolvimento do seu projeto?</p>
-                            <span class="msg-time">14:05</span>
-                        </div>
-                        <div class="msg received">
-                            <p>Lembre-se da entrega na próxima semana.</p>
-                            <span class="msg-time">14:10</span>
-                        </div>
-                    </div>
-                    <div class="chat-input">
-                        <input type="text" placeholder="Digite sua mensagem...">
-                        <button class="send">📨</button>
-                    </div> -->
-                </div>
             </section>
 
         </div>
@@ -184,9 +166,10 @@
         padding: 12px;
         max-height: 65vh;
         overflow-y: auto;
-        background-color: #121212;
-        color: #e5e5e5;
-        border-top: 1px solid #2a2a2a;
+        background-color: #f0f2f5;
+        color: #333;
+        border-top: 1px solid #ddd;
+        transition: all 0.3s ease;
     }
 
     .msg {
@@ -196,9 +179,16 @@
         display: flex;
         flex-direction: column;
         word-wrap: break-word;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     }
-
+    
+    .msg-media { 
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 5px;
+        cursor: pointer;
+    }
 
     .msg.sent {
         align-self: flex-end;
@@ -210,11 +200,10 @@
 
     .msg.received {
         align-self: flex-start;
-        background: #1e1e1e;
-        color: #e0e0e0;
+        background: #fff;
+        color: #333;
         border-bottom-left-radius: 0;
     }
-
 
     .msg p {
         margin: 0;
@@ -227,15 +216,22 @@
         opacity: 0.8;
         margin-top: 4px;
         text-align: right;
-        color: #b0b0b0;
+        color: #777;
     }
 
+    .msg.sent .msg-time {
+        color: rgba(255, 255, 255, 0.8);
+    }
 
     .msg-date {
         font-size: 0.7rem;
         opacity: 0.6;
         text-align: right;
         color: #8c8c8c;
+    }
+    
+    .msg.sent .msg-date {
+        color: rgba(255, 255, 255, 0.6);
     }
 
 
@@ -244,28 +240,29 @@
     }
 
     .chat-messages::-webkit-scrollbar-thumb {
-        background-color: #333;
+        background-color: #ccc;
         border-radius: 3px;
     }
 
     .chat-messages::-webkit-scrollbar-track {
-        background-color: #1a1a1a;
+        background-color: #e5e5e5;
     }
+
 
     .chat-input {
         display: flex;
         align-items: center;
         padding: 10px;
-        background-color: #1a1a1a;
-        border-top: 1px solid #2a2a2a;
+        background-color: #fff;
+        border-top: 1px solid #ddd;
     }
 
-    .chat-input input {
+    .chat-input input[type="text"] {
         flex: 1;
-        background-color: #262626;
+        background-color: #f0f2f5;
         border: none;
         outline: none;
-        color: #e5e5e5;
+        color: #333;
         padding: 10px 14px;
         border-radius: 20px;
         margin-right: 10px;
@@ -274,6 +271,7 @@
     .chat-input input::placeholder {
         color: #888;
     }
+
 
     .chat-input .send {
         background: linear-gradient(135deg, #2563eb, #1d4ed8);
@@ -288,6 +286,7 @@
         justify-content: center;
         cursor: pointer;
         transition: 0.2s ease;
+        margin-left: 5px; /* Espaço entre os botões */
     }
 
     .chat-input .send:hover {
@@ -297,6 +296,72 @@
 
 
     .contact.active {
+        background-color: #e6f0ff;
+        border-left: 3px solid #3b82f6;
+    }
+
+
+
+    html[data-theme="dark"] .chat-messages {
+        background-color: #121212;
+        color: #e5e5e5;
+        border-top: 1px solid #2a2a2a;
+    }
+
+    html[data-theme="dark"] .msg {
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    }
+
+
+    html[data-theme="dark"] .msg.received {
+        background: #1e1e1e;
+        color: #e0e0e0;
+    }
+
+
+    html[data-theme="dark"] .msg-time {
+        color: #b0b0b0;
+    }
+    
+    html[data-theme="dark"] .msg.sent .msg-time {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+
+    html[data-theme="dark"] .msg-date {
+        color: #8c8c8c;
+    }
+    
+    html[data-theme="dark"] .msg.sent .msg-date {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+
+    html[data-theme="dark"] .chat-messages::-webkit-scrollbar-thumb {
+        background-color: #333;
+    }
+
+    html[data-theme="dark"] .chat-messages::-webkit-scrollbar-track {
+        background-color: #1a1a1a;
+    }
+
+
+    html[data-theme="dark"] .chat-input {
+        background-color: #1a1a1a;
+        border-top: 1px solid #2a2a2a;
+    }
+
+    html[data-theme="dark"] .chat-input input {
+        background-color: #262626;
+        color: #e5e5e5;
+    }
+
+    html[data-theme="dark"] .chat-input input::placeholder {
+        color: #888;
+    }
+
+
+    html[data-theme="dark"] .contact.active {
         background-color: #1e1e1e;
         border-left: 3px solid #3b82f6;
     }
@@ -313,6 +378,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', async function() {
+        let activeReceiverId = null;
         let userData = null;
         try {
             userData = JSON.parse(sessionStorage.getItem('userData'));
@@ -342,162 +408,139 @@
         const contactsContainer = document.querySelector('.contacts');
         contactsContainer.innerHTML = `<input type="text" class="search" placeholder="Buscar conversas...">`;
         contacts.forEach(contact => {
-            console.log(contact)
             const firstLetter = contact.name.charAt(0).toUpperCase();
             const date = contact.last_message_at ? new Date(contact.last_message_at) : null;
             const formattedTime = date ? `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}` : "--:--";
             const lastMessage = contact.last_message_content || "Sem mensagens ainda";
 
             contactsContainer.innerHTML += `
-            <div class="contact" data-id="${contact.user_id}">
-                <div class="contact-avatar">${firstLetter}</div>
-                <div class="contact-info">
-                    <h4>${contact.name}</h4>
-                    <p>${lastMessage}</p>
+                <div class="contact" data-id="${contact.user_id}">
+                    <div class="contact-avatar">${firstLetter}</div>
+                    <div class="contact-info">
+                        <h4>${contact.name}</h4>
+                        <p>${lastMessage}</p>
+                    </div>
+                    <span class="time">${formattedTime}</span>
+                    <span class="badge">${contact.unread_count || 0}</span>
                 </div>
-                <span class="time">${formattedTime}</span>
-                <span class="badge">${contact.unread_count || 0}</span>
-            </div>
-        `;
+            `;
         });
 
         window.send = async function(e) {
             e.preventDefault();
 
-            const input = document.querySelector(".chat-input input");
+            const input = document.querySelector(".chat-input input[name='content']");
+            const mediaInput = document.querySelector("#mediaInput"); 
+            
             const content = input.value.trim();
-            if (!content) return;
+            const mediaFiles = mediaInput.files; 
+            
+            if (!content && mediaFiles.length === 0) return; 
 
             const activeContact = document.querySelector(".contact.active");
             if (!activeContact) return alert("Selecione um contato");
             const receiver_id = parseInt(activeContact.dataset.id, 10);
-            const result = await executeWithRefresh(sendMessage, receiver_id, content, null, null);
+
+            let mediaType = null;
+            let fileToSend = null;
+            
+            if (mediaFiles.length > 0) {
+                fileToSend = mediaFiles[0];
+                
+                if (fileToSend.type.startsWith('image/')) {
+                    mediaType = 'image';
+                } else if (fileToSend.type.startsWith('video/')) {
+                    mediaType = 'video';
+                } else {
+                    alert("Tipo de arquivo não suportado. Apenas imagens e vídeos.");
+                    mediaInput.value = ""; 
+                    return; 
+                }
+            }
+            
+            const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+            if (fileToSend && fileToSend.size > MAX_FILE_SIZE) {
+                alert("O arquivo é muito grande. O limite é de 10MB.");
+                mediaInput.value = "";
+                return;
+            }
+
+            const result = await executeWithRefresh(sendMessage, receiver_id, content || "ㅤ", fileToSend ? [fileToSend] : [], mediaType);
 
             const chatMessages = document.querySelector(".chat-messages");
             const now = new Date();
+            const time = now.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+            const date = now.toLocaleDateString('pt-BR');
+            
+            let messageBody = `<p>${content || ''}</p>`;
+
+            if(fileToSend) {
+                const tempUrl = URL.createObjectURL(fileToSend);
+                if (mediaType === 'image') {
+                    messageBody = `<img src="${tempUrl}" alt="Imagem Enviada" class="msg-media" style="max-width: 250px;"> ${messageBody}`;
+                } else if (mediaType === 'video') {
+                    messageBody = `<video src="${tempUrl}" controls class="msg-media" style="max-width: 250px;"></video> ${messageBody}`;
+                }
+            }
+
 
             chatMessages.innerHTML += `
-        <div class="msg sent">
-            <p>${content}</p>
-            <span class="msg-time">${now.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})}</span>
-            <span class="msg-date">${now.toLocaleDateString('pt-BR')}</span>
-        </div>
-    `;
-            input.value = "";
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        };
-        document.querySelectorAll('.contact').forEach(contactEl => {
-            contactEl.addEventListener('click', async () => {
-
-                const resp = await fetch('/api/contacts', {
-                    method: "GET",
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    },
-                });
-
-                const contacts_resp = await resp.json();
-                const contacts = contacts_resp.data;
-
-                contacts.forEach(contact => {
-                    const firstLetter = contact.name.charAt(0).toUpperCase();
-                    document.querySelector(".chat").innerHTML = `<div class="chat-header">
-                        <div class="contact-avatar">${firstLetter}</div>
-                        <h4>${contact.name}</h4>
-                    </div>
-                    <div class="chat-messages">
-                        
-                    </div>
-                    <div class="chat-input">
-                        <input type="text" placeholder="Digite sua mensagem...">
-                        <button class="send" onclick="send(event)">📨</button>
-                    </div>`
-                })
-                document.querySelectorAll('.contact').forEach(c => c.classList.remove('active'));
-                contactEl.classList.add('active');
-
-                const receiver_id = contactEl.dataset.id;
-
-                let chatInterval = null;
-                let activeReceiverId = null;
-
-                function startChatInterval() {
-                    if (chatInterval) clearInterval(chatInterval);
-                    if (!activeReceiverId) return;
-                    updateChat();
-                    chatInterval = setInterval(updateChat, 3000);
-                }
-
-                document.querySelectorAll('.contact').forEach(contactEl => {
-                    contactEl.addEventListener('click', async () => {
-                        document.querySelectorAll('.contact').forEach(c => c.classList.remove('active'));
-                        contactEl.classList.add('active');
-
-                        activeReceiverId = contactEl.dataset.id;
-                        startChatInterval();
-                    });
-                });
-
-                async function updateChat() {
-                    try {
-                        const chatMessages = document.querySelector('.chat-messages');
-                        const estavaNoFinal =
-                            chatMessages.scrollHeight - chatMessages.scrollTop <= chatMessages.clientHeight + 5;
-
-                        const response = await fetch('/api/getMessages?contact_id=' + receiver_id, {
-                            method: "GET",
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            },
-                        });
-
-                        if (!response.ok) {
-                            console.error("Erro ao buscar mensagens:", response.status);
-                            return;
-                        }
-
-                        const data = await response.json();
-                        const messages = data.data;
-
-                    
-                        chatMessages.innerHTML = '';
-
-                       
-                        messages.forEach(msg => {
-                            const isSent = msg.sender_id === userData.user.id;
-                            const msgClass = isSent ? 'sent' : 'received';
-                            const dateObj = new Date(msg.created_at);
-
-                            const time = dateObj.toLocaleTimeString([], {
-                                hour: '2-digit',
-                                minute: '2-digit'
-                            });
-                            const date = dateObj.toLocaleDateString('pt-BR');
-
-                            chatMessages.innerHTML += `
-                <div class="msg ${msgClass}">
-                    <p>${msg.content}</p>
+                <div class="msg sent">
+                    ${messageBody}
                     <span class="msg-time">${time}</span>
                     <span class="msg-date">${date}</span>
                 </div>
             `;
-                        });
-                        if (estavaNoFinal) {
-                            chatMessages.scrollTop = chatMessages.scrollHeight;
-                        }
+            
+            input.value = "";
+            mediaInput.value = ""; 
+            
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        };
+       
+        document.querySelectorAll('.contact').forEach(contactEl => {
+            contactEl.addEventListener('click', async () => {
+                
+                document.querySelectorAll('.contact').forEach(c => c.classList.remove('active'));
+                contactEl.classList.add('active');
 
-                    } catch (err) {
-                        console.error("Erro na requisição:", err);
-                    }
-                }
+                const contactName = contactEl.querySelector('h4').textContent;
+                const firstLetter = contactName.charAt(0).toUpperCase();
+                
+                document.querySelector(".chat").innerHTML = `
+                    <div class="chat-header">
+                        <div class="contact-avatar">${firstLetter}</div>
+                        <h4>${contactName}</h4>
+                    </div>
+                    <div class="chat-messages">
+                        </div>
+                    <div class="chat-input">
+                        <input type="text" name="content" placeholder="Digite sua mensagem...">
+                        
+                        <input type="file" id="mediaInput" name="media[]" accept="image/*,video/*" class="d-none">
+                        <button type="button" class="send" id="btnAddMedia">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+                                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" />
+                            </svg>
+                        </button>
+                        <button class="send" onclick="send(event)">📨</button>
+                    </div>
+                `;
+                
+                const btnAddMedia = document.querySelector("#btnAddMedia");
+                const mediaInput = document.querySelector("#mediaInput");
+                btnAddMedia.addEventListener("click", () => {
+                    mediaInput.click();
+                });
+                
 
+                activeReceiverId = contactEl.dataset.id;
+                
+                startChatInterval();
 
-                updateChat();
-                setInterval(updateChat, 1000);
-
-
-
-                const response = await fetch('/api/getMessages?contact_id=' + receiver_id, {
+                
+                const response = await fetch('/api/getMessages?contact_id=' + activeReceiverId, {
                     method: "GET",
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -516,10 +559,8 @@
                         msg.receiver_id === userData.user.id &&
                         !Boolean(Number(msg.is_read))
                     ).map(msg => msg.id);
-                console.log(unreadIds)
 
                 if (unreadIds.length > 0) {
-                    const token = localStorage.getItem("jwt_token");
                     await fetch("/api/readMessages", {
                         method: "PATCH",
                         headers: {
@@ -536,12 +577,105 @@
                         badgeElement.textContent = '0';
                         badgeElement.style.display = 'none';
                     }
-
                 }
             });
         });
+        
+
+        let chatInterval = null;
+        function startChatInterval() {
+        
+            if (chatInterval) clearInterval(chatInterval); 
+            if (!activeReceiverId) return;
+            
+            updateChat();
+            chatInterval = setInterval(updateChat, 3000); 
+        }
 
 
+        async function updateChat() {
+            if (!activeReceiverId) return; 
+
+            try {
+                const chatMessages = document.querySelector('.chat-messages');
+                if(!chatMessages) return; 
+                
+      
+                const tavaNofinal = 
+                    chatMessages.scrollHeight - chatMessages.scrollTop <= chatMessages.clientHeight + 50;
+
+                const response = await fetch('/api/getMessages?contact_id=' + activeReceiverId, {
+                    method: "GET",
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                });
+
+                if (!response.ok) {
+                    console.error("Erro ao buscar mensagens:", response.status);
+                    return;
+                }
+
+                const data = await response.json();
+                const messages = data.data;
+
+                chatMessages.innerHTML = ''; 
+                
+                messages.forEach(msg => {
+                    const isSent = msg.sender_id === userData.user.id;
+                    const msgClass = isSent ? 'sent' : 'received';
+                    const dateObj = new Date(msg.created_at);
+
+                    const time = dateObj.toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    const date = dateObj.toLocaleDateString('pt-BR');
+                    
+                    if (msg.content == "ㅤ" && !msg.media_url) return; 
+                    
+                    let mediaElement = '';
+                    let contentElement = `<p>${msg.content || ''}</p>`;
+                    
+                    
+                    if (msg.media_url) {
+                        const fullMediaUrl = msg.media_url; 
+                        
+                        if (msg.media_type === 'image') {
+                            mediaElement = `<img src="${fullMediaUrl}" alt="Imagem" class="msg-media" style="max-width: 250px;">`;
+                        } else if (msg.media_type === 'video') {
+                            mediaElement = `<video src="${fullMediaUrl}" controls class="msg-media" style="max-width: 250px;"></video>`;
+                        }
+                    }
+
+
+                    chatMessages.innerHTML += `
+                        <div class="msg ${msgClass}">
+                            ${mediaElement} 
+                            ${msg.content && msg.content !== "ㅤ" ? contentElement : ''} 
+                            <span class="msg-time">${time}</span>
+                            <span class="msg-date">${date}</span>
+                        </div>
+                    `;
+                });
+                
+                
+                if (tavaNofinal) {
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }
+
+            } catch (err) {
+                console.error("Erro na requisição:", err);
+            }
+        }
+
+
+        const firstContact = document.querySelector('.contact:not(.search-input)');
+        if (firstContact) {
+            firstContact.click(); 
+        } else {
+             
+        }
 
     });
 </script>

@@ -319,7 +319,7 @@ $profile_id = $_GET['profile'];
 
 <?php else: ?>
     <script src="frontend/static/js/followFunctions.js"></script>
-
+    <script src="/frontend/static/js/sendMessages.js"></script>
 <?php endif; ?>
 
 <script>
@@ -605,7 +605,7 @@ $profile_id = $_GET['profile'];
                         document.querySelector("#edit-post-modal"),
                         document.querySelector("#post-modal")
                     ];
-                    
+
                     modals.forEach(modal => {
                         if (modal && modal !== exceptModal && modal.open) {
                             modal.close();
@@ -625,27 +625,27 @@ $profile_id = $_GET['profile'];
                     const postModal = document.querySelector("#post-modal")
                     const postId = postModal.dataset.postId
                     const post = document.querySelector(`.post[data-post-id="${postId}"]`);
-                    
+
                     // Busca o conteúdo atual do post (classe .post-content)
                     const postContentElement = post.querySelector(".post-content");
                     const currentContent = postContentElement ? postContentElement.textContent.trim() : "";
-                    
+
                     if (!currentContent) {
                         showWarning("Não foi possível carregar o conteúdo da publicação.");
                         postModal.close();
                         return;
                     }
-                    
+
                     // Preenche o textarea com o conteúdo atual
                     editPostContent.value = currentContent;
                     editPostModal.dataset.postId = postId;
-                    
+
                     // Fecha o menu de opções
                     postModal.close();
-                    
+
                     // Fecha outros modais que possam estar abertos
                     closeOtherModals(editPostModal);
-                    
+
                     // Abre o modal de edição
                     editPostModal.showModal();
                 });
@@ -673,11 +673,11 @@ $profile_id = $_GET['profile'];
                     editPostSave.textContent = "Salvando...";
 
                     const data = await executeWithRefresh(updatePost, postId, newContent);
-                    
+
                     if (data.status === "success") {
                         showSuccess("Publicação atualizada com sucesso!");
                         editPostModal.close();
-                        
+
                         // Recarrega os posts
                         setTimeout(() => {
                             window.location.reload();
@@ -746,10 +746,10 @@ $profile_id = $_GET['profile'];
 
             document.querySelector("#edit-profile-button").addEventListener("click", async () => {
                 const modal = document.querySelector("#edit-profile-modal")
-                
+
                 // Fecha outros modais que possam estar abertos
                 closeOtherModals(modal);
-                
+
                 modal.showModal();
 
                 let userData = null;
@@ -1101,7 +1101,7 @@ $profile_id = $_GET['profile'];
 
                 userData = await executeWithRefresh(loadUserInformation, <?= json_encode($profile_id) ?>);
                 sessionStorage.setItem('userData', userData);
-                
+
 
                 const campusSelects = document.querySelectorAll(".campus-select")
                 const campusIds = []
@@ -1261,6 +1261,12 @@ $profile_id = $_GET['profile'];
             })
 
         <?php endif; ?>
+
+        document.querySelector("#chat-button").addEventListener("click", (e) => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('profile');
+            executeWithRefresh(sendMessage, id, "ㅤ", null, null)
+        })
 
         document.getElementById('btnBack').addEventListener('click', function() {
             const referrer = document.referrer;

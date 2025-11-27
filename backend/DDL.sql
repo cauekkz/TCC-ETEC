@@ -30,7 +30,7 @@ CREATE TABLE user (
   birthday DATE NOT NULL,
   role ENUM('estudante', 'professor') NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  password_hash VARCHAR(255) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL
   
 );
 CREATE TABLE user_course(

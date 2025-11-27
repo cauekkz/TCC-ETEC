@@ -22,10 +22,12 @@ if (is_numeric($server_id)) {
 </script>
 
 <script>
+
     document.addEventListener("DOMContentLoaded", function() {
-        const serverName = localStorage.getItem("selectedServerName") ?? null;
         document.querySelector("#consecultivos").innerText =
             `Projetos TCC de ${serverName}`;
+    const serverName = localStorage.getItem("selectedServerName") ?? null;
+
     });
 </script>
 <header>

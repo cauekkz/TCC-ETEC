@@ -17,7 +17,6 @@ $caminhoCss = "frontend/static/css/$pageTitle.css";
     <link rel="stylesheet" href="<?= $caminhoCss ?>">
     <link rel="icon" type="image/x-icon" href="frontend/static/img/logo.png">
     
-    <!-- Scripts do sistema de temas -->
     <script src="frontend/static/js/themeManager.js"></script>
     <!-- Scripts do sistema de acessibilidade -->
     <script src="frontend/static/js/accessibility.js"></script>

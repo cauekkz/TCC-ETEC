@@ -137,6 +137,8 @@ $profile_id = $_GET['profile'];
     <?php if ($profile_id === "mine"): ?>
 
         <dialog id="edit-profile-modal">
+
+
             <div class="alert-container">
 
             </div>
@@ -596,132 +598,133 @@ $profile_id = $_GET['profile'];
 
 
             });
-            <?php if ($profile_id === "mine"): ?>
-
-                // Função auxiliar para fechar todos os modais exceto o especificado
-                function closeOtherModals(exceptModal = null) {
-                    const modals = [
-                        document.querySelector("#edit-profile-modal"),
-                        document.querySelector("#edit-post-modal"),
-                        document.querySelector("#post-modal")
-                    ];
-                    
-                    modals.forEach(modal => {
-                        if (modal && modal !== exceptModal && modal.open) {
-                            modal.close();
-                        }
-                    });
-                }
-
-                // Handler para editar post
-                const editli = document.querySelector("#edit-post-li")
-                const editPostModal = document.querySelector("#edit-post-modal")
-                const editPostContent = document.querySelector("#edit-post-content")
-                const editPostSave = document.querySelector("#edit-post-save")
-                const editPostCancel = document.querySelector("#edit-post-cancel")
-                const editPostClose = document.querySelector(".edit-post-modal-close")
-
-                editli.addEventListener("click", async () => {
-                    const postModal = document.querySelector("#post-modal")
-                    const postId = postModal.dataset.postId
-                    const post = document.querySelector(`.post[data-post-id="${postId}"]`);
-                    
-                    // Busca o conteúdo atual do post (classe .post-content)
-                    const postContentElement = post.querySelector(".post-content");
-                    const currentContent = postContentElement ? postContentElement.textContent.trim() : "";
-                    
-                    if (!currentContent) {
-                        showWarning("Não foi possível carregar o conteúdo da publicação.");
-                        postModal.close();
-                        return;
-                    }
-                    
-                    // Preenche o textarea com o conteúdo atual
-                    editPostContent.value = currentContent;
-                    editPostModal.dataset.postId = postId;
-                    
-                    // Fecha o menu de opções
-                    postModal.close();
-                    
-                    // Fecha outros modais que possam estar abertos
-                    closeOtherModals(editPostModal);
-                    
-                    // Abre o modal de edição
-                    editPostModal.showModal();
-                });
-
-                // Fechar modal de edição
-                editPostClose.addEventListener("click", () => {
-                    editPostModal.close();
-                });
-
-                editPostCancel.addEventListener("click", () => {
-                    editPostModal.close();
-                });
-
-                // Salvar edição
-                editPostSave.addEventListener("click", async () => {
-                    const postId = editPostModal.dataset.postId;
-                    const newContent = editPostContent.value.trim();
-
-                    if (!newContent || newContent.length < 5) {
-                        showWarning("O conteúdo precisa ter pelo menos 5 caracteres.");
-                        return;
-                    }
-
-                    editPostSave.disabled = true;
-                    editPostSave.textContent = "Salvando...";
-
-                    const data = await executeWithRefresh(updatePost, postId, newContent);
-                    
-                    if (data.status === "success") {
-                        showSuccess("Publicação atualizada com sucesso!");
-                        editPostModal.close();
-                        
-                        // Recarrega os posts
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 1000);
-                    } else {
-                        showBackendError(data, "Erro ao atualizar publicação");
-                        editPostSave.disabled = false;
-                        editPostSave.textContent = "Salvar";
-                    }
-                });
-
-                // Handler para excluir post com confirmação
-                const deleteli = document.querySelector("#delete-post-li")
-                deleteli.addEventListener("click", async () => {
-                    const postModal = document.querySelector("#post-modal")
-                    const postId = postModal.dataset.postId
-                    const post = document.querySelector(`.post[data-post-id="${postId}"]`);
-
-                    // Fecha o menu de opções
-                    postModal.close();
-
-                    // Mostra modal de confirmação
-                    const confirmed = await confirmAction(
-                        "Tem certeza que deseja excluir esta publicação? Esta ação não pode ser desfeita.",
-                        "Confirmar Exclusão"
-                    );
-
-                    if (confirmed) {
-                        const data = await executeWithRefresh(deletePost, postId)
-                        if (data.status === "success") {
-                            showSuccess("Publicação excluída com sucesso!");
-                            post.classList.add("post-deleting");
-                            setTimeout(() => {
-                                post.remove();
-                            }, 600);
-                        } else {
-                            showBackendError(data, "Erro ao excluir publicação");
-                        }
-                    }
-                })
-
-            <?php endif; ?>
 
         }
+        <?php if ($profile_id === "mine"): ?>
+
+            // Função auxiliar para fechar todos os modais exceto o especificado
+            function closeOtherModals(exceptModal = null) {
+                const modals = [
+                    document.querySelector("#edit-profile-modal"),
+                    document.querySelector("#edit-post-modal"),
+                    document.querySelector("#post-modal")
+                ];
+
+                modals.forEach(modal => {
+                    if (modal && modal !== exceptModal && modal.open) {
+                        modal.close();
+                    }
+                });
+            }
+
+            // Handler para editar post
+            const editli = document.querySelector("#edit-post-li")
+            const editPostModal = document.querySelector("#edit-post-modal")
+            const editPostContent = document.querySelector("#edit-post-content")
+            const editPostSave = document.querySelector("#edit-post-save")
+            const editPostCancel = document.querySelector("#edit-post-cancel")
+            const editPostClose = document.querySelector(".edit-post-modal-close")
+
+            editli.addEventListener("click", async () => {
+                const postModal = document.querySelector("#post-modal")
+                const postId = postModal.dataset.postId
+                const post = document.querySelector(`.post[data-post-id="${postId}"]`);
+
+                // Busca o conteúdo atual do post (classe .post-content)
+                const postContentElement = post.querySelector(".post-content");
+                const currentContent = postContentElement ? postContentElement.textContent.trim() : "";
+
+                if (!currentContent) {
+                    showWarning("Não foi possível carregar o conteúdo da publicação.");
+                    postModal.close();
+                    return;
+                }
+
+                // Preenche o textarea com o conteúdo atual
+                editPostContent.value = currentContent;
+                editPostModal.dataset.postId = postId;
+
+                // Fecha o menu de opções
+                postModal.close();
+
+                // Fecha outros modais que possam estar abertos
+                closeOtherModals(editPostModal);
+
+                // Abre o modal de edição
+                editPostModal.showModal();
+            });
+
+            // Fechar modal de edição
+            editPostClose.addEventListener("click", () => {
+                editPostModal.close();
+            });
+
+            editPostCancel.addEventListener("click", () => {
+                editPostModal.close();
+            });
+
+            // Salvar edição
+            editPostSave.addEventListener("click", async () => {
+                const postId = editPostModal.dataset.postId;
+                const newContent = editPostContent.value.trim();
+
+                if (!newContent || newContent.length < 5) {
+                    showWarning("O conteúdo precisa ter pelo menos 5 caracteres.");
+                    return;
+                }
+
+                editPostSave.disabled = true;
+                editPostSave.textContent = "Salvando...";
+
+                const data = await executeWithRefresh(updatePost, postId, newContent);
+
+                if (data.status === "success") {
+                    showSuccess("Publicação atualizada com sucesso!");
+                    editPostModal.close();
+
+                    // Recarrega os posts
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    showBackendError(data, "Erro ao atualizar publicação");
+                    editPostSave.disabled = false;
+                    editPostSave.textContent = "Salvar";
+                }
+            });
+
+            // Handler para excluir post com confirmação
+            const deleteli = document.querySelector("#delete-post-li")
+            deleteli.addEventListener("click", async () => {
+                const postModal = document.querySelector("#post-modal")
+                const postId = postModal.dataset.postId
+                const post = document.querySelector(`.post[data-post-id="${postId}"]`);
+
+                // Fecha o menu de opções
+                postModal.close();
+
+                // Mostra modal de confirmação
+                const confirmed = await confirmAction(
+                    "Tem certeza que deseja excluir esta publicação? Esta ação não pode ser desfeita.",
+                    "Confirmar Exclusão"
+                );
+
+                if (confirmed) {
+                    const data = await executeWithRefresh(deletePost, postId)
+                    if (data.status === "success") {
+                        showSuccess("Publicação excluída com sucesso!");
+                        post.classList.add("post-deleting");
+                        setTimeout(() => {
+                            post.remove();
+                        }, 600);
+                    } else {
+                        showBackendError(data, "Erro ao excluir publicação");
+                    }
+                }
+            })
+
+        <?php endif; ?>
+
         if (userInfo?.role === "estudante") {
             document.querySelector("#post-qtn-div").style.display = "none"
         }
@@ -746,10 +749,8 @@ $profile_id = $_GET['profile'];
 
             document.querySelector("#edit-profile-button").addEventListener("click", async () => {
                 const modal = document.querySelector("#edit-profile-modal")
-                
-                // Fecha outros modais que possam estar abertos
                 closeOtherModals(modal);
-                
+
                 modal.showModal();
 
                 let userData = null;
@@ -1053,14 +1054,9 @@ $profile_id = $_GET['profile'];
                 event.preventDefault();
 
                 // Confirmação antes de atualizar perfil
-                const confirmed = await confirmAction(
-                    "Tem certeza que deseja atualizar suas informações de perfil?",
-                    "Confirmar Atualização"
-                );
 
-                if (!confirmed) {
-                    return;
-                }
+
+
                 const formData = new FormData();
 
                 formData.append("name", form.name.value);
@@ -1101,7 +1097,7 @@ $profile_id = $_GET['profile'];
 
                 userData = await executeWithRefresh(loadUserInformation, <?= json_encode($profile_id) ?>);
                 sessionStorage.setItem('userData', userData);
-                
+
 
                 const campusSelects = document.querySelectorAll(".campus-select")
                 const campusIds = []
@@ -1217,6 +1213,10 @@ $profile_id = $_GET['profile'];
                     }
                 }
                 showSuccess('Perfil atualizado com sucesso!');
+                userData = await executeWithRefresh(loadUserInformation, "mine");
+                userData = userData.data
+                sessionStorage.setItem('userData', JSON.stringify(userData));
+
                 setTimeout(() => {
                     window.location.reload();
                 }, 1000);

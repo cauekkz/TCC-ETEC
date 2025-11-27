@@ -215,13 +215,13 @@
         border-bottom-left-radius: 0;
     }
 
-    
+
     .msg p {
         margin: 0;
         line-height: 1.4;
     }
 
-   
+
     .msg-time {
         font-size: 0.75rem;
         opacity: 0.8;
@@ -230,7 +230,7 @@
         color: #b0b0b0;
     }
 
-    
+
     .msg-date {
         font-size: 0.7rem;
         opacity: 0.6;
@@ -238,7 +238,7 @@
         color: #8c8c8c;
     }
 
-    
+
     .chat-messages::-webkit-scrollbar {
         width: 6px;
     }
@@ -252,7 +252,6 @@
         background-color: #1a1a1a;
     }
 
-    /* Campo de envio */
     .chat-input {
         display: flex;
         align-items: center;
@@ -296,7 +295,7 @@
         transform: scale(1.05);
     }
 
-   
+
     .contact.active {
         background-color: #1e1e1e;
         border-left: 3px solid #3b82f6;
@@ -434,13 +433,17 @@
                         document.querySelectorAll('.contact').forEach(c => c.classList.remove('active'));
                         contactEl.classList.add('active');
 
-                        activeReceiverId = contactEl.dataset.id; 
+                        activeReceiverId = contactEl.dataset.id;
                         startChatInterval();
                     });
                 });
 
                 async function updateChat() {
                     try {
+                        const chatMessages = document.querySelector('.chat-messages');
+                        const estavaNoFinal =
+                            chatMessages.scrollHeight - chatMessages.scrollTop <= chatMessages.clientHeight + 5;
+
                         const response = await fetch('/api/getMessages?contact_id=' + receiver_id, {
                             method: "GET",
                             headers: {
@@ -456,13 +459,15 @@
                         const data = await response.json();
                         const messages = data.data;
 
-                        const chatMessages = document.querySelector('.chat-messages');
+                    
                         chatMessages.innerHTML = '';
 
+                       
                         messages.forEach(msg => {
                             const isSent = msg.sender_id === userData.user.id;
                             const msgClass = isSent ? 'sent' : 'received';
                             const dateObj = new Date(msg.created_at);
+
                             const time = dateObj.toLocaleTimeString([], {
                                 hour: '2-digit',
                                 minute: '2-digit'
@@ -477,13 +482,15 @@
                 </div>
             `;
                         });
-
-                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        if (estavaNoFinal) {
+                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                        }
 
                     } catch (err) {
                         console.error("Erro na requisição:", err);
                     }
                 }
+
 
                 updateChat();
                 setInterval(updateChat, 1000);

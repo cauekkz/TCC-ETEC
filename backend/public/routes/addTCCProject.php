@@ -63,7 +63,7 @@ foreach ($memberIds as $memberId) {
 
     if (empty($courseCheck->results)) {
         $res->set_status("error");
-        $res->set_error_message("O aluno ID $memberId não pertence ao curso selecionado.");
+        $res->set_error_message("Aluno que não pertence ao curso selecionado.");
         $res->response();
         exit;
     }

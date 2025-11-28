@@ -194,6 +194,25 @@ if (is_numeric($server_id)) {
 <script src="/frontend/static/js/executeWithRefresh.js"></script>
 <script src="/frontend/static/js/addNoticeBox.js"></script>
 <dialog class="molested">
+
+    <div id="confirmation-modal" class="confirmation-modal-overlay">
+        <div class="confirmation-modal-content">
+            <div class="confirmation-modal-header">
+                <h3 class="confirmation-modal-title">Confirmar Ação</h3>
+                <button class="confirmation-modal-close" aria-label="Fechar">&times;</button>
+            </div>
+            <div class="confirmation-modal-body">
+                <p class="confirmation-modal-message"></p>
+            </div>
+            <div class="confirmation-modal-footer">
+                <button class="confirmation-btn confirmation-btn-no" id="confirmation-no">Não</button>
+                <button class="confirmation-btn confirmation-btn-yes" id="confirmation-yes">Sim</button>
+            </div>
+        </div>
+
+    </div>
+
+
     <div class="modal-header">
         <h5 class="modal-title">Criar Novo Aviso</h5>
         <button type="button" class="btn-close" id="closeModal" aria-label="Close">X</button>
@@ -278,7 +297,7 @@ if (is_numeric($server_id)) {
                     body: JSON.stringify(data)
                 }).then(res => res.json());
             });
-            
+
             if (result.status !== "success") {
                 showBackendError(result || "Erro ao criar aviso.");
                 return;

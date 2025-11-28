@@ -28,6 +28,7 @@ if (is_numeric($server_id)) {
             `Eventos em destaque de ${serverName}`;
     });
 </script>
+
 <header>
     <div class="container-fluid">
         <div class="row d-flex justify-content-between align-items-center">
@@ -35,7 +36,7 @@ if (is_numeric($server_id)) {
                 <img src="frontend/static/img/logo.png" alt="logo eteconnect" class="img-logo img-fluid">
                 <h5 class="text-danger title-page">ETEConnect</h5>
             </div>
-            <div class="col d-flex mt-3 justify-content-end">
+            <div class="col d-flex justify-content-end align-items-center">
 
                 <button class="btn btn-danger btnCreate">+ Novo evento</button>
                 <div class="light-dark px-3 mt-2">
@@ -44,9 +45,6 @@ if (is_numeric($server_id)) {
                             <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286" />
                         </svg>
                     </div>
-
-
-
 
                     <div class="sun p-1 d-none">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16">
@@ -188,6 +186,23 @@ if (is_numeric($server_id)) {
 
 
                 <dialog class="molested">
+                    <div id="confirmation-modal" class="confirmation-modal-overlay">
+                        <div class="confirmation-modal-content">
+                            <div class="confirmation-modal-header">
+                                <h3 class="confirmation-modal-title">Confirmar Ação</h3>
+                                <button class="confirmation-modal-close" aria-label="Fechar">&times;</button>
+                            </div>
+                            <div class="confirmation-modal-body">
+                                <p class="confirmation-modal-message"></p>
+                            </div>
+                            <div class="confirmation-modal-footer">
+                                <button class="confirmation-btn confirmation-btn-no" id="confirmation-no">Não</button>
+                                <button class="confirmation-btn confirmation-btn-yes" id="confirmation-yes">Sim</button>
+                            </div>
+                        </div>
+
+                    </div>
+
                     <div class="modal-header">
                         <h5 class="modal-title">Criar Novo Evento</h5>
                         <button type="button" class="btn-close" id="closeModal" aria-label="Close">X</button>
@@ -268,7 +283,6 @@ if (is_numeric($server_id)) {
                 <script src="/frontend/static/js/executeWithRefresh.js"></script>
                 <script src="frontend/static/js/loaduserinformation.js"></script>
                 <script src="/frontend/static/js/events.js"></script>
-                <!-- <script src="/frontend/static/js/events.js"></script> -->
 
                 <script src="/frontend/static/js/aside-sec.js"></script>
                 <script>
@@ -290,7 +304,7 @@ if (is_numeric($server_id)) {
 
 
 
-                        
+
 
                     });
                 </script>

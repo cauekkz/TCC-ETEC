@@ -22,11 +22,11 @@ if (is_numeric($server_id)) {
 </script>
 
 <script>
-
     document.addEventListener("DOMContentLoaded", function() {
+        const serverName = localStorage.getItem("selectedServerName") ?? null;
+
         document.querySelector("#consecultivos").innerText =
             `Projetos TCC de ${serverName}`;
-    const serverName = localStorage.getItem("selectedServerName") ?? null;
 
     });
 </script>
@@ -194,36 +194,51 @@ if (is_numeric($server_id)) {
     </div>
 </div>
 <dialog id="projectModal" class="molested modal-dialog bg-card border-primary shadow-heavy">
+    <!--SACOOOOOOOOOOOOOO -->
+    <div id="confirmation-modal" class="confirmation-modal-overlay">
+        <div class="confirmation-modal-content">
+            <div class="confirmation-modal-header">
+                <h3 class="confirmation-modal-title">Confirmar Ação</h3>
+                <button class="confirmation-modal-close" aria-label="Fechar">&times;</button>
+            </div>
+            <div class="confirmation-modal-body">
+                <p class="confirmation-modal-message">Deseja criar este projeto TCC?</p>
+            </div>
+            <div class="confirmation-modal-footer">
+                <button class="confirmation-btn confirmation-btn-no" id="confirmation-no">Não</button>
+                <button class="confirmation-btn confirmation-btn-yes" id="confirmation-yes">Sim</button>
+            </div>
+        </div>
 
-    <form id="querubim" method="dialog" class="modal-content">
+    </div>
+    <form id="querubim" class="modal-content">
 
-        <!-- HEADER -->
         <header class="modal-header bg-secondary border-secondary">
             <h2 class="text-primary">Novo Projeto de TCC</h2>
             <button type="button" class="close-btn text-primary closeModalBtn">×</button>
         </header>
 
-        <!-- BODY -->
+
         <section class="modal-body">
 
-            <!-- Título -->
             <div class="form-group">
                 <label class="text-primary">Título</label>
                 <input type="text" name="title" required class="input bg-input border-primary text-primary">
             </div>
 
-            <!-- Descrição -->
             <div class="form-group">
                 <label class="text-primary">Descrição</label>
                 <textarea name="description" rows="4" class="input bg-input border-primary text-primary" required></textarea>
             </div>
 
-            <!-- Curso  -->
             <div class="form-row">
                 <div class="form-group">
+                    <!--
                     <label class="text-primary">Escola</label>
                     <select name="campus_id" class="input bg-input border-primary text-primary"></select>
+                        -->
                     <label class="text-primary">Curso</label>
+
                     <select name="course_id" class="input bg-input border-primary text-primary"></select>
                 </div>
 
@@ -461,19 +476,12 @@ if (is_numeric($server_id)) {
     `)
                     .join("");
 
-                // ============================
-                //  ARQUIVOS
-                // ============================
                 const files = json.data.files;
                 const filesEl = document.getElementById("viewProjectFiles");
 
-                // separar tipos
                 const mediaFiles = files.filter(f => ["image", "video"].includes(f.file_type));
                 const downloadFiles = files.filter(f => ["pdf", "zip"].includes(f.file_type));
 
-                // ----------------------------
-                //  SLIDER (img / video)
-                // ----------------------------
                 if (mediaFiles.length > 0) {
                     const mediaWrap = document.getElementById("mediaCarouselWrap");
                     const carousel = document.getElementById("mediaCarousel");
@@ -637,6 +645,7 @@ if (is_numeric($server_id)) {
         modal.querySelector(".closeModalBtn").addEventListener("click", () => {
             modal.close();
         });
+        /*
         const AllCampus = await fetch("/api/getAllEtecsNames").then(res => res.json());
         if (AllCampus === null || AllCampus.status !== "success") {
             showAlert("error", "Erro ao carregar");
@@ -648,24 +657,24 @@ if (is_numeric($server_id)) {
             option.textContent = campus.name;
             modal.querySelector("select[name='campus_id']").appendChild(option);
         });
-        modal.querySelector("select[name='campus_id']").addEventListener("change", async function() {
-            const selectedCampusId = this.value;
-            const courseSelect = modal.querySelector("select[name='course_id']");
-            courseSelect.innerHTML = "";
+        */
+        const courseSelect = modal.querySelector("select[name='course_id']");
+        courseSelect.innerHTML = "";
 
-            const response = await fetch(`/api/getCoursesByEtec?campus_id=${selectedCampusId}`);
-            const result = await response.json();
-            if (result.status !== "success") {
-                showAlert("error", "Erro ao carregar cursos");
-                return;
-            }
-            result.data.forEach(course => {
-                const option = document.createElement("option");
-                option.value = course.id;
-                option.textContent = course.name;
-                courseSelect.appendChild(option);
-            });
-        })
+        const response = await fetch(`/api/getCoursesByEtec?campus_id=${campusId}`);
+        const result = await response.json();
+        if (result.status !== "success") {
+            showAlert("error", "Erro ao carregar cursos");
+            return;
+        }
+        result.data.forEach(course => {
+            const option = document.createElement("option");
+            option.value = course.id;
+            option.textContent = course.name;
+            courseSelect.appendChild(option);
+        });
+
+        //modal.querySelector("select[name='campus_id']").addEventListener("change", async function() {})
         modal.querySelector("#memberSearch").addEventListener("input", async () => {
             const query = modal.querySelector("#memberSearch").value.trim();
             const resultsBox = modal.querySelector("#memberResults");
@@ -734,18 +743,18 @@ if (is_numeric($server_id)) {
             e.preventDefault();
 
             // Confirmação antes de criar projeto
+
             const confirmed = await confirmAction(
                 "Deseja criar este projeto TCC?",
                 "Confirmar Criação de Projeto"
             );
-
             if (!confirmed) {
-                return;
+                return
             }
+
 
             const title = modal.querySelector("input[name='title']").value.trim();
             const description = modal.querySelector("textarea[name='description']").value.trim();
-            const campusId = modal.querySelector("select[name='campus_id']").value;
             const courseId = modal.querySelector("select[name='course_id']").value;
 
             const selectedMemberSpans = modal.querySelectorAll("#selectedMembers .member-tag");
@@ -776,9 +785,15 @@ if (is_numeric($server_id)) {
             if (result.status === "success") {
                 showSuccess("Projeto criado com sucesso!");
                 modal.close();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 500);
             } else {
+                modal.close();
+
                 showBackendError(result, "Erro ao criar projeto");
             }
+
         });
 
 

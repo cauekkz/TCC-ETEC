@@ -504,6 +504,7 @@ dialog.molested {
 
 /* Botão de envio */
 #createNoticeForm button[type="submit"] {
+    
     background-color: var(--accent-primary);
     color: #fff;
     font-weight: 500;

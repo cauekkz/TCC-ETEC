@@ -12,6 +12,10 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     border: 1px solid var(--border-secondary);
+    
+
+
+
 }
 
 .project-card:hover {
@@ -61,6 +65,10 @@
 }
 
 .project-info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     padding: 1.5rem;
 }
 
@@ -102,11 +110,19 @@
     line-height: 1.6;
     margin-bottom: 1.5rem;
     font-size: 0.95rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    /* número de linhas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
 }
 
 .project-actions {
     display: flex;
     justify-content: space-between;
+    bottom: 1.5rem;
     align-items: center;
 }
 
@@ -320,7 +336,7 @@ body.dark-mode .like-btn:hover {
     flex: 1 1 15rem;
 }
 
-.btn {
+ footer .btn {
     padding: .8rem 1.4rem;
     font-size: 1rem;
     border-radius: .6rem;
@@ -492,7 +508,7 @@ body.dark-mode .like-btn:hover {
     border: none;
     padding: .5rem 1rem;
     color: #fff;
-    font-size:4rem;
+    font-size: 4rem;
     cursor: pointer;
     border-radius: 8px;
 }
@@ -511,6 +527,7 @@ body.dark-mode .like-btn:hover {
     justify-content: center;
     margin-top: .4rem;
 }
+
 .member-item {
     display: flex;
     align-items: center;
@@ -523,9 +540,10 @@ body.dark-mode .like-btn:hover {
     width: fit-content;
 }
 
-select{
+select {
     max-width: 100%;
 }
+
 .dot {
     width: 10px;
     height: 10px;
@@ -584,7 +602,7 @@ select{
         transition: left 0.3s ease;
         z-index: 1000;
     }
-    
+
     .sidebar.open {
         left: 0;
     }

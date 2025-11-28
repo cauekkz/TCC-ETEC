@@ -1385,21 +1385,28 @@ $profile_id = $_GET['profile'];
                     }
                 }
             })
+            /*
+            document.querySelector("#chat-button").addEventListener("click", (e) => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const id = urlParams.get('profile');
+                executeWithRefresh(sendMessage, id, "ㅤ", null, null)
+            })
+                */
 
         <?php endif; ?>
+        console.log("garou")
 
-        document.querySelector("#chat-button").addEventListener("click", (e) => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('profile');
-            executeWithRefresh(sendMessage, id, "ㅤ", null, null)
-        })
-
+        console.log("garou")
         document.getElementById('btnBack').addEventListener('click', function() {
+
             const referrer = document.referrer;
             const currentHost = window.location.host;
 
-
-            window.location.href = '/';
+            if (referrer && referrer.includes(currentHost)) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
 
         });
 

@@ -15,7 +15,30 @@ class ConfirmationModal {
         if (!document.querySelector('#confirmation-modal')) {
             this.createModal();
         } else {
+            const modal = document.querySelector('#confirmation-modal');
             this.modal = document.querySelector('#confirmation-modal');
+            const closeBtn = modal.querySelector('.confirmation-modal-close');
+            const noBtn = modal.querySelector('#confirmation-no');
+            const yesBtn = modal.querySelector('#confirmation-yes');
+
+            closeBtn.addEventListener('click', () => this.close(false));
+            noBtn.addEventListener('click', () => this.close(false));
+            yesBtn.addEventListener('click', () => this.close(true));
+
+            // Fechar ao clicar no overlay
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    this.close(false);
+                }
+            });
+
+            // Fechar com ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    this.close(false);
+                }
+            });
+
         }
     }
 
@@ -68,13 +91,13 @@ class ConfirmationModal {
     show(message, title = 'Confirmar Ação') {
         return new Promise((resolve) => {
             this.resolvePromise = resolve;
-            
+
             const messageEl = this.modal.querySelector('.confirmation-modal-message');
             const titleEl = this.modal.querySelector('.confirmation-modal-title');
-            
+
             messageEl.textContent = message;
             titleEl.textContent = title;
-            
+
             this.modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
@@ -85,7 +108,7 @@ class ConfirmationModal {
             this.modal.classList.remove('active');
             document.body.style.overflow = '';
         }
-        
+
         if (this.resolvePromise) {
             this.resolvePromise(confirmed);
             this.resolvePromise = null;

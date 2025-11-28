@@ -49,7 +49,7 @@ function validate($data)
     }
 
     // Validação da matrícula
-    if (empty($data['registration']) || !is_numeric($data['registration']) || strlen($data['registration']) > 11) {
+    if (empty($data['registration']) || !is_numeric($data['registration']) || (strlen($data['registration']) != 11 && strlen($data['registration']) != 6)) {
         $errors[] = 'Matrícula inválida';
     }
 

@@ -24,7 +24,7 @@ class AccessibilityManager {
     init() {
         // Carrega configurações salvas (funciona em todas as páginas)
         this.loadSettings();
-        
+
         // Verifica suporte para Web Speech API
         if ('speechSynthesis' in window) {
             this.speechSynthesis = window.speechSynthesis;
@@ -34,7 +34,7 @@ class AccessibilityManager {
 
         // Aplica configurações iniciais (funciona em todas as páginas)
         this.applySettings();
-        
+
         // Configura event listeners (funciona em todas as páginas)
         this.setupEventListeners();
 
@@ -49,7 +49,7 @@ class AccessibilityManager {
         // Verifica se está na página de perfil através da URL
         const url = window.location.pathname;
         const searchParams = new URLSearchParams(window.location.search);
-        
+
         // Verifica se a URL contém /profile ou se há parâmetro profile na query string
         return url.includes('/profile') || searchParams.has('profile');
     }
@@ -79,14 +79,28 @@ class AccessibilityManager {
         button.className = 'accessibility-btn';
         button.setAttribute('aria-label', 'Configurações de acessibilidade');
         button.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-universal-access" viewBox="0 0 16 16">
-                <path d="M9.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0M6 5.5l-4.535-.404A.5.5 0 0 1 1.5 4.5h13a.5.5 0 0 1 .535.596L11.5 8l.464 2.214a.5.5 0 0 1-.12.39l-1.736 2.208a.5.5 0 0 1-.434.14H4.102a.5.5 0 0 1-.434-.14l-1.736-2.208a.5.5 0 0 1-.12-.39zm0 1.788.741.312a1.5 1.5 0 0 0 1.147 0l.741-.313V9.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v.776l.741.313a1.5 1.5 0 0 0 1.147 0l.74-.312V9.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v.788l.741.312a1.5 1.5 0 0 0 1.147 0l.741-.313L11.5 13.5h-7z"/>
-            </svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+  <!-- CÍRCULO -->
+  <circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="2"/>
+
+  <!-- CABEÇA (centralizada) -->
+  <circle cx="12" cy="6.5" r="2"/>
+
+  <!-- BRAÇOS (horizontais e centralizados) -->
+  <line x1="5" y1="10" x2="19" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- TRONCO (centralizado) -->
+  <line x1="12" y1="9" x2="12" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- PERNAS (simétricas) -->
+  <line x1="12" y1="16" x2="8.5" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <line x1="12" y1="16" x2="15.5" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>
         `;
 
         // Insere o botão no header, ao lado do botão de tema
         this.insertAccessibilityButton(button);
-        
+
         // Event listener para abrir o painel
         button.addEventListener('click', (e) => {
             e.preventDefault();
@@ -303,7 +317,7 @@ class AccessibilityManager {
         };
         this.saveSettings();
         this.applySettings();
-        
+
         // Atualiza os controles do painel
         const panel = document.querySelector('.accessibility-panel');
         if (panel) {
@@ -621,7 +635,7 @@ class AccessibilityManager {
 
         // Tenta usar voz brasileira se disponível
         const voices = this.speechSynthesis.getVoices();
-        const ptBRVoice = voices.find(voice => 
+        const ptBRVoice = voices.find(voice =>
             voice.lang.startsWith('pt-BR') || voice.lang.startsWith('pt')
         );
         if (ptBRVoice) {
@@ -685,7 +699,7 @@ class AccessibilityManager {
         // Remove listeners anteriores para evitar duplicação
         img.removeEventListener('mouseenter', this.imageDescriptionHandler);
         img.removeEventListener('mouseleave', this.stopSpeechHandler);
-        
+
         // Adiciona novos listeners
         if (this.settings.imageDescription && this.imageDescriptionHandler) {
             img.addEventListener('mouseenter', this.imageDescriptionHandler);

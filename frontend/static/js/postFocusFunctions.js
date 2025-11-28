@@ -5,12 +5,12 @@ function addPostClickEvent(postElement, postInfo) {
         if (e.target.closest('.interactive')) {
             return;
         }
-        
+
         // Abrir o post focus
         const postFocus = document.querySelector('.container-post-focus');
         if (postFocus) {
             postFocus.classList.remove('d-none');
-            
+
             // Carregar informações do post no focus
             loadPostInFocus(postInfo.id);
         }
@@ -50,9 +50,9 @@ async function getPostById(postId) {
 async function loadPostInFocus(postId) {
     try {
         const result = await executeWithRefresh(getPostById, postId);
-        
+
         if (result && result.status === "success") {
-            document.querySelector(".container-post-focus").dataset.postId= result.data.id
+            document.querySelector(".container-post-focus").dataset.postId = result.data.id
             // Atualizar o conteúdo do post focus
             updatePostFocusContent(result.data);
         } else {
@@ -70,7 +70,7 @@ function updatePostFocusContent(postData) {
     if (nameElement) {
         nameElement.textContent = postData.author_name || 'Usuário';
     }
-    
+
     // Atualizar role do autor
     const roleElement = document.querySelector('.post-focus .badge');
     if (roleElement) {
@@ -79,39 +79,39 @@ function updatePostFocusContent(postData) {
         const roleColor = postData.role === 'estudante' ? '#D32F2F' : '#2f32d3ff';
         roleElement.style.backgroundColor = roleColor;
     }
-    
+
     // Atualizar ETEC
     const etecElement = document.querySelector('.post-focus .sub-text');
     if (etecElement && postData.campus && postData.campus.length > 0) {
         etecElement.textContent = postData.campus[0].name || 'ETEC';
     }
-    
+
     // Atualizar conteúdo do post
     const contentElement = document.querySelector('.post-focus #textPost');
     if (contentElement) {
         contentElement.textContent = postData.content || 'Conteúdo não disponível';
     }
-    
+
     // Atualizar mídia do post
     updatePostFocusMedia(postData.media || []);
-    
+
     // Atualizar contadores
     const likeCountElement = document.querySelector('.post-focus #qntLikes');
     if (likeCountElement) {
         likeCountElement.textContent = postData.total_likes || 0;
     }
-    
+
     const commentCountElement = document.querySelector('.post-focus #qntComments');
     if (commentCountElement) {
         commentCountElement.textContent = postData.comments_count || 0;
     }
-    
+
     // Atualizar foto do perfil
     updatePostFocusProfilePhoto(postData);
-    
+
     // Configurar funcionalidade de like no post focus
     setupPostFocusLike(postData);
-    
+
     // Carregar comentários do post
     loadCommentsForPost(postData.id);
 }
@@ -122,11 +122,11 @@ function updatePostFocusProfilePhoto(postData) {
     console.log(postData)
     const profilePhoto = document.querySelector('#profile-photo-post-focus');
     if (!profilePhoto) return;
-    
+
     const profilePath = postData.profile_photo_path;
     const authorName = postData.author_name || 'Usuário';
     const roleColor = postData.role === 'estudante' ? '#D32F2F' : '#2f32d3ff';
-    
+
     if (profilePath) {
         profilePhoto.style.backgroundImage = `url(${profilePath})`;
         profilePhoto.style.backgroundColor = 'transparent';
@@ -155,22 +155,21 @@ function closePostFocus() {
     }
 }
 
-// Função para configurar funcionalidade de like no post focus
 function setupPostFocusLike(postData) {
     const likeBtn = document.querySelector('.post-focus .like-post');
     if (!likeBtn) {
         console.error('Botão de like não encontrado no post focus');
         return;
     }
-    
+
     // Adicionar dataset com informações do post
     likeBtn.dataset.postId = postData.id;
     likeBtn.dataset.totalLikes = postData.total_likes || 0;
     likeBtn.dataset.userLiked = postData.user_liked || 0;
-    
+
     // Configurar estado visual inicial do like
     updatePostFocusLikeUI(postData.user_liked === 1);
-    
+
     // Adicionar evento de clique no botão de like
     likeBtn.addEventListener('click', handlePostFocusLike);
 }
@@ -179,7 +178,7 @@ function setupPostFocusLike(postData) {
 function updatePostFocusLikeUI(isLiked) {
     const likeBtn = document.querySelector('.post-focus .like-post');
     if (!likeBtn) return;
-    
+
     if (isLiked) {
         // Post curtido - SVG preenchido
         likeBtn.classList.add('liked');
@@ -207,13 +206,14 @@ function updatePostFocusLikeUI(isLiked) {
 async function handlePostFocusLike(e) {
     e.preventDefault();
     e.stopPropagation();
-    
+
     const likeBtn = e.currentTarget;
     const postId = likeBtn.dataset.postId;
     const isLiked = likeBtn.dataset.userLiked === '1';
-    
+    const postContainer = document.querySelector(`.post[data-post-id='${postId}']`);
+
     if (!postId) return;
-    
+
     try {
         if (isLiked) {
             // Remover like
@@ -221,17 +221,17 @@ async function handlePostFocusLike(e) {
             if (result.status === 'success') {
                 // Atualizar UI
                 updatePostFocusLikeUI(false);
-                
+
                 // Atualizar contador
                 const currentCount = parseInt(likeBtn.dataset.totalLikes);
                 const newCount = Math.max(0, currentCount - 1);
                 likeBtn.dataset.totalLikes = newCount;
-                
+                changeFrontLike(postContainer, false);
                 const likeCountElement = document.querySelector('.post-focus #qntLikes');
                 if (likeCountElement) {
                     likeCountElement.textContent = newCount;
                 }
-                
+
 
             }
         } else {
@@ -240,17 +240,17 @@ async function handlePostFocusLike(e) {
             if (result.status === 'success') {
                 // Atualizar UI
                 updatePostFocusLikeUI(true);
-                
+                changeFrontLike(postContainer, true);
                 // Atualizar contador
                 const currentCount = parseInt(likeBtn.dataset.totalLikes);
                 const newCount = currentCount + 1;
                 likeBtn.dataset.totalLikes = newCount;
-                
+
                 const likeCountElement = document.querySelector('.post-focus #qntLikes');
                 if (likeCountElement) {
                     likeCountElement.textContent = newCount;
                 }
-                
+
 
             }
         }
@@ -263,16 +263,16 @@ async function handlePostFocusLike(e) {
 function updatePostFocusMedia(mediaArray) {
     const mediaContainer = document.querySelector('#postFocusMedia');
     const mediaContent = document.querySelector('#postFocusMediaContainer');
-    
+
     if (!mediaContainer || !mediaContent) return;
-    
+
     // Limpar mídia anterior
     mediaContent.innerHTML = '';
-    
+
     if (mediaArray && mediaArray.length > 0) {
         // Mostrar container de mídia
         mediaContainer.classList.remove('d-none');
-        
+
         // Adicionar cada item de mídia
         mediaArray.forEach(media => {
             if (media.media_type === 'video') {
@@ -330,12 +330,12 @@ function closeCommentsOnly() {
 async function loadCommentsOnly(postId) {
     try {
         const result = await getRootComments(postId, 1);
-        
+
         if (result && result.status === "success") {
             const commentsContainer = document.querySelector('#commentsOnlyContainer');
             if (commentsContainer) {
                 commentsContainer.innerHTML = '';
-                
+
                 if (result.data && result.data.length > 0) {
                     result.data.forEach(comment => {
                         const commentElement = createCommentElement(comment);
@@ -359,12 +359,12 @@ async function loadCommentsOnly(postId) {
 async function loadCommentsForPost(postId) {
     try {
         const result = await getRootComments(postId, 1);
-        
+
         if (result && result.status === "success") {
             const commentsContainer = document.querySelector('.post-focus .comment .comment-list');
             if (commentsContainer) {
                 commentsContainer.innerHTML = '';
-                
+
                 if (result.data && result.data.length > 0) {
                     result.data.forEach(comment => {
                         const commentElement = createCommentElement(comment);
@@ -395,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
+
     // Configurar evento para fechar modal de comentários ao clicar fora
     const commentsModal = document.querySelector('.container-comments-only');
     if (commentsModal) {
@@ -412,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (commentModalForm) {
         commentModalForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            
+
             const input = commentModalForm.querySelector("input[name='comment']");
             const commentText = input.value.trim();
             if (!commentText) return;
@@ -444,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (commentForm) {
         commentForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            
+
             const input = commentForm.querySelector("input[name='comment']");
             const commentText = input.value.trim();
             if (!commentText) return;

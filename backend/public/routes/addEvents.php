@@ -7,12 +7,12 @@ require_once __DIR__ . '/../../_inc/filters/isLogged.php';
 $data = $_POST;
 
 
-$requiredFields = ['title', 'date', 'time', 'location'];
+$requiredFields = ['title', 'date', 'time', 'location', 'capacity'];
 $errors = [];
 
 foreach ($requiredFields as $field) {
     if (empty($data[$field])) {
-        $errors[] = "O campo '$field' é obrigatório";
+        $errors[] = "Preencha todos os campos.";
     }
 }
 
@@ -38,6 +38,34 @@ $date = $data['date'];
 $time = $data['time'];
 $location = trim($data['location']);
 $capacity = isset($data['capacity']) ? intval($data['capacity']) : null;
+
+$eventDate = new DateTime($date);
+$today     = new DateTime('today');
+$maxDate   = (new DateTime('today'))->modify('+1 year');
+
+
+
+if ($capacity !== null && $capacity < 1) {
+    $res->set_status("error");
+    $res->set_error_message("A capacidade deve ser maior que 0.");
+    $res->response();
+    exit;
+}
+
+
+if ($eventDate < $today) {
+    $res->set_status("error");
+    $res->set_error_message("A data do evento não pode ser anterior à data atual.");
+    $res->response();
+    exit;
+}
+
+if ($eventDate > $maxDate) {
+    $res->set_status("error");
+    $res->set_error_message("A data do evento deve ser no máximo até 1 ano a partir de hoje.");
+    $res->response();
+    exit;
+}
 
 
 $sql = "INSERT INTO events (title, description, date, time, location, capacity) 

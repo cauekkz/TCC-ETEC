@@ -29,6 +29,8 @@ header>img {
     cursor: pointer;
     border-radius: 50%;
     filter: invert(var(--icon-invert));
+    transition:  background-color 1s ease-in-out;
+
 }
 .light-dark{
     position: absolute;
@@ -315,7 +317,7 @@ h4 {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 4rem;
+    font-size: 4rem !important;
 }
 
 #update-user-div,
@@ -450,7 +452,9 @@ h4 {
     :root {
         font-size: 13px;
     }
-
+    #aberração{
+        display: none;
+    }
     section {
         height: auto;
         flex-direction: column;

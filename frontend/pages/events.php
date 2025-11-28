@@ -179,6 +179,22 @@ if (is_numeric($server_id)) {
 
                 </div>
 
+                <div id="delete-modal"  class="confirmation-modal-overlay">
+                    <div class="confirmation-modal-content">
+                        <div class="confirmation-modal-header">
+                            <h3 class="confirmation-modal-title">Confirmar Exclusão</h3>
+                            <button class="confirmation-modal-close" aria-label="Fechar">&times;</button>
+                        </div>
+                        <div class="confirmation-modal-body">
+                            <p class="confirmation-modal-message">Tem certeza que deseja excluir este evento? Esta ação não pode ser desfeita</p>
+                        </div>
+                        <div class="confirmation-modal-footer">
+                            <button class="confirmation-btn confirmation-btn-no" id="confirmation-no">Não</button>
+                            <button class="confirmation-btn confirmation-btn-yes" id="confirmation-yes">Sim</button>
+                        </div>
+                    </div>
+
+                </div>
 
                 <div class="events-grid">
 

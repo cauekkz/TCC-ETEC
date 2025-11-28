@@ -47,16 +47,17 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "/login";
     });
   }
-  const serverName = localStorage.getItem("selectedServerName") ?? null;
-  const link = document.querySelector('a[href="/projects"]');
-  if (serverName === "Geral") {
-    link.style.display = "none";
-    console.log(serverName);
-    return;
-  }
-  link.style.display = "block";
+  setInterval(() => {
+    const serverName = localStorage.getItem("selectedServerName") ?? null;
+    const link = document.querySelector('a[href="/projects"]');
+    if (serverName === "Geral") {
+      link.style.display = "none";
+      console.log(serverName);
 
-  // Menu Mobile Toggle
+    } else {
+      link.style.display = "block";
+    }
+  }, 10);
   initMobileMenu();
 });
 

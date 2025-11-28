@@ -28,8 +28,7 @@ closeModalBtn.addEventListener("click", () => {
 
 document.getElementById('createNoticeForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    // Confirmação antes de criar evento
+    const modalParent = e.target.closest('.molested');
     const confirmed = await confirmAction(
         "Deseja criar este evento?",
         "Confirmar Criação de Evento"
@@ -49,10 +48,20 @@ document.getElementById('createNoticeForm').addEventListener('submit', async (e)
             "Authorization": `Bearer ${localStorage.getItem("jwt_token")}`
         },
         body: formData
-    }).then(res => res.json());
+    }).then(res => res.json().then(data => {
+        modalParent.close();
+        if (data.status !== "success") {
+            showBackendError(data || "Erro ao criar evento.");
+        } else {
+            showBackendSuccess("Evento criado com sucesso!");
 
-    
-        location.reload();
+            setTimeout(() => {
+                location.reload();
+            }, 500);    
+        }
+
+    }));
+
 });
 
 
@@ -69,6 +78,21 @@ async function addPresence(event_id) {
     });
 
 
+    await loadEvents();
+
+}
+
+async function removePresence(event_id) {
+    const body = { event_id };
+
+    const response = await fetch("/api/deleteParticipant", {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("jwt_token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+    });
     await loadEvents();
 
 }
@@ -95,52 +119,95 @@ async function getParticipants(event) {
 
     return { porcentagem, quantidade };
 }
+async function deleteEvent(event_id) {
+    const deleteModal = document.getElementById("delete-modal");
+    deleteModal.classList.add("active");
 
-async function deleteEvent(event_id){
-    // Confirmação antes de excluir evento
-    const confirmed = await confirmAction(
-        "Tem certeza que deseja excluir este evento? Esta ação não pode ser desfeita.",
-        "Confirmar Exclusão"
-    );
+    const confirmBtn = deleteModal.querySelector("#confirmation-yes");
+    const cancelBtn = deleteModal.querySelector("#confirmation-no");
+    const closeBtn = deleteModal.querySelector('.confirmation-modal-close');
+    closeBtn.addEventListener("click", () => {
+        deleteModal.classList.remove("active");
+    });
+    const confirmed = await new Promise((resolve) => {
+        const onConfirm = () => {
+            cleanup();
+            resolve(true);
+        };
+
+        const onCancel = () => {
+            cleanup();
+            resolve(false);
+        };
+
+        function cleanup() {
+            deleteModal.classList.remove("active");
+            confirmBtn.removeEventListener("click", onConfirm);
+            cancelBtn.removeEventListener("click", onCancel);
+        }
+
+        confirmBtn.addEventListener("click", onConfirm);
+        cancelBtn.addEventListener("click", onCancel);
+    });
 
     if (!confirmed) {
+        console.log("Usuário cancelou");
         return;
     }
 
-    body = {event_id}
-    const response = await fetch("/api/deleteEvent", {
-        method: "DELETE",
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    });
+    const body = { event_id };
 
-    await loadEvents();
+    try {
+        const response = await fetch("/api/deleteEvent", {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro ao deletar evento");
+        }
+
+        await loadEvents();
+
+    } catch (err) {
+        console.error(err);
+        alert("Erro ao excluir o evento.");
+    }
 }
 
 
 async function loadEvents() {
     eventsGrid.innerHTML = "";
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    userid = userData.user.id;
 
-    const response = await fetch("/api/getEvents", {
+    const response = await fetch("/api/getEvents?user_id=" + userid, {
         method: "GET",
         headers: {
-            "Authorization": `Bearer ${localStorage.getItem("jwt_token")}`
-        },
+            "Authorization": `Bearer ${localStorage.getItem("jwt_token")}`,
+
+        }
     });
 
     const data_events = await response.json();
+    console.log(data_events);
 
     if (!data_events.data || data_events.data.length === 0) {
         eventsGrid.innerHTML = "<p>Nenhum evento disponível.</p>";
         return;
     }
 
+
     for (const event of data_events.data) {
         const dataFormatada = new Date(event.date).toLocaleDateString("pt-BR");
         const { porcentagem, quantidade } = await getParticipants(event);
+        const monstromonstro = (event.user_participating === 1) ? "Participando" : "Participar";
+        const func = (event.user_participating === 1) ? "removePresence" : "addPresence";
+        const enem2025 = (event.user_participating === 1) ? "background-color:transparent; border:solid 1px var(--accent-primary);  color: #D32F2F;" : "";
 
         eventsGrid.innerHTML += `
             <div class="event-card">
@@ -176,7 +243,7 @@ async function loadEvents() {
                         </div>
                     </div>
                 </div>
-                <button class="participate-btn" onclick="addPresence(${event.id})">Participar</button>
+                <button class="participate-btn" style="${enem2025}" onclick="${func}(${event.id})">${monstromonstro}</button>
             </div>
         `;
     }

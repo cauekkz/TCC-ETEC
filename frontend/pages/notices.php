@@ -273,10 +273,18 @@ if (is_numeric($server_id)) {
         fillAsideProfile(userData);
 
 
-        const btnCreate = document.getElementById("btnCreate");
 
+        const btnCreate = document.getElementById("btnCreate");
+        const campusInfo = userData.campus;
         if (userData.user.role === "professor") {
-            btnCreate.style.display = "block";
+            const serverID = parseInt(localStorage.getItem("selectedServer"))
+            if (serverID == 1 || campusInfo.some(info => info.id == serverID - 1)) {
+                btnCreate.style.display = "block";
+
+            } else {
+                btnCreate.style.display = "none";
+            }
+
         }
         const modal = document.querySelector(".molested");
 

@@ -175,6 +175,9 @@ if (is_numeric($server_id)) {
             </a>
 
         </div>
+
+
+
         <div class="col-6 flex-grow-1 overflow-auto px-3 " style="min-height: 0;">
             <div class="feed mt-4 px-4">
 
@@ -194,7 +197,6 @@ if (is_numeric($server_id)) {
     </div>
 </div>
 <dialog id="projectModal" class="molested modal-dialog bg-card border-primary shadow-heavy">
-    <!--SACOOOOOOOOOOOOOO -->
     <div id="confirmation-modal" class="confirmation-modal-overlay">
         <div class="confirmation-modal-content">
             <div class="confirmation-modal-header">
@@ -324,7 +326,22 @@ if (is_numeric($server_id)) {
     </div>
 </dialog>
 
+<div id="delete-modal" class="confirmation-modal-overlay">
+    <div class="confirmation-modal-content">
+        <div class="confirmation-modal-header">
+            <h3 class="confirmation-modal-title">Confirmar Exclusão</h3>
+            <button class="confirmation-modal-close" aria-label="Fechar">&times;</button>
+        </div>
+        <div class="confirmation-modal-body">
+            <p class="confirmation-modal-message">Tem certeza que deseja excluir este Projeto? Esta ação não pode ser desfeita</p>
+        </div>
+        <div class="confirmation-modal-footer">
+            <button class="confirmation-btn confirmation-btn-no" id="confirmation-no">Não</button>
+            <button class="confirmation-btn confirmation-btn-yes" id="confirmation-yes">Sim</button>
+        </div>
+    </div>
 
+</div>
 
 
 
@@ -354,9 +371,77 @@ if (is_numeric($server_id)) {
 
         fillAsideProfile(userData);
 
+        console.log(userData)
+
+        async function deleteTCCProject(project_id) {
+            deleteModal.classList.add("active");
+
+            const confirmBtn = deleteModal.querySelector("#confirmation-yes");
+            const cancelBtn = deleteModal.querySelector("#confirmation-no");
+            const confirmed = await new Promise((resolve) => {
+                const onConfirm = () => {
+                    cleanup();
+                    resolve(true);
+                };
+
+                const onCancel = () => {
+                    cleanup();
+                    resolve(false);
+                };
+
+                function cleanup() {
+                    deleteModal.classList.remove("active");
+                    confirmBtn.removeEventListener("click", onConfirm);
+                    cancelBtn.removeEventListener("click", onCancel);
+                }
+
+                confirmBtn.addEventListener("click", onConfirm);
+                cancelBtn.addEventListener("click", onCancel);
+            });
+
+            if (!confirmed) {
+                console.log("Usuário cancelou");
+                return;
+            }
+
+            const body = {
+                project_id: project_id
+            };
+
+            try {
+                const token = localStorage.getItem("jwt_token");
+                const response = await fetch("/api/deleteTCCProject", {
+                    method: "DELETE",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(body)
+                });
+
+                if (!response.ok) {
+                    throw new Error("Error ao deletar Projeto TCC");
+                }
+                window.location.reload();
+            } catch (err) {
+                console.error(err);
+                alert("Erro ao excluir o Projeto TCC.");
+            }
+        }
+
+
+
         const btnCreate = document.getElementById("btnCreate");
+        const campusInfo = userData.campus;
         if (userData.user.role === "professor") {
-            btnCreate.style.display = "block";
+            const serverID = parseInt(localStorage.getItem("selectedServer"))
+            if (campusInfo.some(info => info.id == serverID - 1)) {
+                btnCreate.style.display = "block";
+
+            } else {
+                btnCreate.style.display = "none";
+            }
+
         }
 
         const serverId = localStorage.getItem("selectedServer");
@@ -563,6 +648,15 @@ if (is_numeric($server_id)) {
 
         const projectsGrid = document.querySelector(".projects-grid");
         console.log(resultProjects)
+
+
+        const deleteModal = document.getElementById("delete-modal");
+        const closeBtn = deleteModal.querySelector('.confirmation-modal-close');
+        closeBtn.addEventListener("click", () => {
+            deleteModal.classList.remove("active");
+        });
+
+
         resultProjects?.data?.forEach(project => {
             const projectCard = document.createElement("div");
             projectCard.classList.add("project-card");
@@ -573,7 +667,7 @@ if (is_numeric($server_id)) {
                 <div class="project-info">
                     <div class="project-header d-flex justify-content-between align-items-center">
                     <h3>${project.title}</h3>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" style="color: rgba(255, 0, 0, 0.85); cursor:pointer;" onclick="deleteTCCProject())" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16" >
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" style="color: rgba(255, 0, 0, 0.85); cursor:pointer;"  width="16" height="16" fill="currentColor" class="bi bi-trash delete-project-btn" viewBox="0 0 16 16" >
   <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
   <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
 </svg>
@@ -592,6 +686,28 @@ if (is_numeric($server_id)) {
                     </div>
                 </div>
             `;
+
+
+            const deleteBtn = projectCard.querySelector(".delete-project-btn");
+            if (userData.user.role === "professor") {
+                const serverID = parseInt(localStorage.getItem("selectedServer"))
+                if (campusInfo.some(info => info.id == serverID - 1)) {
+                    deleteBtn.style.display = "block";
+
+                } else {
+                    deleteBtn.style.display = "none";
+                }
+
+            }else{
+                deleteBtn.style.display = "none"
+            }
+
+
+            deleteBtn.addEventListener("click", () => {
+                const id = project.id;
+                deleteTCCProject(id);
+            });
+
 
             const viewProjectBtn = projectCard.querySelector(".view-project-btn");
             viewProjectBtn.addEventListener("click", () => {

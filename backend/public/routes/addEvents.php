@@ -2,7 +2,7 @@
 require("../../_inc/init.php");
 check_request_method($_SERVER['REQUEST_METHOD'], "POST");
 
-require_once __DIR__ . '/../../_inc/filters/isLogged.php';
+require_once __DIR__ . '/../../_inc/filters/isTeacher.php';
 
 $data = $_POST;
 

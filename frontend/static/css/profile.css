@@ -16,9 +16,9 @@ header {
     display: flex;
     align-items: center;
     position: relative;
-    font-family: "roboto";  
+    font-family: "roboto";
     box-shadow: 0 1px var(--border-primary);
-      border-bottom: 0.1rem solid rgba(211, 211, 211, 0.4);
+    border-bottom: 0.1rem solid rgba(211, 211, 211, 0.4);
 
 }
 
@@ -29,13 +29,15 @@ header>img {
     cursor: pointer;
     border-radius: 50%;
     filter: invert(var(--icon-invert));
-    transition:  background-color 1s ease-in-out;
+    transition: background-color 1s ease-in-out;
 
 }
-.light-dark{
+
+.light-dark {
     position: absolute;
     right: 1.5rem;
 }
+
 header>img:hover {
     background-color: var(--overlay-outline);
     outline: 0.45rem solid var(--overlay-outline);
@@ -190,7 +192,8 @@ section {
 
 #leave-account-button,
 .unfollow {
-    background-color: transparent;;
+    background-color: transparent;
+    ;
     color: #D32F2F;
 }
 
@@ -205,7 +208,8 @@ section {
     padding: 0rem 1rem;
 }
 
-#posts-box {
+#posts-box,
+#liked-posts-box {
     overflow: auto;
     max-height: 65%;
     width: 100%;
@@ -217,21 +221,25 @@ section {
 /* Forçar o posicionamento correto dos posts no profile */
 
 
-#posts-box::-webkit-scrollbar {
+#posts-box::-webkit-scrollbar,
+#liked-posts-box::-webkit-scrollbar {
     width: 3px;
 
 }
 
-#posts-box::-webkit-scrollbar-track {
+#posts-box::-webkit-scrollbar-track,
+#liked-posts-box::-webkit-scrollbar-track {
     background: transparent;
 }
 
-#posts-box::-webkit-scrollbar-thumb {
+#posts-box::-webkit-scrollbar-thumb,
+#liked-posts-box::-webkit-scrollbar-thumb {
     background-color: rgb(209, 209, 209);
     border-radius: 1px;
 }
 
-#posts-box::-webkit-scrollbar-button {
+#posts-box::-webkit-scrollbar-button,
+#liked-posts-box::-webkit-scrollbar-button {
     display: none;
 }
 
@@ -452,9 +460,11 @@ h4 {
     :root {
         font-size: 13px;
     }
-    #aberração{
+
+    #aberração {
         display: none;
     }
+
     section {
         height: auto;
         flex-direction: column;
@@ -477,21 +487,25 @@ h4 {
     #posts-div {
         width: auto;
     }
-    
-    #posts-box {
+
+    #posts-box,
+    #liked-posts-box {
         overflow: hidden;
         max-height: 100%;
         padding: 0.5rem;
     }
-    
-    #posts-box .post {
+
+    #posts-box .post,
+    #liked-posts-box .post {
         width: 100%;
     }
-    .perfil-button{
+
+    .perfil-button {
         max-height: 20% !important;
     }
+
     /* Forçar posicionamento correto no mobile */
- 
+
 
     #edit-profile-modal {
         height: 95vh;
@@ -540,6 +554,7 @@ h4 {
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -615,7 +630,114 @@ h4 {
     transition: all 0.2s ease;
 }
 
-/* Removido o hover dos itens da lista */
+.posts-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 97%;
+}
+/* ================= BOTÃO BASE ================= */
+.toggle-posts-btn {
+  position: relative;
+  width: 140px;
+  height: 38px;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #fbc02d; /* AMARELO INICIAL */
+  box-shadow: var(--shadow-light);
+
+  transition: border-color 0.35s ease;
+}
+
+/* ================= TEXTOS ================= */
+.toggle-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+
+  transition:
+    transform 0.45s cubic-bezier(.22,.61,.36,1),
+    opacity 0.25s ease,
+    color 0.35s ease;
+}
+
+/* ===== POSTS VISÍVEL POR PADRÃO ===== */
+.toggle-text.posts {
+  color: #fbc02d;
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+/* ===== CURTIDAS ESCONDIDO À DIREITA ===== */
+.toggle-text.liked {
+  color: #c62828;
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* ================= HOVER (PREVIEW) ================= */
+.toggle-posts-btn:hover {
+  border-color: #c62828; /* vermelha no hover */
+}
+
+.toggle-posts-btn:hover .toggle-text.posts {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.toggle-posts-btn:hover .toggle-text.liked {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+/* ================= ESTADO FIXO: CURTIDAS ================= */
+.toggle-posts-btn[data-mode="liked"] {
+  border-color: #c62828;
+}
+
+.toggle-posts-btn[data-mode="liked"] .toggle-text.posts {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.toggle-posts-btn[data-mode="liked"] .toggle-text.liked {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+/* ================= ESTADO FIXO: POSTS ================= */
+.toggle-posts-btn[data-mode="posts"] {
+  border-color: #fbc02d;
+}
+
+.toggle-posts-btn[data-mode="posts"] .toggle-text.posts {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.toggle-posts-btn[data-mode="posts"] .toggle-text.liked {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* ================= ÍCONES ================= */
+.toggle-text i {
+  font-size: 1rem;
+}
 
 .etecs-list li:last-child {
     margin-bottom: 0;
@@ -630,4 +752,3 @@ h4 {
     color: #b33333 !important;
     transform: scale(1.05);
 }
-

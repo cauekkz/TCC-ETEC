@@ -88,8 +88,6 @@ $profile_id = $_GET['profile'];
     <div id="posts-div">
         <?php if ($profile_id === "mine"): ?>
 
-            <h3>Suas publicações</h3>
-            <h4>Todas as suas postagens na Eteconnect</h4>
             <dialog id="post-modal">
                 <ul>
                     <li id="edit-post-li">
@@ -124,184 +122,210 @@ $profile_id = $_GET['profile'];
                     </div>
                 </div>
             </dialog>
-        <?php else: ?>
-            <h3>Publicações</h3>
-            <h4>Todas as postagens na Eteconnect</h4>
+            <div class="posts-header">
 
-        <?php endif; ?>
-
-        <div id="posts-box" class=" posts row mt-5 px-3">
-
-        </div>
-
-
-    </div>
-
-
-    <?php if ($profile_id === "mine"): ?>
-
-        <dialog id="edit-profile-modal">
-
-
-            <div class="alert-container">
-
-            </div>
-            <div id="modal-header">
                 <div>
-                    <span style="font-size: 1.5rem;font-weight:500;">Editar Perfil</span>
-                    <span aria-label="Fechar janela" id="close-modal-btn">X</span>
+
+                    <h3 id="h3-publicacoes">Publicações</h3>
+                    <h4 id="h4-publicacoes">Todas as suas postagens na Eteconnect</h4>
                 </div>
-                <span style="color:#666666;">Atualize suas informações pessoais</span>
-            </div>
-            <form id="update-form">
-                <div id="update-photo-div">
-                    <input type="file" id="profilePic" style="display:none" value="nochange" />
-
-
-                    <label for="profilePic" id="photo-label" title="Clique para alterar foto">
-                    </label>
-                    <i class="bi bi-pencil-fill" id="edit-icon" style="font-size: 0.85rem;position:relative;left:-1.5rem;bottom:-2rem;background:white;border-radius:50%;padding:0.25rem;border:1px solid black"></i>
-
-                    <span aria-label="reset imagem de perfil" id="remove-pic" style="position:relative;left:-1.5rem;bottom:-2rem;background:white;border-radius:50%;padding: 0.25rem ;border:1px solid black;width: 1.5rem;height: 1.5rem;display:flex;justify-content:center;align-items:center;cursor:pointer;display:none;" title="clique para remover a foto">X</span>
-
-
-                </div>
-                <div id="update-user-div">
-                    <label for="name-update">Nome</label>
-                    <input type="text" id="name-update" name="name" placeholder="nome">
-                    <label for="email-update">Email</label>
-                    <input type="email" id="email-update" name="email" placeholder="email@etec.sp.gov.br">
-                    <label for="phone-update">Telefone</label>
-                    <input type="tel" id="phone-update" name="phone" placeholder="xxxxxxx-xxxx">
-                    <label>ETEC</label>
-                    <div id="campus-update-div">
-                        <select class="campus-select" id="campus-select-1">
-                            <option disabled selected value="monstro">selecione</option>
-                        </select>
-                        <button type="button" id="add-campus-btn">+</button>
-                    </div>
-                    <!--Se for aluno-->
-                    <label for="course-select">Curso</label>
-                    <div id="course-update-div">
-
-                        <button type="button" id="add-course-btn">+</button>
-
-                    </div>
-
-
-                </div>
-                <div id="update-address-div">
-                    <label for="street-update">Rua</label>
-                    <input type="text" id="street-update" name="street" placeholder="Rua">
-
-                    <label for="address-number-update">Número</label>
-                    <input type="text" id="address-number-update" name="address_number" placeholder="Número">
-
-                    <label for="city-update">Cidade</label>
-                    <input type="text" id="city-update" name="city" placeholder="Cidade">
-
-                    <label for="state-update">Estado</label>
-                    <input type="text" id="state-update" name="state" placeholder="UF" maxlength="2">
-
-                    <label for="zip-code-update">CEP</label>
-                    <input type="text" id="zip-code-update" name="zip_code" placeholder="CEP">
-
-                </div>
-                <button type="submit">Enviar</button>
-            </form>
-
-        </dialog>
-    <?php endif; ?>
-
-    <!-- Post Focus Modal -->
-    <div class="container-post-focus d-none">
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="post-focus">
-                <button class="close-post-focus" onclick="closePostFocus()">&times;</button>
-                <div class="d-flex align-items-center mb-2">
-                    <div alt="perfil" class="img-profile-post me-2" id="profile-photo-post-focus">
-
-                    </div>
+            <?php else: ?>
+                <div class="posts-header">
                     <div>
-                        <p class="name-text mb-0"><strong></strong></p>
-                        <span class="badge "></span>
-                        <p class="sub-text mb-0"></p>
+                        <h3 id="h3-publicacoes">Publicações</h3>
+                        <h4 id="h4-publicacoes">Todas as postagens na Eteconnect</h4>
                     </div>
+
+                <?php endif; ?>
+                <button id="toggle-posts-btn" class="toggle-posts-btn interactive">
+
+                    <span class="toggle-text posts">
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Posts</span>
+                    </span>
+
+                    <span class="toggle-text liked">
+                        <i class="bi bi-heart-fill"></i>
+                        <span>Curtidas</span>
+                    </span>
+
+                </button>
                 </div>
-                <p id="textPost" class="mb-2">
-                    <span class="text-primary"></span>
-                </p>
+                <div id="posts-box" class=" posts row mt-1 px-3">
 
-                <!-- Container para mídia do post -->
-                <div id="postFocusMedia" class="post-focus-media mt-3 d-none">
-                    <div class="d-flex flex-wrap gap-2" id="postFocusMediaContainer"></div>
                 </div>
-                <hr>
-                <div class="d-flex align-items-center gap-3">
-                    <div class="like-post d-flex align-items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-heart me-1" viewBox="0 0 16 16">
-                            <path
-                                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
-                        </svg>
-                        <span id="qntLikes">0</span>
-                    </div>
+                <div id="liked-posts-box" class=" posts row mt-1 px-3">
 
-
-                    <div class="comments d-flex align-items-center" onclick="toggleCommentsFocus()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-chat me-1" viewBox="0 0 16 16">
-                            <path
-                                d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
-                        </svg>
-                    </div>
                 </div>
 
 
-                <div class="comment mt-3">
-                    <p id="interactionComment"><strong>Comentários</strong></p>
-                    <form class="form-comment">
-                        <div class="write-comment">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control p-2" placeholder="Seu comentário" aria-label="Seu comentário" name="comment">
-                                <button class="btn btn-outline-secondary" type="button" id="btnSend"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-                                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
-                                    </svg></button>
+            </div>
+
+
+            <?php if ($profile_id === "mine"): ?>
+
+                <dialog id="edit-profile-modal">
+
+
+                    <div class="alert-container">
+
+                    </div>
+                    <div id="modal-header">
+                        <div>
+                            <span style="font-size: 1.5rem;font-weight:500;">Editar Perfil</span>
+                            <span aria-label="Fechar janela" id="close-modal-btn">X</span>
+                        </div>
+                        <span style="color:#666666;">Atualize suas informações pessoais</span>
+                    </div>
+                    <form id="update-form">
+                        <div id="update-photo-div">
+                            <input type="file" id="profilePic" style="display:none" value="nochange" />
+
+
+                            <label for="profilePic" id="photo-label" title="Clique para alterar foto">
+                            </label>
+                            <i class="bi bi-pencil-fill" id="edit-icon" style="font-size: 0.85rem;position:relative;left:-1.5rem;bottom:-2rem;background:white;border-radius:50%;padding:0.25rem;border:1px solid black"></i>
+
+                            <span aria-label="reset imagem de perfil" id="remove-pic" style="position:relative;left:-1.5rem;bottom:-2rem;background:white;border-radius:50%;padding: 0.25rem ;border:1px solid black;width: 1.5rem;height: 1.5rem;display:flex;justify-content:center;align-items:center;cursor:pointer;display:none;" title="clique para remover a foto">X</span>
+
+
+                        </div>
+                        <div id="update-user-div">
+                            <label for="name-update">Nome</label>
+                            <input type="text" id="name-update" name="name" placeholder="nome">
+                            <label for="email-update">Email</label>
+                            <input type="email" id="email-update" name="email" placeholder="email@etec.sp.gov.br">
+                            <label for="phone-update">Telefone</label>
+                            <input type="tel" id="phone-update" name="phone" placeholder="xxxxxxx-xxxx">
+                            <label>ETEC</label>
+                            <div id="campus-update-div">
+                                <select class="campus-select" id="campus-select-1">
+                                    <option disabled selected value="monstro">selecione</option>
+                                </select>
+                                <button type="button" id="add-campus-btn">+</button>
+                            </div>
+                            <!--Se for aluno-->
+                            <label for="course-select">Curso</label>
+                            <div id="course-update-div">
+
+                                <button type="button" id="add-course-btn">+</button>
+
+                            </div>
+
+
+                        </div>
+                        <div id="update-address-div">
+                            <label for="street-update">Rua</label>
+                            <input type="text" id="street-update" name="street" placeholder="Rua">
+
+                            <label for="address-number-update">Número</label>
+                            <input type="text" id="address-number-update" name="address_number" placeholder="Número">
+
+                            <label for="city-update">Cidade</label>
+                            <input type="text" id="city-update" name="city" placeholder="Cidade">
+
+                            <label for="state-update">Estado</label>
+                            <input type="text" id="state-update" name="state" placeholder="UF" maxlength="2">
+
+                            <label for="zip-code-update">CEP</label>
+                            <input type="text" id="zip-code-update" name="zip_code" placeholder="CEP">
+
+                        </div>
+                        <button type="submit">Enviar</button>
+                    </form>
+
+                </dialog>
+            <?php endif; ?>
+
+            <!-- Post Focus Modal -->
+            <div class="container-post-focus d-none">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="post-focus">
+                        <button class="close-post-focus" onclick="closePostFocus()">&times;</button>
+                        <div class="d-flex align-items-center mb-2">
+                            <div alt="perfil" class="img-profile-post me-2" id="profile-photo-post-focus">
+
+                            </div>
+                            <div>
+                                <p class="name-text mb-0"><strong></strong></p>
+                                <span class="badge "></span>
+                                <p class="sub-text mb-0"></p>
                             </div>
                         </div>
-                    </form>
-                    <div class="comment-list">
-                        <!-- Comentários serão carregados aqui dinamicamente -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                        <p id="textPost" class="mb-2">
+                            <span class="text-primary"></span>
+                        </p>
 
-    <!-- Modal apenas para comentários -->
-    <div class="container-comments-only d-none">
-        <div class="d-flex justify-content-center align-items-center">
-            <div class="comments-only-modal">
-                <button class="close-comments-only" onclick="closeCommentsOnly()">&times;</button>
-                <h5 class="mb-3">Comentários</h5>
-                <div id="commentsOnlyContainer">
-                    <!-- Comentários serão carregados aqui -->
-                </div>
-                <form class="form-comment mt-3">
-                    <div class="write-comment">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control p-2" placeholder="Seu comentário" aria-label="Seu comentário" name="comment">
-                            <button class="btn btn-outline-secondary" type="button" id="btnSendCommentsOnly">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-                                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                        <!-- Container para mídia do post -->
+                        <div id="postFocusMedia" class="post-focus-media mt-3 d-none">
+                            <div class="d-flex flex-wrap gap-2" id="postFocusMediaContainer"></div>
+                        </div>
+                        <hr>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="like-post d-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-heart me-1" viewBox="0 0 16 16">
+                                    <path
+                                        d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
                                 </svg>
-                            </button>
+                                <span id="qntLikes">0</span>
+                            </div>
+
+
+                            <div class="comments d-flex align-items-center" onclick="toggleCommentsFocus()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chat me-1" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
+                                </svg>
+                            </div>
+                        </div>
+
+
+                        <div class="comment mt-3">
+                            <p id="interactionComment"><strong>Comentários</strong></p>
+                            <form class="form-comment">
+                                <div class="write-comment">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control p-2" placeholder="Seu comentário" aria-label="Seu comentário" name="comment">
+                                        <button class="btn btn-outline-secondary" type="button" id="btnSend"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                                            </svg></button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="comment-list">
+                                <!-- Comentários serão carregados aqui dinamicamente -->
+                            </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
+
+            <!-- Modal apenas para comentários -->
+            <div class="container-comments-only d-none">
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="comments-only-modal">
+                        <button class="close-comments-only" onclick="closeCommentsOnly()">&times;</button>
+                        <h5 class="mb-3">Comentários</h5>
+                        <div id="commentsOnlyContainer">
+                            <!-- Comentários serão carregados aqui -->
+                        </div>
+                        <form class="form-comment mt-3">
+                            <div class="write-comment">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control p-2" placeholder="Seu comentário" aria-label="Seu comentário" name="comment">
+                                    <button class="btn btn-outline-secondary" type="button" id="btnSendCommentsOnly">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                                            <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
 </section>
 
@@ -412,7 +436,6 @@ $profile_id = $_GET['profile'];
                 parent.appendChild(span)
 
             } else {
-                // Criar span clicável para ETECS
                 const span = document.createElement("span")
                 span.classList.add("user-etec")
                 span.innerText = "ETECS"
@@ -497,13 +520,47 @@ $profile_id = $_GET['profile'];
         }
 
         if (userInfo?.role === "professor") {
+            const toggleBtn = document.getElementById("toggle-posts-btn");
+            toggleBtn.style.display = "flex";
+            toggleBtn.dataset.mode = "posts"; // estado inicial
+
+            toggleBtn.addEventListener("click", () => {
+                if (toggleBtn.dataset.mode === "posts") {
+                    toggleBtn.dataset.mode = "liked";
+                    document.querySelector("#liked-posts-box").style.display = "block"
+                    document.querySelector("#posts-box").style.display = "none"
+                    <?php if ($profile_id === "mine"): ?>
+                        document.querySelector("#h3-publicacoes").innerText = "Publicações Curtidas"
+                        document.querySelector("#h4-publicacoes").innerText = "Todas as postagens que você curtiu na Eteconnect"
+                    <?php else: ?>
+                        document.querySelector("#h3-publicacoes").innerText = "Publicações Curtidas"
+                        document.querySelector("#h4-publicacoes").innerText = "Todas as postagens que " + (userInfo?.name ?? "usuário") + " curtiu na Eteconnect"
+                    <?php endif; ?>
+
+                } else {
+                    toggleBtn.dataset.mode = "posts";
+                    document.querySelector("#liked-posts-box").style.display = "none"
+                    document.querySelector("#posts-box").style.display = "flex"
+                    <?php if ($profile_id === "mine"): ?>
+                        document.querySelector("#h3-publicacoes").innerText = "publicações"
+                        document.querySelector("#h4-publicacoes").innerText = "Todas as suas postagens na Eteconnect"
+                    <?php else: ?>
+                        document.querySelector("#h3-publicacoes").innerText = "Publicações"
+                        document.querySelector("#h4-publicacoes").innerText = "Todas as postagens na Eteconnect"
+                    <?php endif; ?>
+                }
+            });
+
+
             const userPostData = await executeWithRefresh(getUserPosts, <?= json_encode($profile_id) ?>)
             const postsInfos = userPostData?.data?.posts ?? []
             const campusInfos = userPostData?.data?.campus ?? [{
                 name: "ETEC"
             }]
             document.querySelector("#post-qtn").innerText = postsInfos?.length ?? 0
+            document.querySelector("#liked-posts-box").style.display = "none"
 
+            //perdi minha humanidade aqui
 
             postsInfos.forEach(postInfo => {
                 postInfo["campus"] = campusInfos
@@ -852,10 +909,90 @@ $profile_id = $_GET['profile'];
             })
 
         <?php endif; ?>
-
         if (userInfo?.role === "estudante") {
+            document.querySelector("#posts-box").style.display = "none"
             document.querySelector("#post-qtn-div").style.display = "none"
+
         }
+        <?php if ($profile_id === "mine"): ?>
+            if (userInfo?.role === "estudante") {
+                document.querySelector("#post-qtn-div").style.display = "none"
+                document.querySelector("#h3-publicacoes").innerText = "Publicações curtidas"
+                document.querySelector("#h4-publicacoes").innerText = "Todas as postagens que você curtiu na Eteconnect"
+                
+
+
+            }
+
+        <?php else: ?>
+            if (userInfo?.role === "estudante") {
+                document.querySelector("#post-qtn-div").style.display = "none"
+                document.querySelector("#h3-publicacoes").innerText = "Publicações curtidas"
+                        document.querySelector("#h4-publicacoes").innerText = "Todas as postagens que " + (userInfo?.name ?? "usuário") + " curtiu na Eteconnect"
+
+            }
+
+        <?php endif; ?>
+
+        function getLikedPostsByUser(user_id) {
+            return fetch(`/api/getLikedPostsByUser?user_id=${user_id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
+                    }
+                })
+                .then(response => response.json());
+        }
+        const userLikedPosts = await executeWithRefresh(getLikedPostsByUser, <?= json_encode($profile_id) ?>)
+        console.log("mal absluto")
+        const postsInfos = userLikedPosts?.data?.posts ?? [];
+        const likedPostsBox = document.querySelector("#liked-posts-box");
+        likedPostsBox.innerHTML = "";
+
+
+        postsInfos.forEach(postInfo => {
+
+            // ✅ CONVERTE campus_names → campus[]
+            postInfo.campus = [];
+
+            if (postInfo.campus_names && postInfo.campus_names.length > 0) {
+                postInfo.campus = postInfo.campus_names
+                    .split(" | ")
+                    .map(name => ({
+                        name
+                    }));
+            } else {
+                postInfo.campus = [{
+                    name: "ETEC"
+                }];
+            }
+
+            const post = addPostBox(postInfo);
+            const likebtn = post.querySelector(".post-like-icon");
+            const postId = postInfo.id;
+
+            post.addEventListener("click", function(e) {
+                if (e.target.closest(".interactive")) return;
+                openPostFocus(postInfo);
+            });
+
+            likebtn.addEventListener("click", async () => {
+
+                if (post.dataset.user_liked == 0) {
+                    await executeWithRefresh(addLike, "post", postId);
+                    changeFrontLike(post, true);
+                    post.dataset.user_liked = 1;
+                } else {
+                    await executeWithRefresh(deleteLike, "post", postId);
+                    changeFrontLike(post, false);
+                    post.dataset.user_liked = 0;
+                }
+                post.remove();
+            });
+
+            likedPostsBox.appendChild(post);
+        });
 
         <?php if ($profile_id === "mine"): ?>
 

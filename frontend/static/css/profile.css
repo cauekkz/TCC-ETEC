@@ -211,10 +211,14 @@ section {
 #posts-box,
 #liked-posts-box {
     overflow: auto;
-    max-height: 65%;
+    max-height: 70%;
     width: 100%;
     padding: 1rem 0.1rem;
     gap: 1rem;
+}
+
+.simoh {
+    cursor: pointer;
 }
 
 /* Garantir que os posts tenham largura completa no profile */
@@ -450,88 +454,7 @@ h4 {
 }
 
 
-@media (max-width: 1024px) {
-    :root {
-        font-size: 15px;
-    }
-}
 
-@media (max-width: 768px) {
-    :root {
-        font-size: 13px;
-    }
-
-    #aberração {
-        display: none;
-    }
-
-    section {
-        height: auto;
-        flex-direction: column;
-    }
-
-    #profile-div {
-        height: 80vh;
-        width: 100vw;
-        display: flex;
-        justify-content: center;
-
-    }
-
-    #profile-box {
-        height: 100%;
-        width: 90%;
-
-    }
-
-    #posts-div {
-        width: auto;
-    }
-
-    #posts-box,
-    #liked-posts-box {
-        overflow: hidden;
-        max-height: 100%;
-        padding: 0.5rem;
-    }
-
-    #posts-box .post,
-    #liked-posts-box .post {
-        width: 100%;
-    }
-
-    .perfil-button {
-        max-height: 20% !important;
-    }
-
-    /* Forçar posicionamento correto no mobile */
-
-
-    #edit-profile-modal {
-        height: 95vh;
-        width: 90vw;
-        border: none;
-        border-radius: 10px;
-        margin: auto;
-        outline: none;
-        position: fixed;
-        inset: 0;
-    }
-
-    #edit-profile-modal[open] {
-        position: fixed;
-        margin: auto;
-        inset: 0;
-    }
-
-
-}
-
-@media (max-width: 480px) {
-    :root {
-        font-size: 12px;
-    }
-}
 
 /* Modal das ETECs */
 #etecs-modal {
@@ -636,107 +559,110 @@ h4 {
     justify-content: space-between;
     width: 97%;
 }
+
 /* ================= BOTÃO BASE ================= */
 .toggle-posts-btn {
-  position: relative;
-  width: 140px;
-  height: 38px;
-  border-radius: 999px;
-  background: transparent;
-  cursor: pointer;
-  overflow: hidden;
-  padding: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
+    position: relative;
+    width: 5.5rem;
+    height: 1.5rem;
+    border-radius: 999px;
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
 
-  border: 1px solid #fbc02d; /* AMARELO INICIAL */
-  box-shadow: var(--shadow-light);
+    border: 1px solid var( --accent-info);
+    /* AMARELO INICIAL */
+    box-shadow: var(--shadow-light);
 
-  transition: border-color 0.35s ease;
+    transition: border-color 0.35s ease;
 }
 
 /* ================= TEXTOS ================= */
 .toggle-text {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  white-space: nowrap;
-  pointer-events: none;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
 
-  transition:
-    transform 0.45s cubic-bezier(.22,.61,.36,1),
-    opacity 0.25s ease,
-    color 0.35s ease;
+    transition:
+        transform 0.45s cubic-bezier(.22, .61, .36, 1),
+        opacity 0.25s ease,
+        color 0.35s ease;
 }
 
 /* ===== POSTS VISÍVEL POR PADRÃO ===== */
 .toggle-text.posts {
-  color: #fbc02d;
-  transform: translateX(0%);
-  opacity: 1;
+    color: var( --accent-info);
+    transform: translateX(0%);
+    opacity: 1;
 }
 
 /* ===== CURTIDAS ESCONDIDO À DIREITA ===== */
 .toggle-text.liked {
-  color: #c62828;
-  transform: translateX(100%);
-  opacity: 0;
+    color: #c62828;
+    transform: translateX(100%);
+    opacity: 0;
 }
 
 /* ================= HOVER (PREVIEW) ================= */
 .toggle-posts-btn:hover {
-  border-color: #c62828; /* vermelha no hover */
+    border-color: #c62828;
+    /* vermelha no hover */
 }
 
 .toggle-posts-btn:hover .toggle-text.posts {
-  transform: translateX(-100%);
-  opacity: 0;
+    transform: translateX(-100%);
+    opacity: 0;
 }
 
 .toggle-posts-btn:hover .toggle-text.liked {
-  transform: translateX(0%);
-  opacity: 1;
+    transform: translateX(0%);
+    opacity: 1;
 }
 
 /* ================= ESTADO FIXO: CURTIDAS ================= */
 .toggle-posts-btn[data-mode="liked"] {
-  border-color: #c62828;
+    border-color: #c62828;
 }
 
 .toggle-posts-btn[data-mode="liked"] .toggle-text.posts {
-  transform: translateX(-100%);
-  opacity: 0;
+    transform: translateX(-100%);
+    opacity: 0;
 }
 
 .toggle-posts-btn[data-mode="liked"] .toggle-text.liked {
-  transform: translateX(0%);
-  opacity: 1;
+    transform: translateX(0%);
+    opacity: 1;
 }
 
 /* ================= ESTADO FIXO: POSTS ================= */
 .toggle-posts-btn[data-mode="posts"] {
-  border-color: #fbc02d;
+    border-color: var( --accent-info);
 }
 
 .toggle-posts-btn[data-mode="posts"] .toggle-text.posts {
-  transform: translateX(0%);
-  opacity: 1;
+    transform: translateX(0%);
+    opacity: 1;
 }
 
 .toggle-posts-btn[data-mode="posts"] .toggle-text.liked {
-  transform: translateX(100%);
-  opacity: 0;
+    transform: translateX(100%);
+    opacity: 0;
 }
 
 /* ================= ÍCONES ================= */
 .toggle-text i {
-  font-size: 1rem;
+    font-size: 1rem;
 }
 
 .etecs-list li:last-child {
@@ -751,4 +677,234 @@ h4 {
 .user-etec[style*="cursor: pointer"]:hover:not([style*="pointer-events: none"]) {
     color: #b33333 !important;
     transform: scale(1.05);
+}
+
+.follow-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--overlay-heavy);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.follow-modal {
+    width: min(90vw, 28rem);
+    max-height: 80vh;
+    background: var(--bg-card);
+    border-radius: 1rem;
+    border: 0.0625rem solid var(--border-primary);
+    box-shadow: var(--shadow-heavy);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.follow-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-bottom: 0.0625rem solid var(--border-primary);
+}
+
+.follow-tabs {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: clamp(0.8rem, 1vw, 0.95rem);
+    font-weight: 500;
+    cursor: pointer;
+    padding-bottom: 0.4rem;
+}
+
+.tab-btn.active {
+    color: var(--text-primary);
+    border-bottom: 0.15rem solid var(--accent-primary);
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    color: var(--text-primary);
+    cursor: pointer;
+    margin-left: 0.5rem;
+}
+
+.follow-modal-body {
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 0.6rem 0;
+}
+
+.user-row img {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info strong {
+  font-size: 0.9rem;
+}
+
+.user-info span {
+  font-size: 0.75rem;
+  color: white;
+}
+
+.follow-btn {
+  background: var(--accent-primary);
+  border: none;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.user-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 0.6rem 0;
+}
+
+.user-row .user-photo-post {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 0.9rem;
+}
+
+.user-row .post-role {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.3rem;
+}
+
+@media (max-width: 1024px) {
+    :root {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        font-size: 13px;
+    }
+
+    #aberração {
+        display: none;
+    }
+
+    section {
+        height: auto;
+        flex-direction: column;
+    }
+
+    #profile-div {
+        height: 80vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+
+    }
+
+    #profile-box {
+        height: 100%;
+        width: 90%;
+
+    }
+
+    #posts-div {
+        width: 100%;
+    }
+
+    #posts-box,
+    #liked-posts-box {
+        overflow: hidden;
+        max-height: 100%;
+        padding: 0;
+    }
+
+    .posts-header {
+        width: 100%;
+    }
+
+    #posts-box .post,
+    #liked-posts-box .post {
+        width: 100% !important;
+    }
+
+    .perfil-button {
+        max-height: 20% !important;
+    }
+
+    /* Forçar posicionamento correto no mobile */
+
+
+    #edit-profile-modal {
+        height: 95vh;
+        width: 90vw;
+        border: none;
+        border-radius: 10px;
+        margin: auto;
+        outline: none;
+        position: fixed;
+        inset: 0;
+    }
+
+    #edit-profile-modal[open] {
+        position: fixed;
+        margin: auto;
+        inset: 0;
+    }
+
+    .showemcampo {
+        display: none;
+
+    }
+
+    .toggle-posts-btn {
+        width: 2rem;
+        height: 2rem;
+    }
+
+
+}
+
+@media (max-width: 480px) {
+    :root {
+        font-size: 12px;
+    }
 }

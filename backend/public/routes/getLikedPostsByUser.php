@@ -30,7 +30,12 @@ $sql = "SELECT
     p.id_author,
     p.content,
     COUNT(DISTINCT l.id) AS total_likes,
-    1 AS user_liked,
+
+    CASE 
+        WHEN l2.id IS NULL THEN 0 
+        ELSE 1 
+    END AS user_liked,
+
     p.created_at,
 
     u.name AS author_name,
@@ -80,15 +85,20 @@ LEFT JOIN (
         ) AS media_data
     FROM post_media
     GROUP BY post_id
-) AS pm_agg ON pm_agg.post_id = p.id
+) AS pm_agg 
+    ON pm_agg.post_id = p.id
 
 GROUP BY 
-    p.id, p.id_author, p.content, p.created_at,
-    u.name, u.role, u.profile_photo_path,
+    p.id, 
+    p.id_author, 
+    p.content, 
+    p.created_at,
+    u.name, 
+    u.role, 
+    u.profile_photo_path,
     pm_agg.media_data
 
 ORDER BY l_user.created_at DESC;
-
 ";
 
 $params = [

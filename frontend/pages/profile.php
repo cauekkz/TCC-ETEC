@@ -54,11 +54,11 @@ $profile_id = $_GET['profile'];
                     <span id="post-qtn"></span>
                     <span>Posts</span>
                 </div>
-                <div>
+                <div class="simoh" data-type="following">
                     <span id="following_count"></span>
                     <span>Seguindo</span>
                 </div>
-                <div>
+                <div class="simoh" data-type="followers">
                     <span id="followers_count"></span>
                     <span>Seguidores</span>
                 </div>
@@ -141,20 +141,20 @@ $profile_id = $_GET['profile'];
 
                     <span class="toggle-text posts">
                         <i class="bi bi-grid-fill"></i>
-                        <span>Posts</span>
+                        <span class="showemcampo">Posts</span>
                     </span>
 
                     <span class="toggle-text liked">
                         <i class="bi bi-heart-fill"></i>
-                        <span>Curtidas</span>
+                        <span class="showemcampo">Curtidas</span>
                     </span>
 
                 </button>
                 </div>
-                <div id="posts-box" class=" posts row mt-1 px-3">
+                <div id="posts-box" class=" posts row mt-1 px-1">
 
                 </div>
-                <div id="liked-posts-box" class=" posts row mt-1 px-3">
+                <div id="liked-posts-box" class=" posts row mt-1 px-1">
 
                 </div>
 
@@ -329,6 +329,29 @@ $profile_id = $_GET['profile'];
 
 </section>
 
+<div id="followModal" class="follow-modal-overlay">
+    <div class="follow-modal bg-card shadow-heavy border-primary">
+        <div class="follow-modal-header">
+            <div class="follow-tabs">
+                <button class="tab-btn active" data-tab="followers">Seguidores</button>
+                <button class="tab-btn" data-tab="following">Seguindo</button>
+            </div>
+            <button class="close-modal">&times;</button>
+        </div>
+
+        <div class="follow-modal-body">
+            <div class="tab-content active" id="followers">
+                <p class="text-muted">Lista de seguidores aqui...</p>
+            </div>
+
+            <div class="tab-content" id="following">
+                <p class="text-muted">Lista de seguindo aqui...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <link rel="stylesheet" href="/frontend/static/css/posts.css">
 <link rel="stylesheet" href="/frontend/static/css/post-focus.css">
 <link rel="stylesheet" href="/frontend/static/css/alerts.css">
@@ -348,9 +371,11 @@ $profile_id = $_GET['profile'];
     <script src="frontend/static/js/updatePost.js"></script>
 
 <?php else: ?>
-    <script src="frontend/static/js/followFunctions.js"></script>
     <script src="/frontend/static/js/sendMessages.js"></script>
+
 <?php endif; ?>
+<script src="frontend/static/js/followFunctions.js"></script>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', async function() {
@@ -589,6 +614,7 @@ $profile_id = $_GET['profile'];
                         changeFrontLike(post, false)
                         post.dataset.user_liked = 0
                     }
+
 
                 })
                 <?php if ($profile_id === "mine"): ?>
@@ -919,7 +945,7 @@ $profile_id = $_GET['profile'];
                 document.querySelector("#post-qtn-div").style.display = "none"
                 document.querySelector("#h3-publicacoes").innerText = "Publicações curtidas"
                 document.querySelector("#h4-publicacoes").innerText = "Todas as postagens que você curtiu na Eteconnect"
-                
+
 
 
             }
@@ -928,7 +954,7 @@ $profile_id = $_GET['profile'];
             if (userInfo?.role === "estudante") {
                 document.querySelector("#post-qtn-div").style.display = "none"
                 document.querySelector("#h3-publicacoes").innerText = "Publicações curtidas"
-                        document.querySelector("#h4-publicacoes").innerText = "Todas as postagens que " + (userInfo?.name ?? "usuário") + " curtiu na Eteconnect"
+                document.querySelector("#h4-publicacoes").innerText = "Todas as postagens que " + (userInfo?.name ?? "usuário") + " curtiu na Eteconnect"
 
             }
 
@@ -953,7 +979,6 @@ $profile_id = $_GET['profile'];
 
         postsInfos.forEach(postInfo => {
 
-            // ✅ CONVERTE campus_names → campus[]
             postInfo.campus = [];
 
             if (postInfo.campus_names && postInfo.campus_names.length > 0) {
@@ -988,7 +1013,13 @@ $profile_id = $_GET['profile'];
                     changeFrontLike(post, false);
                     post.dataset.user_liked = 0;
                 }
-                post.remove();
+                const payload = getPayload(localStorage.getItem("jwt_token"))
+                const user_id = payload.id
+                console.log("user id:", user_id)
+                console.log("userinfo:", userInfo)
+                if (userInfo.id === user_id) {
+                    post.remove();
+                }
             });
 
             likedPostsBox.appendChild(post);
@@ -1580,6 +1611,151 @@ $profile_id = $_GET['profile'];
                 commentsModal.classList.remove('d-none');
             }
         }
+
+
+        const userId = userInfo.id;
+        const simohElements = document.querySelectorAll(".simoh");
+        const modal = document.getElementById("followModal");
+        const closeModal = document.querySelector(".close-modal");
+        const tabs = document.querySelectorAll(".tab-btn");
+        const contents = document.querySelectorAll(".tab-content");
+
+        // abrir modal pelo perfil
+        simohElements.forEach(el => {
+            el.addEventListener("click", () => {
+                const type = el.dataset.type;
+                openModal(type);
+                loadFollowData(type); // ✅ carrega ao abrir
+            });
+        });
+
+        // trocar abas dentro do modal
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                const type = tab.dataset.tab;
+
+                tabs.forEach(t => t.classList.remove("active"));
+                contents.forEach(c => c.classList.remove("active"));
+
+                tab.classList.add("active");
+                document.getElementById(type).classList.add("active");
+
+                loadFollowData(type); // ✅ carrega ao trocar aba
+            });
+        });
+
+        function openModal(type) {
+            modal.style.display = "flex";
+
+            tabs.forEach(tab => {
+                tab.classList.toggle("active", tab.dataset.tab === type);
+            });
+
+            contents.forEach(content => {
+                content.classList.toggle("active", content.id === type);
+            });
+        }
+
+        // fechar modal
+        closeModal.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        modal.addEventListener("click", e => {
+            if (e.target === modal) modal.style.display = "none";
+        });
+
+        function loadFollowData(type) {
+            const container = document.getElementById(type);
+            container.innerHTML = "<p class='text-muted'>Carregando...</p>";
+            fetch(`/api/getFollowers?user_id=${userId}&type=${type}`, {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("jwt_token")
+                    }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.status !== "success") {
+                        container.innerHTML = "<p class='text-muted'>Erro ao carregar</p>";
+                        return;
+                    }
+
+                    if (!data.data || data.data.length === 0) {
+                        container.innerHTML = "<p class='text-muted'>Nenhum resultado</p>";
+                        return;
+                    }
+
+                    container.innerHTML = "";
+                    data.data.forEach(user => {
+                        container.appendChild(renderUserRow(user));
+
+                    });
+                })
+                .catch(() => {
+                    container.innerHTML = "<p class='text-muted'>Erro de conexão</p>";
+                });
+        }
+
+        function renderUserRow(user) {
+            const authorName = user.name ?? "usuario";
+            const authorRole = user.role ?? "user";
+            const roleColor = (authorRole === "estudante") ? "#D32F2F" : "#2f32d3ff";
+            const author_id = user.id;
+            const profilePath = user.profile_photo_path ?? null;
+
+
+            const color = (profilePath) ? "transparent" : roleColor;
+            const url = (profilePath) ? `url("${profilePath}")` : "none";
+            const userPhotoText = (profilePath) ? "" : getProfileLetter(authorName);
+            const naodapraesquecer = (user.is_following === 1) ? "seguindo" : "seguir";
+
+            const div = document.createElement("div");
+            div.classList.add("user-row");
+            div.innerHTML = `
+                        <div 
+                class="user-photo-post interactive"
+                style="background-color:${color}; background-image:${url};"
+                onclick="window.location.href='/profile?profile=${author_id}'"
+            >
+                ${userPhotoText}
+            </div>
+
+            <div class="user-info">
+                <span class="post-username">${authorName}</span>
+                <span class="post-role" style="background:${roleColor}">
+                    ${authorRole}
+                </span>
+            </div>
+
+            <button class="follow-btn">${naodapraesquecer}</button>
+`
+
+            const followBtn = div.querySelector(".follow-btn");
+            followBtn.addEventListener("click", async () => {
+                if (followBtn.innerText === "seguir") {
+                    const data = await executeWithRefresh(follow, author_id);
+                    if (data.status === "success") {
+                        followBtn.innerText = "seguindo";
+                    }
+                    const countSpan = document.querySelector("#following_count");
+                    countSpan.innerText = parseInt(countSpan.innerText) + 1;
+
+                } else {
+                    const data = await executeWithRefresh(unfollow, author_id);
+                    if (data.status === "success") {
+                        followBtn.innerText = "seguir";
+                    }
+                    const countSpan = document.querySelector("#following_count");
+                    countSpan.innerText = parseInt(countSpan.innerText) - 1;
+
+                }
+            });
+            return div;
+        }
+
+
+
 
     })
 </script>

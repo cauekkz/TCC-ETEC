@@ -63,7 +63,83 @@ if (is_numeric($server_id)) {
                 <img src="frontend/static/img/logo.png" alt="logo eteconnect" class="img-logo img-fluid">
                 <h5 class="text-danger title-page">ETEConnect</h5>
             </div>
-            <div class="col d-flex justify-content-end align-items-center">
+
+
+            <div id="lua3" class="col d-flex justify-content-end align-items-center">
+                <form id="searchForm" class="search-container">
+                    <img class="search-icon" src="frontend/static/img/lupa.png" alt="Ícone de pesquisa" data-status="close">
+                    <input
+                        type="search"
+                        id="searchInput"
+                        class="search-input"
+                        placeholder="Pesquisar na EteConnect...">
+
+
+                </form>
+                <div id="search-preview" class="search-preview hidden">
+
+                    <!-- ===== USUÁRIOS ===== -->
+                    <div class="preview-section">
+
+                        <div class="preview-header">
+                            <h4 class="preview-title">Usuários</h4>
+
+                            <button class="preview-toggle" data-target="users">
+                                <img class="hidden-icon" src="frontend/static/img/show.png" alt="Ícone de esconder" >
+                            </button>
+                        </div>
+
+                        <div id="preview-users" class="preview-list">
+
+                            <div class="preview-item user">
+                                <div class="avatar">M</div>
+                                <div>
+                                    <strong>Matheus Vinicius</strong>
+                                    <span class="text-muted">@matheus</span>
+                                </div>
+                            </div>
+
+                            <div class="preview-item user">
+                                <div class="avatar">A</div>
+                                <div>
+                                    <strong>Ana Clara</strong>
+                                    <span class="text-muted">@anaclara</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- ===== POSTAGENS ===== -->
+                    <div class="preview-section">
+
+                        <div class="preview-header">
+                            <h4 class="preview-title">Postagens</h4>
+
+                            <button class="preview-toggle" data-target="posts">
+                                <img class="hidden-icon" src="frontend/static/img/show.png" alt="Ícone de esconder"     >
+                            </button>
+                        </div>
+
+                        <div id="preview-posts" class="preview-list">
+
+                            <div class="preview-item post">
+                                <strong>Trabalho de Matemática</strong>
+                                <p class="text-muted">Entrega até sexta-feira...</p>
+                                <span class="preview-date">há 2 horas</span>
+                            </div>
+
+                            <div class="preview-item post">
+                                <strong>Evento na quadra</strong>
+                                <p class="text-muted">Campeonato interclasses...</p>
+                                <span class="preview-date">ontem</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
 
                 <button id="btnCreate" class="btn btn-danger">+ Nova postagem</button>
                 <div class="light-dark px-3 mt-2">
@@ -365,6 +441,7 @@ if (is_numeric($server_id)) {
 
     </div>
 
+    <link rel="stylesheet" href="/frontend/static/css/search.css">
     <link rel="stylesheet" href="/frontend/static/css/header.css">
     <link rel="stylesheet" href="/frontend/static/css/aside-sec.css">
     <link rel="stylesheet" href="/frontend/static/css/posts.css">
@@ -386,6 +463,7 @@ if (is_numeric($server_id)) {
     <script src="frontend/static/js/loadHomePosts.js"></script>
     <script src="frontend/static/js/postFocusFunctions.js"></script>
     <script src="/frontend/static/js/aside-sec.js"></script>
+    <script src="/frontend/static/js/search.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', async function() {

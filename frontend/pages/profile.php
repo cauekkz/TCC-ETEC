@@ -567,7 +567,7 @@ $profile_id = $_GET['profile'];
                     document.querySelector("#liked-posts-box").style.display = "none"
                     document.querySelector("#posts-box").style.display = "flex"
                     <?php if ($profile_id === "mine"): ?>
-                        document.querySelector("#h3-publicacoes").innerText = "publicações"
+                        document.querySelector("#h3-publicacoes").innerText = "Publicações"
                         document.querySelector("#h4-publicacoes").innerText = "Todas as suas postagens na Eteconnect"
                     <?php else: ?>
                         document.querySelector("#h3-publicacoes").innerText = "Publicações"
@@ -943,7 +943,7 @@ $profile_id = $_GET['profile'];
         <?php if ($profile_id === "mine"): ?>
             if (userInfo?.role === "estudante") {
                 document.querySelector("#post-qtn-div").style.display = "none"
-                document.querySelector("#h3-publicacoes").innerText = "Publicações curtidas"
+                document.querySelector("#h3-publicacoes").innerText = "Publicações Curtidas"
                 document.querySelector("#h4-publicacoes").innerText = "Todas as postagens que você curtiu na Eteconnect"
 
 
@@ -953,7 +953,7 @@ $profile_id = $_GET['profile'];
         <?php else: ?>
             if (userInfo?.role === "estudante") {
                 document.querySelector("#post-qtn-div").style.display = "none"
-                document.querySelector("#h3-publicacoes").innerText = "Publicações curtidas"
+                document.querySelector("#h3-publicacoes").innerText = "Publicações Curtidas"
                 document.querySelector("#h4-publicacoes").innerText = "Todas as postagens que " + (userInfo?.name ?? "usuário") + " curtiu na Eteconnect"
 
             }

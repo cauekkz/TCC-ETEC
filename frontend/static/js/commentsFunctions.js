@@ -137,19 +137,26 @@ async function deleteComment(commentId) {
 async function getReplies(commentRootId, page = 1) {
     const token = localStorage.getItem("jwt_token");
 
-    const response = await fetch(`/api/getRepliesByCommentRoot?comment_root_id=${commentRootId}`, {
-        method: "GET",
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'X-Page': page,
-            'X-Limit': 20
+    try {
+        const url = `/api/getRootComments?comment_root_id=${commentRootId}`;
+        
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'X-Page': page,
+                'X-Limit': 20
+            }
+        });
+        
+        if (!response.ok) {
+            throw new Error("Erro ao buscar respostas");
         }
-    });
 
-    if (!response.ok) {
-        throw new Error("Erro ao buscar respostas");
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erro em getReplies:', error);
+        return { status: 'error', data: [] };
     }
-
-    const data = await response.json();
-    return data;
 }

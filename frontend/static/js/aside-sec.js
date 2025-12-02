@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       link.style.display = "block";
     }
-  }, 10);
+  }, 100);
   initMobileMenu();
 });
 

@@ -35,7 +35,8 @@ $sql = "
         u.role AS user_role,
         u.profile_photo_path,
         COUNT(DISTINCT l.id) AS total_likes,
-        CASE WHEN l2.id IS NULL THEN 0 ELSE 1 END AS user_liked
+        CASE WHEN l2.id IS NULL THEN 0 ELSE 1 END AS user_liked,
+        (SELECT COUNT(*) FROM comment c2 WHERE c2.id_parent_comment = c.id) AS reply_count
     FROM comment c
     LEFT JOIN user u ON u.id = c.id_author
     LEFT JOIN likes l ON l.content_type = 'comment' AND l.content_id = c.id

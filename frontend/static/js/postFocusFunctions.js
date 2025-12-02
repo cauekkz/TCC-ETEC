@@ -334,6 +334,7 @@ async function loadCommentsOnly(postId) {
         if (result && result.status === "success") {
             const commentsContainer = document.querySelector('#commentsOnlyContainer');
             if (commentsContainer) {
+                commentsContainer.dataset.postId = postId;
                 commentsContainer.innerHTML = '';
 
                 if (result.data && result.data.length > 0) {
@@ -363,6 +364,7 @@ async function loadCommentsForPost(postId) {
         if (result && result.status === "success") {
             const commentsContainer = document.querySelector('.post-focus .comment .comment-list');
             if (commentsContainer) {
+                commentsContainer.dataset.postId = postId;
                 commentsContainer.innerHTML = '';
 
                 if (result.data && result.data.length > 0) {
@@ -380,7 +382,7 @@ async function loadCommentsForPost(postId) {
             console.error('Erro no resultado:', result);
         }
     } catch (error) {
-        console.error('Erro ao carregar comentários:', result);
+        console.error('Erro ao carregar comentários:', error);
     }
 }
 

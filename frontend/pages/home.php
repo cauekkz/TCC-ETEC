@@ -440,6 +440,7 @@ if (is_numeric($server_id)) {
     <link rel="stylesheet" href="/frontend/static/css/aside-sec.css">
     <link rel="stylesheet" href="/frontend/static/css/posts.css">
     <link rel="stylesheet" href="/frontend/static/css/post-focus.css">
+    <link rel="stylesheet" href="/frontend/static/css/comments.css">
     <link rel="stylesheet" href="/frontend/static/css/alerts.css">
 
     <!---->

@@ -64,19 +64,17 @@ if (is_numeric($server_id)) {
         gap: 10px;
     }
 
-    /* Quando for celular */
     @media (max-width: 768px) {
         #lua3 {
             display: flex;
             flex-wrap: wrap;
-            /* permite quebrar só o necessário */
         }
 
         #searchForm {
             flex-basis: 100%;
-            /* força ir para a linha abaixo */
+
             order: 10;
-            /* garante que fique por último */
+            
             margin-top: 8px;
         }
 
@@ -471,6 +469,7 @@ if (is_numeric($server_id)) {
     <link rel="stylesheet" href="/frontend/static/css/aside-sec.css">
     <link rel="stylesheet" href="/frontend/static/css/posts.css">
     <link rel="stylesheet" href="/frontend/static/css/post-focus.css">
+    <link rel="stylesheet" href="/frontend/static/css/comments.css">
     <link rel="stylesheet" href="/frontend/static/css/alerts.css">
 
     <!---->

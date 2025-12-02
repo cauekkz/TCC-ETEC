@@ -32,6 +32,8 @@ $sql = "
         c.content,
         c.created_at,
         u.name AS author_name,
+        u.name AS user_name,
+        u.role AS user_role,
         u.profile_photo_path,
         COUNT(DISTINCT l.id) AS total_likes,
         CASE WHEN l2.id IS NULL THEN 0 ELSE 1 END AS user_liked

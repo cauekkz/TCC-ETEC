@@ -354,6 +354,7 @@ $profile_id = $_GET['profile'];
 
 <link rel="stylesheet" href="/frontend/static/css/posts.css">
 <link rel="stylesheet" href="/frontend/static/css/post-focus.css">
+<link rel="stylesheet" href="/frontend/static/css/comments.css">
 <link rel="stylesheet" href="/frontend/static/css/alerts.css">
 <link rel="stylesheet" href="/frontend/static/css/editPostModal.css">
 <script src="/frontend/static/js/alerts.js"></script>
@@ -1570,13 +1571,16 @@ $profile_id = $_GET['profile'];
                     }
                 }
             })
-            /*
-            document.querySelector("#chat-button").addEventListener("click", (e) => {
-                const urlParams = new URLSearchParams(window.location.search);
-                const id = urlParams.get('profile');
-                executeWithRefresh(sendMessage, id, "ㅤ", null, null)
-            })
-                */
+
+            const chatButton = document.querySelector("#chat-button");
+            if (chatButton && userInfo && userInfo.id) {
+                chatButton.addEventListener("click", () => {
+                    const targetId = userInfo.id;
+                    sendMessage(targetId," ")
+                    window.location.href = `/messages`;
+
+                });
+            }
 
         <?php endif; ?>
         console.log("garou")

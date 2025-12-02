@@ -118,7 +118,11 @@
         border-top: 1px solid #ddd;
         transition: all 0.3s ease
     }
-
+#searchContacts{
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--border-primary);
+}   
     .msg {
         max-width: 70%;
         padding: 10px 14px;

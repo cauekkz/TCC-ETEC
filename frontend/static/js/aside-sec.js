@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "/login";
     });
   }
-  setInterval(() => {
+  setTimeout(() => {
     const serverName = localStorage.getItem("selectedServerName") ?? null;
     const link = document.querySelector('a[href="/projects"]');
     if (serverName === "Geral") {

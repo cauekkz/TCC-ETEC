@@ -23,7 +23,6 @@ WHERE u.id != :user_id
 GROUP BY u.id, u.name, u.profile_photo_path
 ORDER BY last_message_at DESC
 ";
-
 $params = ["user_id" => $user_id];
 $response = $db->execute_query($sql, $params);
 

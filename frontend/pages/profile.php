@@ -1728,7 +1728,7 @@ $profile_id = $_GET['profile'];
             div.innerHTML = `
                         <div 
                 class="user-photo-post interactive"
-                style="background-color:${color}; background-image:${url};"
+                style='background-color:${color}; background-image:${url};'
                 onclick="window.location.href='/profile?profile=${author_id}'"
             >
                 ${userPhotoText}

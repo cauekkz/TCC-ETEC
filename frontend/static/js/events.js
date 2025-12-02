@@ -194,7 +194,7 @@ async function loadEvents() {
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     userid = userData.user.id;
 
-    const response = await fetch("/api/getEvents?user_id=" + userid, {
+    const response = await fetch(`/api/getEvents?user_id=${userid}&server_id=${localStorage.getItem("selectedServer")}`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${localStorage.getItem("jwt_token")}`,

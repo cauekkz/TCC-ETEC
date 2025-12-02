@@ -7,7 +7,7 @@ require_once __DIR__ . '/../../_inc/filters/isTeacher.php';
 $data = $_POST;
 
 
-$requiredFields = ['title', 'date', 'time', 'location', 'capacity'];
+$requiredFields = ['title', 'date', 'time', 'location', 'capacity', 'server_id'];
 $errors = [];
 
 foreach ($requiredFields as $field) {
@@ -43,7 +43,7 @@ $eventDate = new DateTime($date);
 $today     = new DateTime('today');
 $maxDate   = (new DateTime('today'))->modify('+1 year');
 
-
+$server_id = isset($data['server_id']) ? intval($data['server_id']) : null;
 
 if ($capacity !== null && $capacity < 1) {
     $res->set_status("error");
@@ -68,24 +68,25 @@ if ($eventDate > $maxDate) {
 }
 
 
-$sql = "INSERT INTO events (title, description, date, time, location, capacity) 
-        VALUES (:title, :description, :date, :time, :location, :capacity)";
+$sql = "INSERT INTO events (title, description, date, time, location, capacity, server_id) 
+        VALUES (:title, :description, :date, :time, :location, :capacity, :server_id)";
 $params = [
     ':title' => $title,
     ':description' => $description,
     ':date' => $date,
     ':time' => $time,
     ':location' => $location,
-    ':capacity' => $capacity
+    ':capacity' => $capacity,
+    ':server_id' => $server_id
 ];
 
 $response = $db->execute_non_query($sql, $params);
 
-/* if ($response->status != 'success') {
+if ($response->status != 'success') {
     $res->set_status("error");
     $res->set_error_message($response->mensagem ?? "Erro ao criar evento");
     $res->response();
     exit;
-} */
+} 
 
 $res->response();

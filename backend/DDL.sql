@@ -144,7 +144,9 @@ CREATE TABLE events (
   date DATE NOT NULL,
   time TIME NOT NULL,
   location VARCHAR(255) NOT NULL,
-  capacity INT
+  capacity INT,
+  server_id INT NOT NULL
+
 );
 CREATE TABLE event_participants (
   id INT PRIMARY KEY AUTO_INCREMENT,

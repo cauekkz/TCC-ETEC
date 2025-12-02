@@ -15,7 +15,8 @@
 }
 
 /* Ícone */
-.search-icon ,.hidden-icon{
+.search-icon,
+.hidden-icon {
     display: inline-block;
     cursor: pointer;
     width: 1.5rem;
@@ -64,7 +65,7 @@
 }
 
 
-#lua3{
+#lua3 {
     position: relative;
 }
 
@@ -145,6 +146,7 @@
 .preview-list {
     margin-top: 0.4rem;
 }
+
 .preview-list.hidden {
     display: none;
 }
@@ -167,8 +169,6 @@
 
 /* Avatar */
 .avatar {
-    width: 32px;
-    height: 32px;
     border-radius: 50%;
     background: var(--accent-primary);
     color: white;
@@ -177,12 +177,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 2rem !important;
+    height: 2rem !important;
+
 }
 
 /* Post */
 .preview-item.post {
     flex-direction: column;
     align-items: flex-start;
+    justify-content: space-evenly;
+    height: fit-content;
+    gap: 0.6rem;
+
 }
 
 /* Data */

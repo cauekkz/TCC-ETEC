@@ -91,22 +91,6 @@ if (is_numeric($server_id)) {
 
                         <div id="preview-users" class="preview-list">
 
-                            <div class="preview-item user">
-                                <div class="avatar">M</div>
-                                <div>
-                                    <strong>Matheus Vinicius</strong>
-                                    <span class="text-muted">@matheus</span>
-                                </div>
-                            </div>
-
-                            <div class="preview-item user">
-                                <div class="avatar">A</div>
-                                <div>
-                                    <strong>Ana Clara</strong>
-                                    <span class="text-muted">@anaclara</span>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
 
@@ -122,18 +106,6 @@ if (is_numeric($server_id)) {
                         </div>
 
                         <div id="preview-posts" class="preview-list">
-
-                            <div class="preview-item post">
-                                <strong>Trabalho de Matemática</strong>
-                                <p class="text-muted">Entrega até sexta-feira...</p>
-                                <span class="preview-date">há 2 horas</span>
-                            </div>
-
-                            <div class="preview-item post">
-                                <strong>Evento na quadra</strong>
-                                <p class="text-muted">Campeonato interclasses...</p>
-                                <span class="preview-date">ontem</span>
-                            </div>
 
                         </div>
                     </div>

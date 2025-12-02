@@ -13,11 +13,13 @@ document.addEventListener('DOMContentLoaded', function () {
             searchIcon.setAttribute('data-status', 'open');
             searchForm.style.width = "30vw";
             searchInput.focus();
+
         } else {
             searchIcon.style.transform = "scaleX(1)"
             searchIcon.setAttribute('data-status', 'close');
             searchInput.blur();
             searchForm.style.width = "1px";
+            searchPreview.classList.add("hidden");
 
             searchInput.value = '';
         }
@@ -57,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (searchTerm.length === 0) {
             return
         }
-        const response = await fetch(`/api/getProfilesPostsSearch?q=${encodeURIComponent(searchTerm)}`, {
+        const response = await fetch(`/api/getProfilesPostsSearch?q=${encodeURIComponent(searchTerm)}&server_id=${localStorage.getItem("selectedServer")}`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("jwt_token")}`

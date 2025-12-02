@@ -11,6 +11,14 @@ if (!isset($_GET['q'])) {
     $res->response();
     exit;
 }
+if (!isset($_GET['server_id']) || !is_numeric($_GET['server_id'])) {
+    $res->set_status('error');
+    $res->set_error_message("server_id inválido ou não informado");
+    $res->response();
+    exit;
+}
+
+$server_id = (int) $_GET['server_id'];
 
 $term = "%" . $_GET['q'] . "%";
 
@@ -92,11 +100,16 @@ LEFT JOIN post_media pm ON pm.post_id = p.id
 LEFT JOIN user_campus uc ON uc.user_id = p.id_author
 LEFT JOIN campus c ON c.id = uc.campus_id
 WHERE p.content LIKE :term
+AND p.server_id = :server_id
 GROUP BY p.id 
 ORDER BY p.created_at DESC;
 ";
 
-$paramsPosts = ["term" => $term, "user_id" => $user_id];
+$paramsPosts = [
+    "term" => $term,
+    "user_id" => $user_id,
+    "server_id" => $server_id
+];
 $responsePosts = $db->execute_query($sqlPosts, $paramsPosts);
 $posts = $responsePosts->results ?? [];
 

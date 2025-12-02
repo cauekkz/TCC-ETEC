@@ -307,6 +307,8 @@
 <script src="/frontend/static/js/sendMessages.js"></script>
 <script src="/frontend/static/js/seeMessages.js"></script>
 <script src="/frontend/static/js/contacts.js"></script>
+
+
 <script>
     document.addEventListener('DOMContentLoaded', async function() {
         let activeReceiverId = null;
@@ -332,7 +334,9 @@
         const contacts_resp = await response.json();
         const contacts = contacts_resp.data;
         const contactsContainer = document.querySelector('.contacts');
-        contactsContainer.innerHTML = `<input type="text" class="search" placeholder="Buscar conversas...">`;
+
+        contactsContainer.innerHTML = `<input type="text" class="search" placeholder="Buscar conversas..." id="searchContacts">`;
+
         contacts.forEach(contact => {
             const firstLetter = contact.name.charAt(0).toUpperCase();
             const date = contact.last_message_at ? new Date(contact.last_message_at) : null;
@@ -340,6 +344,27 @@
             const lastMessage = contact.last_message_content || "Sem mensagens ainda";
             contactsContainer.innerHTML += `<div class="contact" data-id="${contact.user_id}"><div class="contact-avatar">${firstLetter}</div><div class="contact-info"><h4>${contact.name}</h4><p>${lastMessage}</p></div><span class="time">${formattedTime}</span><span class="badge">${contact.unread_count || 0}</span></div>`;
         });
+
+        const searchInput = document.querySelector("#searchContacts")
+        searchInput.addEventListener("input", (e) => {
+
+            const searchTerm = e.target.value.toLowerCase().trim();
+            const allContactElements = document.querySelectorAll('.contact');
+
+            allContactElements.forEach(contactEl => {
+                const contactNameElement = contactEl.querySelector('h4');
+                if (contactNameElement) {
+                    const contactName = contactNameElement.textContent.toLowerCase();
+
+                    if (contactName.includes(searchTerm)) {
+                        contactEl.style.display = 'flex';
+                    } else {
+                        contactEl.style.display = 'none';
+                    }
+                }
+            });
+        })
+
         window.send = async function(e) {
             e.preventDefault();
             const input = document.querySelector(".chat-input input[name='content']");
@@ -400,92 +425,7 @@
             contactEl.addEventListener('click', async () => {
                 document.querySelectorAll('.contact').forEach(c => c.classList.remove('active'));
                 contactEl.classList.add('active');
-                /*
 
-                const receiver_id = contactEl.dataset.id;
-
-                let chatInterval = null;
-                let activeReceiverId = null;
-
-                function startChatInterval() {
-                    if (chatInterval) clearInterval(chatInterval);
-                    if (!activeReceiverId) return;
-                    updateChat();
-                    chatInterval = setInterval(updateChat, 3000);
-                }
-
-                document.querySelectorAll('.contact').forEach(contactEl => {
-                    contactEl.addEventListener('click', async () => {
-                        document.querySelectorAll('.contact').forEach(c => c.classList.remove('active'));
-                        contactEl.classList.add('active');
-
-                        activeReceiverId = contactEl.dataset.id;
-                        startChatInterval();
-                    });
-                });
-
-                async function updateChat() {
-                    try {
-                        const chatMessages = document.querySelector('.chat-messages');
-                        const estavaNoFinal =
-                            chatMessages.scrollHeight - chatMessages.scrollTop <= chatMessages.clientHeight + 5;
-
-                        const response = await fetch('/api/getMessages?contact_id=' + receiver_id, {
-                            method: "GET",
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            },
-                        });
-
-                        if (!response.ok) {
-                            console.error("Erro ao buscar mensagens:", response.status);
-                            return;
-                        }
-
-                        const data = await response.json();
-                        const messages = data.data;
-
-                    
-                        chatMessages.innerHTML = '';
-
-                       
-                        messages.forEach(msg => {
-                            const isSent = msg.sender_id === userData.user.id;
-                            const msgClass = isSent ? 'sent' : 'received';
-                            const dateObj = new Date(msg.created_at);
-
-                            const time = dateObj.toLocaleTimeString([], {
-                                hour: '2-digit',
-                                minute: '2-digit'
-                            });
-                            const date = dateObj.toLocaleDateString('pt-BR');
-
-                            chatMessages.innerHTML += `
-                <div class="msg ${msgClass}">
-                    <p>${msg.content}</p>
-                    <span class="msg-time">${time}</span>
-                    <span class="msg-date">${date}</span>
-                </div>
-            `;
-                        });
-                        if (estavaNoFinal) {
-                            chatMessages.scrollTop = chatMessages.scrollHeight;
-                        }
-
-                    } catch (err) {
-                        console.error("Erro na requisição:", err);
-                    }
-                }
-
-
-                updateChat();
-                setInterval(updateChat, 1000);
-
-
-
-                const response = await fetch('/api/getMessages?contact_id=' + receiver_id, {
-
-*/
                 const contactName = contactEl.querySelector('h4').textContent;
                 const firstLetter = contactName.charAt(0).toUpperCase();
                 document.querySelector(".chat").innerHTML = `<div class="chat-header"><div class="contact-avatar">${firstLetter}</div><h4>${contactName}</h4></div><div class="chat-messages"></div><div class="chat-input"><input type="text" name="content" placeholder="Digite sua mensagem..."><input type="file" id="mediaInput" style="display:none" value="nochange" /><button type="button" class="send" id="btnAddMedia"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16"><path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" /><path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" /></svg></button><button class="send" onclick="send(event)">📨</button></div>`;
@@ -591,27 +531,4 @@
         } else {}
     });
 </script>
-
-<script>
-    function clearAllCookies() {
-        const cookies = document.cookie.split(";");
-
-        for (let cookie of cookies) {
-            const eqPos = cookie.indexOf("=");
-            const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-
-            document.cookie =
-                name.trim() + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
-        }
-    }
-
-    document.getElementById("logout-button").onclick = async function(event) {
-        event.preventDefault();
-
-        localStorage.clear();
-        sessionStorage.clear();
-        clearAllCookies();
-
-        window.location.href = "/login";
-    };
-</script>
+<script src="/frontend/static/js/searchContacts.js"></script>

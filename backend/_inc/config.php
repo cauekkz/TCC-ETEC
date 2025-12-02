@@ -13,3 +13,4 @@ define('MYSQL_PASS', 'REMOVIDO');
 //REMOVIDO
 define('OPENSSL_KEY','dev-only-openssl-key-change-me!!');
 define('OPENSSL_IV', 'dev-only-iv-0000');   
+// REMOVIDO

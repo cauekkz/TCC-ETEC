@@ -1027,6 +1027,18 @@ $profile_id = $_GET['profile'];
 
         <?php if ($profile_id === "mine"): ?>
 
+            function clearAllCookies() {
+                const cookies = document.cookie.split(";");
+
+                for (let cookie of cookies) {
+                    const eqPos = cookie.indexOf("=");
+                    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+
+                    document.cookie =
+                        name.trim() + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+                }
+            }
+
             document.querySelector("#leave-account-button").addEventListener("click", async () => {
                 const confirmed = await confirmAction(
                     "Tem certeza que deseja sair da sua conta? Você precisará fazer login novamente.",
@@ -1036,6 +1048,7 @@ $profile_id = $_GET['profile'];
                 if (confirmed) {
                     localStorage.clear()
                     sessionStorage.clear()
+                    clearAllCookies()
                     window.location.href = "/login"
                 }
             })

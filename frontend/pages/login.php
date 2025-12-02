@@ -42,10 +42,28 @@
 
     <div class="row text-center text-style">
         <p id="signup">Não tem conta? <a href="/signup" class="text-danger" id="linkSignup">Cadastre-se</a></p>
-        <p id="signup">esqueceu a senha? <a href="/forgot-password" class="text-danger" id="linkSignup">Recupere aqui</a></p>
+        <p id="signup">esqueceu a senha? <span class="text-danger" id="openRecover" style="cursor:pointer;">Recupere aqui</span></p>
 
     </div>
 </div>
+<div id="recoverBackdrop">
+    <div class="recover-modal">
+
+        <h5>Recuperar senha</h5>
+
+        <input type="email" id="recoverEmail" class="form-control mt-2" placeholder="Seu email">
+
+        <div class="recover-actions">
+            <button id="cancelRecover" class="btn btn-secondary">Cancelar</button>
+            <button id="sendRecover" class="btn btn-danger">Enviar</button>
+        </div>
+
+        <div id="recoverMsg"></div>
+
+    </div>
+</div>
+
+
 <link rel="stylesheet" href="/frontend/static/css/alerts.css">
 
 <script src="frontend/static/js/alerts.js"></script>
@@ -77,4 +95,54 @@
             showBackendError(error, 'Erro ao conectar com o servidor');
         }
     })
+</script>
+
+<script>
+    const openRecover = document.getElementById("openRecover");
+    const backdrop = document.getElementById("recoverBackdrop");
+    const cancelBtn = document.getElementById("cancelRecover");
+    const sendBtn = document.getElementById("sendRecover");
+    const emailInput = document.getElementById("recoverEmail");
+    const msg = document.getElementById("recoverMsg");
+
+    openRecover.onclick = () => {
+        backdrop.style.display = "flex";
+        msg.innerText = "";
+        emailInput.value = "";
+    };
+
+    cancelBtn.onclick = () => {
+        backdrop.style.display = "none";
+    };
+
+    backdrop.onclick = (e) => {
+        if (e.target === backdrop) backdrop.style.display = "none";
+    };
+
+    sendBtn.onclick = async () => {
+        const email = emailInput.value.trim();
+
+        if (!email) {
+            msg.innerText = "Informe o email";
+            return;
+        }
+
+        sendBtn.disabled = true;
+        sendBtn.innerText = "Enviando...";
+
+        const formData = new FormData();
+        formData.append("email", email);
+
+        const res = await fetch("/api/recoverPassword", {
+            method: "POST",
+            body: formData,
+            credentials: "same-origin"
+        });
+
+        const j = await res.json();
+        msg.innerText = j.msg;
+
+        sendBtn.disabled = false;
+        sendBtn.innerText = "Enviar";
+    };
 </script>

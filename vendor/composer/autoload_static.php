@@ -4,8 +4,22 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit57ff474dbe4d9d97ac3130f22968e68a
+class ComposerStaticInit24df77f57551d30f4dbcd650e2c4fdb8
 {
+    public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+    );
+
     public static $classMap = array (
         'AltoRouter' => __DIR__ . '/..' . '/altorouter/altorouter/AltoRouter.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
@@ -14,7 +28,9 @@ class ComposerStaticInit57ff474dbe4d9d97ac3130f22968e68a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInit57ff474dbe4d9d97ac3130f22968e68a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit24df77f57551d30f4dbcd650e2c4fdb8::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit24df77f57551d30f4dbcd650e2c4fdb8::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit24df77f57551d30f4dbcd650e2c4fdb8::$classMap;
 
         }, null, ClassLoader::class);
     }

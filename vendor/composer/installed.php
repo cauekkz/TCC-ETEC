@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'a9c32724dba9df87cd5fdcbb9e9f6d4456e00aff',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'a9c32724dba9df87cd5fdcbb9e9f6d4456e00aff',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -25,6 +25,15 @@
             'reference' => '9931b976423f7334c94f7b5b348be8ab1da3415d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../altorouter/altorouter',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v7.0.1',
+            'version' => '7.0.1.0',
+            'reference' => '360ae911ce62e25e11249f6140fa58939f556ebe',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

@@ -34,6 +34,9 @@ $router->map('GET', '/notices', function () {
 $router->map('GET', '/messages', function () {
     require __DIR__ . '/pages/messages.php';
 }, "messages");
+$router->map('GET', '/resetpassword', function () {
+    require __DIR__ . '/pages/resetPassword.php';
+}, "resetPassword");
 
 
 

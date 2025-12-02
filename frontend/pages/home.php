@@ -85,7 +85,7 @@ if (is_numeric($server_id)) {
                             <h4 class="preview-title">Usuários</h4>
 
                             <button class="preview-toggle" data-target="users">
-                                <img class="hidden-icon" src="frontend/static/img/show.png" alt="Ícone de esconder" >
+                                <img class="hidden-icon" src="frontend/static/img/show.png" alt="Ícone de esconder">
                             </button>
                         </div>
 
@@ -101,7 +101,7 @@ if (is_numeric($server_id)) {
                             <h4 class="preview-title">Postagens</h4>
 
                             <button class="preview-toggle" data-target="posts">
-                                <img class="hidden-icon" src="frontend/static/img/show.png" alt="Ícone de esconder"     >
+                                <img class="hidden-icon" src="frontend/static/img/show.png" alt="Ícone de esconder">
                             </button>
                         </div>
 
@@ -239,7 +239,29 @@ if (is_numeric($server_id)) {
                     <p class="px-2 mt-1">Sair</p>
                 </div>
             </a>
+            <script>
+                function clearAllCookies() {
+                    const cookies = document.cookie.split(";");
 
+                    for (let cookie of cookies) {
+                        const eqPos = cookie.indexOf("=");
+                        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+
+                        document.cookie =
+                            name.trim() + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+                    }
+                }
+
+                document.getElementById("logout-button").onclick = async function(event) {
+                    event.preventDefault();
+
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    clearAllCookies();
+
+                    window.location.href = "/login";
+                };
+            </script>
         </div>
         <div id="borboleta" class="col-6 flex-grow-1 overflow-auto px-3 " style="min-height: 0;">
             <div class="feed mt-4 px-4">

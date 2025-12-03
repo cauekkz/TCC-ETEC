@@ -139,13 +139,13 @@ CREATE TABLE post_media (
 -- coisas sobre eventos
 CREATE TABLE events (
   id INT PRIMARY KEY AUTO_INCREMENT,
+  server_id INT,
   title VARCHAR(255) NOT NULL,
   description TEXT,
   date DATE NOT NULL,
   time TIME NOT NULL,
   location VARCHAR(255) NOT NULL,
-  capacity INT,
-  server_id INT NOT NULL
+  capacity INT
 
 );
 CREATE TABLE event_participants (

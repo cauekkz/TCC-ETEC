@@ -10,19 +10,9 @@ modal.addEventListener("click", (e) => {
     if (e.target === modal) modal.close();
 });
 
-const campusInfo = userData.campus;
-if (userData.user.role === "professor") {
-    const serverID = parseInt(localStorage.getItem("selectedServer"))
-    if ( serverID === 1||campusInfo.some(info => info.id == serverID - 1)) {
-        btnCreate.style.display = "block";
 
-    } else {
-        btnCreate.style.display = "none";
-    }
 
-} else {
-    btnCreate.style.display = "none";
-}
+
 
 
 btnCreate.addEventListener("click", () => {
@@ -193,8 +183,8 @@ async function loadEvents() {
     eventsGrid.innerHTML = "";
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     userid = userData.user.id;
-
-    const response = await fetch(`/api/getEvents?user_id=${userid}&server_id=${localStorage.getItem("selectedServer")}`, {
+    const server_id = localStorage.getItem("selectedServer");
+    const response = await fetch(`/api/getEvents?user_id=${userid}&server_id=${server_id}`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${localStorage.getItem("jwt_token")}`,
@@ -226,7 +216,7 @@ async function loadEvents() {
 
             }
 
-        } 
+        }
 
 
         eventsGrid.innerHTML += `

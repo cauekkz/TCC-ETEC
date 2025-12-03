@@ -56,34 +56,6 @@ if (is_numeric($server_id)) {
             `Acompanhe as novidades do servidor ${serverName}`;
     });
 </script>
-
-<style>
-    .search-container {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    @media (max-width: 768px) {
-        #lua3 {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        #searchForm {
-            flex-basis: 100%;
-
-            order: 10;
-            
-            margin-top: 8px;
-        }
-
-        .search-input {
-            width: 100%;
-        }
-    }
-</style>
-
 <header>
     <div class="container-fluid">
         <div class="row d-flex justify-content-between align-items-center">
@@ -94,9 +66,19 @@ if (is_numeric($server_id)) {
 
 
             <div id="lua3" class="col d-flex justify-content-end align-items-center">
+                <form id="searchForm" class="search-container">
+                    <img class="search-icon" src="frontend/static/img/lupa.png" alt="Ícone de pesquisa" data-status="close">
+                    <input
+                        type="search"
+                        id="searchInput"
+                        class="search-input"
+                        placeholder="Pesquisar na EteConnect...">
 
+
+                </form>
                 <div id="search-preview" class="search-preview hidden">
 
+                    <!-- ===== USUÁRIOS ===== -->
                     <div class="preview-section">
 
                         <div class="preview-header">
@@ -112,6 +94,7 @@ if (is_numeric($server_id)) {
                         </div>
                     </div>
 
+                    <!-- ===== POSTAGENS ===== -->
                     <div class="preview-section">
 
                         <div class="preview-header">
@@ -144,18 +127,6 @@ if (is_numeric($server_id)) {
                         </svg>
                     </div>
                 </div>
-
-                <form id="searchForm" class="search-container">
-                    <img class="search-icon" src="frontend/static/img/lupa.png" alt="Ícone de pesquisa" data-status="close">
-                    <input
-                        type="search"
-                        id="searchInput"
-                        class="search-input"
-                        placeholder="Pesquisar na EteConnect...">
-
-                </form>
-
-
             </div>
 
         </div>

@@ -7,7 +7,7 @@ require_once __DIR__ . '/../../_inc/filters/isTeacher.php';
 $data = $_POST;
 
 
-$requiredFields = ['title', 'date', 'time', 'location', 'capacity', 'server_id'];
+$requiredFields = ['title', 'date', 'time', 'location', 'capacity',"server_id"];
 $errors = [];
 
 foreach ($requiredFields as $field) {
@@ -38,12 +38,13 @@ $date = $data['date'];
 $time = $data['time'];
 $location = trim($data['location']);
 $capacity = isset($data['capacity']) ? intval($data['capacity']) : null;
+$server_id = isset($data['server_id']) ? intval($data['server_id']) : null;
 
 $eventDate = new DateTime($date);
 $today     = new DateTime('today');
 $maxDate   = (new DateTime('today'))->modify('+1 year');
 
-$server_id = isset($data['server_id']) ? intval($data['server_id']) : null;
+
 
 if ($capacity !== null && $capacity < 1) {
     $res->set_status("error");
@@ -68,8 +69,8 @@ if ($eventDate > $maxDate) {
 }
 
 
-$sql = "INSERT INTO events (title, description, date, time, location, capacity, server_id) 
-        VALUES (:title, :description, :date, :time, :location, :capacity, :server_id)";
+$sql = "INSERT INTO events (title, description, date, time, location, capacity,server_id) 
+        VALUES (:title, :description, :date, :time, :location, :capacity,:server_id)";
 $params = [
     ':title' => $title,
     ':description' => $description,

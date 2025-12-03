@@ -341,6 +341,24 @@ if (is_numeric($server_id)) {
 
                         fillAsideProfile(userData);
 
+const campusInfo = userData?.campus ?? [];
+const btnCreate = document.querySelector(".btnCreate");
+if (userData.user.role === "professor") {
+    const serverID = parseInt(localStorage.getItem("selectedServer"))
+
+    if (serverID === 1 || campusInfo.some(info => info.id == serverID - 1)) {
+        btnCreate.style.display = "block";
+
+    } else {
+        btnCreate.style.display = "none";
+    }
+
+} else {
+    btnCreate.style.display = "none";
+}
+
+
+
 
 
 

@@ -13,6 +13,7 @@ SELECT
     u.id AS user_id,
     u.name,
     u.profile_photo_path,
+    u.role,
     MAX(m.created_at) AS last_message_at,
     SUM(CASE WHEN m.receiver_id = :user_id AND m.is_read = FALSE THEN 1 ELSE 0 END) AS unread_count
 FROM user u

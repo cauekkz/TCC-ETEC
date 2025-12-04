@@ -11,7 +11,7 @@ if (isset($_GET["user_id"])) {
     $res->response();
     exit;
 }
-if(isset($_GET["server_id"])) {
+if (isset($_GET["server_id"])) {
     $server_id = $_GET["server_id"];
 } else {
     $res->set_status('error');
@@ -30,7 +30,7 @@ FROM events e
 WHERE e.server_id = :server_id
 ORDER BY e.date DESC";
 
-$params = ["user_id" => $user_id, "server_id" => $server_id];
+$params = ["user_id" => $user_id,"server_id"=>$server_id];
 
 $response = $db->execute_query($sql, $params);
 

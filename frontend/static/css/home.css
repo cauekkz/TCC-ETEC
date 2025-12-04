@@ -71,15 +71,13 @@
     transform: rotate(365deg);
   }
 }
-
-#palavras {
+#palavras{
   display: none;
   justify-content: center;
   align-items: center;
   width: 100%;
-  color: var(--text-muted);
+  color:var(--text-muted  );
 }
-
 /* Estilo para o botão de criar post quando não é professor */
 #btnCreate[style*="display: none"] {
   display: none !important;
@@ -287,13 +285,8 @@ form select:focus,
 }
 
 
-
 .btn-space {
   margin-left: 3.7rem !important;
-}
-
-.search-container, #searchForm {
-  display: none !important;
 }
 
 /* Responsividade */
@@ -302,18 +295,18 @@ form select:focus,
     width: 100%;
     max-width: 100%;
   }
-
+  
   .expanded-center {
     width: 100%;
   }
-
+  
   .tab-infos {
     width: 100%;
     margin-left: 0;
     border-left: none;
     border-top: 1px solid gray;
   }
-
+  
   .suggested-friends {
     width: 100%;
     margin-left: 0 !important;
@@ -327,7 +320,7 @@ form select:focus,
     align-items: flex-start;
     padding-top: 1rem;
   }
-
+  
   .create-card {
     width: 100% !important;
     max-width: 100%;
@@ -335,45 +328,44 @@ form select:focus,
     max-height: 95vh;
     border-radius: 0.5rem;
   }
-
-  #titleCreate,
-  #subTitleCreate {
+  
+  #titleCreate, #subTitleCreate {
     font-size: 1.1rem;
   }
-
+  
   #textareaCreate {
     font-size: 0.95rem;
     padding: 0.75rem;
     min-height: 120px;
   }
-
+  
   .btn-space {
     margin-left: 0 !important;
   }
-
+  
   .row.d-flex.gap-3.mt-3 {
     flex-direction: column;
     gap: 0.75rem !important;
   }
-
+  
   .row.d-flex.gap-3.mt-3 button {
     width: 100% !important;
     padding: 0.75rem;
     font-size: 0.9rem;
   }
-
+  
   .feed {
     padding: 0.5rem !important;
   }
-
+  
   .posts {
     padding: 0.5rem !important;
   }
-
+  
   #previewContainer {
     gap: 0.5rem;
   }
-
+  
   #previewContainer img,
   #previewContainer video {
     max-width: 100px;
@@ -386,7 +378,7 @@ form select:focus,
     padding: 0;
     align-items: stretch;
   }
-
+  
   .create-card {
     width: 100% !important;
     max-width: 100% !important;
@@ -395,34 +387,32 @@ form select:focus,
     border-radius: 0;
     margin: 0;
   }
-
-  #titleCreate,
-  #subTitleCreate {
+  
+  #titleCreate, #subTitleCreate {
     font-size: 0.95rem;
   }
-
+  
   #textareaCreate {
     font-size: 0.85rem;
     padding: 0.6rem;
     min-height: 100px;
   }
-
+  
   #btnCreate {
     font-size: 0.75rem;
     padding: 0.4rem 0.6rem;
   }
-
+  
   .row.d-flex.gap-3.mt-3 button {
     padding: 0.6rem;
     font-size: 0.85rem;
   }
-
+  
   #previewContainer img,
   #previewContainer video {
     max-width: 80px;
     max-height: 80px;
   }
-
-
 }
+
 

@@ -67,7 +67,7 @@ header {
         height: auto !important;
         min-width: 44px !important;
         min-height: 44px !important;
-        display: flex !important;
+        display: none ;
         align-items: center !important;
         justify-content: center !important;
         border-radius: 50% !important;
@@ -87,7 +87,7 @@ header {
     
     #btnCreate *,
     .btnCreate * {
-        display: none !important;
+        display: none ;
     }
 }
 
@@ -116,7 +116,7 @@ header {
         height: auto !important;
         min-width: 44px !important;
         min-height: 44px !important;
-        display: flex !important;
+        display: none ;
         align-items: center !important;
         justify-content: center !important;
         border-radius: 50% !important;
@@ -136,7 +136,7 @@ header {
     
     #btnCreate *,
     .btnCreate * {
-        display: none !important;
+        display: none ;
     }
     
     .light-dark {

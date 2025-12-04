@@ -351,7 +351,16 @@
             const date = contact.last_message_at ? new Date(contact.last_message_at) : null;
             const formattedTime = date ? `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}` : "--:--";
             const lastMessage = contact.last_message_content || "";
-            contactsContainer.innerHTML += `<div class="contact" data-id="${contact.user_id}"><div class="contact-avatar">${firstLetter}</div><div class="contact-info"><h4>${contact.name}</h4><p>${lastMessage}</p></div><span class="time">${formattedTime}</span><span class="badge">${contact.unread_count || 0}</span></div>`;
+            if (contact.profile_photo_path == null) {
+
+                if (contact.role == "estudante") {
+                    contactsContainer.innerHTML += `<div class="contact" data-id="${contact.user_id}" id="${contact.role}"><div class="contact-avatar bg-danger">${firstLetter}</div><div class="contact-info"><h4>${contact.name}</h4><p>${lastMessage}</p></div><span class="time">${formattedTime}</span><span class="badge">${contact.unread_count || 0}</span></div>`;
+                } else if (contact.role == "professor") {
+                    contactsContainer.innerHTML += `<div class="contact" data-id="${contact.user_id}" id="${contact.role}"><div class="contact-avatar" style="background-color: #2f32d3ff !important">${firstLetter}</div><div class="contact-info"><h4>${contact.name}</h4><p>${lastMessage}</p></div><span class="time">${formattedTime}</span><span class="badge">${contact.unread_count || 0}</span></div>`;
+                }
+            } else {
+                contactsContainer.innerHTML += `<div class="contact" data-id="${contact.user_id}" id="${contact.role}"><div class="contact-avatar"><img src="${contact.profile_photo_path}" class="img-fluid img-profile"/></div><div class="contact-info"><h4>${contact.name}</h4><p>${lastMessage}</p></div><span class="time">${formattedTime}</span><span class="badge">${contact.unread_count || 0}</span></div>`;
+            }
         });
 
         const searchInput = document.querySelector("#searchContacts")
@@ -437,7 +446,18 @@
 
                 const contactName = contactEl.querySelector('h4').textContent;
                 const firstLetter = contactName.charAt(0).toUpperCase();
-                document.querySelector(".chat").innerHTML = `<div class="chat-header"><div class="contact-avatar">${firstLetter}</div><h4>${contactName}</h4></div><div class="chat-messages"></div><div class="chat-input"><input type="text" name="content" placeholder="Digite sua mensagem..."><input type="file" id="mediaInput" style="display:none" value="nochange" /><button type="button" class="send" id="btnAddMedia"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16"><path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" /><path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" /></svg></button><button class="send" onclick="send(event)">📨</button></div>`;
+                const img = contactEl.querySelector(".contact-avatar").querySelector("img")
+                console.log(contactEl.id)
+                if (!img) {
+                    if (contactEl.id == "estudante") {
+                        document.querySelector(".chat").innerHTML = `<div class="chat-header"><div class="contact-avatar bg-danger">${firstLetter}</div><h4>${contactName}</h4></div><div class="chat-messages"></div><div class="chat-input"><input type="text" name="content" placeholder="Digite sua mensagem..."><input type="file" id="mediaInput" style="display:none" value="nochange" /><button type="button" class="send" id="btnAddMedia"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16"><path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" /><path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" /></svg></button><button class="send" onclick="send(event)">📨</button></div>`;
+                    } else {
+                        document.querySelector(".chat").innerHTML = `<div class="chat-header"><div class="contact-avatar" style="background-color: #2f32d3ff !important">${firstLetter}</div><h4>${contactName}</h4></div><div class="chat-messages"></div><div class="chat-input"><input type="text" name="content" placeholder="Digite sua mensagem..."><input type="file" id="mediaInput" style="display:none" value="nochange" /><button type="button" class="send" id="btnAddMedia"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16"><path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" /><path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" /></svg></button><button class="send" onclick="send(event)">📨</button></div>`;
+                    }
+
+                } else {
+                    document.querySelector(".chat").innerHTML = `<div class="chat-header"><div class="contact-avatar"><img src="${img.src}" class="img-fluid img-profile"/></div><h4>${contactName}</h4></div><div class="chat-messages"></div><div class="chat-input"><input type="text" name="content" placeholder="Digite sua mensagem..."><input type="file" id="mediaInput" style="display:none" value="nochange" /><button type="button" class="send" id="btnAddMedia"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16"><path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" /><path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" /></svg></button><button class="send" onclick="send(event)">📨</button></div>`;
+                }
                 const btnAddMedia = document.querySelector("#btnAddMedia");
                 const mediaInput = document.querySelector("#mediaInput");
 

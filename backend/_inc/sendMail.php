@@ -12,7 +12,7 @@ function sendMail($to, $subject, $body) {
         $mail->SMTPAuth = true;
 
         $mail->Username = getenv('SMTP_USER') ?: '';
-        $mail->Password = getenv('SMTP_PASS') ?: ''; // configure SMTP_USER/SMTP_PASS no docker-compose ou no ambiente
+        $mail->Password = getenv('SMTP_PASS') ?: '';
 
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;

@@ -145,7 +145,7 @@
 
     .msg.sent {
         align-self: flex-end;
-        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        background: linear-gradient(135deg, #1F4FB8, #1d4ed8);
         color: #fff;
         border-bottom-right-radius: 0
     }
@@ -222,7 +222,7 @@
     }
 
     .chat-input .send {
-        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        background: linear-gradient(135deg, #1F4FB8, #1d4ed8);
         color: #fff;
         border: none;
         border-radius: 50%;
@@ -238,7 +238,7 @@
     }
 
     .chat-input .send:hover {
-        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        background: linear-gradient(135deg, #3b82f6, #1F4FB8);
         transform: scale(1.05)
     }
 
@@ -355,7 +355,7 @@
                 if (contact.role == "estudante") {
                     contactsContainer.innerHTML += `<div class="contact" data-id="${contact.user_id}" id="${contact.role}"><div class="contact-avatar bg-danger">${firstLetter}</div><div class="contact-info"><h4>${uiEscape(contact.name)}</h4><p>${uiEscape(lastMessage)}</p></div><span class="time">${formattedTime}</span>${Number(contact.unread_count) > 0 ? `<span class="badge">${contact.unread_count}</span>` : ''}</div>`;
                 } else if (contact.role == "professor") {
-                    contactsContainer.innerHTML += `<div class="contact" data-id="${contact.user_id}" id="${contact.role}"><div class="contact-avatar" style="background-color: #2563EB !important">${firstLetter}</div><div class="contact-info"><h4>${uiEscape(contact.name)}</h4><p>${uiEscape(lastMessage)}</p></div><span class="time">${formattedTime}</span>${Number(contact.unread_count) > 0 ? `<span class="badge">${contact.unread_count}</span>` : ''}</div>`;
+                    contactsContainer.innerHTML += `<div class="contact" data-id="${contact.user_id}" id="${contact.role}"><div class="contact-avatar" style="background-color: #1F4FB8 !important">${firstLetter}</div><div class="contact-info"><h4>${uiEscape(contact.name)}</h4><p>${uiEscape(lastMessage)}</p></div><span class="time">${formattedTime}</span>${Number(contact.unread_count) > 0 ? `<span class="badge">${contact.unread_count}</span>` : ''}</div>`;
                 }
             } else {
                 contactsContainer.innerHTML += `<div class="contact" data-id="${contact.user_id}" id="${contact.role}"><div class="contact-avatar"><img src="${contact.profile_photo_path}" class="img-fluid img-profile"/></div><div class="contact-info"><h4>${uiEscape(contact.name)}</h4><p>${uiEscape(lastMessage)}</p></div><span class="time">${formattedTime}</span>${Number(contact.unread_count) > 0 ? `<span class="badge">${contact.unread_count}</span>` : ''}</div>`;
@@ -449,13 +449,13 @@
                 console.log(contactEl.id)
                 if (!img) {
                     if (contactEl.id == "estudante") {
-                        document.querySelector(".chat").innerHTML = `<div class="chat-header"><div class="contact-avatar bg-danger">${firstLetter}</div><h4>${contactName}</h4></div><div class="chat-messages"></div><div class="chat-input"><input type="text" name="content" placeholder="Digite sua mensagem..."><input type="file" id="mediaInput" style="display:none" value="nochange" /><button type="button" class="send" id="btnAddMedia"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16"><path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" /><path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" /></svg></button><button class="send" onclick="send(event)">📨</button></div>`;
+                        document.querySelector(".chat").innerHTML = `<div class="chat-header"><div class="contact-avatar bg-danger">${firstLetter}</div><h4>${contactName}</h4></div><div class="chat-messages"></div><div class="chat-input"><input type="text" name="content" placeholder="Digite sua mensagem..."><input type="file" id="mediaInput" style="display:none" value="nochange" /><button type="button" class="send" id="btnAddMedia" aria-label="Anexar imagem"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16"><path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" /><path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" /></svg></button><button class="send" onclick="send(event)" aria-label="Enviar mensagem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></button></div>`;
                     } else {
-                        document.querySelector(".chat").innerHTML = `<div class="chat-header"><div class="contact-avatar" style="background-color: #2563EB !important">${firstLetter}</div><h4>${contactName}</h4></div><div class="chat-messages"></div><div class="chat-input"><input type="text" name="content" placeholder="Digite sua mensagem..."><input type="file" id="mediaInput" style="display:none" value="nochange" /><button type="button" class="send" id="btnAddMedia"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16"><path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" /><path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" /></svg></button><button class="send" onclick="send(event)">📨</button></div>`;
+                        document.querySelector(".chat").innerHTML = `<div class="chat-header"><div class="contact-avatar" style="background-color: #1F4FB8 !important">${firstLetter}</div><h4>${contactName}</h4></div><div class="chat-messages"></div><div class="chat-input"><input type="text" name="content" placeholder="Digite sua mensagem..."><input type="file" id="mediaInput" style="display:none" value="nochange" /><button type="button" class="send" id="btnAddMedia" aria-label="Anexar imagem"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16"><path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" /><path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" /></svg></button><button class="send" onclick="send(event)" aria-label="Enviar mensagem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></button></div>`;
                     }
 
                 } else {
-                    document.querySelector(".chat").innerHTML = `<div class="chat-header"><div class="contact-avatar"><img src="${img.src}" class="img-fluid img-profile"/></div><h4>${contactName}</h4></div><div class="chat-messages"></div><div class="chat-input"><input type="text" name="content" placeholder="Digite sua mensagem..."><input type="file" id="mediaInput" style="display:none" value="nochange" /><button type="button" class="send" id="btnAddMedia"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16"><path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" /><path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" /></svg></button><button class="send" onclick="send(event)">📨</button></div>`;
+                    document.querySelector(".chat").innerHTML = `<div class="chat-header"><div class="contact-avatar"><img src="${img.src}" class="img-fluid img-profile"/></div><h4>${contactName}</h4></div><div class="chat-messages"></div><div class="chat-input"><input type="text" name="content" placeholder="Digite sua mensagem..."><input type="file" id="mediaInput" style="display:none" value="nochange" /><button type="button" class="send" id="btnAddMedia" aria-label="Anexar imagem"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16"><path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" /><path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" /></svg></button><button class="send" onclick="send(event)" aria-label="Enviar mensagem"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></button></div>`;
                 }
                 const btnAddMedia = document.querySelector("#btnAddMedia");
                 const mediaInput = document.querySelector("#mediaInput");

@@ -67,7 +67,6 @@
 <link rel="stylesheet" href="/frontend/static/css/alerts.css">
 
 <script src="frontend/static/js/alerts.js"></script>
-<script src="frontend/static/js/alerts.js"></script>
 <script src="frontend/static/js/login.js"></script>
 <script>
     const form = document.getElementById('loginForm')

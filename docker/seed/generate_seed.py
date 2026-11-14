@@ -1,9 +1,4 @@
 #!/usr/bin/env python3
-"""Gera backend/seed.sql com dados de demonstração para o ETEConnect.
-
-Uso:  python3 docker/seed/generate_seed.py
-Todas as contas usam a senha: Etec@2025
-"""
 import random
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -12,16 +7,13 @@ random.seed(42)
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "backend" / "seed.sql"
 
-# bcrypt de "Etec@2025"
 PWD = "$2y$10$MIRxZoqKh//YojERuFFjAeonTQ14gNfiV31fOS1PEowcoHERKlg1i"
 NOW = datetime(2026, 11, 13, 20, 0, 0)
 
-# campus 2 = Etec Albert Einstein (servidor 3) | campus 28 = Parque da Juventude (servidor 29)
 MAIN_CAMPUS, MAIN_SERVER = 2, 3
 SEC_CAMPUS, SEC_SERVER = 28, 29
 GERAL = 1
 
-# (nome, email, matricula, nascimento, campus, cursos, telefone)
 USERS = [
     ("Ana Beatriz Souza", "aluno@etec.sp.gov.br", "20231234501", "2008-03-14", MAIN_CAMPUS, [29], "(11) 98765-4321"),
     ("Prof. Ricardo Almeida", "professor@etec.sp.gov.br", "482913", "1984-07-22", MAIN_CAMPUS, [29, 56], "(11) 99876-1122"),
@@ -42,7 +34,6 @@ USERS = [
 ]
 ADDRESS = "Rua das Flores, 120, São Paulo, SP, 03000-000"
 
-
 def q(v):
     if v is None:
         return "NULL"
@@ -52,14 +43,11 @@ def q(v):
         return "'" + v.strftime("%Y-%m-%d %H:%M:%S") + "'"
     return "'" + str(v).replace("\\", "\\\\").replace("'", "''") + "'"
 
-
 def ago(**kw):
     return NOW - timedelta(**kw)
 
+lines = ["USE tcc;", "SET NAMES utf8mb4;", ""]
 
-lines = ["-- Dados de demonstração gerados por docker/seed/generate_seed.py", "USE tcc;", "SET NAMES utf8mb4;", ""]
-
-# ---------- usuários ----------
 for i, (name, email, reg, bday, campus, courses, phone) in enumerate(USERS, start=1):
     role = "professor" if len(reg) == 6 else "estudante"
     created = ago(days=200 - i * 6)
@@ -72,12 +60,9 @@ for i, u in enumerate(USERS, start=1):
     lines.append(f"INSERT INTO user_campus (user_id, campus_id) VALUES ({i}, {u[4]});")
     for c in u[5]:
         lines.append(f"INSERT INTO user_course (user_id, course_id) VALUES ({i}, {c});")
-# professores também participam do segundo campus para demonstrar múltiplos servidores
 lines.append(f"INSERT INTO user_campus (user_id, campus_id) VALUES (2, {SEC_CAMPUS});")
 lines.append("")
 
-# ---------- posts ----------
-# (autor, servidor, texto, horas atrás, [imagens])
 POSTS = [
     (2, MAIN_SERVER, "Pessoal do 3º DS: a entrega parcial do TCC foi adiada para o dia 28. Aproveitem para revisar a documentação e o diagrama de casos de uso. Qualquer dúvida, me chamem aqui ou nas mensagens!", 3, []),
     (8, MAIN_SERVER, "Que orgulho da turma de Design Gráfico! Os cartazes da Semana da Consciência Negra ficaram incríveis e já estão expostos no corredor do bloco B. 🎨", 7, ["seed/post1.jpg", "seed/post2.jpg"]),
@@ -105,7 +90,6 @@ for pid, (author, server, text, hours, imgs) in enumerate(POSTS, start=1):
         )
 lines.append("")
 
-# ---------- comentários ----------
 COMMENTS = [
     (1, 1, None, "Ufa! Professor, a documentação pode ser entregue em PDF?", 2.5),
     (1, 2, 1, "Pode sim, Ana. Só não esqueçam a capa padrão da Etec.", 2.2),
@@ -129,7 +113,6 @@ for cid, (post, author, parent, text, hours) in enumerate(COMMENTS, start=1):
     )
 lines.append("")
 
-# ---------- curtidas ----------
 likes = set()
 for pid in range(1, len(POSTS) + 1):
     for uid in random.sample(range(1, len(USERS) + 1), random.randint(3, 12)):
@@ -141,7 +124,6 @@ for uid, ctype, cid in sorted(likes):
     lines.append(f"INSERT INTO likes (user_id, content_type, content_id) VALUES ({uid}, '{ctype}', {cid});")
 lines.append("")
 
-# ---------- seguidores ----------
 follows = set()
 for a in range(1, len(USERS) + 1):
     for b in random.sample(range(1, len(USERS) + 1), random.randint(3, 8)):
@@ -154,7 +136,6 @@ for a, b in sorted(follows):
     lines.append(f"INSERT INTO follower (follower_id, followed_id) VALUES ({a}, {b});")
 lines.append("")
 
-# ---------- mensagens ----------
 CONVERSAS = [
     (1, 2, [
         (1, "Oi professor, posso tirar uma dúvida sobre o TCC?", 26),
@@ -194,7 +175,6 @@ for a, b, msgs in CONVERSAS:
         )
 lines.append("")
 
-# ---------- eventos ----------
 EVENTS = [
     (MAIN_SERVER, "Oficina de UI/UX com Figma", "Aprenda a prototipar interfaces do zero: wireframes, componentes e protótipos navegáveis. Traga seu notebook.", 4, "09:00:00", "Laboratório 4 — Bloco B", 30),
     (MAIN_SERVER, "Banca de TCC — 3º DS", "Apresentação dos projetos de conclusão de curso da turma de Desenvolvimento de Sistemas. Aberto à comunidade.", 15, "13:30:00", "Auditório principal", 120),
@@ -219,7 +199,6 @@ for eid, uid in sorted(parts):
     lines.append(f"INSERT INTO event_participants (event_id, user_id) VALUES ({eid}, {uid});")
 lines.append("")
 
-# ---------- avisos ----------
 NOTICES = [
     (MAIN_SERVER, "Rematrícula aberta", "A rematrícula para o próximo semestre vai até o dia 30. Procure a secretaria com RG e comprovante de residência.", "importante", 2),
     (MAIN_SERVER, "Banca de TCC — cronograma", "O cronograma das bancas foi publicado no mural do bloco A e na aba Eventos.", "evento", 20),
@@ -236,7 +215,6 @@ for server, title, desc, ntype, hours in NOTICES:
     )
 lines.append("")
 
-# ---------- projetos de TCC ----------
 PROJECTS = [
     ("ETEConnect", "Rede social acadêmica que conecta alunos e professores das Etecs, com feed por unidade, avisos, eventos, mensagens e vitrine de TCCs.", 29, MAIN_CAMPUS, [1, 3, 6], 40),
     ("EcoTrack", "Aplicativo para monitorar o consumo de água e energia da escola usando sensores IoT e painéis em tempo real.", 29, MAIN_CAMPUS, [9, 14], 80),

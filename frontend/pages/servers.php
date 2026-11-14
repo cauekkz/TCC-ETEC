@@ -237,7 +237,6 @@
         serversGrid.appendChild(othersLabel);
         others.forEach(dt => serversGrid.appendChild(addServerBox(dt, false)));
 
-        // busca rápida entre os servidores
         const filter = document.querySelector('#serverFilter');
         if (filter) {
             filter.addEventListener('input', () => {

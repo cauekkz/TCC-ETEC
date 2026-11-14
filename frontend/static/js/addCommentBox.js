@@ -5,7 +5,7 @@ function createCommentElement(comment, isReply = false) {
     commentDiv.dataset.commentId = comment.id;
     commentDiv.dataset.authorId = comment.id_author || comment.author_id;
     
-    const roleColor = (comment.user_role === 'estudante' || comment.role === 'estudante') ? '#E11D48' : '#2563EB';
+    const roleColor = (comment.user_role === 'estudante' || comment.role === 'estudante') ? '#9F2A20' : '#1F4FB8';
     const profilePath = comment?.profile_photo_path ?? null;
     const color = (profilePath) ? "transparent" : roleColor;
     const url = (profilePath) ? `url('${profilePath}')` : "none";
@@ -146,7 +146,7 @@ async function handleCommentLike(e) {
             const svg = btn.querySelector('svg');
             if (newLiked) {
                 svg.innerHTML = '<path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>';
-                svg.setAttribute('fill', '#E11D48');
+                svg.setAttribute('fill', '#9F2A20');
             } else {
                 svg.innerHTML = '<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.534 4.736 3.562-3.248 8 1.314c4.438-4.562 15.534 3.578 8 13.686"/>';
                 svg.setAttribute('fill', 'currentColor');

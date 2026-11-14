@@ -406,7 +406,7 @@ $profile_id = $_GET['profile'];
 
             const role = userInfo?.role ?? "user"
             document.querySelector("#user-role").innerText = role;
-            const roleColor = (role == "estudante") ? "#E11D48" : "#2563EB"
+            const roleColor = (role == "estudante") ? "#9F2A20" : "#1F4FB8"
             document.querySelector("#user-role").style.background = roleColor;
 
             const created_at = userInfo.created_at;
@@ -466,7 +466,7 @@ $profile_id = $_GET['profile'];
                 span.classList.add("user-etec")
                 span.innerText = "ETECS"
                 span.style.cursor = "pointer"
-                span.style.color = "#E11D48"
+                span.style.color = "#9F2A20"
                 parent.appendChild(span)
 
                 // Criar modal
@@ -1088,7 +1088,7 @@ $profile_id = $_GET['profile'];
                     const username = userInfo?.name ?? "usuario"
 
                     const role = userInfo?.role ?? "user"
-                    const roleColor = (role == "estudante") ? "#E11D48" : "#2563EB"
+                    const roleColor = (role == "estudante") ? "#9F2A20" : "#1F4FB8"
 
                     const profilePath = userInfo.profile_photo_path
                     const userPhoto = document.querySelector("#photo-label")
@@ -1333,7 +1333,7 @@ $profile_id = $_GET['profile'];
                 const username = userInfo?.name ?? "usuario"
 
                 const role = userInfo?.role ?? "user"
-                const roleColor = (role == "estudante") ? "#E11D48" : "#2563EB"
+                const roleColor = (role == "estudante") ? "#9F2A20" : "#1F4FB8"
 
                 const profilePath = userInfo.profile_photo_path
                 const userPhoto = document.querySelector("#photo-label")
@@ -1717,7 +1717,7 @@ $profile_id = $_GET['profile'];
         function renderUserRow(user) {
             const authorName = user.name ?? "usuario";
             const authorRole = user.role ?? "user";
-            const roleColor = (authorRole === "estudante") ? "#E11D48" : "#2563EB";
+            const roleColor = (authorRole === "estudante") ? "#9F2A20" : "#1F4FB8";
             const author_id = user.id;
             const profilePath = user.profile_photo_path ?? null;
 

@@ -52,7 +52,7 @@ function changeFrontLike(post, liked) {
         post.querySelector(".total_likes").innerText = formatter.format(likenum).replace(/\s+/g, '')
         post.dataset.total_likes = likenum
         post.dataset.user_liked = 1
-        post.querySelector(".like_icon").innerHTML = `  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#E11D48" viewBox="0 0 16 16">
+        post.querySelector(".like_icon").innerHTML = `  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#9F2A20" viewBox="0 0 16 16">
     <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
   </svg>`
 

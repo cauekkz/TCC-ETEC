@@ -1,4 +1,3 @@
--- Dados de demonstração gerados por docker/seed/generate_seed.py
 USE tcc;
 SET NAMES utf8mb4;
 

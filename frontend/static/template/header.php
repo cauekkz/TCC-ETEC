@@ -12,10 +12,9 @@ $tituloPagina = $titulos[$pageTitle] ?? 'ETEConnect';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#E11D48">
+    <meta name="theme-color" content="#F5F4F0">
     <title><?= htmlspecialchars($tituloPagina) ?> · ETEConnect</title>
     <script>
-        // aplica o tema salvo antes da pintura para evitar "flash" branco
         (function () {
             try {
                 var t = localStorage.getItem('eteconnect-theme');
@@ -24,7 +23,6 @@ $tituloPagina = $titulos[$pageTitle] ?? 'ETEConnect';
                 }
             } catch (e) {}
         })();
-        // escapa texto vindo do usuário antes de usar em innerHTML
         function uiEscape(value) {
             return String(value ?? '').replace(/[&<>"']/g, function (c) {
                 return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -33,7 +31,7 @@ $tituloPagina = $titulos[$pageTitle] ?? 'ETEConnect';
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500;1,6..72,600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/frontend/static/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/frontend/static/css/geral.css">
     <link rel="stylesheet" href="/frontend/static/css/theme.css">

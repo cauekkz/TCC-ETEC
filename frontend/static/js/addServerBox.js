@@ -4,10 +4,6 @@ function serverInitials(name) {
     return ((words[0]?.[0] || "E") + (words[1]?.[0] || "")).toUpperCase();
 }
 
-function serverHue(id) {
-    return (Number(id) * 47) % 360;
-}
-
 function addServerBox(server, isMine = false) {
     const serverBox = document.createElement('div');
     serverBox.classList.add('server-card');
@@ -16,14 +12,10 @@ function addServerBox(server, isMine = false) {
     serverBox.tabIndex = 0;
     serverBox.setAttribute('role', 'link');
 
-    const hue = serverHue(server.id);
     const isGeral = server.campus_id === null;
-    const avatar = isGeral
-        ? 'var(--grad-cool)'
-        : `linear-gradient(135deg, hsl(${hue} 78% 52%), hsl(${(hue + 40) % 360} 85% 58%))`;
 
     serverBox.innerHTML = `
-    <div class="server-icon" style="--ui-avatar:${avatar}">${isGeral ? "#" : uiEscape(serverInitials(server.name))}</div>
+    <div class="server-icon" aria-hidden="true">${isGeral ? "#" : uiEscape(serverInitials(server.name))}</div>
     <div class="server-info">
         <h3>${uiEscape(server.name)}</h3>
         ${isGeral ? '<span class="ui-mine-badge">Todas as Etecs</span>' : (isMine ? '<span class="ui-mine-badge">Sua Etec</span>' : '')}

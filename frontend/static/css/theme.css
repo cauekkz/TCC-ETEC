@@ -191,7 +191,3 @@ body {
 .shadow-heavy {
   box-shadow: var(--shadow-heavy) !important;
 }
-
-* {
-  transition: background-color 0.1s ease, color 0.1s ease, border-color 0.1s ease, box-shadow 0.1s ease !important;
-}

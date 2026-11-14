@@ -26,13 +26,6 @@
 
     </div>
 </header>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const serverName = localStorage.getItem("selectedServerName") ?? null;
-        document.querySelector("#consecultivos").innerText =
-            `Acompanhe as novidades do servidor ${serverName}`;
-    });
-</script>
 
 
 <div class="container-fluid container-style">
@@ -150,12 +143,14 @@
                 <div class="d-flex  ">
                     <div class="px-4">
                         <p id="feedTitle" class="mb-0 h2"><strong>Servidores</strong></p>
+                        <p class="text-secondary" id="consecultivos">Escolha a comunidade da sua Etec ou participe do canal Geral</p>
                     </div>
                 </div>
 
 
-                <div class=" row mt-5 px-3">
+                <div class=" row mt-2 px-3">
                     <div class="page active" id="servidores-page">
+                        <input type="search" id="serverFilter" class="form-control ui-server-filter" placeholder="Buscar Etec pelo nome..." aria-label="Buscar Etec pelo nome">
                         <div class="servers-grid">
 
 
@@ -200,7 +195,7 @@
 <link rel="stylesheet" href="/frontend/static/css/aside-sec.css">
 <script src="/frontend/static/js/aside-sec.js"></script>
 <script src="/frontend/static/js/addServerBox.js"></script>
-<script src="/frontend/static/js/loaduserinformation.js"></script>
+<script src="/frontend/static/js/loadUserInformation.js"></script>
 <script src="/frontend/static/js/executeWithRefresh.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', async function() {
@@ -217,21 +212,45 @@
         }
         fillAsideProfile(userData);
         const serversGrid = document.querySelector('.servers-grid');
-        const response = await executeWithRefresh(fetch, "/api/getAllServers")
-        console.log(response);
+        const response = await fetch("/api/getAllServers");
         if (!response.ok) {
             return
         }
         const AllEtecsData = await response.json();
-        console.log(AllEtecsData);
         if (AllEtecsData.status !== "success") {
             return
         }
-        AllEtecsData.data.forEach((dt) => {
-            console.log(dt);
-            const server = addServerBox(dt);
-            serversGrid.appendChild(server);
-        })
+        const myCampus = (userData?.campus ?? []).map(c => Number(c.id));
+        const mine = AllEtecsData.data.filter(s => s.campus_id === null || myCampus.includes(Number(s.campus_id)));
+        const others = AllEtecsData.data.filter(s => !mine.includes(s));
+
+        const label = (text) => {
+            const el = document.createElement('div');
+            el.className = 'ui-section-label';
+            el.textContent = text;
+            return el;
+        };
+        serversGrid.appendChild(label('Seus servidores'));
+        mine.sort((a, b) => (a.campus_id === null ? -1 : b.campus_id === null ? 1 : 0))
+            .forEach(dt => serversGrid.appendChild(addServerBox(dt, true)));
+        const othersLabel = label(`Outras Etecs · ${others.length}`);
+        serversGrid.appendChild(othersLabel);
+        others.forEach(dt => serversGrid.appendChild(addServerBox(dt, false)));
+
+        // busca rápida entre os servidores
+        const filter = document.querySelector('#serverFilter');
+        if (filter) {
+            filter.addEventListener('input', () => {
+                const term = filter.value.trim().toLowerCase();
+                let visible = 0;
+                serversGrid.querySelectorAll('.server-card').forEach(card => {
+                    const show = !term || card.dataset.name.includes(term);
+                    card.style.display = show ? '' : 'none';
+                    if (show && !card.classList.contains('ui-mine')) visible++;
+                });
+                othersLabel.textContent = `Outras Etecs · ${visible}`;
+            });
+        }
 
     });
 </script>

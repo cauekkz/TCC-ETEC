@@ -11,8 +11,8 @@ function sendMail($to, $subject, $body) {
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
 
-        $mail->Username = 'seu-email@gmail.com';
-        $mail->Password = 'REMOVIDO'; // TROQUE ESSA SENHA AGORA NO GMAIL
+        $mail->Username = getenv('SMTP_USER') ?: '';
+        $mail->Password = getenv('SMTP_PASS') ?: ''; // configure SMTP_USER/SMTP_PASS no docker-compose ou no ambiente
 
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
@@ -21,7 +21,7 @@ function sendMail($to, $subject, $body) {
         $mail->CharSet  = 'UTF-8';
         $mail->Encoding = 'base64';
 
-        $mail->setFrom('seu-email@gmail.com', 'Sistema');
+        $mail->setFrom(getenv('SMTP_USER') ?: 'no-reply@etecconnect.local', 'ETEConnect');
         $mail->addAddress($to);
 
         $mail->isHTML(true);

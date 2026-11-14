@@ -5,7 +5,7 @@ function addPostBox(postInfo) {
 
     const authorName = postInfo.author_name ?? "usuario"
     const authorRole = postInfo.role ?? "user"
-    const roleColor = (authorRole == "estudante") ? "#D32F2F" : "#2f32d3ff"
+    const roleColor = (authorRole == "estudante") ? "#E11D48" : "#2563EB"
     const author_id = postInfo.id_author
     const profilePath = postInfo?.profile_photo_path ?? null;
 
@@ -25,7 +25,7 @@ function addPostBox(postInfo) {
     });
 
     const likeIcon = (parseInt(postInfo.user_liked) === 1) ? `
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#D32F2F" viewBox="0 0 16 16">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#E11D48" viewBox="0 0 16 16">
     <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
   </svg>
 `: `
@@ -56,21 +56,21 @@ function addPostBox(postInfo) {
                 <div class="post-sec-1">
                     <div class="post-sec-1">
                         <div class="author-name-div" style="display:flex;justify-content:space-between;width:100%">
-                        <span class="post-username">${authorName}</span>
+                        <span class="post-username">${uiEscape(authorName)}</span>
                         
                         </div>
                         <span class="post-role" style='background:${roleColor}'>${authorRole}</span>
                         <div class="satan" style="display:flex;gap:0.2rem">
                         ${etecSpans}
                         </div>
-                        <span class="post-content">${content}</span>
+                        <span class="post-content">${uiEscape(content)}</span>
                         ${postInfo.media && postInfo.media.length > 0 ? `
                             <div class="post-media ">
                                 ${postInfo.media.map(media => {
         if (media.media_type === 'video') {
             return `<video src="${media.media_url}" controls class="post-video interactive" onclick="openVideoModal('${media.media_url}')"></video>`;
         } else {
-            return `<img src="${media.media_url}" alt="Post media showing the main subject shared by the author in a social post. The image is displayed within the post content area, surrounded by user information and comments. If the image contains visible text, it should be transcribed for accessibility. The emotional tone and context depend on the content shared by the user." class="post-image interactive" onclick="openImageModal('${media.media_url}')">`;
+            return `<img src="${media.media_url}" alt="Imagem da publicação de ${uiEscape(authorName)}" loading="lazy" class="post-image interactive" onclick="openImageModal('${media.media_url}')">`;
         }
     }).join('')}
                             </div>

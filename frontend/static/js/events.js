@@ -206,8 +206,7 @@ async function loadEvents() {
         const { porcentagem, quantidade } = await getParticipants(event);
         const monstromonstro = (event.user_participating === 1) ? "Participando" : "Participar";
         const func = (event.user_participating === 1) ? "removePresence" : "addPresence";
-        const enem2025 = (event.user_participating === 1) ? "background-color:transparent; border:solid 1px var(--accent-primary);  color: #D32F2F;" : "";
-        let deleteBtnStyle = "display:none;";
+                let deleteBtnStyle = "display:none;";
 
         if (userData.user.role === "professor") {
             const serverID = parseInt(localStorage.getItem("selectedServer"))
@@ -253,7 +252,7 @@ async function loadEvents() {
                         </div>
                     </div>
                 </div>
-                <button class="participate-btn" style="${enem2025}" onclick="${func}(${event.id})">${monstromonstro}</button>
+                <button class="participate-btn ${event.user_participating === 1 ? 'participating' : ''}" onclick="${func}(${event.id})">${monstromonstro}</button>
             </div>
         `;
 

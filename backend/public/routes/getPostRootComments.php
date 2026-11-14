@@ -13,8 +13,8 @@ if (!isset($_GET['id_post'])) {
 
 $id_post = $_GET['id_post'];
 
-$page = isset($_SERVER['HTTP_X_PAGE']) ? (int)$_SERVER['HTTP_X_PAGE'] : 1;
-$limit = isset($_SERVER['HTTP_X_LIMIT']) ? (int)$_SERVER['HTTP_X_LIMIT'] : 20;
+$page = max(1, (int)($_SERVER["HTTP_X_PAGE"] ?? 1));
+$limit = min(50, max(1, (int)($_SERVER["HTTP_X_LIMIT"] ?? 20)));
 $offset = ($page - 1) * $limit;
 
 // Pega o user_id do token JWT

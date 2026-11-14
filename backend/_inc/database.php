@@ -35,7 +35,7 @@ class Database
     private function connect()
     {
         if (!$this->connection) {
-            $dsn = "mysql:host={$this->host};dbname={$this->dbname}";
+            $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset=utf8mb4";
             $this->connection = new PDO($dsn, $this->user, $this->pass, $this->opt_connection);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }

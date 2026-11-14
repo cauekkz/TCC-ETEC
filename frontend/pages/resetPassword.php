@@ -93,7 +93,7 @@ if (
       password: pass
     };
 
-    const res = await fetch("/api/updatepassword", {
+    const res = await fetch("/api/updatePassword", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"

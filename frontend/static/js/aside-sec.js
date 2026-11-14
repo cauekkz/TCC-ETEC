@@ -8,7 +8,7 @@ function fillAsideProfile(userData) {
 
     document.querySelector(".name-text.mt-2 strong").innerText = username;
     roleSpan.innerText = userRole;
-    const roleColor = userRole == "estudante" ? "#D32F2F" : "#2f32d3ff";
+    const roleColor = userRole == "estudante" ? "#E11D48" : "#2563EB";
     roleSpan.style.setProperty("background-color", roleColor, "important");
 
     const profilePath = userInfo.profile_photo_path;

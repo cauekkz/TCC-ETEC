@@ -454,7 +454,7 @@ if (is_numeric($server_id)) {
     <script src="/frontend/static/js/createPost.js"></script>
     <script src="/frontend/static/js/addPostBox.js"></script>
     <script src="/frontend/static/js/home.js"></script>
-    <script src="frontend/static/js/loaduserinformation.js"></script>
+    <script src="frontend/static/js/loadUserInformation.js"></script>
     <script src="frontend/static/js/loadHomePosts.js"></script>
     <script src="frontend/static/js/postFocusFunctions.js"></script>
     <script src="/frontend/static/js/aside-sec.js"></script>
@@ -528,7 +528,7 @@ if (is_numeric($server_id)) {
                 document.querySelector(".name-text.mt-2 strong").innerText = username
                 const roleSpan = document.querySelector(".name-text.mt-2 span")
                 roleSpan.innerText = userRole
-                const roleColor = (userRole == "estudante") ? "#D32F2F" : "#2f32d3ff"
+                const roleColor = (userRole == "estudante") ? "#E11D48" : "#2563EB"
                 roleSpan.style.setProperty('background-color', roleColor, 'important');
 
 

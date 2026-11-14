@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const profileRole = profile.role ?? "user"
             const profileId = profile.id
 
-            const roleColor = (profileRole == "estudante") ? "#D32F2F" : "#2f32d3ff"
+            const roleColor = (profileRole == "estudante") ? "#E11D48" : "#2563EB"
             const profilePath = profile?.profile_photo_path ?? null;
 
             const color = (profilePath) ? "transparent" : roleColor

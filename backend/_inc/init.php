@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }
 
 require_once('config.php');
-require_once('Database.php');
+require_once('database.php');
 require_once('response.php');
 require_once('helper.php');
 

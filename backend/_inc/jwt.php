@@ -4,7 +4,12 @@ use \Firebase\JWT\JWT;
 
 class JwtAuth
 {
-    private $secret_key = 'dev-only-jwt-secret-change-me-in-production';
+    private $secret_key;
+
+    public function __construct()
+    {
+        $this->secret_key = defined('JWT_SECRET') ? JWT_SECRET : (getenv('JWT_SECRET') ?: 'dev-only-jwt-secret-change-me-in-production');
+    }
     private $issuer = 'http://localhost/';
     private $audience = 'app';
 

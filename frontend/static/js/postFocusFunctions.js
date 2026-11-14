@@ -76,7 +76,7 @@ function updatePostFocusContent(postData) {
     if (roleElement) {
         const roleText = postData.role === 'estudante' ? 'Aluno' : 'Professor';
         roleElement.textContent = roleText;
-        const roleColor = postData.role === 'estudante' ? '#D32F2F' : '#2f32d3ff';
+        const roleColor = postData.role === 'estudante' ? '#E11D48' : '#2563EB';
         roleElement.style.backgroundColor = roleColor;
     }
 
@@ -125,7 +125,7 @@ function updatePostFocusProfilePhoto(postData) {
 
     const profilePath = postData.profile_photo_path;
     const authorName = postData.author_name || 'Usuário';
-    const roleColor = postData.role === 'estudante' ? '#D32F2F' : '#2f32d3ff';
+    const roleColor = postData.role === 'estudante' ? '#E11D48' : '#2563EB';
 
     if (profilePath) {
         profilePhoto.style.backgroundImage = `url(${profilePath})`;
@@ -183,7 +183,7 @@ function updatePostFocusLikeUI(isLiked) {
         // Post curtido - SVG preenchido
         likeBtn.classList.add('liked');
         likeBtn.innerHTML = `
-            <svg xmlns="http://http://www.w3.org/2000/svg" width="16" height="16" fill="#D32F2F" viewBox="0 0 16 16">
+            <svg xmlns="http://http://www.w3.org/2000/svg" width="16" height="16" fill="#E11D48" viewBox="0 0 16 16">
                 <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
             </svg>
             <span id="qntLikes">${likeBtn.dataset.totalLikes || 0}</span>

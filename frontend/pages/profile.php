@@ -361,7 +361,7 @@ $profile_id = $_GET['profile'];
 <script src="/frontend/static/js/commentsFunctions.js"></script>
 <script src="/frontend/static/js/addCommentBox.js"></script>
 <script src="/frontend/static/js/likeFunctions.js"></script>
-<script src="/frontend/static/js/loaduserinformation.js"></script>
+<script src="/frontend/static/js/loadUserInformation.js"></script>
 <script src="/frontend/static/js/executeWithRefresh.js"></script>
 <script src="/frontend/static/js/getUserPosts.js"></script>
 <script src="/frontend/static/js/getPayload.js"></script>
@@ -406,7 +406,7 @@ $profile_id = $_GET['profile'];
 
             const role = userInfo?.role ?? "user"
             document.querySelector("#user-role").innerText = role;
-            const roleColor = (role == "estudante") ? "#D32F2F" : "#2f32d3ff"
+            const roleColor = (role == "estudante") ? "#E11D48" : "#2563EB"
             document.querySelector("#user-role").style.background = roleColor;
 
             const created_at = userInfo.created_at;
@@ -466,7 +466,7 @@ $profile_id = $_GET['profile'];
                 span.classList.add("user-etec")
                 span.innerText = "ETECS"
                 span.style.cursor = "pointer"
-                span.style.color = "#D32F2F"
+                span.style.color = "#E11D48"
                 parent.appendChild(span)
 
                 // Criar modal
@@ -1088,7 +1088,7 @@ $profile_id = $_GET['profile'];
                     const username = userInfo?.name ?? "usuario"
 
                     const role = userInfo?.role ?? "user"
-                    const roleColor = (role == "estudante") ? "#D32F2F" : "#2f32d3ff"
+                    const roleColor = (role == "estudante") ? "#E11D48" : "#2563EB"
 
                     const profilePath = userInfo.profile_photo_path
                     const userPhoto = document.querySelector("#photo-label")
@@ -1333,7 +1333,7 @@ $profile_id = $_GET['profile'];
                 const username = userInfo?.name ?? "usuario"
 
                 const role = userInfo?.role ?? "user"
-                const roleColor = (role == "estudante") ? "#D32F2F" : "#2f32d3ff"
+                const roleColor = (role == "estudante") ? "#E11D48" : "#2563EB"
 
                 const profilePath = userInfo.profile_photo_path
                 const userPhoto = document.querySelector("#photo-label")
@@ -1390,7 +1390,7 @@ $profile_id = $_GET['profile'];
                 }
                 const updateUser = async (formData) => {
                     const token = localStorage.getItem("jwt_token");
-                    const response = await fetch("/api/updateuser", {
+                    const response = await fetch("/api/updateUser", {
                         method: "POST",
                         headers: {
                             'Authorization': `Bearer ${token}`
@@ -1717,7 +1717,7 @@ $profile_id = $_GET['profile'];
         function renderUserRow(user) {
             const authorName = user.name ?? "usuario";
             const authorRole = user.role ?? "user";
-            const roleColor = (authorRole === "estudante") ? "#D32F2F" : "#2f32d3ff";
+            const roleColor = (authorRole === "estudante") ? "#E11D48" : "#2563EB";
             const author_id = user.id;
             const profilePath = user.profile_photo_path ?? null;
 

@@ -320,7 +320,7 @@ if (is_numeric($server_id)) {
 
                 <script src="/frontend/static/js/alerts.js"></script>
                 <script src="/frontend/static/js/executeWithRefresh.js"></script>
-                <script src="frontend/static/js/loaduserinformation.js"></script>
+                <script src="frontend/static/js/loadUserInformation.js"></script>
                 <script src="/frontend/static/js/events.js"></script>
 
                 <script src="/frontend/static/js/aside-sec.js"></script>

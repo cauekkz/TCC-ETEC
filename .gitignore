@@ -9,3 +9,6 @@
 
 /backend/uploads/tcc_projects/*
 !/backend/uploads/tcc_projects/.gitkeep
+!/backend/uploads/mediaPost/seed/
+
+.env

@@ -1,30 +1,37 @@
-function addServerBox(server) {
-    const serverBox = document.createElement('div');
-    console.log(server)
-    serverBox.classList.add('server-card')
-    serverBox.innerHTML = `
-    
-    <div class="server-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="auto" height="90%" fill="currentColor" class="bi bi-server" viewBox="0 0 16 16">
-            <path d="M1 5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5zm0 6a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-2zm2.5-5a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1zm0 6a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1z" />
-        </svg>
-    </div>
-    <div class="server-info">
-        <h3>${server.name}</h3>
-        <!--
-        <div class="server-tags">
-            <span class="tag etec">ETEC</span>
-            <span class="members"><i class="fas fa-user"></i> 847</span>
-        </div>
-        <p>Servidor oficial da ETEC Cidade Tiradentes para todos os alunos e professores.</p>       
-        -->
-    </div>`
+function serverInitials(name) {
+    const clean = String(name || "").replace(/^Etec\s+(de\s+|da\s+|do\s+)?/i, "").replace(/\(.*?\)/g, "");
+    const words = clean.split(/[\s–-]+/).filter(w => w.length > 2 || /^[A-Z]/.test(w));
+    return ((words[0]?.[0] || "E") + (words[1]?.[0] || "")).toUpperCase();
+}
 
-    serverBox.addEventListener("click", (e) => {
-        
-        window.location.href = `/?server=${server.id}`;
-    });
+function serverHue(id) {
+    return (Number(id) * 47) % 360;
+}
+
+function addServerBox(server, isMine = false) {
+    const serverBox = document.createElement('div');
+    serverBox.classList.add('server-card');
+    if (isMine) serverBox.classList.add('ui-mine');
+    serverBox.dataset.name = String(server.name || "").toLowerCase();
+    serverBox.tabIndex = 0;
+    serverBox.setAttribute('role', 'link');
+
+    const hue = serverHue(server.id);
+    const isGeral = server.campus_id === null;
+    const avatar = isGeral
+        ? 'var(--grad-cool)'
+        : `linear-gradient(135deg, hsl(${hue} 78% 52%), hsl(${(hue + 40) % 360} 85% 58%))`;
+
+    serverBox.innerHTML = `
+    <div class="server-icon" style="--ui-avatar:${avatar}">${isGeral ? "#" : uiEscape(serverInitials(server.name))}</div>
+    <div class="server-info">
+        <h3>${uiEscape(server.name)}</h3>
+        ${isGeral ? '<span class="ui-mine-badge">Todas as Etecs</span>' : (isMine ? '<span class="ui-mine-badge">Sua Etec</span>' : '')}
+    </div>`;
+
+    const go = () => { window.location.href = `/?server=${server.id}`; };
+    serverBox.addEventListener("click", go);
+    serverBox.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
 
     return serverBox;
 }
-

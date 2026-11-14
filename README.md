@@ -6,6 +6,21 @@ Rede social acadêmica para alunos e professores das Etecs (Centro Paula Souza),
 
 **Stack:** PHP 8 (AltoRouter + API REST com JWT/refresh token), MariaDB/MySQL, HTML/CSS/JS puro com Bootstrap.
 
+![Feed](docs/home.jpg)
+
+![Projetos de TCC](docs/projetos.jpg)
+
+![Avisos](docs/avisos.jpg)
+
+![Mensagens](docs/mensagens.jpg)
+
+![Perfil](docs/perfil.jpg)
+
+<p align="center">
+  <img src="docs/login.jpg" alt="Login" width="49%">
+  <img src="docs/mobile.jpg" alt="Versão mobile" width="25%">
+</p>
+
 ---
 
 ## Dependências

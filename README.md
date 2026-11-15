@@ -1,112 +1,114 @@
 # ETEConnect
 
-Rede social acadêmica para alunos e professores das Etecs (Centro Paula Souza), desenvolvida como Trabalho de Conclusão de Curso.
+Academic social network for students and teachers of the Etecs (Centro Paula Souza, São Paulo's public technical schools), built as a final course project (TCC).
 
-**Funcionalidades:** feed por unidade (servidores), publicações com imagens/vídeos, curtidas e comentários com respostas, avisos, eventos com inscrição, vitrine de projetos de TCC, mensagens diretas, seguidores, perfil editável e tema claro/escuro.
+**Features:** per-campus feed (servers), posts with images/videos, likes and threaded comments, announcements, events with registration, a showcase of final projects, direct messages, followers, editable profile and light/dark theme.
 
-**Stack:** PHP 8 (AltoRouter + API REST com JWT/refresh token), MariaDB/MySQL, HTML/CSS/JS puro com Bootstrap.
+**Stack:** PHP 8 (AltoRouter + REST API with JWT/refresh tokens), MariaDB/MySQL, plain HTML/CSS/JS with Bootstrap.
+
+> The interface is in Portuguese.
 
 ![Feed](docs/home.jpg)
 
-![Projetos de TCC](docs/projetos.jpg)
+![Final projects](docs/projetos.jpg)
 
-![Avisos](docs/avisos.jpg)
+![Announcements](docs/avisos.jpg)
 
-![Mensagens](docs/mensagens.jpg)
+![Messages](docs/mensagens.jpg)
 
-![Perfil](docs/perfil.jpg)
+![Profile](docs/perfil.jpg)
 
 <p align="center">
   <img src="docs/login.jpg" alt="Login" width="49%">
-  <img src="docs/mobile.jpg" alt="Versão mobile" width="25%">
+  <img src="docs/mobile.jpg" alt="Mobile version" width="25%">
 </p>
 
 ---
 
-## Dependências
+## Dependencies
 
-**Com Docker (recomendado):** só precisa do [Docker](https://docs.docker.com/get-docker/) com o Docker Compose. O resto (PHP, Apache, banco) roda nos containers.
+**With Docker (recommended):** you only need [Docker](https://docs.docker.com/get-docker/) with Docker Compose. Everything else (PHP, Apache, database) runs in containers.
 
-**Sem Docker:**
+**Without Docker:**
 
-| Dependência | Versão | Observação |
+| Dependency | Version | Notes |
 |---|---|---|
-| PHP | 8.1+ | extensões `pdo_mysql`, `openssl`, `fileinfo`, `mbstring` |
-| Apache | 2.4 | `mod_rewrite` ativo e `AllowOverride All` (o roteamento usa o `.htaccess`) |
-| MySQL / MariaDB | 8.0+ / 10.6+ | banco `tcc`, charset `utf8mb4` |
-| Composer | 2.x | opcional: as pastas `vendor/` já estão no repositório |
+| PHP | 8.1+ | extensions `pdo_mysql`, `openssl`, `fileinfo`, `mbstring` |
+| Apache | 2.4 | `mod_rewrite` enabled and `AllowOverride All` (routing uses `.htaccess`) |
+| MySQL / MariaDB | 8.0+ / 10.6+ | database `tcc`, charset `utf8mb4` |
+| Composer | 2.x | optional: the `vendor/` folders are already in the repository |
 
-Bibliotecas PHP (via Composer):
+PHP libraries (via Composer):
 
-- [`altorouter/altorouter`](https://github.com/dannyvankooten/AltoRouter): rotas das páginas (`/composer.json`)
-- [`firebase/php-jwt`](https://github.com/firebase/php-jwt): autenticação JWT (`/backend/composer.json`)
-- [`phpmailer/phpmailer`](https://github.com/PHPMailer/PHPMailer): e-mail de recuperação de senha
+- [`altorouter/altorouter`](https://github.com/dannyvankooten/AltoRouter): page routing (`/composer.json`)
+- [`firebase/php-jwt`](https://github.com/firebase/php-jwt): JWT authentication (`/backend/composer.json`)
+- [`phpmailer/phpmailer`](https://github.com/PHPMailer/PHPMailer): password recovery email
 
-No front: Bootstrap 5 (já incluído em `frontend/static/bootstrap`), Google Fonts (Nunito e DM Sans) e Font Awesome via CDN.
+Front end: Bootstrap 5 (bundled in `frontend/static/bootstrap`), Google Fonts (Nunito and DM Sans) and Font Awesome via CDN.
 
 ---
 
-## Como rodar
+## How to run
 
-### Opção 1: Docker
+### Option 1: Docker
 
 ```bash
-git clone https://github.com/cauekkz/TCC-ETEC.git
-cd TCC-ETEC
+git clone https://github.com/cauekkz/eteconnect.git
+cd eteconnect
 docker compose up -d --build
 ```
 
-| Serviço     | Endereço                |
+| Service     | Address                 |
 |-------------|-------------------------|
 | Site        | http://localhost:8080   |
 | phpMyAdmin  | http://localhost:8081   |
-| MariaDB     | localhost:3307 (usuário `root`, senha `root`) |
+| MariaDB     | localhost:3307 (user `root`, password `root`) |
 
-Na primeira subida, o banco é criado e povoado sozinho com `backend/DDL.sql`, `DML.sql` e `seed.sql`.
+On the first start, the database is created and populated automatically from `backend/DDL.sql`, `DML.sql` and `seed.sql`.
 
-Comandos úteis:
+Useful commands:
 
 ```bash
-docker compose logs -f app              # ver logs do PHP/Apache
-docker compose down                     # parar
-docker compose down -v && docker compose up -d   # recriar o banco do zero
+docker compose logs -f app              # PHP/Apache logs
+docker compose down                     # stop
+docker compose down -v && docker compose up -d   # recreate the database from scratch
 ```
 
-> No Fedora/RHEL (SELinux) os volumes já usam o sufixo `:z`. Se as portas 8080, 8081 ou 3307 estiverem ocupadas, altere-as no `docker-compose.yml`.
+> On Fedora/RHEL (SELinux) the volumes already use the `:z` suffix. If ports 8080, 8081 or 3307 are taken, change them in `docker-compose.yml`.
 
-### Opção 2: XAMPP / Apache local
+### Option 2: XAMPP / local Apache
 
-1. Copie o projeto para a raiz do servidor (ex.: `C:\xampp\htdocs\`). O site precisa ficar na **raiz** do domínio (`http://localhost/`), porque as rotas são absolutas.
-2. Ative o `mod_rewrite` e garanta `AllowOverride All` no `httpd.conf`.
-3. Crie o banco e importe, nesta ordem:
+1. Copy the project to the server root (e.g. `C:\xampp\htdocs\`). The site must live at the **root** of the domain (`http://localhost/`), because routes are absolute.
+2. Enable `mod_rewrite` and make sure `AllowOverride All` is set in `httpd.conf`.
+3. Create the database and import, in this order:
    ```bash
    mysql -u root -e "CREATE DATABASE tcc CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
    mysql -u root tcc < backend/DDL.sql
    mysql -u root tcc < backend/DML.sql
-   mysql -u root tcc < backend/seed.sql   # dados de demonstração (opcional)
+   mysql -u root tcc < backend/seed.sql   # demo data (optional)
    ```
-4. Se o seu MySQL tiver usuário/senha diferentes, configure as variáveis de ambiente abaixo (ou ajuste os valores padrão em `backend/_inc/config.php`).
-5. Se for MySQL 8 (não MariaDB), desative o `ONLY_FULL_GROUP_BY`:
+4. If your MySQL uses a different user/password, set the environment variables below (or change the defaults in `backend/_inc/config.php`).
+5. On MySQL 8 (not MariaDB), disable `ONLY_FULL_GROUP_BY`:
    `SET GLOBAL sql_mode = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';`
 
-### Contas de demonstração
+### Demo accounts
 
-Senha de todas: `Etec@2025`
+Password for all of them: `Etec@2025`
 
-| Perfil | E-mail | Pode |
+| Role | Email | Can |
 |---|---|---|
-| Aluna | `aluno@etec.sp.gov.br` | ver feed, curtir, comentar, mensagens, eventos |
-| Professor | `professor@etec.sp.gov.br` | tudo acima + postar, criar avisos, eventos e projetos |
+| Student | `aluno@etec.sp.gov.br` | see the feed, like, comment, message, join events |
+| Teacher | `professor@etec.sp.gov.br` | all of the above + post, create announcements, events and projects |
 
-Há mais 14 usuários no seed (lista em `docker/seed/generate_seed.py`). Para regenerar os dados: `python3 docker/seed/generate_seed.py` (as imagens são geradas por `generate_images.py`, que precisa do Pillow).
+There are 14 more users in the seed (listed in `docker/seed/generate_seed.py`). To regenerate the data: `python3 docker/seed/generate_seed.py` (images are generated by `generate_images.py`, which needs Pillow).
 
-### Variáveis de ambiente
+### Environment variables
 
-| Variável | Padrão | Uso |
+| Variable | Default | Used for |
 |---|---|---|
-| `MYSQL_HOST` / `MYSQL_DBNAME` / `MYSQL_USER` / `MYSQL_PASS` | `localhost` / `tcc` / `root` / vazio | conexão com o banco |
-| `JWT_SECRET` | valor de desenvolvimento | assinatura dos tokens (**troque em produção**) |
-| `OPENSSL_KEY` / `OPENSSL_IV` | valores de desenvolvimento | criptografia auxiliar |
-| `SMTP_USER` / `SMTP_PASS` | vazio | conta Gmail + senha de app para "Recuperar senha" |
+| `MYSQL_HOST` / `MYSQL_DBNAME` / `MYSQL_USER` / `MYSQL_PASS` | `localhost` / `tcc` / `root` / empty | database connection |
+| `JWT_SECRET` | development value | token signing (**change it in production**) |
+| `OPENSSL_KEY` / `OPENSSL_IV` | development values | auxiliary encryption |
+| `SMTP_USER` / `SMTP_PASS` | empty | Gmail account + app password for "Forgot password" |
 
-No Docker, defina `SMTP_USER`/`SMTP_PASS` no shell (ou num arquivo `.env`) antes do `docker compose up`.
+With Docker, set `SMTP_USER`/`SMTP_PASS` in your shell (or in a `.env` file) before `docker compose up`.

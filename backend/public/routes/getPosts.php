@@ -70,10 +70,10 @@ if ($response->status != 'success') {
     exit;
 }
 
-// Processar posts e mídia
+// Process posts and media
 $posts = $response->results;
 foreach ($posts as $post) {
-    // Processar mídia do GROUP_CONCAT
+    // Process media from GROUP_CONCAT
     $post->media = [];
     if (!empty($post->media_data)) {
         $mediaItems = explode(';', $post->media_data);
@@ -88,9 +88,9 @@ foreach ($posts as $post) {
             }
         }
     }
-    unset($post->media_data); // Remover campo temporário
+    unset($post->media_data); // Remove temporary field
     
-    // Processar campus do GROUP_CONCAT
+    // Process campuses from GROUP_CONCAT
     $post->campus = [];
     if (!empty($post->campus_data)) {
         $campusItems = explode(';', $post->campus_data);
@@ -104,7 +104,7 @@ foreach ($posts as $post) {
             }
         }
     }
-    unset($post->campus_data); // Remover campo temporário
+    unset($post->campus_data); // Remove temporary field
 }
 
 

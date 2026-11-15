@@ -1,8 +1,8 @@
 /**
- * Função para atualizar um post
- * @param {number} id_post - ID do post a ser atualizado
- * @param {string} content - Novo conteúdo do post
- * @returns {Promise<Object>} - Resposta da API
+ * Updates a post
+ * @param {number} id_post - ID of the post to update
+ * @param {string} content - New post content
+ * @returns {Promise<Object>} - API response
  */
 async function updatePost(id_post, content) {
     const token = localStorage.getItem("jwt_token");
@@ -44,7 +44,7 @@ async function updatePost(id_post, content) {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Erro ao atualizar post:', error);
+        console.error('Error updating post:', error);
         return {
             status: "error",
             error_message: "Erro ao atualizar post. Tente novamente."

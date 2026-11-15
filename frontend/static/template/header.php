@@ -1,11 +1,11 @@
 <?php
-$caminhoCss = "frontend/static/css/$pageTitle.css";
-$titulos = [
+$cssPath = "frontend/static/css/$pageTitle.css";
+$pageTitles = [
     'home' => 'Feed', 'login' => 'Entrar', 'signup' => 'Criar conta', 'profile' => 'Perfil',
     'servers' => 'Servidores', 'events' => 'Eventos', 'projects' => 'Projetos de TCC',
     'notices' => 'Avisos', 'messages' => 'Mensagens', 'resetPassword' => 'Redefinir senha', '404' => 'Página não encontrada',
 ];
-$tituloPagina = $titulos[$pageTitle] ?? 'ETEConnect';
+$pageTitleText = $pageTitles[$pageTitle] ?? 'ETEConnect';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -13,7 +13,7 @@ $tituloPagina = $titulos[$pageTitle] ?? 'ETEConnect';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#F5F4F0">
-    <title><?= htmlspecialchars($tituloPagina) ?> · ETEConnect</title>
+    <title><?= htmlspecialchars($pageTitleText) ?> · ETEConnect</title>
     <script>
         (function () {
             try {
@@ -33,11 +33,11 @@ $tituloPagina = $titulos[$pageTitle] ?? 'ETEConnect';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500;1,6..72,600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/frontend/static/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="/frontend/static/css/geral.css">
+    <link rel="stylesheet" href="/frontend/static/css/general.css">
     <link rel="stylesheet" href="/frontend/static/css/theme.css">
     <link rel="stylesheet" href="/frontend/static/css/accessibility.css">
     <link rel="stylesheet" href="/frontend/static/css/confirmationModal.css">
-    <link rel="stylesheet" href="/<?= $caminhoCss ?>">
+    <link rel="stylesheet" href="/<?= $cssPath ?>">
     <link rel="icon" type="image/png" href="/frontend/static/img/logo.png">
 
     <script src="/frontend/static/js/themeManager.js"></script>

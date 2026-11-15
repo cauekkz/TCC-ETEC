@@ -136,7 +136,7 @@ hr {
   color: #D32F2F;
 }
 
-/* Estado do like quando curtido */
+/* Like state when liked */
 .like-post.liked {
   color: #D32F2F;
 }
@@ -145,12 +145,12 @@ hr {
   fill: #D32F2F !important;
 }
 
-/* Animação para o like */
+/* Like animation */
 .like-post:active {
   transform: scale(0.95);
 }
 
-/* Estilos para comentários */
+/* Comment styles */
 .comment-box {
   background-color: var(--bg-tertiary);
   border: 1px solid var(--border-secondary);
@@ -172,7 +172,7 @@ hr {
 
 }
 
-/* Seção de comentários com flex */
+/* Comments section with flex */
 .comment {
   display: flex;
   flex-direction: column;
@@ -180,10 +180,10 @@ hr {
   min-height: 0;
 }
 
-/* Container de comentários com scroll */
+/* Scrollable comments container */
 
 
-/* Form de comentário sempre visível */
+/* Comment form always visible */
 .form-comment {
   padding: 1rem 0;
   margin-bottom: 1rem;
@@ -206,7 +206,7 @@ hr {
   
 }
 
-/* Estilos para o botão de fechar */
+/* Close button styles */
 .close-post-focus {
   position: absolute;
   top: 10px;
@@ -313,7 +313,7 @@ hr {
   padding: 0.5rem;
 }
 
-/* Estilos para mídia no post focus */
+/* Media styles in the post focus view */
 .post-focus-media {
   margin-top: 1rem;
 }
@@ -337,7 +337,7 @@ hr {
   background-color: #000;
 }
 
-/* Modal apenas para comentários */
+/* Comments-only modal */
 .container-comments-only {
   position: fixed;
   top: 0;
@@ -365,7 +365,7 @@ hr {
   position: relative;
 }
 
-/* Container de comentários do modal com scroll */
+/* Scrollable comments container in the modal */
 #commentsOnlyContainer {
   max-height: 100%;
   min-height: 80px;
@@ -375,7 +375,7 @@ hr {
   flex: 1;
 }
 
-/* Scrollbar personalizada para o modal */
+/* Custom scrollbar for the modal */
 #commentsOnlyContainer::-webkit-scrollbar {
   width: 6px;
 }
@@ -394,7 +394,7 @@ hr {
   background: #a8a8a8;
 }
 
-/* Form de comentário do modal sempre visível */
+/* Modal comment form always visible */
 .container-comments-only .form-comment {
   padding: 1rem 0;
   margin-bottom: 1rem;
@@ -414,7 +414,7 @@ hr {
   transition: color 0.3s ease;
 }
 
-/* Título do modal sticky */
+/* Sticky modal title */
 .comments-only-modal h5 {
   flex-shrink: 0;
   margin-bottom: 1rem;

@@ -1,4 +1,4 @@
-// Função para criar elemento de comentário estilo YouTube
+// Creates a YouTube-style comment element
 function createCommentElement(comment, isReply = false) {
     const commentDiv = document.createElement('div');
     commentDiv.className = `comment-item ${isReply ? 'comment-reply' : ''}`;
@@ -20,7 +20,7 @@ function createCommentElement(comment, isReply = false) {
     // Formatar data
     const timeAgo = formatTimeAgo(createdAt);
     
-    // Contador de replies (será atualizado quando carregar)
+    // Reply counter (updated once loaded)
     const replyCount = comment.reply_count || 0;
     
     commentDiv.innerHTML = `
@@ -75,25 +75,25 @@ function createCommentElement(comment, isReply = false) {
         </div>
     `;
     
-    // Adicionar eventos de like
+    // Add like handlers
     const likeBtn = commentDiv.querySelector('.comment-like-btn');
     if (likeBtn) {
         likeBtn.addEventListener('click', handleCommentLike);
     }
     
-    // Adicionar eventos de reply
+    // Add reply handlers
     const replyBtn = commentDiv.querySelector('.comment-reply-btn');
     if (replyBtn) {
         replyBtn.addEventListener('click', handleShowReplyForm);
     }
     
-    // Adicionar eventos para mostrar replies
+    // Add handlers to show replies
     const showRepliesBtn = commentDiv.querySelector('.comment-show-replies-btn');
     if (showRepliesBtn) {
         showRepliesBtn.addEventListener('click', handleToggleReplies);
     }
     
-    // Adicionar eventos do formulário de reply
+    // Add reply form handlers
     const replySubmitBtn = commentDiv.querySelector('.comment-reply-submit');
     if (replySubmitBtn) {
         replySubmitBtn.addEventListener('click', handleSubmitReply);
@@ -117,7 +117,7 @@ function createCommentElement(comment, isReply = false) {
     return commentDiv;
 }
 
-// Função para lidar com like em comentário
+// Handles a like on a comment
 async function handleCommentLike(e) {
     e.stopPropagation();
     const btn = e.currentTarget;
@@ -142,7 +142,7 @@ async function handleCommentLike(e) {
             btn.classList.toggle('liked', newLiked);
             btn.querySelector('.comment-like-count').textContent = formatNumber(newTotalLikes);
             
-            // Atualizar ícone
+            // Update the icon
             const svg = btn.querySelector('svg');
             if (newLiked) {
                 svg.innerHTML = '<path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>';
@@ -153,11 +153,11 @@ async function handleCommentLike(e) {
             }
         }
     } catch (error) {
-        console.error('Erro ao curtir comentário:', error);
+        console.error('Error liking comment:', error);
     }
 }
 
-// Função para mostrar formulário de reply
+// Shows the reply form
 function handleShowReplyForm(e) {
     e.stopPropagation();
     const btn = e.currentTarget;
@@ -174,7 +174,7 @@ function handleShowReplyForm(e) {
     }
 }
 
-// Função para cancelar reply
+// Cancels a reply
 function handleCancelReply(e) {
     e.stopPropagation();
     const btn = e.currentTarget;
@@ -191,7 +191,7 @@ function handleCancelReply(e) {
     }
 }
 
-// Função para enviar reply
+// Sends a reply
 async function handleSubmitReply(e) {
     e.stopPropagation();
     const btn = e.currentTarget;
@@ -203,10 +203,10 @@ async function handleSubmitReply(e) {
     
     if (!content) return;
     
-    // Obter postId do contexto (pode precisar ajustar dependendo de onde está sendo usado)
+    // Get postId from the context (may need adjusting depending on where it's used)
     const postId = getCurrentPostId();
     if (!postId) {
-        console.error('Post ID não encontrado');
+        console.error('Post ID not found');
         return;
     }
     
@@ -222,13 +222,13 @@ async function handleSubmitReply(e) {
             await loadRepliesForComment(parentId);
         }
     } catch (error) {
-        console.error('Erro ao enviar resposta:', error);
+        console.error('Error sending reply:', error);
     } finally {
         btn.disabled = false;
     }
 }
 
-// Função para carregar replies de um comentário
+// Loads a comment's replies
 async function loadRepliesForComment(commentId) {
     const commentDiv = document.querySelector(`.comment-item[data-comment-id="${commentId}"]`);
     if (!commentDiv) return;
@@ -249,11 +249,11 @@ async function loadRepliesForComment(commentId) {
             }
         }
     } catch (error) {
-        console.error('Erro ao carregar respostas:', error);
+        console.error('Error loading replies:', error);
     }
 }
 
-// Função para mostrar/ocultar replies
+// Shows/hides replies
 async function handleToggleReplies(e) {
     e.stopPropagation();
     const btn = e.currentTarget;
@@ -266,7 +266,7 @@ async function handleToggleReplies(e) {
     const isVisible = repliesContainer.style.display !== 'none';
     
     if (!isVisible) {
-        // Carregar replies se ainda não foram carregados
+        // Load replies if they haven't been loaded yet
         if (repliesContainer.children.length === 0) {
             await loadRepliesForComment(commentId);
         }
@@ -278,9 +278,9 @@ async function handleToggleReplies(e) {
     }
 }
 
-// Função auxiliar para obter o ID do post atual
+// Helper that gets the current post's ID
 function getCurrentPostId() {
-    // Tentar vários locais onde o postId pode estar
+    // Try the various places postId might be
     const postFocus = document.querySelector('.post-focus[data-post-id]');
     if (postFocus) return postFocus.dataset.postId;
     
@@ -290,20 +290,20 @@ function getCurrentPostId() {
     const commentContainer = document.querySelector('.comment-list[data-post-id]');
     if (commentContainer && commentContainer.dataset.postId) return commentContainer.dataset.postId;
     
-    // Tentar encontrar no contexto do comentário clicado
+    // Try to find it in the clicked comment's context
     const activeForm = document.activeElement?.closest('.comment-item');
     if (activeForm) {
         const container = activeForm.closest('.comment-list');
         if (container && container.dataset.postId) return container.dataset.postId;
     }
     
-    // Tentar encontrar pelo container de replies
+    // Try to find it through the replies container
     const repliesContainer = document.activeElement?.closest('.comment-replies-container');
     if (repliesContainer) {
         const commentItem = repliesContainer.closest('.comment-item');
         if (commentItem) {
             const allComments = document.querySelectorAll('.comment-item');
-            // Encontrar o comentário pai e buscar o postId do contexto
+            // Find the parent comment and get postId from its context
             for (let comment of allComments) {
                 if (comment.dataset.commentId) {
                     const container = comment.closest('.comment-list');
@@ -316,7 +316,7 @@ function getCurrentPostId() {
     return null;
 }
 
-// Função auxiliar para formatar número
+// Helper that formats a number
 function formatNumber(num) {
     if (num === 0) return '';
     if (num < 1000) return num.toString();
@@ -324,19 +324,19 @@ function formatNumber(num) {
     return (num / 1000000).toFixed(1).replace('.0', '') + 'M';
 }
 
-// Função auxiliar para obter a primeira letra do nome para o avatar
+// Helper that gets the first letter of the name for the avatar
 function getProfileLetter(name) {
     return name ? name.charAt(0).toUpperCase() : '?';
 }
 
-// Função para escapar HTML
+// Escapes HTML
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
 }
 
-// Função para formatar tempo (usar a mesma função dos posts)
+// Formats time (same function as the posts)
 function formatTimeAgo(created_at) {
     if (!created_at) return '';
     

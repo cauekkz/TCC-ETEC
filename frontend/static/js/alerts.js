@@ -8,7 +8,7 @@ class AlertManager {
     }
 
     init() {
-        // Criar container de alertas se não existir
+        // Create the alerts container if it doesn't exist
         if (!document.querySelector('.alert-container')) {
             this.container = document.createElement('div');
             this.container.className = 'alert-container';
@@ -20,20 +20,20 @@ class AlertManager {
     }
 
     /**
-     * Exibe um alerta
-     * @param {string} message - Mensagem do alerta
-     * @param {string} type - Tipo do alerta (error, success, warning, info)
-     * @param {number} duration - Duração em milissegundos (padrão: 4000ms)
+     * Shows an alert
+     * @param {string} message - Alert message
+     * @param {string} type - Alert type (error, success, warning, info)
+     * @param {number} duration - Duration in milliseconds (default: 4000ms)
      */
     show(message, type = 'error', duration = 4000) {
-        // Remover todos os alertas existentes antes de mostrar um novo
+        // Remove every existing alert before showing a new one
         this.clearAll();
         
         const alert = this.createAlert(message, type);
         this.container.appendChild(alert);
         this.alerts.push(alert);
 
-        // Auto-remove após duração especificada
+        // Auto-remove after the given duration
         if (duration > 0) {
             setTimeout(() => {
                 this.remove(alert);
@@ -44,9 +44,9 @@ class AlertManager {
     }
 
     /**
-     * Cria um alerta de erro
-     * @param {string} message - Mensagem de erro
-     * @param {number} duration - Duração em milissegundos
+     * Creates an error alert
+     * @param {string} message - Error message
+     * @param {number} duration - Duration in milliseconds
      */
     error(message, duration = 4000) {
         console.log(message)
@@ -54,36 +54,36 @@ class AlertManager {
     }
 
     /**
-     * Cria um alerta de sucesso
-     * @param {string} message - Mensagem de sucesso
-     * @param {number} duration - Duração em milissegundos
+     * Creates a success alert
+     * @param {string} message - Success message
+     * @param {number} duration - Duration in milliseconds
      */
     success(message, duration = 3000) {
         return this.show(message, 'success', duration);
     }
 
     /**
-     * Cria um alerta de aviso
-     * @param {string} message - Mensagem de aviso
-     * @param {number} duration - Duração em milissegundos
+     * Creates a warning alert
+     * @param {string} message - Warning message
+     * @param {number} duration - Duration in milliseconds
      */
     warning(message, duration = 4000) {
         return this.show(message, 'warning', duration);
     }
 
     /**
-     * Cria um alerta informativo
-     * @param {string} message - Mensagem informativa
-     * @param {number} duration - Duração em milissegundos
+     * Creates an info alert
+     * @param {string} message - Info message
+     * @param {number} duration - Duration in milliseconds
      */
     info(message, duration = 4000) {
         return this.show(message, 'info', duration);
     }
 
     /**
-     * Cria o elemento HTML do alerta
-     * @param {string} message - Mensagem do alerta
-     * @param {string} type - Tipo do alerta
+     * Creates the alert's HTML element
+     * @param {string} message - Alert message
+     * @param {string} type - Alert type
      */
     createAlert(message, type) {
         const alert = document.createElement('div');
@@ -118,8 +118,8 @@ class AlertManager {
     }
 
     /**
-     * Remove um alerta específico
-     * @param {HTMLElement} alert - Elemento do alerta a ser removido
+     * Removes a specific alert
+     * @param {HTMLElement} alert - Alert element to remove
      */
     remove(alert) {
         if (!alert || !alert.classList.contains('alert')) return;
@@ -135,7 +135,7 @@ class AlertManager {
     }
 
     /**
-     * Remove todos os alertas
+     * Removes every alert
      */
     clearAll() {
         this.alerts.forEach(alert => {
@@ -144,8 +144,8 @@ class AlertManager {
     }
 
     /**
-     * Escapa HTML para evitar XSS
-     * @param {string} text - Texto a ser escapado
+     * Escapes HTML to prevent XSS
+     * @param {string} text - Text to escape
      */
     escapeHtml(text) {
         const div = document.createElement('div');
@@ -154,9 +154,9 @@ class AlertManager {
     }
 
     /**
-     * Exibe erro do backend de forma inteligente
-     * @param {Object|string} error - Erro do backend
-     * @param {string} fallbackMessage - Mensagem padrão se não conseguir extrair a mensagem
+     * Smartly shows a backend error
+     * @param {Object|string} error - Backend error
+     * @param {string} fallbackMessage - Default message if none can be extracted
      */
     showBackendError(error, fallbackMessage = 'Ocorreu um erro inesperado') {
         let message = fallbackMessage;
@@ -170,15 +170,14 @@ class AlertManager {
                 message = error.error_message;
             }
         }
-        console.log("louco")
         console.log(error)
         return this.error(message);
     }
 
     /**
-     * Exibe sucesso do backend
-     * @param {Object|string} response - Resposta do backend
-     * @param {string} fallbackMessage - Mensagem padrão se não conseguir extrair a mensagem
+     * Shows a backend success message
+     * @param {Object|string} response - Backend response
+     * @param {string} fallbackMessage - Default message if none can be extracted
      */
     showBackendSuccess(response, fallbackMessage = 'Operação realizada com sucesso') {
         let message = fallbackMessage;
@@ -199,29 +198,29 @@ class AlertManager {
     }
 
     /**
-     * Exibe erros de validação de campos específicos
-     * @param {Object} validationErrors - Objeto com erros de validação por campo
-     * @param {string} fallbackMessage - Mensagem padrão se não conseguir extrair a mensagem
+     * Shows validation errors for specific fields
+     * @param {Object} validationErrors - Object with validation errors per field
+     * @param {string} fallbackMessage - Default message if none can be extracted
      */
     showValidationErrors(validationErrors, fallbackMessage = 'Erro de validação') {
         if (!validationErrors || typeof validationErrors !== 'object') {
             return this.error(fallbackMessage);
         }
 
-        // Se é um array de erros
+        // If it's an array of errors
         if (Array.isArray(validationErrors)) {
             if (validationErrors.length > 0) {
                 return this.error(validationErrors[0]);
             }
         }
 
-        // Se é um objeto com erros por campo
+        // If it's an object with errors per field
         const fieldNames = Object.keys(validationErrors);
         if (fieldNames.length > 0) {
             const firstField = fieldNames[0];
             const fieldError = validationErrors[firstField];
             
-            // Se o erro do campo é um array, pegar o primeiro
+            // If the field error is an array, take the first one
             if (Array.isArray(fieldError)) {
                 return this.error(`${firstField}: ${fieldError[0]}`);
             } else {
@@ -235,7 +234,7 @@ class AlertManager {
 
 const alertManager = new AlertManager();
 
-// Funções de conveniência para uso global
+// Convenience functions for global use
 function showAlert(message, type = 'error', duration = 4000) {
     return alertManager.show(message, type, duration);
 }

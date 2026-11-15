@@ -1,4 +1,4 @@
-/* Estilos para posts */
+/* Post styles */
 .post {
   width: 100%;
   min-height: 12rem;
@@ -102,7 +102,7 @@
 .post-comments-icon:hover{
     color: #D32F2F;
 }
-/* Modal de opções do post */
+/* Post options modal */
 #post-modal {
     position: absolute;
     border: 1px solid var(--border-secondary);
@@ -167,7 +167,7 @@ li:hover #icon-delete {
     user-select: none;
 }
 
-/* Estilos para mídia dos posts */
+/* Post media styles */
 .post-media {
     margin-top: 1rem;
     display: flex;
@@ -201,7 +201,7 @@ li:hover #icon-delete {
     transform: scale(1.05);
 }
 
-/* Modal para visualizar imagens */
+/* Image viewer modal */
 .image-modal {
     display: none;
     position: fixed;
@@ -246,7 +246,7 @@ li:hover #icon-delete {
     to { opacity: 1; }
 }
 
-/* Modal para visualizar vídeos */
+/* Video viewer modal */
 .video-modal {
     display: none;
     position: fixed;
@@ -287,7 +287,7 @@ li:hover #icon-delete {
 }
 /* Super large devices (desktops, 1600px and up) */
 @media (max-width: 1600px) {
-  /* Estilos para dispositivos super grandes */
+  /* Styles for extra large screens */
   
 }
 
@@ -298,25 +298,25 @@ li:hover #icon-delete {
 
 /* Large devices (desktops, 1201px to 1400px) */
 @media (max-width: 1200px) {
-  /* Estilos para dispositivos maiores */
+  /* Styles for large screens */
  
 }
 
 /* Medium devices (desktops, 1025px to 1200px) */
 @media (max-width: 1024px) {
-  /* Estilos para dispositivos médios */
+  /* Styles for medium screens */
   
 }
 
 /* Small devices (tablets, 601px to 1024px) */
 @media (max-width: 768px) {
-  /* Estilos para dispositivos com tela pequena */
+  /* Styles for small screens */
  
 }
 
 /* Extra small devices (phones, 600px and down) */
 @media (max-width: 600px) {
-  /* Estilos para dispositivos pequenos */
+  /* Styles for extra small screens */
  
   .post-role,.satan,.post-etec{
     display: none !important;

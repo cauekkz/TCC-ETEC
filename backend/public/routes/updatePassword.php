@@ -3,7 +3,7 @@ require("../../_inc/init.php");
 
 session_start();
 
-// ✅ Garante método PUT
+// ✅ Make sure the method is PUT
 if ($_SERVER['REQUEST_METHOD'] !== 'PUT') {
     http_response_code(405);
     echo json_encode([
@@ -50,7 +50,7 @@ if (!empty($errors)) {
 
 
 
-// ✅ Validação do token na sessão
+// ✅ Validate the token in the session
 if (
     !isset($_SESSION['password_reset']) ||
     $_SESSION['password_reset']['token'] !== $data['token'] ||
@@ -68,12 +68,12 @@ $user_id = $_SESSION['password_reset']['user_id'];
 // ✅ Hash seguro
 $hash = password_hash($data['password'], PASSWORD_DEFAULT);
 
-// ✅ Atualiza no banco
+// ✅ Update the database
 $sql = "UPDATE user SET password_hash = :p WHERE id = :u";
 $params = ["p" => $hash, "u" => $user_id];
 $db->execute_non_query($sql, $params);
 
-// ✅ Invalida o token
+// ✅ Invalidate the token
 unset($_SESSION['password_reset']);
 
 echo json_encode([

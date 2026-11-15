@@ -56,8 +56,8 @@ btnCreate.addEventListener("click", () => {
 
 
 containerCreate.addEventListener("click", (e) => {
-    const conteudo = document.querySelector(".create-card");
-    if (!conteudo.contains(e.target)) {
+    const content = document.querySelector(".create-card");
+    if (!content.contains(e.target)) {
         containerCreate.classList.add("d-none");
     }
 });
@@ -68,7 +68,7 @@ document.querySelector(".like-post").addEventListener("click", (e) => {
 });
 
 
-// Variáveis para o formulário de criação de post
+// Variables for the create post form
 const formCreatePost = document.querySelector("#formCreatePost");
 const textareaCreate = document.querySelector("#textareaCreate");
 const btnPublish = document.querySelector("#btnPublish");
@@ -78,17 +78,17 @@ const mediaInput = document.querySelector("#mediaInput");
 const mediaPreview = document.querySelector("#mediaPreview");
 const previewContainer = document.querySelector("#previewContainer");
 
-// Variáveis para controle de estado
+// State variables
 let selectedFiles = [];
 let userInfo = null;
 let userRole = null;
 
-// Verificar se o usuário é professor ao carregar a página
+// Check whether the user is a teacher when the page loads
 async function checkUserRole() {
     try {
         const token = localStorage.getItem("jwt_token");
         if (!token) {
-            console.error("Token não encontrado");
+            console.error("Token not found");
             return;
         }
 
@@ -119,31 +119,31 @@ async function checkUserRole() {
 
 
             } else {
-                console.log("Usuário não é professor");
+                console.log("User is not a teacher");
                 btnCreate.style.display = "none";
             }
         } else {
-            console.error("Erro ao obter informações do usuário:", result);
+            console.error("Error getting user info:", result);
         }
     } catch (error) {
-        console.error("Erro na requisição:", error);
+        console.error("Request error:", error);
     }
 }
 
-// Carregar informações do usuário ao iniciar
+// Load user info on start
 checkUserRole();
 
 
 
 
-// Função para adicionar funcionalidade de like aos posts
+// Adds like functionality to the posts
 function addLikeFunctionalityToPosts() {
     const posts = document.querySelectorAll('.post');
 
     posts.forEach(post => {
         const likeBtn = post.querySelector('.post-like-icon');
         if (likeBtn) {
-            // Remover event listeners antigos para evitar duplicação
+            // Remove old event listeners to avoid duplicates
             const newLikeBtn = likeBtn.cloneNode(true);
             likeBtn.parentNode.replaceChild(newLikeBtn, likeBtn);
 
@@ -164,10 +164,10 @@ function addLikeFunctionalityToPosts() {
     });
 }
 
-// Adicionar funcionalidade de like quando posts são carregados
-// Removido pois já é chamado no loadHomePosts.js
+// Add like functionality once posts are loaded
+// Removed since it's already called in loadHomePosts.js
 
-// Controle do botão de publicar
+// Publish button control
 textareaCreate.addEventListener("input", () => {
     const textCreate = textareaCreate.value.trim();
 
@@ -178,12 +178,12 @@ textareaCreate.addEventListener("input", () => {
     }
 });
 
-// Botão de adicionar mídia
+// Add media button
 btnAddMedia.addEventListener("click", () => {
     mediaInput.click();
 });
 
-// Input de mídia
+// Media input
 mediaInput.addEventListener("change", (e) => {
     const files = Array.from(e.target.files);
     selectedFiles = files;
@@ -195,7 +195,7 @@ mediaInput.addEventListener("change", (e) => {
     }
 });
 
-// Mostrar preview das mídias
+// Show the media preview
 function showMediaPreview(files) {
     mediaPreview.classList.remove("d-none");
     previewContainer.innerHTML = "";
@@ -213,7 +213,7 @@ function showMediaPreview(files) {
         removeBtn.style.zIndex = "10";
         removeBtn.innerHTML = "×";
         removeBtn.onclick = (e) => {
-            e.stopPropagation(); // <-- isso evita que o clique feche o form
+            e.stopPropagation(); // <-- this keeps the click from closing the form
             removeFile(index);
         };
 
@@ -245,7 +245,7 @@ function showMediaPreview(files) {
     });
 }
 
-// Remover arquivo do preview
+// Remove a file from the preview
 function removeFile(index) {
     selectedFiles.splice(index, 1);
 
@@ -262,13 +262,13 @@ function hideMediaPreview() {
     previewContainer.innerHTML = "";
 }
 
-// Botão cancelar
+// Cancel button
 btnCancel.addEventListener("click", () => {
     containerCreate.classList.add("d-none");
     resetForm();
 });
 
-// Resetar formulário
+// Reset the form
 function resetForm() {
     textareaCreate.value = "";
     selectedFiles = [];
@@ -277,4 +277,4 @@ function resetForm() {
     mediaInput.value = "";
 }
 
-// Submissão do formulário
+// Form submission

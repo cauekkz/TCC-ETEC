@@ -15,20 +15,20 @@ async function getRootComments(postId, page = 1) {
             });
             
             if (!response.ok) {
-                console.error('Response não ok:', response.status, response.statusText);
+                console.error('Response not ok:', response.status, response.statusText);
                 throw new Error("Erro ao buscar comentários");
             }
 
             const data = await response.json();
             return data;
         } catch (error) {
-            console.error('Erro em getRootComments:', error);
+            console.error('Error in getRootComments:', error);
             throw error;
         }
     }
 }
 
-// Função para buscar comentários root de um post específico
+// Fetches the root comments of a specific post
 async function getComments(postId, page = 1) {
     const token = localStorage.getItem("jwt_token");
     
@@ -46,14 +46,14 @@ async function getComments(postId, page = 1) {
             });
             
             if (!response.ok) {
-                console.error('Response não ok:', response.status, response.statusText);
+                console.error('Response not ok:', response.status, response.statusText);
                 throw new Error("Erro ao buscar comentários");
             }
 
             const data = await response.json();
             return data;
         } catch (error) {
-            console.error('Erro em getComments:', error);
+            console.error('Error in getComments:', error);
             throw error;
         }
     }
@@ -156,7 +156,7 @@ async function getReplies(commentRootId, page = 1) {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Erro em getReplies:', error);
+        console.error('Error in getReplies:', error);
         return { status: 'error', data: [] };
     }
 }

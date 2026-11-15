@@ -26,7 +26,7 @@ $resultJWT = $jwt->validate_token($tokenJWT);
 $user_id = $resultJWT['id'];
 $user_role = $resultJWT['role'];
 
-// Validações de segurança
+// Security checks
 if (count($campusArray) <= 0) {
     $res->set_status("error");
     $res->set_error_message("At least one campus is required");
@@ -34,7 +34,7 @@ if (count($campusArray) <= 0) {
     exit;
 }
 
-// Estudantes só podem ter 1 campus, professores podem ter múltiplos
+// Students can only have 1 campus, teachers can have several
 if ($user_role === "estudante" && count($campusArray) !== 1) {
     $res->set_status("error");
     $res->set_error_message("Estudantes can only have one campus");
@@ -42,7 +42,7 @@ if ($user_role === "estudante" && count($campusArray) !== 1) {
     exit;
 }
 
-// Limitar número máximo de campus (prevenir spam)
+// Limit the maximum number of campuses (prevents spam)
 if (count($campusArray) > 10) {
     $res->set_status("error");
     $res->set_error_message("Maximum 10 campuses allowed");
@@ -63,7 +63,7 @@ $sql = "SELECT id FROM campus WHERE id IN (" . implode(", ", $placeholders) . ")
 $response = $db->execute_query($sql, $params);
 if ($response->status != 'success' || empty($response->results)) {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message($response->message);
     $res->response();
     exit;
 }
@@ -79,7 +79,7 @@ if ($user_role == "estudante") {
     $response = $db->execute_non_query($sql, $params);
     if ($response->status != 'success') {
         $res->set_status('error');
-        $res->set_error_message($response->mensagem);
+        $res->set_error_message($response->message);
         $res->response();
         exit;
     }
@@ -102,7 +102,7 @@ $response = $db->execute_non_query($sql, $params);
 
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message($response->message);
     $res->response();
     exit;
 }
@@ -112,7 +112,7 @@ if ($user_role == "estudante") {
     $response = $db->execute_non_query($sql, $params);
     if ($response->status != 'success') {
         $res->set_status('error');
-        $res->set_error_message($response->mensagem);
+        $res->set_error_message($response->message);
         $res->response();
         exit;
     }

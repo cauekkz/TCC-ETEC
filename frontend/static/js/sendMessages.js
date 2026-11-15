@@ -17,7 +17,7 @@ async function sendMessage(receiver_id, content, fileObjectOrInput, media_type) 
 
     if (fileToSend) {
         formData.append("media_file", fileToSend); 
-        console.log(`Anexando arquivo: ${fileToSend.name}`);
+        console.log(`Attaching file: ${fileToSend.name}`);
     }
 
     const messageContent = content.trim() || "ㅤ"; 
@@ -35,7 +35,7 @@ async function sendMessage(receiver_id, content, fileObjectOrInput, media_type) 
     })
 
     if (!response.ok) {
-        console.error("Erro HTTP ao enviar mensagem:", response.status, await response.text());
+        console.error("HTTP error sending message:", response.status, await response.text());
         throw new Error(`Falha no envio da mensagem. Status: ${response.status}`);
     }
 

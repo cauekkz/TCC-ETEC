@@ -87,7 +87,7 @@ async function deleteNotice(notice_id) {
     });
 
     if (!confirmed) {
-        console.log("Usuário cancelou");
+        console.log("User cancelled");
         return;
     }
 

@@ -115,7 +115,7 @@
     color: #666;
 }
 
-/* Responsividade para servidores */
+/* Servers responsiveness */
 @media (max-width: 768px) {
     .servers-grid {
         grid-template-columns: 1fr;

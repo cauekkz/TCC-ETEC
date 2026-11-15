@@ -27,7 +27,7 @@ $params = ['email' => $email];
 $response = $db->execute_query($sql, $params);
 
 
-if (empty($response->results) || $response->mensagem != "success") {
+if (empty($response->results) || $response->message != "success") {
     $res->set_status("error");
     $res->set_error_message("email não encontrado");
 

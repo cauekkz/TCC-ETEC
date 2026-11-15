@@ -110,13 +110,13 @@ async function getParticipants(event) {
     const participants = res.data;
 
     if (!participants) {
-        return { porcentagem: 0, quantidade: 0 };
+        return { percentage: 0, count: 0 };
     }
 
-    const quantidade = Object.keys(participants).length;
-    const porcentagem = (quantidade / event.capacity) * 100;
+    const count = Object.keys(participants).length;
+    const percentage = (count / event.capacity) * 100;
 
-    return { porcentagem, quantidade };
+    return { percentage, count };
 }
 async function deleteEvent(event_id) {
     const deleteModal = document.getElementById("delete-modal");
@@ -150,7 +150,7 @@ async function deleteEvent(event_id) {
     });
 
     if (!confirmed) {
-        console.log("Usuário cancelou");
+        console.log("User cancelled");
         return;
     }
 
@@ -202,9 +202,9 @@ async function loadEvents() {
 
 
     for (const event of data_events.data) {
-        const dataFormatada = new Date(event.date).toLocaleDateString("pt-BR");
-        const { porcentagem, quantidade } = await getParticipants(event);
-        const monstromonstro = (event.user_participating === 1) ? "Participando" : "Participar";
+        const formattedDate = new Date(event.date).toLocaleDateString("pt-BR");
+        const { percentage, count } = await getParticipants(event);
+        const participateLabel = (event.user_participating === 1) ? "Participando" : "Participar";
         const func = (event.user_participating === 1) ? "removePresence" : "addPresence";
                 let deleteBtnStyle = "display:none;";
 
@@ -232,7 +232,7 @@ async function loadEvents() {
                 <div class="event-details">
                     <div class="detail-item">
                         <i class="fas fa-calendar"></i>
-                        <span>${dataFormatada}</span>
+                        <span>${formattedDate}</span>
                     </div>
                     <div class="detail-item">
                         <i class="fas fa-clock"></i>
@@ -245,14 +245,14 @@ async function loadEvents() {
                     <div class="detail-item">
                         <div style="display: flex; align-items: center; gap: 0.75rem;">
                             <i class="fas fa-users"></i>
-                            <span>${quantidade}/${event.capacity} Participantes</span>
+                            <span>${count}/${event.capacity} Participantes</span>
                         </div>
                         <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${porcentagem}%;"></div>
+                            <div class="progress-fill" style="width: ${percentage}%;"></div>
                         </div>
                     </div>
                 </div>
-                <button class="participate-btn ${event.user_participating === 1 ? 'participating' : ''}" onclick="${func}(${event.id})">${monstromonstro}</button>
+                <button class="participate-btn ${event.user_participating === 1 ? 'participating' : ''}" onclick="${func}(${event.id})">${participateLabel}</button>
             </div>
         `;
 

@@ -12,7 +12,7 @@ if (
 }
 ?>
 <style>
-  .text-entrar {
+  .text-login {
     font-size: 1.4rem;
     font-weight: 600;
     color: var(--text-primary);
@@ -40,10 +40,10 @@ if (
   <!-- LOGO + TEMA -->
 
 
-  <!-- TÍTULO -->
+  <!-- TITLE -->
   <div class="row">
     <div class="col">
-      <p class="text-center text-entrar">Criar nova senha</p>
+      <p class="text-center text-login">Criar nova senha</p>
       <hr id="hr-style">
     </div>
   </div>

@@ -12,7 +12,7 @@ body{
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Melhorias para Touch/Smartphone */
+/* Touch/smartphone improvements */
 button, a, input, select, textarea {
     touch-action: manipulation;
 }
@@ -24,7 +24,7 @@ button, .btn, a.aside-a {
     align-items: center;
     justify-content: center;
 }
-/* Importar sistema de alertas */
+/* Import the alert system */
 @import url('alerts.css');
 
 /* Responsividade Geral */
@@ -79,7 +79,7 @@ button, .btn, a.aside-a {
         font-size: 0.95rem;
     }
     
-    /* Melhor espaçamento para touch */
+    /* Better spacing for touch */
     button, .btn {
         padding: 0.75rem 1rem;
         font-size: 0.9rem;

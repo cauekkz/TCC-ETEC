@@ -12,7 +12,7 @@ if (isset($_GET['server_id'])) {
     $res->response();
     exit;
 }
-//dps se dar na telha fazer paginizado
+// TODO: maybe paginate this later
 $sql = "SELECT * FROM notice n where n.server_id = :server_id ORDER BY n.created_at DESC;";
 $params = ['server_id' => $server_id];
 

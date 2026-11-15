@@ -111,7 +111,7 @@
     font-size: 0.95rem;
     display: -webkit-box;
     -webkit-line-clamp: 5;
-    /* número de linhas */
+    /* number of lines */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -264,7 +264,7 @@ body.dark-mode .like-btn:hover {
     display: flex;
     flex-direction: column;
     height: 90vh;
-    /* ocupa a tela */
+    /* fills the screen */
 }
 
 .modal-header,
@@ -362,12 +362,12 @@ body.dark-mode .like-btn:hover {
     line-height: 1;
 }
 
-/* Resultados da busca */
+/* Search results */
 .results-box {
     margin-top: .4rem;
     width: 100%;
     background: var(--bg-secondary);
-    /* cor equilibrada no claro/escuro */
+    /* balanced color in light/dark */
     border: 1px solid var(--border-secondary);
     border-radius: .6rem;
     box-shadow: var(--shadow-light);
@@ -398,7 +398,7 @@ body.dark-mode .like-btn:hover {
     color: var(--text-primary);
 }
 
-/* Último item */
+/* Last item */
 .result-item:last-child {
     border-bottom: none;
 }
@@ -422,7 +422,7 @@ body.dark-mode .like-btn:hover {
     background: var(--border-primary);
 }
 
-/* Tags de selecionados */
+/* Selected item tags */
 .selected-members {
     display: flex;
     flex-wrap: wrap;

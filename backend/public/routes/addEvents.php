@@ -85,7 +85,7 @@ $response = $db->execute_non_query($sql, $params);
 
 if ($response->status != 'success') {
     $res->set_status("error");
-    $res->set_error_message($response->mensagem ?? "Erro ao criar evento");
+    $res->set_error_message($response->message ?? "Erro ao criar evento");
     $res->response();
     exit;
 } 

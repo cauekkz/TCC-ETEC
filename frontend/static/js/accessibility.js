@@ -1,6 +1,6 @@
 /**
- * Sistema de Acessibilidade - EteConnect
- * Funcionalidades: Text-to-speech, descrição de imagens, controle de tamanho de fonte
+ * Accessibility system - EteConnect
+ * Features: text-to-speech, image descriptions, font size control
  */
 
 class AccessibilityManager {
@@ -8,7 +8,7 @@ class AccessibilityManager {
         this.settings = {
             textToSpeech: false,
             imageDescription: false,
-            fontSize: 1.0, // Multiplicador de tamanho de fonte (1.0 = 100%)
+            fontSize: 1.0, // Font size multiplier (1.0 = 100%)
             speechRate: 1.0,
             speechPitch: 1.0
         };
@@ -22,23 +22,23 @@ class AccessibilityManager {
     }
 
     init() {
-        // Carrega configurações salvas (funciona em todas as páginas)
+        // Load saved settings (works on every page)
         this.loadSettings();
 
-        // Verifica suporte para Web Speech API
+        // Check for Web Speech API support
         if ('speechSynthesis' in window) {
             this.speechSynthesis = window.speechSynthesis;
         } else {
-            console.warn('Web Speech API não suportada neste navegador');
+            console.warn('Web Speech API not supported in this browser');
         }
 
-        // Aplica configurações iniciais (funciona em todas as páginas)
+        // Apply initial settings (works on every page)
         this.applySettings();
 
-        // Configura event listeners (funciona em todas as páginas)
+        // Set up event listeners (works on every page)
         this.setupEventListeners();
 
-        // Cria o botão e painel APENAS na página de perfil
+        // Create the button and panel ONLY on the profile page
         if (this.isProfilePage()) {
             this.createAccessibilityButton();
             this.createSettingsPanel();
@@ -46,11 +46,11 @@ class AccessibilityManager {
     }
 
     isProfilePage() {
-        // Verifica se está na página de perfil através da URL
+        // Check from the URL whether we're on the profile page
         const url = window.location.pathname;
         const searchParams = new URLSearchParams(window.location.search);
 
-        // Verifica se a URL contém /profile ou se há parâmetro profile na query string
+        // Check whether the URL contains /profile or there's a profile query parameter
         return url.includes('/profile') || searchParams.has('profile');
     }
 
@@ -60,7 +60,7 @@ class AccessibilityManager {
             try {
                 this.settings = { ...this.settings, ...JSON.parse(saved) };
             } catch (e) {
-                console.error('Erro ao carregar configurações de acessibilidade:', e);
+                console.error('Error loading accessibility settings:', e);
             }
         }
     }
@@ -70,7 +70,7 @@ class AccessibilityManager {
     }
 
     createAccessibilityButton() {
-        // Verifica se o botão já existe
+        // Check whether the button already exists
         if (document.querySelector('.accessibility-btn')) {
             return;
         }
@@ -80,28 +80,28 @@ class AccessibilityManager {
         button.setAttribute('aria-label', 'Configurações de acessibilidade');
         button.innerHTML = `
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-  <!-- CÍRCULO -->
+  <!-- CIRCLE -->
   <circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="2"/>
 
-  <!-- CABEÇA (centralizada) -->
+  <!-- HEAD (centered) -->
   <circle cx="12" cy="6.5" r="2"/>
 
-  <!-- BRAÇOS (horizontais e centralizados) -->
+  <!-- ARMS (horizontal and centered) -->
   <line x1="5" y1="10" x2="19" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
 
   <!-- TRONCO (centralizado) -->
   <line x1="12" y1="9" x2="12" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
 
-  <!-- PERNAS (simétricas) -->
+  <!-- LEGS (symmetrical) -->
   <line x1="12" y1="16" x2="8.5" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
   <line x1="12" y1="16" x2="15.5" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
 </svg>
         `;
 
-        // Insere o botão no header, ao lado do botão de tema
+        // Insert the button in the header, next to the theme button
         this.insertAccessibilityButton(button);
 
-        // Event listener para abrir o painel
+        // Event listener that opens the panel
         button.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -112,22 +112,22 @@ class AccessibilityManager {
     insertAccessibilityButton(button) {
         const header = document.querySelector('header');
         if (!header) {
-            console.warn('Header não encontrado para inserir botão de acessibilidade');
+            console.warn('Header not found to insert the accessibility button');
             return;
         }
 
-        // Insere o botão diretamente no header
-        // O posicionamento é feito via CSS, não interferindo com o botão de tema
+        // Insert the button directly into the header
+        // Positioning is done in CSS, so it doesn't interfere with the theme button
         header.appendChild(button);
     }
 
     createSettingsPanel() {
-        // Verifica se o painel já existe
+        // Check whether the panel already exists
         if (document.querySelector('.accessibility-panel')) {
             return;
         }
 
-        // Cria overlay
+        // Create the overlay
         const overlay = document.createElement('div');
         overlay.className = 'accessibility-overlay';
         overlay.addEventListener('click', () => this.closeSettingsPanel());
@@ -187,7 +187,7 @@ class AccessibilityManager {
 
         document.body.appendChild(panel);
 
-        // Event listeners para os controles
+        // Event listeners for the controls
         this.setupPanelEventListeners(panel);
     }
 
@@ -259,7 +259,7 @@ class AccessibilityManager {
             this.resetSettings();
         });
 
-        // Fechar ao clicar fora
+        // Close when clicking outside
         panel.addEventListener('click', (e) => {
             if (e.target === panel) {
                 this.closeSettingsPanel();
@@ -286,7 +286,7 @@ class AccessibilityManager {
             if (overlay) {
                 overlay.classList.add('active');
             }
-            // Atualiza os valores dos controles
+            // Update the control values
             panel.querySelector('#textToSpeechToggle').checked = this.settings.textToSpeech;
             panel.querySelector('#imageDescriptionToggle').checked = this.settings.imageDescription;
             panel.querySelector('#fontSizeSlider').value = this.settings.fontSize;
@@ -318,7 +318,7 @@ class AccessibilityManager {
         this.saveSettings();
         this.applySettings();
 
-        // Atualiza os controles do painel
+        // Update the panel controls
         const panel = document.querySelector('.accessibility-panel');
         if (panel) {
             panel.querySelector('#textToSpeechToggle').checked = false;
@@ -350,7 +350,7 @@ class AccessibilityManager {
                 const target = e.target;
                 let textToSpeak = '';
 
-                // Para elementos interativos, usa uma lógica especial
+                // Interactive elements use special logic
                 if (target.tagName === 'BUTTON' || target.closest('button')) {
                     const button = target.tagName === 'BUTTON' ? target : target.closest('button');
                     textToSpeak = this.getTextFromElement(button);
@@ -381,16 +381,16 @@ class AccessibilityManager {
                 else if (target.tagName === 'TEXTAREA') {
                     textToSpeak = target.value || target.placeholder || '';
                 }
-                // Ignora imagens (já tem handler separado)
+                // Skip images (they have their own handler)
                 else if (target.tagName === 'IMG') {
                     return;
                 }
-                // Para outros elementos, pega o texto normalmente
+                // For other elements, read the text normally
                 else {
                     textToSpeak = this.getTextFromElement(target);
                 }
 
-                // Fala o texto se válido
+                // Speak the text if it's valid
                 if (textToSpeak && textToSpeak.trim().length > 0 && textToSpeak.length < 500) {
                     this.speakText(textToSpeak.trim());
                 }
@@ -408,8 +408,8 @@ class AccessibilityManager {
     }
 
     /**
-     * Extrai texto de um elemento de forma inteligente
-     * Prioridade: aria-label > title > textContent > aria-labelledby
+     * Smartly extracts the text of an element
+     * Priority: aria-label > title > textContent > aria-labelledby
      */
     getTextFromElement(element) {
         if (!element) return '';
@@ -426,13 +426,13 @@ class AccessibilityManager {
             return title.trim();
         }
 
-        // 3. Prioridade: textContent (mas limpa espaços extras)
-        // Para links e botões, pega todo o texto incluindo elementos filhos
+        // 3. Priority: textContent (with extra whitespace removed)
+        // For links and buttons, take all the text including child elements
         let textContent = '';
         if (element.tagName === 'A' || element.tagName === 'BUTTON') {
-            // Para links e botões, remove texto de SVGs e ícones, mantém apenas texto visível
+            // For links and buttons, drop SVG and icon text, keep only visible text
             const clone = element.cloneNode(true);
-            // Remove SVGs e elementos de ícone
+            // Remove SVGs and icon elements
             clone.querySelectorAll('svg, .svg-style, .icon, [class*="icon"]').forEach(el => el.remove());
             textContent = clone.textContent?.trim();
         } else {
@@ -440,11 +440,11 @@ class AccessibilityManager {
         }
 
         if (textContent && textContent.length > 0) {
-            // Remove espaços múltiplos e quebras de linha
+            // Collapse repeated spaces and line breaks
             return textContent.replace(/\s+/g, ' ').trim();
         }
 
-        // 4. Prioridade: aria-labelledby (busca o elemento referenciado)
+        // 4. Priority: aria-labelledby (looks up the referenced element)
         const labelledBy = element.getAttribute('aria-labelledby');
         if (labelledBy) {
             const labelElement = document.getElementById(labelledBy);
@@ -453,17 +453,17 @@ class AccessibilityManager {
             }
         }
 
-        // 5. Para inputs, tenta placeholder
+        // 5. For inputs, try the placeholder
         if (element.tagName === 'INPUT' && element.placeholder) {
             return element.placeholder;
         }
 
-        // 6. Para botões sem texto visível, tenta value
+        // 6. For buttons with no visible text, try value
         if (element.tagName === 'BUTTON' && element.value) {
             return element.value;
         }
 
-        // 7. Para elementos vazios, tenta encontrar texto em elementos filhos visíveis
+        // 7. For empty elements, look for text in visible children
         if (!textContent || textContent.length === 0) {
             const visibleTextElements = element.querySelectorAll('p, span, div, h1, h2, h3, h4, h5, h6, label');
             for (const child of visibleTextElements) {
@@ -478,14 +478,14 @@ class AccessibilityManager {
     }
 
     /**
-     * Extrai texto de campos de input de forma inteligente
+     * Smartly extracts the text of input fields
      */
     getTextFromInput(input) {
         if (!input) return '';
 
         const type = input.type?.toLowerCase();
 
-        // Para inputs de texto, lê o valor ou placeholder
+        // For text inputs, read the value or the placeholder
         if (type === 'text' || type === 'email' || type === 'password' || type === 'search' || type === 'tel' || type === 'url') {
             if (input.value && input.value.trim()) {
                 return input.value.trim();
@@ -500,21 +500,21 @@ class AccessibilityManager {
             return 'Campo de texto';
         }
 
-        // Para checkboxes e radio buttons
+        // For checkboxes and radio buttons
         if (type === 'checkbox' || type === 'radio') {
             const label = this.getInputLabel(input);
             const checked = input.checked ? 'marcado' : 'desmarcado';
             return label ? `${label}, ${checked}` : `Opção ${checked}`;
         }
 
-        // Para range/slider
+        // For range/slider
         if (type === 'range') {
             const label = this.getInputLabel(input);
             const value = input.value || input.min || '0';
             return label ? `${label}: ${value}` : `Valor: ${value}`;
         }
 
-        // Para outros tipos
+        // For other types
         const label = this.getInputLabel(input);
         if (label) {
             return label;
@@ -526,14 +526,14 @@ class AccessibilityManager {
     }
 
     /**
-     * Encontra o label associado a um input
+     * Finds the label associated with an input
      */
     getInputLabel(input) {
-        // Tenta pelo atributo aria-label
+        // Try the aria-label attribute
         const ariaLabel = input.getAttribute('aria-label');
         if (ariaLabel) return ariaLabel;
 
-        // Tenta pelo atributo id e label[for]
+        // Try the id attribute and label[for]
         if (input.id) {
             const label = document.querySelector(`label[for="${input.id}"]`);
             if (label) {
@@ -545,11 +545,11 @@ class AccessibilityManager {
         const parentLabel = input.closest('label');
         if (parentLabel) {
             const labelText = parentLabel.textContent?.trim();
-            // Remove o texto do input do label
+            // Remove the input's text from the label
             return labelText.replace(input.value || '', '').trim();
         }
 
-        // Tenta pelo placeholder
+        // Try the placeholder
         if (input.placeholder) {
             return input.placeholder;
         }
@@ -568,12 +568,12 @@ class AccessibilityManager {
         }
 
         if (this.settings.imageDescription && this.speechSynthesis) {
-            // Cria handler para descrição de imagens
+            // Create the image description handler
             this.imageDescriptionHandler = (e) => {
                 const img = e.target;
                 let description = '';
 
-                // Prioridade: alt text > title > aria-label > descrição padrão
+                // Priority: alt text > title > aria-label > default description
                 if (img.alt && img.alt.trim()) {
                     description = img.alt;
                 } else if (img.title && img.title.trim()) {
@@ -581,7 +581,7 @@ class AccessibilityManager {
                 } else if (img.getAttribute('aria-label')) {
                     description = img.getAttribute('aria-label');
                 } else {
-                    // Tenta obter contexto da imagem
+                    // Try to get context for the image
                     const parent = img.parentElement;
                     if (parent) {
                         const contextText = parent.textContent?.trim();
@@ -600,15 +600,15 @@ class AccessibilityManager {
                 }
             };
 
-            // Anexa listeners a todas as imagens existentes
+            // Attach listeners to every existing image
             document.querySelectorAll('img').forEach(img => {
                 this.attachImageListeners(img);
             });
 
-            // Configura observer para novas imagens
+            // Set up an observer for new images
             this.setupImageObserver();
         } else {
-            // Se desativado, desconecta observer
+            // If disabled, disconnect the observer
             if (this.imageObserver) {
                 this.imageObserver.disconnect();
                 this.imageObserver = null;
@@ -626,14 +626,14 @@ class AccessibilityManager {
             this.speechSynthesis.cancel();
         }
 
-        // Cria novo utterance
+        // Create a new utterance
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'pt-BR';
         utterance.rate = this.settings.speechRate;
         utterance.pitch = this.settings.speechPitch;
         utterance.volume = 1.0;
 
-        // Tenta usar voz brasileira se disponível
+        // Use a Brazilian Portuguese voice if available
         const voices = this.speechSynthesis.getVoices();
         const ptBRVoice = voices.find(voice =>
             voice.lang.startsWith('pt-BR') || voice.lang.startsWith('pt')
@@ -647,7 +647,7 @@ class AccessibilityManager {
     }
 
     setupEventListeners() {
-        // Atualiza vozes quando disponíveis
+        // Update voices when they become available
         if (this.speechSynthesis) {
             if (this.speechSynthesis.onvoiceschanged !== undefined) {
                 this.speechSynthesis.onvoiceschanged = () => {
@@ -656,18 +656,18 @@ class AccessibilityManager {
             }
         }
 
-        // Observa mudanças no DOM para novas imagens (site-wide)
+        // Watch the DOM for new images (site-wide)
         this.setupImageObserver();
     }
 
     setupImageObserver() {
-        // Remove observer anterior se existir
+        // Remove the previous observer, if any
         if (this.imageObserver) {
             this.imageObserver.disconnect();
             this.imageObserver = null;
         }
 
-        // Cria novo observer para imagens dinamicamente adicionadas
+        // Create a new observer for dynamically added images
         if (this.settings.imageDescription && this.imageDescriptionHandler) {
             this.imageObserver = new MutationObserver((mutations) => {
                 mutations.forEach((mutation) => {
@@ -676,7 +676,7 @@ class AccessibilityManager {
                             if (node.tagName === 'IMG') {
                                 this.attachImageListeners(node);
                             }
-                            // Verifica imagens dentro do nó
+                            // Check images inside the node
                             const images = node.querySelectorAll?.('img');
                             if (images) {
                                 images.forEach(img => {
@@ -696,7 +696,7 @@ class AccessibilityManager {
     }
 
     attachImageListeners(img) {
-        // Remove listeners anteriores para evitar duplicação
+        // Remove previous listeners to avoid duplicates
         img.removeEventListener('mouseenter', this.imageDescriptionHandler);
         img.removeEventListener('mouseleave', this.stopSpeechHandler);
 
@@ -708,7 +708,7 @@ class AccessibilityManager {
     }
 }
 
-// Inicializa quando o DOM estiver pronto
+// Initialize once the DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     window.accessibilityManager = new AccessibilityManager();
 });

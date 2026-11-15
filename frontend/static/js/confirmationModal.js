@@ -1,6 +1,6 @@
 /**
- * Sistema de Modal de Confirmação - EteConnect
- * Modal reutilizável para confirmação de ações importantes
+ * Confirmation modal system - EteConnect
+ * Reusable modal for confirming important actions
  */
 
 class ConfirmationModal {
@@ -11,7 +11,7 @@ class ConfirmationModal {
     }
 
     init() {
-        // Cria o modal se não existir
+        // Create the modal if it doesn't exist
         if (!document.querySelector('#confirmation-modal')) {
             this.createModal();
         } else {
@@ -25,14 +25,14 @@ class ConfirmationModal {
             noBtn.addEventListener('click', () => this.close(false));
             yesBtn.addEventListener('click', () => this.close(true));
 
-            // Fechar ao clicar no overlay
+            // Close when the overlay is clicked
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     this.close(false);
                 }
             });
 
-            // Fechar com ESC
+            // Close with ESC
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && modal.classList.contains('active')) {
                     this.close(false);
@@ -73,14 +73,14 @@ class ConfirmationModal {
         noBtn.addEventListener('click', () => this.close(false));
         yesBtn.addEventListener('click', () => this.close(true));
 
-        // Fechar ao clicar no overlay
+        // Close when the overlay is clicked
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 this.close(false);
             }
         });
 
-        // Fechar com ESC
+        // Close with ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && modal.classList.contains('active')) {
                 this.close(false);
@@ -116,10 +116,10 @@ class ConfirmationModal {
     }
 }
 
-// Instância global
+// Global instance
 let confirmationModalInstance = null;
 
-// Função para inicializar o modal
+// Initializes the modal
 function initConfirmationModal() {
     if (!confirmationModalInstance) {
         confirmationModalInstance = new ConfirmationModal();
@@ -128,26 +128,26 @@ function initConfirmationModal() {
     return confirmationModalInstance;
 }
 
-// Inicializa imediatamente se o DOM já estiver pronto, senão espera
+// Initialize right away if the DOM is ready, otherwise wait
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initConfirmationModal);
 } else {
-    // DOM já está pronto
+    // DOM is already ready
     initConfirmationModal();
 }
 
 /**
- * Função auxiliar para confirmar ações
- * @param {string} message - Mensagem de confirmação
- * @param {string} title - Título do modal (opcional)
- * @returns {Promise<boolean>} - true se confirmado, false se cancelado
+ * Helper for confirming actions
+ * @param {string} message - Confirmation message
+ * @param {string} title - Modal title (optional)
+ * @returns {Promise<boolean>} - true if confirmed, false if cancelled
  */
 async function confirmAction(message, title = 'Confirmar Ação') {
-    // Garante que o modal está inicializado
+    // Make sure the modal is initialized
     const modal = initConfirmationModal();
     return await modal.show(message, title);
 }
 
-// Torna a função global
+// Make the function global
 window.confirmAction = confirmAction;
 

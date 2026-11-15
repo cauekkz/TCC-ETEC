@@ -24,17 +24,17 @@ if (is_numeric($server_id)) {
                 console.log(data)
                 localStorage.setItem("selectedServerName", server.name);
                 const serverName = localStorage.getItem("selectedServerName") ?? null;
-                document.querySelector("#consecultivos").innerText =
+                document.querySelector("#server-subtitle").innerText =
                     `Acompanhe as novidades do servidor ${serverName}`;
 
 
                 continueAfterServerLoad();
             })
             .catch(err => {
-                console.error("Erro ao buscar servidor:", err);
+                console.error("Error fetching server:", err);
             });
 
-        // função que só roda depois que o servidor foi carregado
+        // runs only after the server has loaded
         function continueAfterServerLoad() {
             const serverId = localStorage.getItem("selectedServer") ?? null;
             if (serverId === null) {
@@ -42,7 +42,7 @@ if (is_numeric($server_id)) {
                 return;
             }
 
-            console.log("Servidor carregado:", serverId);
+            console.log("Server loaded:", serverId);
 
         }
     </script>
@@ -52,7 +52,7 @@ if (is_numeric($server_id)) {
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const serverName = localStorage.getItem("selectedServerName") ?? null;
-        document.querySelector("#consecultivos").innerText =
+        document.querySelector("#server-subtitle").innerText =
             `Acompanhe as novidades do servidor ${serverName}`;
     });
 </script>
@@ -78,7 +78,7 @@ if (is_numeric($server_id)) {
                 </form>
                 <div id="search-preview" class="search-preview hidden">
 
-                    <!-- ===== USUÁRIOS ===== -->
+                    <!-- ===== USERS ===== -->
                     <div class="preview-section">
 
                         <div class="preview-header">
@@ -263,20 +263,20 @@ if (is_numeric($server_id)) {
                 };
             </script>
         </div>
-        <div id="borboleta" class="col-6 flex-grow-1 overflow-auto px-3 " style="min-height: 0;">
+        <div id="posts-feed" class="col-6 flex-grow-1 overflow-auto px-3 " style="min-height: 0;">
             <div class="feed mt-4 px-4">
 
                 <div class="d-flex ">
                     <div class="px-1">
                         <p id="feedTitle" class="mb-0 h2"><strong>Feed da comunidade</strong></p>
-                        <p class="text-secondary" id="consecultivos"></p>
+                        <p class="text-secondary" id="server-subtitle"></p>
                     </div>
                 </div>
 
 
-                <!-- Container para posts dinâmicos -->
+                <!-- Container for dynamic posts -->
                 <div class="posts row mt-5 px-3">
-                    <!-- Os posts serão carregados dinamicamente aqui -->
+                    <!-- Posts are loaded here dynamically -->
                 </div>
 
             </div>
@@ -284,7 +284,7 @@ if (is_numeric($server_id)) {
             <div id="loadingPostIcon">
 
             </div>
-            <div id="palavras">
+            <div id="end-of-feed">
                 Sem mais resultados
             </div>
 
@@ -312,7 +312,7 @@ if (is_numeric($server_id)) {
                 <span class="text-primary"></span>
             </p>
 
-            <!-- Container para mídia do post -->
+            <!-- Container for the post's media -->
             <div id="postFocusMedia" class="post-focus-media mt-3 d-none">
                 <div class="d-flex flex-wrap gap-2" id="postFocusMediaContainer"></div>
             </div>
@@ -351,7 +351,7 @@ if (is_numeric($server_id)) {
                     </div>
                 </form>
                 <div class="comment-list">
-                    <!-- Comentários serão carregados aqui dinamicamente -->
+                    <!-- Comments are loaded here dynamically -->
                 </div>
             </div>
         </div>
@@ -359,14 +359,14 @@ if (is_numeric($server_id)) {
 </div>
 
 
-<!-- Modal apenas para comentários -->
+<!-- Comments-only modal -->
 <div class="container-comments-only d-none">
     <div class="d-flex justify-content-center align-items-center">
         <div class="comments-only-modal">
             <button class="close-comments-only" onclick="closeCommentsOnly()">&times;</button>
             <h5 class="mb-3">Comentários</h5>
             <div id="commentsOnlyContainer">
-                <!-- Comentários serão carregados aqui -->
+                <!-- Comments are loaded here -->
             </div>
             <form class="form-comment mt-3">
                 <div class="write-comment">
@@ -405,10 +405,10 @@ if (is_numeric($server_id)) {
                 <form class="form-create" id="formCreatePost">
                     <textarea name="createPost" id="textareaCreate" class="form-control p-3" placeholder="O que você quer compartilhar com a comunidade ETEC?"></textarea>
 
-                    <!-- Input para mídia (imagens e vídeos) -->
+                    <!-- Media input (images and videos) -->
                     <input type="file" id="mediaInput" name="media[]" multiple accept="image/*,video/*" class="d-none">
 
-                    <!-- Preview das mídias selecionadas -->
+                    <!-- Preview of the selected media -->
                     <div id="mediaPreview" class="mt-3 d-none">
                         <div class="d-flex flex-wrap gap-2" id="previewContainer"></div>
                     </div>
@@ -472,7 +472,7 @@ if (is_numeric($server_id)) {
                     return;
                 }
 
-                // Confirmação antes de criar post
+                // Confirm before creating a post
                 const confirmed = await confirmAction(
                     "Deseja publicar esta publicação?",
                     "Confirmar Publicação"

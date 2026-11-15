@@ -7,7 +7,7 @@ $tokenJWT = $jwt->get_jwt_by_header();
 if ($tokenJWT) {
     $resultJWT = $jwt->validate_token($tokenJWT);
     if ($resultJWT) {
-        // Token válido, continuar
+        // Valid token, continue
         return;
     }
 }

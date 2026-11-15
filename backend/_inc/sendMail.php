@@ -17,7 +17,7 @@ function sendMail($to, $subject, $body) {
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
-        // ✅ AQUI ESTÁ A CORREÇÃO DOS ACENTOS
+        // ✅ Fixes accented characters
         $mail->CharSet  = 'UTF-8';
         $mail->Encoding = 'base64';
 
@@ -26,10 +26,10 @@ function sendMail($to, $subject, $body) {
 
         $mail->isHTML(true);
 
-        // ✅ CORRIGE ACENTOS NO ASSUNTO TAMBÉM
+        // ✅ Fixes accented characters in the subject too
         $mail->Subject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
 
-        // ✅ Garante UTF-8 NO CORPO
+        // ✅ Makes sure the body is UTF-8
         $mail->Body = "<meta charset='UTF-8'>{$body}";
 
         return $mail->send();

@@ -73,7 +73,7 @@ form label {
 }
 
 .text-style,
-.text-entrar {
+.text-login {
     font-size: 14px;
 }
 
@@ -136,7 +136,7 @@ form label {
     padding-right: 10px;
 }
 
-/* Headers e listas */
+/* Headers and lists */
 .terms-scroll h2, .terms-scroll h3, .terms-scroll h4 {
     color: var(--text-primary);
     margin-bottom: 8px;
@@ -188,7 +188,7 @@ form label {
     transform: rotate(45deg);
 }
 
-/* Botão */
+/* Button */
 #continueBtn {
     padding: 12px;
     background-color: var(--accent-primary);
@@ -228,19 +228,19 @@ form label {
     border-bottom: 1px solid var(--border-secondary);
 }
 
-/* Espaço entre sub-seções */
+/* Space between subsections */
 .terms-section {
     margin-top: 18px;
 }
 
-/* Títulos principais (h3) */
+/* Main headings (h3) */
 .terms-block > h3 {
     font-size: 1.3rem;
     margin-bottom: 12px;
     color: var(--text-primary);
 }
 
-/* Subtítulos (h4) */
+/* Subheadings (h4) */
 .terms-section h4 {
     font-size: 1.05rem;
     font-weight: 600;
@@ -248,7 +248,7 @@ form label {
     color: var(--text-primary);
 }
 
-/* Parágrafos mais confortáveis */
+/* More comfortable paragraphs */
 .terms-section p {
     line-height: 1.55;
     margin-bottom: 8px;
@@ -261,7 +261,7 @@ form label {
     line-height: 1.55;
 }
 
-/* Itens da lista mais discretos */
+/* Subtler list items */
 .terms-section ul li {
     margin-bottom: 4px;
     color: var(--text-secondary);
@@ -273,14 +273,14 @@ form label {
     padding-right: 14px;
 }
 
-/* Divisor fino entre grandes seções */
+/* Thin divider between major sections */
 .terms-dialog h2 {
     margin-bottom: 14px;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--border-primary);
 }
 
-/* Footer mais espaçado */
+/* Roomier footer */
 .terms-footer {
     margin-top: 16px;
 }
@@ -314,7 +314,7 @@ form label {
     }
 
     .text-style,
-    .text-entrar {
+    .text-login {
         font-size: 13px;
     }
 }
@@ -346,7 +346,7 @@ form label {
     }
 
     .text-style,
-    .text-entrar {
+    .text-login {
         font-size: 13px;
     }
 

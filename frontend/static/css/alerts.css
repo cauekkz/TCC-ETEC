@@ -1,4 +1,4 @@
-/* Sistema de Alertas - EteConnect - Redesenhado */
+/* Alert system - EteConnect - redesigned */
 
 .alert-container {
     position: fixed !important;
@@ -140,7 +140,7 @@
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
 }
 
-/* Animações melhoradas */
+/* Improved animations */
 @keyframes slideIn {
     0% {
         transform: translateY(-100px) scale(0.8);
@@ -176,7 +176,7 @@
     }
 }
 
-/* Estados de saída */
+/* Exit states */
 .alert.removing {
     animation: slideOut 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
 }
@@ -229,12 +229,12 @@
     }
 }
 
-/* Garantir que os alertas apareçam acima de tudo */
+/* Make sure alerts show above everything */
 .alert {
     pointer-events: auto;
 }
 
-/* Modo escuro usando variáveis CSS */
+/* Dark mode using CSS variables */
 [data-theme="dark"] .alert {
     background: var(--bg-card);
     color: var(--text-primary);

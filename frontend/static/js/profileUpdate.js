@@ -1,6 +1,6 @@
 /**
- * Gerenciamento do formulário de atualização de perfil
- * Inclui validações e sistema de alertas
+ * Profile update form handling
+ * Includes validation and the alert system
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -14,15 +14,15 @@ document.addEventListener('DOMContentLoaded', function() {
 async function handleProfileUpdate(event) {
     event.preventDefault();
     
-    // Coletar dados do formulário
+    // Collect the form data
     const formData = new FormData();
     
-    // Dados básicos do usuário
+    // Basic user data
     const name = document.getElementById('name-update').value.trim();
     const email = document.getElementById('email-update').value.trim();
     const phone = document.getElementById('phone-update').value.trim();
     
-    // Validações básicas
+    // Basic validation
     if (!name) {
         showWarning('Nome é obrigatório');
         return;
@@ -38,18 +38,18 @@ async function handleProfileUpdate(event) {
         return;
     }
     
-    // Adicionar dados ao FormData
+    // Add the data to the FormData
     formData.append('name', name);
     formData.append('email', email);
     formData.append('phone', phone);
     
-    // Foto de perfil (se selecionada)
+    // Profile picture (if selected)
     const profilePic = document.getElementById('profilePic');
     if (profilePic.files.length > 0) {
         formData.append('profile_pic', profilePic.files[0]);
     }
     
-    // Dados de endereço
+    // Address data
     const street = document.getElementById('street-update').value.trim();
     const addressNumber = document.getElementById('address-number-update').value.trim();
     const city = document.getElementById('city-update').value.trim();
@@ -64,7 +64,7 @@ async function handleProfileUpdate(event) {
         formData.append('zip_code', zipCode);
     }
     
-    // Campus e cursos (se aplicável)
+    // Campuses and courses (if applicable)
     const campusSelect = document.getElementById('campus-select-1');
     if (campusSelect && campusSelect.value !== 'monstro') {
         formData.append('campus_id', campusSelect.value);
@@ -77,7 +77,7 @@ async function handleProfileUpdate(event) {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Atualizando...';
         
-        // Fazer requisição para atualizar perfil
+        // Send the request to update the profile
         const response = await fetch('/api/profile/update', {
             method: 'POST',
             headers: {
@@ -96,14 +96,14 @@ async function handleProfileUpdate(event) {
         if (result.status === 'success') {
             showSuccess('Perfil atualizado com sucesso!');
             
-            // Fechar modal após sucesso
+            // Close the modal after success
             setTimeout(() => {
                 const modal = document.querySelector('dialog');
                 if (modal) {
                     modal.close();
                 }
                 
-                // Recarregar informações do usuário
+                // Reload user info
                 if (typeof loadUserInformation === 'function') {
                     loadUserInformation('mine');
                 }
@@ -114,11 +114,11 @@ async function handleProfileUpdate(event) {
         }
         
     } catch (error) {
-        console.error('Erro ao atualizar perfil:', error);
+        console.error('Error updating profile:', error);
         showBackendError(error, 'Erro ao atualizar perfil. Tente novamente.');
         
     } finally {
-        // Restaurar botão
+        // Restore the button
         const submitBtn = updateForm.querySelector('button[type="submit"]');
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
@@ -126,9 +126,9 @@ async function handleProfileUpdate(event) {
 }
 
 /**
- * Valida se o email tem formato válido
- * @param {string} email - Email a ser validado
- * @returns {boolean} - True se válido, false caso contrário
+ * Checks whether the email has a valid format
+ * @param {string} email - Email to validate
+ * @returns {boolean} - True if valid, false otherwise
  */
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -136,9 +136,9 @@ function isValidEmail(email) {
 }
 
 /**
- * Valida se o CEP tem formato válido
- * @param {string} cep - CEP a ser validado
- * @returns {boolean} - True se válido, false caso contrário
+ * Checks whether the CEP (Brazilian ZIP code) has a valid format
+ * @param {string} cep - CEP to validate
+ * @returns {boolean} - True if valid, false otherwise
  */
 function isValidCEP(cep) {
     const cepRegex = /^\d{5}-?\d{3}$/;
@@ -146,15 +146,15 @@ function isValidCEP(cep) {
 }
 
 /**
- * Formata o CEP automaticamente
- * @param {string} cep - CEP a ser formatado
- * @returns {string} - CEP formatado
+ * Formats the CEP automatically
+ * @param {string} cep - CEP to format
+ * @returns {string} - Formatted CEP
  */
 function formatCEP(cep) {
     return cep.replace(/(\d{5})(\d{3})/, '$1-$2');
 }
 
-// Aplicar formatação automática ao CEP
+// Apply automatic CEP formatting
 document.addEventListener('DOMContentLoaded', function() {
     const zipCodeInput = document.getElementById('zip-code-update');
     if (zipCodeInput) {
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Formatação do telefone
+    // Phone formatting
     const phoneInput = document.getElementById('phone-update');
     if (phoneInput) {
         phoneInput.addEventListener('input', function(e) {

@@ -37,7 +37,7 @@ header {
     background: var(--bg-tertiary);
 }
 
-/* Responsividade do Header */
+/* Header responsiveness */
 @media (max-width: 768px) {
     header {
         padding: 0.5rem 0.75rem;
@@ -58,7 +58,7 @@ header {
         padding: 0.25rem !important;
     }
     
-    /* Esconder texto do botão e mostrar apenas '+' no mobile - mesmo tamanho do light-dark */
+    /* Hide the button text and show only '+' on mobile - same size as light-dark */
     #btnCreate,
     .btnCreate {
         font-size: 0 !important;
@@ -107,7 +107,7 @@ header {
         margin-top: 0.5rem;
     }
     
-    /* Esconder texto do botão e mostrar apenas '+' no mobile - mesmo tamanho do light-dark */
+    /* Hide the button text and show only '+' on mobile - same size as light-dark */
     #btnCreate,
     .btnCreate {
         font-size: 0 !important;

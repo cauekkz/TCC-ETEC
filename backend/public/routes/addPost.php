@@ -16,7 +16,7 @@ $content = $_POST["content"] ?? '';
 $serverId = $_POST["server_id"] ?? '';
 $uploadedFiles = $_FILES["media"] ?? null;
 
-// Validar dados básicos
+// Validate basic data
 if (empty($content) || empty($serverId)) {
     $res->set_status("error");
     $res->set_error_message("Content and server_id are required");
@@ -24,7 +24,7 @@ if (empty($content) || empty($serverId)) {
     exit;
 }
 
-// Validar conteúdo (prevenir XSS e código malicioso)
+// Validate content (prevents XSS and malicious code)
 $content = trim($content);
 if (strlen($content) > 5000) { 
     $res->set_status("error");
@@ -80,12 +80,12 @@ if ($response->status != 'success') {
 
 $post_id = $response->last_id;
 
-// Processar upload de imagens se houver
+// Process uploaded images, if any
 if ($uploadedFiles && !empty($uploadedFiles['name'][0])) {
     $uploadDir = "../../uploads/mediaPost/";
     $userDir = $uploadDir . "user_" . $user_id . "/";
     
-    // Criar pasta do usuário se não existir
+    // Create the user's folder if it doesn't exist
     if (!file_exists($userDir)) {
         mkdir($userDir, 0755, true);
     }
@@ -94,7 +94,7 @@ if ($uploadedFiles && !empty($uploadedFiles['name'][0])) {
         'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp',
         'video/mp4', 'video/avi', 'video/mov', 'video/wmv', 'video/flv', 'video/webm'
     ];
-    $maxFileSize = 150 * 1024 * 1024; // 150MB para vídeos e imagens
+    $maxFileSize = 150 * 1024 * 1024; // 150MB for videos and images
     
     for ($i = 0; $i < count($uploadedFiles['name']); $i++) {
         if ($uploadedFiles['error'][$i] === UPLOAD_ERR_OK) {
@@ -103,9 +103,9 @@ if ($uploadedFiles && !empty($uploadedFiles['name'][0])) {
             $fileSize = $uploadedFiles['size'][$i];
             $fileTmpName = $uploadedFiles['tmp_name'][$i];
             
-            // Validar tipo de arquivo
+            // Validate file type
             if (!in_array($fileType, $allowedTypes)) {
-                continue; // Pular arquivo inválido
+                continue; // Skip invalid file
             }
             
             if ($fileSize > $maxFileSize) {
@@ -115,26 +115,26 @@ if ($uploadedFiles && !empty($uploadedFiles['name'][0])) {
             $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
             $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'mp4', 'avi', 'mov', 'wmv', 'flv', 'webm'];
             if (!in_array($fileExtension, $allowedExtensions)) {
-                continue; // Pular arquivo com extensão inválida
+                continue; // Skip file with an invalid extension
             }
             
-            // Validar conteúdo do arquivo (verificar se é realmente uma imagem/vídeo)
+            // Validate file content (check it really is an image/video)
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
             $mimeType = finfo_file($finfo, $fileTmpName);
             finfo_close($finfo);
             
             if (!in_array($mimeType, $allowedTypes)) {
-                continue; // Pular arquivo com MIME type inválido
+                continue; // Skip file with an invalid MIME type
             }
             
-            // Gerar nome único para o arquivo
+            // Generate a unique file name
             $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
             $uniqueFileName = uniqid() . '_' . time() . '.' . $fileExtension;
             $filePath = $userDir . $uniqueFileName;
             
             // Mover arquivo
             if (move_uploaded_file($fileTmpName, $filePath)) {
-                // Salvar referência no banco
+                // Save the reference in the database
                 $mediaUrl = "uploads/mediaPost/user_" . $user_id . "/" . $uniqueFileName;
                 $mediaType = (strpos($fileType, 'video/') === 0) ? 'video' : 'image';
                 

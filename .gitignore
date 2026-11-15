@@ -12,3 +12,5 @@
 !/backend/uploads/mediaPost/seed/
 
 .env
+__pycache__/
+*.pyc

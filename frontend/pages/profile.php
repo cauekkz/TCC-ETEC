@@ -1,5 +1,5 @@
 <header>
-    <img id="btnBack" src="frontend/static/img/left-arrow.png" alt="icon de voltar a pagina"> <span id="aberração" style="font-size: 1.3rem;">Perfil</span>
+    <img id="btnBack" src="frontend/static/img/left-arrow.png" alt="icon de voltar a pagina"> <span id="profile-title" style="font-size: 1.3rem;">Perfil</span>
 
     <div class="col d-flex justify-content-end align-items-center">
 
@@ -38,14 +38,14 @@ $profile_id = $_GET['profile'];
                 <span class="user-etec"></span>
             </div>
 
-            <div id="perfil-icon-div">
+            <div id="profile-icon-div">
                 <span>
-                    <img class="perfil-icon" src="frontend/static/img/loca-icon.png" alt="icon de localização">
-                    <span id="perfil-address"></span>
+                    <img class="profile-icon" src="frontend/static/img/loca-icon.png" alt="icon de localização">
+                    <span id="profile-address"></span>
                 </span>
                 <span>
-                    <img class="perfil-icon" src="frontend/static/img/calendar-icon.png" alt="icon de calendário">
-                    <span id="perfil-created">Membro desde março de 2025</span>
+                    <img class="profile-icon" src="frontend/static/img/calendar-icon.png" alt="icon de calendário">
+                    <span id="profile-created">Membro desde março de 2025</span>
                 </span>
             </div>
             <div id="social-info-div">
@@ -54,11 +54,11 @@ $profile_id = $_GET['profile'];
                     <span id="post-qtn"></span>
                     <span>Posts</span>
                 </div>
-                <div class="simoh" data-type="following">
+                <div class="follow-stat" data-type="following">
                     <span id="following_count"></span>
                     <span>Seguindo</span>
                 </div>
-                <div class="simoh" data-type="followers">
+                <div class="follow-stat" data-type="followers">
                     <span id="followers_count"></span>
                     <span>Seguidores</span>
                 </div>
@@ -66,17 +66,17 @@ $profile_id = $_GET['profile'];
             </div>
             <?php if ($profile_id === "mine"): ?>
 
-                <button class="perfil-button loki" id="edit-profile-button">
+                <button class="profile-button loki" id="edit-profile-button">
                     Editar perfil
                 </button>
-                <button class="perfil-button loki" id="leave-account-button">
+                <button class="profile-button loki" id="leave-account-button">
                     Sair da conta
                 </button>
             <?php else: ?>
-                <button class="perfil-button" id="follower-button" data-follower="0">
+                <button class="profile-button" id="follower-button" data-follower="0">
 
                 </button>
-                <button class="perfil-button loki" id="chat-button">
+                <button class="profile-button loki" id="chat-button">
                     Chat
                 </button>
             <?php endif; ?>
@@ -105,7 +105,7 @@ $profile_id = $_GET['profile'];
                 </ul>
             </dialog>
 
-            <!-- Modal de Edição de Post -->
+            <!-- Edit Post modal -->
             <dialog id="edit-post-modal">
                 <div class="edit-post-modal-content">
                     <div class="edit-post-modal-header">
@@ -126,14 +126,14 @@ $profile_id = $_GET['profile'];
 
                 <div>
 
-                    <h3 id="h3-publicacoes">Publicações</h3>
-                    <h4 id="h4-publicacoes">Todas as suas postagens na Eteconnect</h4>
+                    <h3 id="h3-posts">Publicações</h3>
+                    <h4 id="h4-posts">Todas as suas postagens na Eteconnect</h4>
                 </div>
             <?php else: ?>
                 <div class="posts-header">
                     <div>
-                        <h3 id="h3-publicacoes">Publicações</h3>
-                        <h4 id="h4-publicacoes">Todas as postagens na Eteconnect</h4>
+                        <h3 id="h3-posts">Publicações</h3>
+                        <h4 id="h4-posts">Todas as postagens na Eteconnect</h4>
                     </div>
 
                 <?php endif; ?>
@@ -141,12 +141,12 @@ $profile_id = $_GET['profile'];
 
                     <span class="toggle-text posts">
                         <i class="bi bi-grid-fill"></i>
-                        <span class="showemcampo">Posts</span>
+                        <span class="tab-label">Posts</span>
                     </span>
 
                     <span class="toggle-text liked">
                         <i class="bi bi-heart-fill"></i>
-                        <span class="showemcampo">Curtidas</span>
+                        <span class="tab-label">Curtidas</span>
                     </span>
 
                 </button>
@@ -204,7 +204,7 @@ $profile_id = $_GET['profile'];
                                 </select>
                                 <button type="button" id="add-campus-btn">+</button>
                             </div>
-                            <!--Se for aluno-->
+                            <!-- If the user is a student -->
                             <label for="course-select">Curso</label>
                             <div id="course-update-div">
 
@@ -256,7 +256,7 @@ $profile_id = $_GET['profile'];
                             <span class="text-primary"></span>
                         </p>
 
-                        <!-- Container para mídia do post -->
+                        <!-- Container for the post's media -->
                         <div id="postFocusMedia" class="post-focus-media mt-3 d-none">
                             <div class="d-flex flex-wrap gap-2" id="postFocusMediaContainer"></div>
                         </div>
@@ -295,21 +295,21 @@ $profile_id = $_GET['profile'];
                                 </div>
                             </form>
                             <div class="comment-list">
-                                <!-- Comentários serão carregados aqui dinamicamente -->
+                                <!-- Comments are loaded here dynamically -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Modal apenas para comentários -->
+            <!-- Comments-only modal -->
             <div class="container-comments-only d-none">
                 <div class="d-flex justify-content-center align-items-center">
                     <div class="comments-only-modal">
                         <button class="close-comments-only" onclick="closeCommentsOnly()">&times;</button>
                         <h5 class="mb-3">Comentários</h5>
                         <div id="commentsOnlyContainer">
-                            <!-- Comentários serão carregados aqui -->
+                            <!-- Comments are loaded here -->
                         </div>
                         <form class="form-comment mt-3">
                             <div class="write-comment">
@@ -426,7 +426,7 @@ $profile_id = $_GET['profile'];
             document.querySelector("#followers_count").innerText = userData?.followers_count?.followers_count
             document.querySelector("#following_count").innerText = userData?.following_count?.following_count
 
-            document.querySelector("#perfil-created").innerText = `Membro desde ${formattedDate}`;
+            document.querySelector("#profile-created").innerText = `Membro desde ${formattedDate}`;
 
             const profilePath = userInfo.profile_photo_path
 
@@ -492,7 +492,7 @@ $profile_id = $_GET['profile'];
                 `
                 document.body.appendChild(modal)
 
-                // Função para abrir modal
+                // Opens the modal
                 const openModal = (e) => {
                     e.stopPropagation()
                     const rect = span.getBoundingClientRect()
@@ -504,7 +504,7 @@ $profile_id = $_GET['profile'];
                     const spanCenter = rect.left + (rect.width / 2)
                     const modalLeft = spanCenter - (modalWidth / 2)
 
-                    // Limitar dentro da div do perfil
+                    // Keep it inside the profile div
                     const maxLeft = profileBoxRect.right - modalWidth - 20
                     const minLeft = profileBoxRect.left + 20
                     const finalLeft = Math.max(minLeft, Math.min(modalLeft, maxLeft))
@@ -516,7 +516,7 @@ $profile_id = $_GET['profile'];
                     span.style.pointerEvents = "none"
                 }
 
-                // Função para fechar modal
+                // Closes the modal
                 const closeModal = () => {
                     modal.style.display = "none"
                     span.style.pointerEvents = "auto"
@@ -541,7 +541,7 @@ $profile_id = $_GET['profile'];
         if (addressInfo != null) {
             const city = addressInfo?.city ?? ""
             const state = addressInfo?.state ?? ""
-            document.querySelector("#perfil-address").innerText = `${city}, ${state}`;
+            document.querySelector("#profile-address").innerText = `${city}, ${state}`;
 
         }
 
@@ -556,11 +556,11 @@ $profile_id = $_GET['profile'];
                     document.querySelector("#liked-posts-box").style.display = "block"
                     document.querySelector("#posts-box").style.display = "none"
                     <?php if ($profile_id === "mine"): ?>
-                        document.querySelector("#h3-publicacoes").innerText = "Publicações Curtidas"
-                        document.querySelector("#h4-publicacoes").innerText = "Todas as postagens que você curtiu na Eteconnect"
+                        document.querySelector("#h3-posts").innerText = "Publicações Curtidas"
+                        document.querySelector("#h4-posts").innerText = "Todas as postagens que você curtiu na Eteconnect"
                     <?php else: ?>
-                        document.querySelector("#h3-publicacoes").innerText = "Publicações Curtidas"
-                        document.querySelector("#h4-publicacoes").innerText = "Todas as postagens que " + (userInfo?.name ?? "usuário") + " curtiu na Eteconnect"
+                        document.querySelector("#h3-posts").innerText = "Publicações Curtidas"
+                        document.querySelector("#h4-posts").innerText = "Todas as postagens que " + (userInfo?.name ?? "usuário") + " curtiu na Eteconnect"
                     <?php endif; ?>
 
                 } else {
@@ -568,11 +568,11 @@ $profile_id = $_GET['profile'];
                     document.querySelector("#liked-posts-box").style.display = "none"
                     document.querySelector("#posts-box").style.display = "flex"
                     <?php if ($profile_id === "mine"): ?>
-                        document.querySelector("#h3-publicacoes").innerText = "Publicações"
-                        document.querySelector("#h4-publicacoes").innerText = "Todas as suas postagens na Eteconnect"
+                        document.querySelector("#h3-posts").innerText = "Publicações"
+                        document.querySelector("#h4-posts").innerText = "Todas as suas postagens na Eteconnect"
                     <?php else: ?>
-                        document.querySelector("#h3-publicacoes").innerText = "Publicações"
-                        document.querySelector("#h4-publicacoes").innerText = "Todas as postagens na Eteconnect"
+                        document.querySelector("#h3-posts").innerText = "Publicações"
+                        document.querySelector("#h4-posts").innerText = "Todas as postagens na Eteconnect"
                     <?php endif; ?>
                 }
             });
@@ -586,7 +586,6 @@ $profile_id = $_GET['profile'];
             document.querySelector("#post-qtn").innerText = postsInfos?.length ?? 0
             document.querySelector("#liked-posts-box").style.display = "none"
 
-            //perdi minha humanidade aqui
 
             postsInfos.forEach(postInfo => {
                 postInfo["campus"] = campusInfos
@@ -594,9 +593,9 @@ $profile_id = $_GET['profile'];
                 const likebtn = post.querySelector(".post-like-icon")
                 const postId = postInfo.id
 
-                // Adicionar evento de clique para abrir post focus
+                // Add a click handler to open the post focus view
                 post.addEventListener('click', function(e) {
-                    // Não abrir se clicou no botão de like ou em elementos interativos
+                    // Don't open it if the like button or another interactive element was clicked
                     if (e.target.closest('.interactive')) {
                         return;
                     }
@@ -688,7 +687,7 @@ $profile_id = $_GET['profile'];
             });
             <?php if ($profile_id === "mine"): ?>
 
-                // Função auxiliar para fechar todos os modais exceto o especificado
+                // Helper that closes every modal except the given one
                 function closeOtherModals(exceptModal = null) {
                     const modals = [
                         document.querySelector("#edit-profile-modal"),
@@ -703,7 +702,7 @@ $profile_id = $_GET['profile'];
                     });
                 }
 
-                // Handler para editar post
+                // Edit post handler
                 const editli = document.querySelector("#edit-post-li")
                 const editPostModal = document.querySelector("#edit-post-modal")
                 const editPostContent = document.querySelector("#edit-post-content")
@@ -716,7 +715,7 @@ $profile_id = $_GET['profile'];
                     const postId = postModal.dataset.postId
                     const post = document.querySelector(`.post[data-post-id="${postId}"]`);
 
-                    // Busca o conteúdo atual do post (classe .post-content)
+                    // Get the post's current content (.post-content class)
                     const postContentElement = post.querySelector(".post-content");
                     const currentContent = postContentElement ? postContentElement.textContent.trim() : "";
 
@@ -726,21 +725,21 @@ $profile_id = $_GET['profile'];
                         return;
                     }
 
-                    // Preenche o textarea com o conteúdo atual
+                    // Fill the textarea with the current content
                     editPostContent.value = currentContent;
                     editPostModal.dataset.postId = postId;
 
-                    // Fecha o menu de opções
+                    // Close the options menu
                     postModal.close();
 
-                    // Fecha outros modais que possam estar abertos
+                    // Close any other open modals
                     closeOtherModals(editPostModal);
 
-                    // Abre o modal de edição
+                    // Open the edit modal
                     editPostModal.showModal();
                 });
 
-                // Fechar modal de edição
+                // Close the edit modal
                 editPostClose.addEventListener("click", () => {
                     editPostModal.close();
                 });
@@ -749,7 +748,7 @@ $profile_id = $_GET['profile'];
                     editPostModal.close();
                 });
 
-                // Salvar edição
+                // Save the edit
                 editPostSave.addEventListener("click", async () => {
                     const postId = editPostModal.dataset.postId;
                     const newContent = editPostContent.value.trim();
@@ -768,7 +767,7 @@ $profile_id = $_GET['profile'];
                         showSuccess("Publicação atualizada com sucesso!");
                         editPostModal.close();
 
-                        // Recarrega os posts
+                        // Reload the posts
                         setTimeout(() => {
                             window.location.reload();
                         }, 1000);
@@ -779,17 +778,17 @@ $profile_id = $_GET['profile'];
                     }
                 });
 
-                // Handler para excluir post com confirmação
+                // Delete post handler, with confirmation
                 const deleteli = document.querySelector("#delete-post-li")
                 deleteli.addEventListener("click", async () => {
                     const postModal = document.querySelector("#post-modal")
                     const postId = postModal.dataset.postId
                     const post = document.querySelector(`.post[data-post-id="${postId}"]`);
 
-                    // Fecha o menu de opções
+                    // Close the options menu
                     postModal.close();
 
-                    // Mostra modal de confirmação
+                    // Show the confirmation modal
                     const confirmed = await confirmAction(
                         "Tem certeza que deseja excluir esta publicação? Esta ação não pode ser desfeita.",
                         "Confirmar Exclusão"
@@ -814,7 +813,7 @@ $profile_id = $_GET['profile'];
         }
         <?php if ($profile_id === "mine"): ?>
 
-            // Função auxiliar para fechar todos os modais exceto o especificado
+            // Helper that closes every modal except the given one
             function closeOtherModals(exceptModal = null) {
                 const modals = [
                     document.querySelector("#edit-profile-modal"),
@@ -829,7 +828,7 @@ $profile_id = $_GET['profile'];
                 });
             }
 
-            // Handler para editar post
+            // Edit post handler
             const editli = document.querySelector("#edit-post-li")
             const editPostModal = document.querySelector("#edit-post-modal")
             const editPostContent = document.querySelector("#edit-post-content")
@@ -842,7 +841,7 @@ $profile_id = $_GET['profile'];
                 const postId = postModal.dataset.postId
                 const post = document.querySelector(`.post[data-post-id="${postId}"]`);
 
-                // Busca o conteúdo atual do post (classe .post-content)
+                // Get the post's current content (.post-content class)
                 const postContentElement = post.querySelector(".post-content");
                 const currentContent = postContentElement ? postContentElement.textContent.trim() : "";
 
@@ -852,21 +851,21 @@ $profile_id = $_GET['profile'];
                     return;
                 }
 
-                // Preenche o textarea com o conteúdo atual
+                // Fill the textarea with the current content
                 editPostContent.value = currentContent;
                 editPostModal.dataset.postId = postId;
 
-                // Fecha o menu de opções
+                // Close the options menu
                 postModal.close();
 
-                // Fecha outros modais que possam estar abertos
+                // Close any other open modals
                 closeOtherModals(editPostModal);
 
-                // Abre o modal de edição
+                // Open the edit modal
                 editPostModal.showModal();
             });
 
-            // Fechar modal de edição
+            // Close the edit modal
             editPostClose.addEventListener("click", () => {
                 editPostModal.close();
             });
@@ -875,7 +874,7 @@ $profile_id = $_GET['profile'];
                 editPostModal.close();
             });
 
-            // Salvar edição
+            // Save the edit
             editPostSave.addEventListener("click", async () => {
                 const postId = editPostModal.dataset.postId;
                 const newContent = editPostContent.value.trim();
@@ -894,7 +893,7 @@ $profile_id = $_GET['profile'];
                     showSuccess("Publicação atualizada com sucesso!");
                     editPostModal.close();
 
-                    // Recarrega os posts
+                    // Reload the posts
                     setTimeout(() => {
                         window.location.reload();
                     }, 1000);
@@ -905,17 +904,17 @@ $profile_id = $_GET['profile'];
                 }
             });
 
-            // Handler para excluir post com confirmação
+            // Delete post handler, with confirmation
             const deleteli = document.querySelector("#delete-post-li")
             deleteli.addEventListener("click", async () => {
                 const postModal = document.querySelector("#post-modal")
                 const postId = postModal.dataset.postId
                 const post = document.querySelector(`.post[data-post-id="${postId}"]`);
 
-                // Fecha o menu de opções
+                // Close the options menu
                 postModal.close();
 
-                // Mostra modal de confirmação
+                // Show the confirmation modal
                 const confirmed = await confirmAction(
                     "Tem certeza que deseja excluir esta publicação? Esta ação não pode ser desfeita.",
                     "Confirmar Exclusão"
@@ -944,8 +943,8 @@ $profile_id = $_GET['profile'];
         <?php if ($profile_id === "mine"): ?>
             if (userInfo?.role === "estudante") {
                 document.querySelector("#post-qtn-div").style.display = "none"
-                document.querySelector("#h3-publicacoes").innerText = "Publicações Curtidas"
-                document.querySelector("#h4-publicacoes").innerText = "Todas as postagens que você curtiu na Eteconnect"
+                document.querySelector("#h3-posts").innerText = "Publicações Curtidas"
+                document.querySelector("#h4-posts").innerText = "Todas as postagens que você curtiu na Eteconnect"
 
 
 
@@ -954,8 +953,8 @@ $profile_id = $_GET['profile'];
         <?php else: ?>
             if (userInfo?.role === "estudante") {
                 document.querySelector("#post-qtn-div").style.display = "none"
-                document.querySelector("#h3-publicacoes").innerText = "Publicações Curtidas"
-                document.querySelector("#h4-publicacoes").innerText = "Todas as postagens que " + (userInfo?.name ?? "usuário") + " curtiu na Eteconnect"
+                document.querySelector("#h3-posts").innerText = "Publicações Curtidas"
+                document.querySelector("#h4-posts").innerText = "Todas as postagens que " + (userInfo?.name ?? "usuário") + " curtiu na Eteconnect"
 
             }
 
@@ -972,7 +971,6 @@ $profile_id = $_GET['profile'];
                 .then(response => response.json());
         }
         const userLikedPosts = await executeWithRefresh(getLikedPostsByUser, <?= json_encode($profile_id) ?>)
-        console.log("mal absluto")
         const postsInfos = userLikedPosts?.data?.posts ?? [];
         const likedPostsBox = document.querySelector("#liked-posts-box");
         likedPostsBox.innerHTML = "";
@@ -1060,7 +1058,7 @@ $profile_id = $_GET['profile'];
             document.querySelector("#edit-profile-button").addEventListener("click", async () => {
                 const modal = document.querySelector("#edit-profile-modal")
 
-                // Fecha outros modais que possam estar abertos
+                // Close any other open modals
                 closeOtherModals(modal);
 
                 modal.showModal();
@@ -1239,7 +1237,7 @@ $profile_id = $_GET['profile'];
                     document.querySelector("#add-campus-btn").style.display = "none"
                     campusSelect.addEventListener("change", async (event) => {
                         if (campusSelect.value == "monstro") {
-                            //selecione uma etec primeiro
+                            // pick an Etec first
                             return
                         }
 
@@ -1274,7 +1272,7 @@ $profile_id = $_GET['profile'];
                         document.querySelector("#course-update-div").insertBefore(select, btn);
 
                         if (campusSelect.value == "monstro") {
-                            //selecione uma etec primeiro
+                            // pick an Etec first
                             return
                         }
                         const campusSelect1 = document.querySelector("#campus-select-1")
@@ -1359,13 +1357,12 @@ $profile_id = $_GET['profile'];
                 document.querySelector("#edit-icon").style.display = "block";
 
             })
-            //simoh hayha
 
             const form = document.querySelector("#update-form")
             form.addEventListener("submit", async (event) => {
                 event.preventDefault();
 
-                // Confirmação antes de atualizar perfil
+                // Confirm before updating the profile
 
 
 
@@ -1380,7 +1377,6 @@ $profile_id = $_GET['profile'];
                 formData.append("state", form.state.value);
                 formData.append("zip_code", form.zip_code.value);
 
-                //bug de mira fds vamo abusa
                 const has_address = (form.street.value.length === 0) ? false : true
                 formData.append("has_address", has_address);
 
@@ -1400,7 +1396,7 @@ $profile_id = $_GET['profile'];
                     return response.json();
                 };
 
-                // Aqui você chama o executeWithRefresh, passando a função updateUser e o formData
+                // Call executeWithRefresh, passing the updateUser function and the formData
                 const result = await executeWithRefresh(updateUser, formData);
                 if (result.status !== "success") {
                     showBackendError(result, 'Erro ao atualizar perfil');
@@ -1583,9 +1579,7 @@ $profile_id = $_GET['profile'];
             }
 
         <?php endif; ?>
-        console.log("garou")
 
-        console.log("garou")
         document.getElementById('btnBack').addEventListener('click', function() {
 
             const referrer = document.referrer;
@@ -1599,7 +1593,7 @@ $profile_id = $_GET['profile'];
 
         });
 
-        // Funções para o post-focus funcionar
+        // Functions the post focus view needs
         function openPostFocus(postInfo) {
             const postFocus = document.querySelector('.container-post-focus');
             if (postFocus) {
@@ -1631,22 +1625,22 @@ $profile_id = $_GET['profile'];
 
 
         const userId = userInfo.id;
-        const simohElements = document.querySelectorAll(".simoh");
+        const followStatElements = document.querySelectorAll(".follow-stat");
         const modal = document.getElementById("followModal");
         const closeModal = document.querySelector(".close-modal");
         const tabs = document.querySelectorAll(".tab-btn");
         const contents = document.querySelectorAll(".tab-content");
 
-        // abrir modal pelo perfil
-        simohElements.forEach(el => {
+        // open the modal from the profile
+        followStatElements.forEach(el => {
             el.addEventListener("click", () => {
                 const type = el.dataset.type;
                 openModal(type);
-                loadFollowData(type); // ✅ carrega ao abrir
+                loadFollowData(type); // ✅ load on open
             });
         });
 
-        // trocar abas dentro do modal
+        // switch tabs inside the modal
         tabs.forEach(tab => {
             tab.addEventListener("click", () => {
                 const type = tab.dataset.tab;
@@ -1657,7 +1651,7 @@ $profile_id = $_GET['profile'];
                 tab.classList.add("active");
                 document.getElementById(type).classList.add("active");
 
-                loadFollowData(type); // ✅ carrega ao trocar aba
+                loadFollowData(type); // ✅ load when switching tabs
             });
         });
 
@@ -1725,7 +1719,7 @@ $profile_id = $_GET['profile'];
             const color = (profilePath) ? "transparent" : roleColor;
             const url = (profilePath) ? `url("${profilePath}")` : "none";
             const userPhotoText = (profilePath) ? "" : getProfileLetter(authorName);
-            const naodapraesquecer = (user.is_following === 1) ? "seguindo" : "seguir";
+            const followLabel = (user.is_following === 1) ? "seguindo" : "seguir";
 
             const div = document.createElement("div");
             div.classList.add("user-row");
@@ -1745,7 +1739,7 @@ $profile_id = $_GET['profile'];
                 </span>
             </div>
 
-            <button class="follow-btn">${naodapraesquecer}</button>
+            <button class="follow-btn">${followLabel}</button>
 `
 
             const followBtn = div.querySelector(".follow-btn");

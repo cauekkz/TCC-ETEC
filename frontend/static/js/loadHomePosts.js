@@ -1,7 +1,7 @@
 async function loadHomePosts(page = 1) {
     const token = localStorage.getItem("jwt_token");
     if (!token) {
-        console.error("Token não encontrado");
+        console.error("Token not found");
         return;
     }
     const serverId = localStorage.getItem("selectedServer") ?? null;
@@ -16,7 +16,7 @@ async function loadHomePosts(page = 1) {
         });
 
         if (!response.ok) {
-            console.error("Erro na requisição:", response.status);
+            console.error("Request error:", response.status);
             return null;
         }
 
@@ -24,12 +24,12 @@ async function loadHomePosts(page = 1) {
 
         return data;
     } catch (error) {
-        console.error("Erro ao carregar posts:", error);
+        console.error("Error loading posts:", error);
         return null;
     }
 }
 let hasPost = true
-// Função para renderizar posts no home
+// Renders posts on the home page
 async function renderHomePosts(page = 1) {
     try {
         const result = await executeWithRefresh(loadHomePosts, page);
@@ -46,33 +46,32 @@ async function renderHomePosts(page = 1) {
                     addPostClickEvent(postElement, postInfo);
 
                 });
-                // Adicionar funcionalidade de like aos posts carregados
+                // Add like functionality to the loaded posts
                 addLikeFunctionalityToPosts();
             } else {
                 hasPost = false
             }
         } else {
-            console.error("Erro ao carregar posts:", result);
+            console.error("Error loading posts:", result);
         }
     } catch (error) {
-        console.error("Erro na requisição de posts:", error);
+        console.error("Posts request error:", error);
     }
 }
 
-// Carregar posts quando a página carregar
+// Load posts when the page loads
 
 document.addEventListener('DOMContentLoaded', function () {
     let page = 1;
     renderHomePosts(page);
-    const postsContainer = document.querySelector("#borboleta");
+    const postsContainer = document.querySelector("#posts-feed");
     const loadingIcon = document.querySelector("#loadingPostIcon")
     postsContainer.addEventListener("scroll", () => {
-        const pumoes = postsContainer.scrollHeight
-        const chorar = postsContainer.scrollTop
-        const oni = postsContainer.clientHeight
-        const isAtEnd = chorar + oni >= pumoes - 1;
+        const scrollHeight = postsContainer.scrollHeight
+        const scrollTop = postsContainer.scrollTop
+        const clientHeight = postsContainer.clientHeight
+        const isAtEnd = scrollTop + clientHeight >= scrollHeight - 1;
         if (isAtEnd && hasPost) {
-            console.log('akaza-dono')
             loadingIcon.style.display = "block"
             page++
 
@@ -83,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (!hasPost) {
-            document.querySelector("#palavras").style.display = "flex"
+            document.querySelector("#end-of-feed").style.display = "flex"
             console.log("info")
         }
     })

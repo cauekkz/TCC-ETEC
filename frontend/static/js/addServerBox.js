@@ -12,13 +12,13 @@ function addServerBox(server, isMine = false) {
     serverBox.tabIndex = 0;
     serverBox.setAttribute('role', 'link');
 
-    const isGeral = server.campus_id === null;
+    const isGeneral = server.campus_id === null;
 
     serverBox.innerHTML = `
-    <div class="server-icon" aria-hidden="true">${isGeral ? "#" : uiEscape(serverInitials(server.name))}</div>
+    <div class="server-icon" aria-hidden="true">${isGeneral ? "#" : uiEscape(serverInitials(server.name))}</div>
     <div class="server-info">
         <h3>${uiEscape(server.name)}</h3>
-        ${isGeral ? '<span class="ui-mine-badge">Todas as Etecs</span>' : (isMine ? '<span class="ui-mine-badge">Sua Etec</span>' : '')}
+        ${isGeneral ? '<span class="ui-mine-badge">Todas as Etecs</span>' : (isMine ? '<span class="ui-mine-badge">Sua Etec</span>' : '')}
     </div>`;
 
     const go = () => { window.location.href = `/?server=${server.id}`; };

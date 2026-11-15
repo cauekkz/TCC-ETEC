@@ -57,12 +57,12 @@ if ($match && is_callable($match['target'])) {
 }
 
 /*
-| Placeholder | entrada                      | Exemplo               |
+| Placeholder | Matches                      | Example               |
 | ----------- | ---------------------------- | --------------------- |
-| `[i:var]`   | Só números                   | `/user/123`           |
-| `[a:var]`   | Letras + números (sem hífen) | `/post/abc123`        |
+| `[i:var]`   | Digits only                  | `/user/123`           |
+| `[a:var]`   | Letters + digits (no hyphen) | `/post/abc123`        |
 | `[h:var]`   | Hexadecimal                  | `/color/ff6600`       |
-| `[s:var]`   | String simples (sem `/`)     | `/page/sobre-nos`     |
-| `[*:var]`   | Tudo até `/`                 | `/file/meu.pdf`       |
-| `[**:var]`  | Tudo (inclusive `/`)         | `/download/pasta/abc` |
+| `[s:var]`   | Simple string (no `/`)       | `/page/about-us`      |
+| `[*:var]`   | Everything up to `/`         | `/file/my.pdf`        |
+| `[**:var]`  | Everything (including `/`)   | `/download/folder/abc`|
 */

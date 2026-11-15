@@ -537,7 +537,7 @@
     INSERT INTO campus_course (campus_id, course_id) VALUES (28, 56);
     INSERT INTO campus_course (campus_id, course_id) VALUES (28, 57);
     INSERT INTO campus_course (campus_id, course_id) VALUES (28, 62);
-    -- Inserir na tabela campus_course com base nos dados fornecidos
+    -- Insert into campus_course based on the data provided
     INSERT INTO campus_course (campus_id, course_id)
     VALUES (28, 70);
 

@@ -23,7 +23,7 @@ if ($user_query_id === null) {
 
 
 // =====================================================
-// ✅ PEGAR APENAS POSTS QUE O USUÁRIO CURTIU
+// ✅ Only get posts the user liked
 // =====================================================
 $sql = "SELECT
     p.id,
@@ -49,18 +49,18 @@ $sql = "SELECT
 
 FROM post p
 
--- garante que o post foi curtido pelo usuário passado
+-- makes sure the post was liked by the given user
 INNER JOIN likes l_user 
     ON l_user.content_type = 'post'
     AND l_user.content_id = p.id
     AND l_user.user_id = :user_query_id  
 
--- total de likes
+-- total likes
 LEFT JOIN likes l 
     ON l.content_type = 'post'
     AND l.content_id = p.id
 
--- se o usuário logado curtiu ou não (pra UI)
+-- whether the logged-in user liked it (for the UI)
 LEFT JOIN likes l2 
     ON l2.content_type = 'post'
     AND l2.content_id = p.id
@@ -69,7 +69,7 @@ LEFT JOIN likes l2
 LEFT JOIN user u 
     ON u.id = p.id_author
 
--- múltiplos campus por autor
+-- multiple campuses per author
 LEFT JOIN user_campus uc_post 
     ON uc_post.user_id = p.id_author
 
@@ -119,7 +119,7 @@ if ($response->status != 'success') {
 
 
 // =====================================================
-// ✅ PROCESSAR MÍDIA (IGUAL AO SEU)
+// ✅ Process media
 // =====================================================
 $posts = $response->results;
 foreach ($posts as $post) {

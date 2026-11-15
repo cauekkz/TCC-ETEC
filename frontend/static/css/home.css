@@ -1,7 +1,7 @@
 /*
 
 */
-/* Estilos para o formulário de criação de post */
+/* Styles for the create post form */
 #mediaPreview {
   border: 1px solid var(--border-primary);
   border-radius: 8px;
@@ -47,7 +47,7 @@
   height: 16px;
 }
 
-#borboleta {
+#posts-feed {
   position: relative;
   height: 100%;
 }
@@ -71,19 +71,19 @@
     transform: rotate(365deg);
   }
 }
-#palavras{
+#end-of-feed{
   display: none;
   justify-content: center;
   align-items: center;
   width: 100%;
   color:var(--text-muted  );
 }
-/* Estilo para o botão de criar post quando não é professor */
+/* Style for the create post button when the user isn't a teacher */
 #btnCreate[style*="display: none"] {
   display: none !important;
 }
 
-/* Estilos para posts dinâmicos */
+/* Styles for dynamic posts */
 
 
 .post-icon-div {

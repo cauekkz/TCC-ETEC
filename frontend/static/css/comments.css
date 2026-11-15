@@ -1,4 +1,4 @@
-/* Comentários estilo YouTube usando theme.css */
+/* YouTube-style comments using theme.css */
 
 .comment-item {
     display: flex;
@@ -46,7 +46,7 @@
     transform: scale(1.05);
 }
 
-/* Conteúdo do comentário */
+/* Comment content */
 .comment-content {
     flex: 1;
     min-width: 0;
@@ -94,7 +94,7 @@
     margin-bottom: 8px;
 }
 
-/* Ações do comentário */
+/* Comment actions */
 .comment-actions {
     display: flex;
     align-items: center;
@@ -169,7 +169,7 @@
     border-bottom: none;
 }
 
-/* Formulário de resposta */
+/* Reply form */
 .comment-reply-form-container {
     margin-top: 12px;
     padding-left: 52px;
@@ -242,7 +242,7 @@
     cursor: not-allowed;
 }
 
-/* Container de lista de comentários */
+/* Comment list container */
 .comment-list {
     margin-top: 16px;
 }

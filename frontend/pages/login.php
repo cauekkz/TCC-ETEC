@@ -8,7 +8,7 @@
 
     <div class="row">
         <div class="col">
-            <p class="text-center text-entrar">Entrar na Eteconnect</p>
+            <p class="text-center text-login">Entrar na Eteconnect</p>
             <hr id="hr-style">
         </div>
     </div>
@@ -77,7 +77,7 @@
             const data = await login(form.email.value, form.password.value)
 
             if (data.status !== "success") {
-                // Mostrar erro do backend
+                // Show the backend error
                 showBackendError(data, 'Erro ao fazer login');
                 return;
             }

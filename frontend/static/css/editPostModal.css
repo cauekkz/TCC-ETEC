@@ -1,4 +1,4 @@
-/* Modal de Edição de Post - EteConnect */
+/* Edit Post modal - EteConnect */
 
 #edit-post-modal {
     border: none;
@@ -20,7 +20,7 @@
     z-index: 10002;
 }
 
-/* Garantir que o modal fique centralizado quando aberto */
+/* Keep the modal centered when open */
 #edit-post-modal[open] {
     display: block;
     position: fixed;

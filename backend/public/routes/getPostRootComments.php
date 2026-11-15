@@ -17,7 +17,7 @@ $page = max(1, (int)($_SERVER["HTTP_X_PAGE"] ?? 1));
 $limit = min(50, max(1, (int)($_SERVER["HTTP_X_LIMIT"] ?? 20)));
 $offset = ($page - 1) * $limit;
 
-// Pega o user_id do token JWT
+// Get user_id from the JWT token
 $jwt = new JwtAuth();
 $tokenJWT = $jwt->get_jwt_by_header();
 $resultJWT = $jwt->validate_token($tokenJWT);

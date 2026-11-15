@@ -15,19 +15,19 @@ class Response{
         $this->integration_key = null;
     }
 
-    // Usado para alterar o status
+    // Used to change the status
     public function set_status($status = 'success')
     {
         $this->status = $status;
     }
 
-    // Usado para alterar a mensagem de erro, já que ela vem vazia
+    // Used to set the error message, since it starts out empty
     public function set_error_message($message)
     {
         $this->error_message = $message;
     }
 
-    // Mandar o conteúdo da resposta
+    // Send the response content
     public function set_response_data($data)
     {
         $this->response_data = $data;
@@ -38,12 +38,12 @@ class Response{
         $this->integration_key = $key;
     }
 
-    // Para emitir as repostas, definindo os dados para ela
+    // Emits the response, setting its data
     public function response()
     {
         $tmp = [];
         $tmp['status'] = $this->status;
-        // Se error_message estiver vazio essa chave não vai existir na resposta final
+        // If error_message is empty this key won't exist in the final response
         if(!empty($this->error_message))
         {
             $tmp['error_message'] = $this->error_message;
@@ -72,7 +72,7 @@ class Response{
         $tmp['time_response'] = time();
         $tmp['api_version'] = API_VERSION;
 
-        // Aqui faz um echo dos dados desse array temporário
+        // Echo the data from this temporary array
         echo json_encode($tmp, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         exit;
     }

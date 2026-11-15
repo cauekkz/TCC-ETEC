@@ -126,9 +126,9 @@ function formatTimeAgo(created_at) {
 
 
 
-// Função para abrir modal de imagem
+// Opens the image modal
 function openImageModal(imageUrl) {
-    // Criar modal se não existir
+    // Create the modal if it doesn't exist
     let modal = document.getElementById('image-modal');
     if (!modal) {
         modal = document.createElement('div');
@@ -140,12 +140,12 @@ function openImageModal(imageUrl) {
         `;
         document.body.appendChild(modal);
 
-        // Event listener para fechar modal
+        // Event listener that closes the modal
         modal.querySelector('.close-image-modal').onclick = function () {
             modal.style.display = 'none';
         };
 
-        // Fechar modal ao clicar fora da imagem
+        // Close the modal when clicking outside the image
         modal.onclick = function (e) {
             if (e.target === modal) {
                 modal.style.display = 'none';
@@ -158,9 +158,9 @@ function openImageModal(imageUrl) {
     modal.style.display = 'block';
 }
 
-// Função para abrir modal de vídeo
+// Opens the video modal
 function openVideoModal(videoUrl) {
-    // Criar modal se não existir
+    // Create the modal if it doesn't exist
     let modal = document.getElementById('video-modal');
     if (!modal) {
         modal = document.createElement('div');
@@ -175,13 +175,13 @@ function openVideoModal(videoUrl) {
         `;
         document.body.appendChild(modal);
 
-        // Event listener para fechar modal
+        // Event listener that closes the modal
         modal.querySelector('.close-video-modal').onclick = function () {
             modal.style.display = 'none';
             document.getElementById('modal-video').pause();
         };
 
-        // Fechar modal ao clicar fora do vídeo
+        // Close the modal when clicking outside the video
         modal.onclick = function (e) {
             if (e.target === modal) {
                 modal.style.display = 'none';
@@ -190,7 +190,7 @@ function openVideoModal(videoUrl) {
         };
     }
 
-    // Mostrar vídeo
+    // Show the video
     const video = document.getElementById('modal-video');
     video.src = videoUrl;
     modal.style.display = 'block';

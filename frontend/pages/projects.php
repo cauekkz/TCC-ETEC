@@ -25,7 +25,7 @@ if (is_numeric($server_id)) {
     document.addEventListener("DOMContentLoaded", function() {
         const serverName = localStorage.getItem("selectedServerName") ?? null;
 
-        document.querySelector("#consecultivos").innerText =
+        document.querySelector("#server-subtitle").innerText =
             `Projetos TCC de ${serverName}`;
 
     });
@@ -184,7 +184,7 @@ if (is_numeric($server_id)) {
                 <div class="d-flex ">
                     <div class="px-1">
                         <p id="feedTitle" class="mb-0 h2"><strong>Projetos de TCC</strong></p>
-                        <p class="text-secondary" id="consecultivos"></p>
+                        <p class="text-secondary" id="server-subtitle"></p>
                     </div>
                 </div>
                 <div class="projects-grid">
@@ -213,7 +213,7 @@ if (is_numeric($server_id)) {
         </div>
 
     </div>
-    <form id="querubim" class="modal-content">
+    <form id="project-form" class="modal-content">
 
         <header class="modal-header bg-secondary border-secondary">
             <h2 class="text-primary">Novo Projeto de TCC</h2>
@@ -320,7 +320,7 @@ if (is_numeric($server_id)) {
 
         <!-- FOOTER -->
         <footer class="modal-footer bg-secondary border-secondary">
-            <button type="button" class="btn cancel-btn" id="absurdo">Fechar</button>
+            <button type="button" class="btn cancel-btn" id="close-project-modal">Fechar</button>
         </footer>
 
     </div>
@@ -423,7 +423,7 @@ if (is_numeric($server_id)) {
             });
 
             if (!confirmed) {
-                console.log("Usuário cancelou");
+                console.log("User cancelled");
                 return;
             }
 
@@ -572,7 +572,7 @@ if (is_numeric($server_id)) {
                 document.getElementById("viewProjectCampus").textContent = p.campus_name;
 
                 // ============================
-                //  INTEGRANTES (com foto)
+                //  MEMBERS (with photo)
                 // ============================
                 const membersEl = document.getElementById("viewProjectMembers");
                 membersEl.innerHTML = json.data.members
@@ -664,7 +664,7 @@ if (is_numeric($server_id)) {
             modal.showModal();
         }
 
-        document.querySelector("#absurdo").addEventListener("click", () => {
+        document.querySelector("#close-project-modal").addEventListener("click", () => {
             document.getElementById("viewProjectModal").close();
         });
 
@@ -836,7 +836,6 @@ if (is_numeric($server_id)) {
                 }
             });
             const result = await response.json();
-            console.log("rei nada mal")
 
             if (result.status !== "success") {
                 showAlert("error", "Erro ao buscar estudantes");
@@ -884,10 +883,10 @@ if (is_numeric($server_id)) {
             resultsBox.style.display = "block";
         });
 
-        modal.querySelector("#querubim").addEventListener("submit", async (e) => {
+        modal.querySelector("#project-form").addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            // Confirmação antes de criar projeto
+            // Confirm before creating a project
 
             const confirmed = await confirmAction(
                 "Deseja criar este projeto TCC?",

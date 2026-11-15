@@ -18,7 +18,7 @@ if (isset($_GET['id_post'])) {
     exit;
 }
 
-// Buscar comentários root (sem parent) com informações do usuário
+// Fetch root comments (no parent) with user info
 $sql = "SELECT 
     c.id,
     c.content,
@@ -41,7 +41,7 @@ $response = $db->execute_query($sql, $params);
 
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message($response->message);
     $res->response();
     exit;
 }

@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../_inc/filters/isStudent.php';
 
 $data = $_POST;
 
-// Validações de segurança
+// Security checks
 if (empty($data['courses_ids'])) {
     $res->set_status("error");
     $res->set_error_message("At least one course is required");
@@ -14,7 +14,7 @@ if (empty($data['courses_ids'])) {
     exit;
 }
 
-// Limitar número máximo de cursos (prevenir spam)
+// Limit the maximum number of courses (prevents spam)
 /*
 if (count($coursesArray) > 5) {
     $res->set_status("error");
@@ -50,7 +50,7 @@ $sql = "SELECT id FROM course WHERE id IN (" . implode(", ", $placeholders) . ")
 $response = $db->execute_query($sql, $params);
 if ($response->status != 'success' || empty($response->results)) {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message($response->message);
     $res->response();
     exit;
 }
@@ -71,7 +71,7 @@ $sql = "INSERT INTO user_course (user_id, course_id) VALUES " . implode(", ", $v
 $response = $db->execute_non_query($sql, $params);
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message($response->message);
     $res->response();
     exit;
 }

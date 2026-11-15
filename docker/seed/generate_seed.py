@@ -12,7 +12,7 @@ NOW = datetime(2026, 11, 13, 20, 0, 0)
 
 MAIN_CAMPUS, MAIN_SERVER = 2, 3
 SEC_CAMPUS, SEC_SERVER = 28, 29
-GERAL = 1
+GENERAL = 1
 
 USERS = [
     ("Ana Beatriz Souza", "aluno@etec.sp.gov.br", "20231234501", "2008-03-14", MAIN_CAMPUS, [29], "(11) 98765-4321"),
@@ -75,10 +75,10 @@ POSTS = [
     (13, SEC_SERVER, "Bem-vindos ao servidor da Etec Parque da Juventude! Usem este espaço para dúvidas sobre as disciplinas de programação.", 10, []),
     (16, SEC_SERVER, "Hackathon interno confirmado: 48h, temas ligados a sustentabilidade. Montem seus grupos de até 4 pessoas!", 40, ["seed/post6.jpg"]),
     (13, SEC_SERVER, "Resultados do simulado de lógica de programação já foram lançados. Média da turma: 7,8. Mandaram bem!", 90, []),
-    (2, GERAL, "Olá a todas as Etecs! Este é o servidor geral do ETEConnect — compartilhem eventos abertos, oportunidades de estágio e projetos.", 5, []),
-    (16, GERAL, "Feira de Profissões do Centro Paula Souza acontece mês que vem. Ótima oportunidade para quem está decidindo a graduação.", 26, ["seed/post2.jpg"]),
-    (8, GERAL, "Dica de estudo: o Figma tem plano gratuito para estudantes. Vale muito a pena para prototipar o front do TCC.", 60, []),
-    (13, GERAL, "Vagas de estágio em desenvolvimento web na zona leste — mandem o currículo para o e-mail da coordenação.", 110, []),
+    (2, GENERAL, "Olá a todas as Etecs! Este é o servidor geral do ETEConnect — compartilhem eventos abertos, oportunidades de estágio e projetos.", 5, []),
+    (16, GENERAL, "Feira de Profissões do Centro Paula Souza acontece mês que vem. Ótima oportunidade para quem está decidindo a graduação.", 26, ["seed/post2.jpg"]),
+    (8, GENERAL, "Dica de estudo: o Figma tem plano gratuito para estudantes. Vale muito a pena para prototipar o front do TCC.", 60, []),
+    (13, GENERAL, "Vagas de estágio em desenvolvimento web na zona leste — mandem o currículo para o e-mail da coordenação.", 110, []),
 ]
 for pid, (author, server, text, hours, imgs) in enumerate(POSTS, start=1):
     lines.append(
@@ -136,7 +136,7 @@ for a, b in sorted(follows):
     lines.append(f"INSERT INTO follower (follower_id, followed_id) VALUES ({a}, {b});")
 lines.append("")
 
-CONVERSAS = [
+CONVERSATIONS = [
     (1, 2, [
         (1, "Oi professor, posso tirar uma dúvida sobre o TCC?", 26),
         (2, "Claro, Ana! Pode mandar.", 25.8),
@@ -165,7 +165,7 @@ CONVERSAS = [
         (2, "Consigo sim, Camila. Fico com o período da tarde.", 11),
     ]),
 ]
-for a, b, msgs in CONVERSAS:
+for a, b, msgs in CONVERSATIONS:
     last = len(msgs) - 1
     for k, (sender, text, hours) in enumerate(msgs):
         receiver = b if sender == a else a
@@ -182,7 +182,7 @@ EVENTS = [
     (MAIN_SERVER, "Palestra: Carreira em Tecnologia", "Ex-alunos contam como entraram no mercado de trabalho e respondem dúvidas sobre estágio.", 22, "19:00:00", "Auditório principal", 80),
     (SEC_SERVER, "Hackathon Sustentável 48h", "Maratona de programação com foco em soluções para sustentabilidade urbana. Prêmios para os três primeiros lugares.", 10, "08:00:00", "Ginásio coberto", 60),
     (SEC_SERVER, "Workshop de Git e GitHub", "Do primeiro commit ao pull request: fluxo de trabalho em equipe.", 3, "14:00:00", "Laboratório 2", 25),
-    (GERAL, "Feira de Profissões CPS", "Feira aberta a todas as Etecs com estandes de universidades e empresas parceiras.", 30, "09:00:00", "Centro de Convenções — São Paulo", 1000),
+    (GENERAL, "Feira de Profissões CPS", "Feira aberta a todas as Etecs com estandes de universidades e empresas parceiras.", 30, "09:00:00", "Centro de Convenções — São Paulo", 1000),
 ]
 for eid, (server, title, desc, days, time, loc, cap) in enumerate(EVENTS, start=1):
     date = (NOW + timedelta(days=days)).strftime("%Y-%m-%d")
@@ -207,7 +207,7 @@ NOTICES = [
     (MAIN_SERVER, "Uso obrigatório do crachá", "A partir de segunda-feira o acesso à escola será feito somente com o crachá de estudante.", "importante", 120),
     (SEC_SERVER, "Hackathon — inscrições", "Inscrições do hackathon pelo formulário da coordenação até quarta.", "evento", 15),
     (SEC_SERVER, "Reposição de aula", "Haverá reposição da aula de PAM no sábado, das 8h às 12h.", "importante", 60),
-    (GERAL, "Bem-vindo ao ETEConnect", "Este é o canal geral, compartilhado por todas as Etecs. Seja respeitoso e ajude os colegas!", "importante", 200),
+    (GENERAL, "Bem-vindo ao ETEConnect", "Este é o canal geral, compartilhado por todas as Etecs. Seja respeitoso e ajude os colegas!", "importante", 200),
 ]
 for server, title, desc, ntype, hours in NOTICES:
     lines.append(

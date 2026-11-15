@@ -3,12 +3,12 @@ function validate($data)
 {
     $errors = [];
 
-    // Validação do e-mail
+    // Email validation
     if (empty($data['email']) || !filter_var($data['email'], FILTER_VALIDATE_EMAIL) || !str_ends_with($data['email'], '@etec.sp.gov.br')) {
         $errors[] = 'Email inválido';
     }
 
-    // Validação da senha
+    // Password validation
   if (empty($data['password']) || strlen($data['password']) < 8) {
         $errors[] = 'A senha precisa ter pelo menos 8 caracteres';
     } else {
@@ -26,17 +26,17 @@ function validate($data)
     if (empty($data['acceptedTerms']) || $data['acceptedTerms'] !== "1") {
         $errors[] = 'Você deve aceitar os Termos e Políticas para continuar.';
     }
-    // Validação da confirmação da senha
+    // Password confirmation validation
     if ($data["conf_password"] != $data['password']) {
         $errors[] = 'Senhas diferentes';
     }
 
-    // Validação do nome
+    // Name validation
     if (empty($data['name']) || strlen($data['name']) < 3) {
         $errors[] = 'Nome muito curto';
     }
 
-    // Validação da data de nascimento
+    // Date of birth validation
     if (empty($data['birthday'])) {
         $errors[] = 'Data de nascimento obrigatória';
     } else {
@@ -48,7 +48,7 @@ function validate($data)
         }
     }
 
-    // Validação da matrícula
+    // Student ID validation
     if (empty($data['registration']) || !is_numeric($data['registration']) || (strlen($data['registration']) != 11 && strlen($data['registration']) != 6)) {
         $errors[] = 'Matrícula inválida';
     }

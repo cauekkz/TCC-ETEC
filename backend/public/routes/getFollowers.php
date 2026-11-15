@@ -17,7 +17,7 @@ if (!$resultJWT) {
 
 $auth_user_id = $resultJWT['id'];
 
-// Verificações
+// Checks
 if (!isset($_GET['user_id'])) {
     $res->set_status('error');
     $res->set_error_message('ID do usuário não informado');

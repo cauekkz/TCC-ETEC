@@ -1,7 +1,7 @@
 async function loadUserInformation(id) {
     const token = localStorage.getItem("jwt_token")
     const response = await fetch(`/api/getUserInformation?user_id=${id}`, {
-        method: 'GET', // ou 'POST', 'PUT', etc.
+        method: 'GET', // or 'POST', 'PUT', etc.
         headers: {
             'Authorization': `Bearer ${token}` 
         }

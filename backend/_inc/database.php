@@ -60,7 +60,7 @@ class Database
         }
     }
 
-    public function execute_query($sql, $parametros = null)
+    public function execute_query($sql, $params = null)
     {
         
         $this->connect();
@@ -69,7 +69,7 @@ class Database
         try {
 
             $query = $this->connection->prepare($sql);
-            $query->execute($parametros);
+            $query->execute($params);
             $results = $query->fetchAll($this->return_type);
         } catch (PDOException $err) {
 
@@ -79,7 +79,7 @@ class Database
         return $this->_result('success', 'success', $sql, $results, $query->rowCount(), null);
     }
 
-    public function execute_non_query($sql, $parametros = null)
+    public function execute_non_query($sql, $params = null)
     {
 
         $this->connect();
@@ -88,7 +88,7 @@ class Database
         try {
 
             $query = $this->connection->prepare($sql);
-            $query->execute($parametros);
+            $query->execute($params);
             $ultimo_id = $this->connection->lastInsertId();
             $this->connection->commit();
         } catch (PDOException $err) {
@@ -101,12 +101,12 @@ class Database
         return $this->_result('success', 'success', $sql, null, $query->rowCount(), $ultimo_id);
     }
 
-    private function _result($status, $mensagem, $sql, $results, $affected_rows, $last_id)
+    private function _result($status, $message, $sql, $results, $affected_rows, $last_id)
     {
 
         $tmp = new stdClass();
         $tmp->status = $status;
-        $tmp->mensagem = $mensagem;
+        $tmp->message = $message;
         $tmp->sql = $sql;
         $tmp->results = $results;
         $tmp->affected_rows = $affected_rows;

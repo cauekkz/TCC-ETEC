@@ -22,7 +22,7 @@ if (is_numeric($server_id)) {
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const serverName = localStorage.getItem("selectedServerName") ?? null;
-        document.querySelector("#consecultivos").innerText =
+        document.querySelector("#server-subtitle").innerText =
             `Avisos de ${serverName}`;
     });
 </script>
@@ -173,7 +173,7 @@ if (is_numeric($server_id)) {
                 <div class="d-flex ">
                     <div class="px-1">
                         <p id="feedTitle" class="mb-0 h2"><strong>Avisos</strong></p>
-                        <p class="text-secondary" id="consecultivos"></p>
+                        <p class="text-secondary" id="server-subtitle"></p>
                     </div>
                 </div>
                 <div id="delete-modal" class="confirmation-modal-overlay">
@@ -296,7 +296,7 @@ if (is_numeric($server_id)) {
         document.getElementById('createNoticeForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Confirmação antes de criar aviso
+            // Confirm before creating a notice
             const confirmed = await confirmAction(
                 "Deseja criar este aviso?",
                 "Confirmar Criação de Aviso"

@@ -14,7 +14,7 @@
     transition: width 0.5s ease, padding 0.3s ease, background-color 0.3s ease !important;
 }
 
-/* Ícone */
+/* Icon */
 .search-icon,
 .hidden-icon {
     display: inline-block;
@@ -105,12 +105,12 @@
     background: var(--bg-tertiary);
 }
 
-/* Seções */
+/* Sections */
 .preview-section {
     margin-bottom: 0.8rem;
 }
 
-/* Cabeçalho com título + olho */
+/* Header with title + eye */
 .preview-header {
     display: flex;
     justify-content: space-between;
@@ -120,14 +120,14 @@
     border-bottom: 1px solid var(--border-secondary);
 }
 
-/* Título */
+/* Title */
 .preview-title {
     margin: 0;
     font-size: 0.95rem;
     color: var(--text-secondary);
 }
 
-/* Botão do olho */
+/* Eye button */
 .preview-toggle {
     background: transparent;
     border: none;

@@ -65,7 +65,7 @@ function initMobileMenu() {
   const tab = document.querySelector(".tab");
   if (!tab) return;
 
-  // Criar overlay para o menu mobile
+  // Create the mobile menu overlay
   let overlay = document.querySelector(".mobile-menu-overlay");
   if (!overlay) {
     overlay = document.createElement("div");
@@ -73,7 +73,7 @@ function initMobileMenu() {
     document.body.appendChild(overlay);
   }
 
-  // Criar botão de toggle se não existir
+  // Create the toggle button if it doesn't exist
   let mobileToggle = document.querySelector(".mobile-menu-toggle");
   if (!mobileToggle) {
     mobileToggle = document.createElement("button");
@@ -111,7 +111,7 @@ function initMobileMenu() {
       toggleMenu();
     });
 
-    // Fechar menu ao clicar em um link do menu
+    // Close the menu when a menu link is clicked
     const menuLinks = tab.querySelectorAll(".aside-a");
     menuLinks.forEach((link) => {
       link.addEventListener("click", () => {
@@ -122,7 +122,7 @@ function initMobileMenu() {
     });
   }
 
-  // Atualizar visibilidade do botão ao redimensionar
+  // Update the button's visibility on resize
   window.addEventListener("resize", updateMobileToggleVisibility);
 
   function updateMobileToggleVisibility() {

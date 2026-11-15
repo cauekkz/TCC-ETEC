@@ -117,7 +117,7 @@ section {
     color: var(--text-muted);
 }
 
-#perfil-icon-div {
+#profile-icon-div {
     display: flex;
     flex-direction: column;
     height: 11%;
@@ -125,7 +125,7 @@ section {
     gap: 0.75rem;
 }
 
-#perfil-icon-div span {
+#profile-icon-div span {
     display: flex;
     align-content: center;
     gap: 0.5rem;
@@ -135,7 +135,7 @@ section {
 
 }
 
-.perfil-icon {
+.profile-icon {
     display: inline-block;
     height: 0.9rem;
 }
@@ -160,7 +160,7 @@ section {
     font-size: 0.7rem;
 }
 
-.perfil-button {
+.profile-button {
     margin: 0.5rem 1rem;
     width: 90%;
     border-radius: 5px;
@@ -217,12 +217,12 @@ section {
     gap: 1rem;
 }
 
-.simoh {
+.follow-stat {
     cursor: pointer;
 }
 
-/* Garantir que os posts tenham largura completa no profile */
-/* Forçar o posicionamento correto dos posts no profile */
+/* Make posts full width on the profile */
+/* Force correct post positioning on the profile */
 
 
 #posts-box::-webkit-scrollbar,
@@ -456,7 +456,7 @@ h4 {
 
 
 
-/* Modal das ETECs */
+/* Etecs modal */
 #etecs-modal {
     border: none;
     border-radius: 10px;
@@ -560,7 +560,7 @@ h4 {
     width: 97%;
 }
 
-/* ================= BOTÃO BASE ================= */
+/* ================= BASE BUTTON ================= */
 .toggle-posts-btn {
     position: relative;
     width: 5.5rem;
@@ -600,14 +600,14 @@ h4 {
         color 0.35s ease;
 }
 
-/* ===== POSTS VISÍVEL POR PADRÃO ===== */
+/* ===== POSTS VISIBLE BY DEFAULT ===== */
 .toggle-text.posts {
     color: var( --accent-info);
     transform: translateX(0%);
     opacity: 1;
 }
 
-/* ===== CURTIDAS ESCONDIDO À DIREITA ===== */
+/* ===== LIKES HIDDEN TO THE RIGHT ===== */
 .toggle-text.liked {
     color: #c62828;
     transform: translateX(100%);
@@ -617,7 +617,7 @@ h4 {
 /* ================= HOVER (PREVIEW) ================= */
 .toggle-posts-btn:hover {
     border-color: #c62828;
-    /* vermelha no hover */
+    /* red on hover */
 }
 
 .toggle-posts-btn:hover .toggle-text.posts {
@@ -660,7 +660,7 @@ h4 {
     opacity: 0;
 }
 
-/* ================= ÍCONES ================= */
+/* ================= ICONS ================= */
 .toggle-text i {
     font-size: 1rem;
 }
@@ -669,7 +669,7 @@ h4 {
     margin-bottom: 0;
 }
 
-/* Estilo para o texto ETECS clicável */
+/* Style for the clickable ETECS text */
 .user-etec[style*="cursor: pointer"] {
     transition: all 0.2s ease;
 }
@@ -823,7 +823,7 @@ h4 {
         font-size: 13px;
     }
 
-    #aberração {
+    #profile-title {
         display: none;
     }
 
@@ -866,11 +866,11 @@ h4 {
         width: 100% !important;
     }
 
-    .perfil-button {
+    .profile-button {
         max-height: 20% !important;
     }
 
-    /* Forçar posicionamento correto no mobile */
+    /* Force correct positioning on mobile */
 
 
     #edit-profile-modal {
@@ -890,7 +890,7 @@ h4 {
         inset: 0;
     }
 
-    .showemcampo {
+    .tab-label {
         display: none;
 
     }

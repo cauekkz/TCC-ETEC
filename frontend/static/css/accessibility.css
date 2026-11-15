@@ -1,6 +1,6 @@
-/* Sistema de Acessibilidade - EteConnect */
+/* Accessibility system - EteConnect */
 
-/* Botão de Acessibilidade - Apenas na página de perfil */
+/* Accessibility button - profile page only */
 .accessibility-btn {
     position: absolute;
     right: 5rem;
@@ -38,7 +38,7 @@
     height: 16px;
 }
 
-/* Painel de Configurações */
+/* Settings panel */
 .accessibility-panel {
     position: fixed;
     top: 0;
@@ -167,7 +167,7 @@
     font-weight: 500;
 }
 
-/* Controles de Tamanho de Fonte */
+/* Font size controls */
 .font-size-controls {
     display: flex;
     align-items: center;
@@ -248,7 +248,7 @@
     font-size: 0.9rem;
 }
 
-/* Controle de Velocidade */
+/* Speed control */
 .slider-control {
     display: flex;
     align-items: center;
@@ -302,7 +302,7 @@
     font-size: 0.9rem;
 }
 
-/* Botão de Reset */
+/* Reset button */
 .accessibility-reset-btn {
     width: 100%;
     padding: 0.75rem 1rem;
@@ -322,7 +322,7 @@
     color: var(--accent-primary);
 }
 
-/* Overlay quando o painel está aberto */
+/* Overlay while the panel is open */
 .accessibility-overlay {
     position: fixed;
     top: 0;
@@ -406,7 +406,7 @@
 }
 
 
-/* Acessibilidade: foco visível */
+/* Accessibility: visible focus */
 .accessibility-btn:focus-visible,
 .accessibility-panel-close:focus-visible,
 .font-size-btn:focus-visible,

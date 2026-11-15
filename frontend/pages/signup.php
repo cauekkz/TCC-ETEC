@@ -1,4 +1,4 @@
-<!-- Modal de Termos e Políticas -->
+<!-- Terms and Policies modal -->
 <div id="termsModal" class="terms-modal">
     <div class="terms-dialog">
         
@@ -7,7 +7,7 @@
         <div id="termsScroll" class="terms-scroll">
 
             <!-- ========================================================= -->
-            <!-- 1. TERMOS DE SERVIÇO -->
+            <!-- 1. TERMS OF SERVICE -->
             <!-- ========================================================= -->
             <section class="terms-block">
                 <h3>1. Termos de Serviço – ETEConnect</h3>
@@ -68,7 +68,7 @@
             </section>
 
             <!-- ========================================================= -->
-            <!-- 2. POLÍTICA DE PRIVACIDADE -->
+            <!-- 2. PRIVACY POLICY -->
             <!-- ========================================================= -->
             <section class="terms-block">
                 <h3>2. Política de Privacidade – ETEConnect</h3>
@@ -151,7 +151,7 @@
             </section>
 
             <!-- ========================================================= -->
-            <!-- 3. TERMO DE USO -->
+            <!-- 3. TERMS OF USE -->
             <!-- ========================================================= -->
             <section class="terms-block">
                 <h3>3. Termo de Uso – ETEConnect</h3>
@@ -219,7 +219,7 @@
 </div>
 
 
-<!-- Span para reabrir modal -->
+<!-- Span that reopens the modal -->
 
 
 <div class="container">
@@ -299,20 +299,20 @@
         const acceptedTermsInput = document.getElementById("acceptedTermsInput");
         const openTermsAgain = document.getElementById("openTermsAgain");
 
-        // Habilitar checkbox ao chegar no final do scroll
+        // Enable the checkbox once scrolled to the bottom
         termsScroll.addEventListener("scroll", () => {
             if (termsScroll.scrollTop + termsScroll.offsetHeight >= termsScroll.scrollHeight - 5) {
                 acceptTermsCheckbox.disabled = false;
             }
         });
 
-        // Habilitar botão ao marcar checkbox
+        // Enable the button once the checkbox is checked
         acceptTermsCheckbox.addEventListener("change", () => {
             continueBtn.disabled = !acceptTermsCheckbox.checked;
             acceptedTermsInput.value = acceptTermsCheckbox.checked ? "1" : "0";
         });
 
-        // Fechar modal ao clicar no botão
+        // Close the modal when the button is clicked
         continueBtn.addEventListener("click", () => {
             termsModal.style.display = "none";
         });
@@ -335,10 +335,10 @@
             // 8 caracteres
             toggleRule(ruleLength, value.length >= 8);
 
-            // pelo menos 1 letra
+            // at least 1 letter
             toggleRule(ruleLetter, /[A-Za-z]/.test(value));
 
-            // pelo menos 1 número
+            // at least 1 digit
             toggleRule(ruleNumber, /\d/.test(value));
 
             // caractere especial
@@ -359,7 +359,7 @@
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
 
-            // Confirmação antes de criar conta
+            // Confirm before creating the account
             const confirmed = await confirmAction(
                 "Deseja criar sua conta com essas informações?",
                 "Confirmar Cadastro"
@@ -369,7 +369,7 @@
                 return;
             }
 
-            // Validação das senhas
+            // Password validation
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
@@ -417,7 +417,7 @@
 
                 showSuccess('Conta criada com sucesso! Fazendo login...');
 
-                // Fazer login automaticamente
+                // Log in automatically
                 const dataLogin = await login(form.email.value, form.password.value)
                 if (dataLogin.status !== "success") {
                     showBackendError(dataLogin, 'Conta criada, mas erro ao fazer login');

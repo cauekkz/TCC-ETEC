@@ -14,7 +14,7 @@ $params = ["server_id"=>$server_id];
 $response = $db->execute_query($sql,$params);
 if ($response->status != 'success') {
     $res->set_status('error');
-    $res->set_error_message($response->mensagem);
+    $res->set_error_message($response->message);
     $res->response();
     exit;
 }

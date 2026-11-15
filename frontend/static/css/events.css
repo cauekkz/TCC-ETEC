@@ -417,13 +417,13 @@ dialog.molested {
 }
 
 
-/* Efeito de fundo escurecido ao abrir */
+/* Dimmed backdrop when open */
 ::backdrop {
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(3px);
 }
 
-/* === Cabeçalho do Modal === */
+/* === Modal header === */
 .modal-header {
     display: flex;
     align-items: center;
@@ -463,13 +463,13 @@ dialog.molested {
     color: var(--accent-primary);
 }
 
-/* === Corpo do Modal === */
+/* === Modal body === */
 .modal-body {
     padding: 1.5rem;
     height: 90%;
 }
 
-/* === Formulário dentro do modal === */
+/* === Form inside the modal === */
 #createNoticeForm {
     display: flex;
     flex-direction: column;
@@ -524,7 +524,7 @@ dialog.molested {
     box-shadow: none;
 }
 
-/* Botão de envio */
+/* Submit button */
 #createNoticeForm button[type="submit"] {
 
     background-color: var(--accent-primary);
@@ -541,7 +541,7 @@ dialog.molested {
     background-color: var(--accent-primary-hover, #0078d7);
 }
 
-/* === Animação de entrada === */
+/* === Entrance animation === */
 @keyframes fadeIn {
     from {
         opacity: 0;

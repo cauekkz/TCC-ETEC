@@ -13,7 +13,7 @@ if (!isset($_GET["campus_id"]) || !is_numeric($_GET["campus_id"])) {
 
 $campusId = (int)$_GET["campus_id"];
 
-/* usuário logado -> usado para saber se curtiu */
+/* logged-in user -> used to know whether they liked it */
 $jwt = new JwtAuth();
 $tokenJWT = $jwt->get_jwt_by_header();
 $jwtData = $jwt->validate_token($tokenJWT);
@@ -29,10 +29,10 @@ SELECT
     c.name AS course_name,
     cp.name AS campus_name,
 
-    /* total de likes */
+    /* total likes */
     COUNT(DISTINCT l.id) AS total_likes,
 
-    /* se o usuário logado curtiu */
+    /* whether the logged-in user liked it */
     CASE WHEN l2.id IS NULL THEN 0 ELSE 1 END AS user_liked
 
 FROM tcc_project p
@@ -45,7 +45,7 @@ LEFT JOIN likes l
     ON l.content_type = 'tcc_project'
     AND l.content_id = p.id
 
-/* like do usuário */
+/* the user's like */
 LEFT JOIN likes l2
     ON l2.content_type = 'tcc_project'
     AND l2.content_id = p.id

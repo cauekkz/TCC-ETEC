@@ -143,13 +143,13 @@
                 <div class="d-flex  ">
                     <div class="px-4">
                         <p id="feedTitle" class="mb-0 h2"><strong>Servidores</strong></p>
-                        <p class="text-secondary" id="consecultivos">Escolha a comunidade da sua Etec ou participe do canal Geral</p>
+                        <p class="text-secondary" id="server-subtitle">Escolha a comunidade da sua Etec ou participe do canal Geral</p>
                     </div>
                 </div>
 
 
                 <div class=" row mt-2 px-3">
-                    <div class="page active" id="servidores-page">
+                    <div class="page active" id="servers-page">
                         <input type="search" id="serverFilter" class="form-control ui-server-filter" placeholder="Buscar Etec pelo nome..." aria-label="Buscar Etec pelo nome">
                         <div class="servers-grid">
 

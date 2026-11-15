@@ -20,7 +20,7 @@ if ($user_query_id === null) {
     $res->response();
     exit;
 }
-//arrumar isso aqui pra deixar em query separada pois ele faz 2 imgs url nao sei pq
+// TODO: move this into a separate query, it currently returns 2 image URLs for some reason
 $sql = "SELECT
     p.id,
     p.id_author,
@@ -48,7 +48,7 @@ GROUP BY p.id, p.id_author, p.content, p.created_at, user_liked, u.name, u.role,
 ORDER BY p.created_at DESC;";
 $params = ['user_query_id' => $user_query_id,'user_id'=>$user_id];
 $response = $db->execute_query($sql, $params);
-//pegar campus dp user por aqui tbm
+// TODO: also get the user's campus here
 $data = [];
 if ($response->status != 'success') {
     $res->set_status('error');
@@ -57,10 +57,10 @@ if ($response->status != 'success') {
     exit;
 }
 
-// Processar posts e mídia
+// Process posts and media
 $posts = $response->results;
 foreach ($posts as $post) {
-    // Processar mídia do GROUP_CONCAT
+    // Process media from GROUP_CONCAT
     $post->media = [];
     if (!empty($post->media_data)) {
         $mediaItems = explode(';', $post->media_data);
@@ -75,7 +75,7 @@ foreach ($posts as $post) {
             }
         }
     }
-    unset($post->media_data); // Remover campo temporário
+    unset($post->media_data); // Remove temporary field
 }
 
 $data["posts"] = $posts;

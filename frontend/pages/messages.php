@@ -475,7 +475,7 @@
                     },
                 });
                 if (!response.ok) {
-                    console.error("Erro ao buscar mensagens:", response.status);
+                    console.error("Error fetching messages:", response.status);
                     return;
                 }
                 const data = await response.json();
@@ -513,7 +513,7 @@
             try {
                 const chatMessages = document.querySelector('.chat-messages');
                 if (!chatMessages) return;
-                const tavaNofinal = chatMessages.scrollHeight - chatMessages.scrollTop <= chatMessages.clientHeight + 50;
+                const wasAtBottom = chatMessages.scrollHeight - chatMessages.scrollTop <= chatMessages.clientHeight + 50;
                 const response = await fetch('/api/getMessages?contact_id=' + activeReceiverId, {
                     method: "GET",
                     headers: {
@@ -521,7 +521,7 @@
                     },
                 });
                 if (!response.ok) {
-                    console.error("Erro ao buscar mensagens:", response.status);
+                    console.error("Error fetching messages:", response.status);
                     return;
                 }
                 const data = await response.json();
@@ -550,16 +550,16 @@
 
                     chatMessages.innerHTML += `<div class="msg ${msgClass}">${mediaElement}${msg.content && msg.content !== "ㅤ" ? contentElement : ''}<span class="msg-time">${time}</span><span class="msg-date">${date}</span></div>`;
                 });
-                if (tavaNofinal) {
+                if (wasAtBottom) {
                     chatMessages.scrollTop = chatMessages.scrollHeight;
                 }
             } catch (err) {
-                console.error("Erro na requisição:", err);
+                console.error("Request error:", err);
             }
         }
         // Seleciona contato inicial:
-        // 1) Se veio da página de perfil com ?user_id=..., abre esse contato
-        // 2) Caso contrário, abre o primeiro contato da lista
+        // 1) If we came from a profile page with ?user_id=..., open that contact
+        // 2) Otherwise, open the first contact in the list
         let initialContact = null;
         if (initialUserId) {
             initialContact = document.querySelector(`.contact[data-id="${initialUserId}"]`);

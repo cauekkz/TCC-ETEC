@@ -3,13 +3,13 @@
 use bng\System\Database;
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// as portas que pode, mudar quando realizar o deploy
+// allowed origins, change this when deploying
 header("Access-Control-Allow-Origin: http://127.0.0.1:5500");
 
-// metodos que pode 
+// allowed methods 
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
-// headers que pode 
+// allowed headers 
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 

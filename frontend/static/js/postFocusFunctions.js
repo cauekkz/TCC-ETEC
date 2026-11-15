@@ -1,28 +1,28 @@
-// Função para adicionar evento de clique nos posts carregados
+// Adds a click handler to the loaded posts
 function addPostClickEvent(postElement, postInfo) {
     postElement.addEventListener('click', (e) => {
-        // Não abrir se clicou em botões de interação
+        // Don't open it if an interaction button was clicked
         if (e.target.closest('.interactive')) {
             return;
         }
 
-        // Abrir o post focus
+        // Open the post focus view
         const postFocus = document.querySelector('.container-post-focus');
         if (postFocus) {
             postFocus.classList.remove('d-none');
 
-            // Carregar informações do post no focus
+            // Load the post's info into the focus view
             loadPostInFocus(postInfo.id);
         }
     });
 }
 
-// Função para buscar post por ID
+// Fetches a post by ID
 async function getPostById(postId) {
     try {
         const token = localStorage.getItem("jwt_token");
         if (!token) {
-            console.error("Token não encontrado");
+            console.error("Token not found");
             return null;
         }
 
@@ -34,44 +34,44 @@ async function getPostById(postId) {
         });
 
         if (!response.ok) {
-            console.error("Erro na requisição:", response.status);
+            console.error("Request error:", response.status);
             return null;
         }
 
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error("Erro ao buscar post:", error);
+        console.error("Error fetching post:", error);
         return null;
     }
 }
 
-// Função para carregar informações do post no container focus
+// Loads the post's info into the focus container
 async function loadPostInFocus(postId) {
     try {
         const result = await executeWithRefresh(getPostById, postId);
 
         if (result && result.status === "success") {
             document.querySelector(".container-post-focus").dataset.postId = result.data.id
-            // Atualizar o conteúdo do post focus
+            // Update the post focus content
             updatePostFocusContent(result.data);
         } else {
-            console.error("Erro ao carregar post:", result);
+            console.error("Error loading post:", result);
         }
     } catch (error) {
-        console.error("Erro na requisição de post:", error);
+        console.error("Post request error:", error);
     }
 }
 
-// Função para atualizar o conteúdo do post focus
+// Updates the post focus content
 function updatePostFocusContent(postData) {
-    // Atualizar nome do autor
+    // Update the author's name
     const nameElement = document.querySelector('.post-focus .name-text strong');
     if (nameElement) {
         nameElement.textContent = postData.author_name || 'Usuário';
     }
 
-    // Atualizar role do autor
+    // Update the author's role
     const roleElement = document.querySelector('.post-focus .badge');
     if (roleElement) {
         const roleText = postData.role === 'estudante' ? 'Aluno' : 'Professor';
@@ -86,13 +86,13 @@ function updatePostFocusContent(postData) {
         etecElement.textContent = postData.campus[0].name || 'ETEC';
     }
 
-    // Atualizar conteúdo do post
+    // Update the post content
     const contentElement = document.querySelector('.post-focus #textPost');
     if (contentElement) {
         contentElement.textContent = postData.content || 'Conteúdo não disponível';
     }
 
-    // Atualizar mídia do post
+    // Update the post media
     updatePostFocusMedia(postData.media || []);
 
     // Atualizar contadores
@@ -106,17 +106,17 @@ function updatePostFocusContent(postData) {
         commentCountElement.textContent = postData.comments_count || 0;
     }
 
-    // Atualizar foto do perfil
+    // Update the profile picture
     updatePostFocusProfilePhoto(postData);
 
-    // Configurar funcionalidade de like no post focus
+    // Set up likes in the post focus view
     setupPostFocusLike(postData);
 
-    // Carregar comentários do post
+    // Load the post's comments
     loadCommentsForPost(postData.id);
 }
 
-// Função para atualizar a foto do perfil no post focus
+// Updates the profile picture in the post focus view
 function updatePostFocusProfilePhoto(postData) {
     console.log("updatePostFocusProfilePhoto")
     console.log(postData)
@@ -147,7 +147,7 @@ function updatePostFocusProfilePhoto(postData) {
 
 
 
-// Função para fechar o post focus
+// Closes the post focus view
 function closePostFocus() {
     const container = document.querySelector('.container-post-focus');
     if (container) {
@@ -158,23 +158,23 @@ function closePostFocus() {
 function setupPostFocusLike(postData) {
     const likeBtn = document.querySelector('.post-focus .like-post');
     if (!likeBtn) {
-        console.error('Botão de like não encontrado no post focus');
+        console.error('Like button not found in the post focus view');
         return;
     }
 
-    // Adicionar dataset com informações do post
+    // Add a dataset with the post's info
     likeBtn.dataset.postId = postData.id;
     likeBtn.dataset.totalLikes = postData.total_likes || 0;
     likeBtn.dataset.userLiked = postData.user_liked || 0;
 
-    // Configurar estado visual inicial do like
+    // Set the like's initial visual state
     updatePostFocusLikeUI(postData.user_liked === 1);
 
-    // Adicionar evento de clique no botão de like
+    // Add a click handler to the like button
     likeBtn.addEventListener('click', handlePostFocusLike);
 }
 
-// Função para atualizar a UI do like no post focus
+// Updates the like UI in the post focus view
 function updatePostFocusLikeUI(isLiked) {
     const likeBtn = document.querySelector('.post-focus .like-post');
     if (!likeBtn) return;
@@ -190,7 +190,7 @@ function updatePostFocusLikeUI(isLiked) {
         `;
         likeBtn.dataset.userLiked = '1';
     } else {
-        // Post não curtido - SVG vazio
+        // Post not liked - empty SVG
         likeBtn.classList.remove('liked');
         likeBtn.innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -202,7 +202,7 @@ function updatePostFocusLikeUI(isLiked) {
     }
 }
 
-// Função para manipular o like no post focus
+// Handles the like in the post focus view
 async function handlePostFocusLike(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -255,25 +255,25 @@ async function handlePostFocusLike(e) {
             }
         }
     } catch (error) {
-        console.error('Erro ao manipular like:', error);
+        console.error('Error handling like:', error);
     }
 }
 
-// Função para atualizar mídia no post focus
+// Updates the media in the post focus view
 function updatePostFocusMedia(mediaArray) {
     const mediaContainer = document.querySelector('#postFocusMedia');
     const mediaContent = document.querySelector('#postFocusMediaContainer');
 
     if (!mediaContainer || !mediaContent) return;
 
-    // Limpar mídia anterior
+    // Clear the previous media
     mediaContent.innerHTML = '';
 
     if (mediaArray && mediaArray.length > 0) {
-        // Mostrar container de mídia
+        // Show the media container
         mediaContainer.classList.remove('d-none');
 
-        // Adicionar cada item de mídia
+        // Add each media item
         mediaArray.forEach(media => {
             if (media.media_type === 'video') {
                 const videoElement = document.createElement('video');
@@ -291,12 +291,12 @@ function updatePostFocusMedia(mediaArray) {
             }
         });
     } else {
-        // Esconder container se não há mídia
+        // Hide the container if there's no media
         mediaContainer.classList.add('d-none');
     }
 }
 
-// Função para abrir/fechar comentários no post focus
+// Opens/closes comments in the post focus view
 function toggleCommentsFocus() {
     const commentsSection = document.querySelector('.post-focus .comment');
     if (commentsSection) {
@@ -308,7 +308,7 @@ function toggleCommentsFocus() {
     }
 }
 
-// Função para abrir modal apenas de comentários
+// Opens the comments-only modal
 function openCommentsOnly(postId) {
     const commentsModal = document.querySelector('.container-comments-only');
     if (commentsModal) {
@@ -318,7 +318,7 @@ function openCommentsOnly(postId) {
     }
 }
 
-// Função para fechar modal de comentários
+// Closes the comments modal
 function closeCommentsOnly() {
     const commentsModal = document.querySelector('.container-comments-only');
     if (commentsModal) {
@@ -326,7 +326,7 @@ function closeCommentsOnly() {
     }
 }
 
-// Função para carregar comentários no modal usando getRootComments
+// Loads comments into the modal using getRootComments
 async function loadCommentsOnly(postId) {
     try {
         const result = await getRootComments(postId, 1);
@@ -346,17 +346,17 @@ async function loadCommentsOnly(postId) {
                     commentsContainer.innerHTML = '<p class="text-muted">Nenhum comentário ainda.</p>';
                 }
             } else {
-                console.error('Container de comentários do modal não encontrado');
+                console.error('Modal comments container not found');
             }
         } else {
-            console.error('Erro no resultado do modal:', result);
+            console.error('Error in modal result:', result);
         }
     } catch (error) {
-        console.error('Erro ao carregar comentários no modal:', error);
+        console.error('Error loading comments in the modal:', error);
     }
 }
 
-// Função para carregar comentários do post focus usando getRootComments
+// Loads the post focus comments using getRootComments
 async function loadCommentsForPost(postId) {
     try {
         const result = await getRootComments(postId, 1);
@@ -376,40 +376,40 @@ async function loadCommentsForPost(postId) {
                     commentsContainer.innerHTML = '<p class="text-muted">Nenhum comentário ainda.</p>';
                 }
             } else {
-                console.error('Container de comentários não encontrado');
+                console.error('Comments container not found');
             }
         } else {
-            console.error('Erro no resultado:', result);
+            console.error('Error in result:', result);
         }
     } catch (error) {
-        console.error('Erro ao carregar comentários:', error);
+        console.error('Error loading comments:', error);
     }
 }
 
-// Configurar evento para fechar o post focus ao clicar fora
+// Close the post focus view when clicking outside
 document.addEventListener('DOMContentLoaded', () => {
     const postFocus = document.querySelector('.container-post-focus');
     if (postFocus) {
         postFocus.addEventListener('click', (e) => {
-            const conteudo = document.querySelector('.post-focus');
-            if (!conteudo.contains(e.target)) {
+            const content = document.querySelector('.post-focus');
+            if (!content.contains(e.target)) {
                 postFocus.classList.add('d-none');
             }
         });
     }
 
-    // Configurar evento para fechar modal de comentários ao clicar fora
+    // Close the comments modal when clicking outside
     const commentsModal = document.querySelector('.container-comments-only');
     if (commentsModal) {
         commentsModal.addEventListener('click', (e) => {
-            const conteudo = document.querySelector('.comments-only-modal');
-            if (!conteudo.contains(e.target)) {
+            const content = document.querySelector('.comments-only-modal');
+            if (!content.contains(e.target)) {
                 commentsModal.classList.add('d-none');
             }
         });
     }
 
-    // Event listener para o form de comentários do modal apenas
+    // Event listener for the comments-only modal form
     const commentModalForm = document.querySelector(".container-comments-only .form-comment");
     if (commentModalForm) {
         commentModalForm.addEventListener("submit", async (e) => {
@@ -423,14 +423,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const postId = document.querySelector(".container-comments-only").dataset.postId;
                 await executeWithRefresh(addComment, postId, commentText);
                 input.value = "";
-                await loadCommentsOnly(postId); // Recarrega comentários
+                await loadCommentsOnly(postId); // Reload comments
             } catch (error) {
-                console.error("Erro ao adicionar comentário:", error);
+                console.error("Error adding comment:", error);
             }
         });
     }
 
-    // Event listener para o botão de enviar comentários do modal
+    // Event listener for the modal's send comment button
     const btnSendCommentsOnly = document.querySelector(".container-comments-only #btnSendCommentsOnly");
     if (btnSendCommentsOnly) {
         btnSendCommentsOnly.addEventListener("click", () => {
@@ -441,7 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Event listener para o form de comentários do post focus
+    // Event listener for the post focus comment form
     const commentForm = document.querySelector(".post-focus .form-comment");
     if (commentForm) {
         commentForm.addEventListener("submit", async (e) => {
@@ -455,14 +455,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const postId = document.querySelector(".container-post-focus").dataset.postId;
                 await executeWithRefresh(addComment, postId, commentText);
                 input.value = "";
-                await loadCommentsForPost(postId); // Recarrega comentários
+                await loadCommentsForPost(postId); // Reload comments
             } catch (error) {
-                console.error("Erro ao adicionar comentário:", error);
+                console.error("Error adding comment:", error);
             }
         });
     }
 
-    // Event listener para o botão de enviar comentários do post focus
+    // Event listener for the post focus send comment button
     const btnSend = document.querySelector(".post-focus #btnSend");
     if (btnSend) {
         btnSend.addEventListener("click", () => {

@@ -22,7 +22,7 @@ $server_id = (int) $_GET['server_id'];
 
 $term = "%" . $_GET['q'] . "%";
 
-// Obter user_id do token JWT
+// Get user_id from the JWT token
 $jwt = new JwtAuth();
 $tokenJWT = $jwt->get_jwt_by_header();
 $resultJWT = $jwt->validate_token($tokenJWT);
@@ -113,10 +113,10 @@ $paramsPosts = [
 $responsePosts = $db->execute_query($sqlPosts, $paramsPosts);
 $posts = $responsePosts->results ?? [];
 
-// Processar mídia e campus
+// Process media and campuses
 foreach ($posts as $post) {
 
-    // mídia
+    // media
     $post->media = [];
     if (!empty($post->media_data)) {
         $mediaItems = explode(';', $post->media_data);

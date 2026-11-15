@@ -1,6 +1,6 @@
 /**
- * Gerenciador de Temas - EteConnect
- * Sistema reutilizável para alternar entre modo claro e escuro
+ * Theme manager - EteConnect
+ * Reusable system for switching between light and dark mode
  */
 
 class ThemeManager {
@@ -11,59 +11,59 @@ class ThemeManager {
     }
 
     init() {
-        console.log('ThemeManager: Inicializando...');
+        console.log('ThemeManager: Initializing...');
         this.loadTheme();
         this.createThemeToggle();
         this.applyTheme();
         this.setupEventListeners();
-        console.log('ThemeManager: Inicializado com sucesso. Tema atual:', this.theme);
+        console.log('ThemeManager: Initialized. Current theme:', this.theme);
     }
 
     loadTheme() {
-        console.log('ThemeManager: Carregando tema...');
+        console.log('ThemeManager: Loading theme...');
         
-        // 1º: Preferência do usuário (localStorage)
+        // 1st: user preference (localStorage)
         const savedTheme = localStorage.getItem('eteconnect-theme');
-        console.log('ThemeManager: Tema salvo no localStorage:', savedTheme);
+        console.log('ThemeManager: Theme saved to localStorage:', savedTheme);
         
         if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark')) {
             this.theme = savedTheme;
-            console.log('ThemeManager: Usando tema salvo:', this.theme);
+            console.log('ThemeManager: Using saved theme:', this.theme);
             return;
         }
 
-        // 2º: Preferência do navegador (prefers-color-scheme)
+        // 2nd: browser preference (prefers-color-scheme)
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             this.theme = 'dark';
-            console.log('ThemeManager: Usando preferência do sistema (dark)');
+            console.log('ThemeManager: Using system preference (dark)');
             return;
         }
 
-        // 3º: Padrão (modo claro)
+        // 3rd: default (light mode)
         this.theme = 'light';
-        console.log('ThemeManager: Usando tema padrão (light)');
+        console.log('ThemeManager: Using default theme (light)');
     }
 
     /**
-     * Cria o botão de alternar tema
+     * Creates the theme toggle button
      */
     createThemeToggle() {
-        console.log('ThemeManager: Criando botão de tema...');
+        console.log('ThemeManager: Creating theme button...');
         
-        // Verifica se já existe um botão de tema
+        // Check whether a theme button already exists
         const existingToggle = document.querySelector('.light-dark');
-        console.log('ThemeManager: Botão existente encontrado:', existingToggle);
+        console.log('ThemeManager: Found existing button:', existingToggle);
         
         if (existingToggle) {
             this.themeToggle = existingToggle;
-            console.log('ThemeManager: Usando botão existente');
+            console.log('ThemeManager: Using existing button');
             
-            // Adiciona o event listener ao botão existente
+            // Add the event listener to the existing button
             this.addClickHandler(existingToggle);
             return;
         }
 
-        // Se não existir, cria um novo
+        // If it doesn't exist, create a new one
         this.themeToggle = document.createElement('div');
         this.themeToggle.className = 'light-dark';
         this.themeToggle.innerHTML = `
@@ -84,58 +84,58 @@ class ThemeManager {
 
  
     insertThemeToggle() {
-        // Se já existe um botão, não precisa inserir
+        // If a button already exists, there's no need to insert one
         if (document.querySelector('.light-dark')) {
             return;
         }
 
         const header = document.querySelector('header');
         if (!header) {
-            // Se não encontrar header, tenta inserir no body temporariamente
+            // If there's no header, temporarily insert it into the body
             document.body.appendChild(this.themeToggle);
             return;
         }
 
-        // Procura por um local apropriado para inserir o botão
+        // Look for a suitable place to insert the button
         const headerContent = header.querySelector('.container-fluid, .row, .col');
         if (headerContent) {
-            // Insere no final do conteúdo do header
+            // Insert at the end of the header content
             headerContent.appendChild(this.themeToggle);
         } else {
-            // Insere no header
+            // Insert into the header
             header.appendChild(this.themeToggle);
         }
     }
 
     /**
-     * Aplica o tema atual ao documento
+     * Applies the current theme to the document
      */
     applyTheme() {
-        console.log('ThemeManager: Aplicando tema:', this.theme);
+        console.log('ThemeManager: Applying theme:', this.theme);
         
         const html = document.documentElement;
         
         // Remove classes anteriores
         html.removeAttribute('data-theme');
         
-        // Aplica o tema atual
+        // Apply the current theme
         if (this.theme === 'dark') {
             html.setAttribute('data-theme', 'dark');
-            console.log('ThemeManager: Tema escuro aplicado');
+            console.log('ThemeManager: Dark theme applied');
         } else {
-            console.log('ThemeManager: Tema claro aplicado');
+            console.log('ThemeManager: Light theme applied');
         }
         
-        // Salva no localStorage
+        // Save to localStorage
         localStorage.setItem('eteconnect-theme', this.theme);
-        console.log('ThemeManager: Tema salvo no localStorage');
+        console.log('ThemeManager: Theme saved to localStorage');
         
-        // Atualiza o botão
+        // Update the button
         this.updateToggleButton();
     }
 
     /**
-     * Atualiza a aparência do botão de alternar
+     * Updates how the toggle button looks
      */
     updateToggleButton() {
         if (!this.themeToggle) return;
@@ -155,24 +155,24 @@ class ThemeManager {
     }
 
     /**
-     * Alterna entre os temas
+     * Toggles between themes
      */
     toggleTheme() {
-        console.log('ThemeManager: Alternando tema de', this.theme, 'para', this.theme === 'light' ? 'dark' : 'light');
+        console.log('ThemeManager: Switching theme from', this.theme, 'para', this.theme === 'light' ? 'dark' : 'light');
         
         this.theme = this.theme === 'light' ? 'dark' : 'light';
         this.applyTheme();
         
-        // Dispara evento customizado para outros componentes
+        // Dispatch a custom event for other components
         this.dispatchThemeChangeEvent();
     }
 
     /**
-     * Define um tema específico
+     * Sets a specific theme
      */
     setTheme(theme) {
         if (theme !== 'light' && theme !== 'dark') {
-            console.warn('Tema inválido:', theme);
+            console.warn('Invalid theme:', theme);
             return;
         }
         
@@ -182,14 +182,14 @@ class ThemeManager {
     }
 
     /**
-     * Obtém o tema atual
+     * Gets the current theme
      */
     getCurrentTheme() {
         return this.theme;
     }
 
     /**
-     * Dispara evento de mudança de tema
+     * Dispatches the theme change event
      */
     dispatchThemeChangeEvent() {
         const event = new CustomEvent('themeChanged', {
@@ -199,40 +199,40 @@ class ThemeManager {
     }
 
     /**
-     * Adiciona o event listener de clique ao botão de tema
+     * Adds the click event listener to the theme button
      */
     addClickHandler(element) {
-        console.log('ThemeManager: Adicionando event listener ao elemento:', element);
-        console.log('ThemeManager: Elemento HTML:', element.outerHTML);
+        console.log('ThemeManager: Adding event listener to element:', element);
+        console.log('ThemeManager: HTML element:', element.outerHTML);
         
-        // Remove event listeners anteriores para evitar duplicação
+        // Remove previous event listeners to avoid duplicates
         const newElement = element.cloneNode(true);
         element.parentNode.replaceChild(newElement, element);
         this.themeToggle = newElement;
         
         newElement.addEventListener('click', (e) => {
-            console.log('ThemeManager: Botão de tema clicado!');
-            console.log('ThemeManager: Evento:', e);
+            console.log('ThemeManager: Theme button clicked!');
+            console.log('ThemeManager: Event:', e);
             e.preventDefault();
             e.stopPropagation();
             this.toggleTheme();
         });
         
-        console.log('ThemeManager: Event listener adicionado com sucesso');
+        console.log('ThemeManager: Event listener added');
     }
 
     /**
-     * Configura os event listeners
+     * Sets up the event listeners
      */
     setupEventListeners() {
-        // Botão de alternar tema (já configurado em addClickHandler)
-        console.log('ThemeManager: Configurando event listeners...');
+        // Theme toggle button (already set up in addClickHandler)
+        console.log('ThemeManager: Setting up event listeners...');
 
-        // Listener para mudanças na preferência do sistema
+        // Listener for changes in the system preference
         if (window.matchMedia) {
             const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
             mediaQuery.addEventListener('change', (e) => {
-                // Só aplica se o usuário não tiver uma preferência salva
+                // Only apply it if the user has no saved preference
                 if (!localStorage.getItem('eteconnect-theme')) {
                     this.theme = e.matches ? 'dark' : 'light';
                     this.applyTheme();
@@ -240,24 +240,24 @@ class ThemeManager {
             });
         }
 
-        // Listener para eventos de mudança de tema
+        // Listener for theme change events
         document.addEventListener('themeChanged', (e) => {
-            // Permite que outros componentes reajam às mudanças de tema
-            console.log('Tema alterado para:', e.detail.theme);
+            // Lets other components react to theme changes
+            console.log('Theme changed to:', e.detail.theme);
         });
     }
 
     /**
-     * Força a reaplicação do tema (útil para componentes dinâmicos)
+     * Forces the theme to be reapplied (useful for dynamic components)
      */
     refresh() {
         this.applyTheme();
     }
 }
 
-// Inicializa o gerenciador quando o DOM estiver pronto
+// Initialize the manager once the DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOMContentLoaded disparado - criando ThemeManager...');
+    console.log('DOMContentLoaded fired - creating ThemeManager...');
     window.themeManager = new ThemeManager();
-    console.log('ThemeManager criado e disponível em window.themeManager:', window.themeManager);
+    console.log('ThemeManager created and available at window.themeManager:', window.themeManager);
 });

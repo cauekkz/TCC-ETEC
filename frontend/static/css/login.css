@@ -72,7 +72,7 @@ form select:focus {
 }
 
 .text-style,
-.text-entrar {
+.text-login {
     font-size: 14px;
 }
 
@@ -87,7 +87,7 @@ form select:focus {
     padding: 15px;
 }
 
-/* CAIXA DO MODAL */
+/* MODAL BOX */
 .recover-modal {
     width: 100%;
     max-width: 360px;
@@ -100,7 +100,7 @@ form select:focus {
     animation: modalFade 0.2s ease;
 }
 
-/* TÍTULO */
+/* TITLE */
 .recover-modal h5 {
     text-align: center;
     margin-bottom: 15px;
@@ -122,7 +122,7 @@ form select:focus {
     box-shadow: none;
 }
 
-/* BOTÕES */
+/* BUTTONS */
 .recover-actions {
     display: flex;
     gap: 10px;
@@ -141,7 +141,7 @@ form select:focus {
     color: var(--text-secondary);
 }
 
-/* ANIMAÇÃO */
+/* ANIMATION */
 @keyframes modalFade {
     from {
         transform: scale(0.95);
@@ -186,7 +186,7 @@ form select:focus {
     }
 
     .text-style,
-    .text-entrar {
+    .text-login {
         font-size: 13px;
     }
 }
@@ -218,7 +218,7 @@ form select:focus {
     }
 
     .text-style,
-    .text-entrar {
+    .text-login {
         font-size: 13px;
     }
 

@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../_inc/filters/isLogged.php';
 
 check_request_method($_SERVER['REQUEST_METHOD'], "GET");
 
-// Verificar se o usuário está logado
+// Check that the user is logged in
 $jwt = new JwtAuth();
 $tokenJWT = $jwt->get_jwt_by_header();
 $resultJWT = $jwt->validate_token($tokenJWT);
@@ -18,7 +18,7 @@ if (!$resultJWT) {
 
 $user_id = $resultJWT['id'];
 
-// Verificar se o ID do post foi fornecido
+// Check that the post ID was provided
 if (!isset($_GET['post_id'])) {
     $res->set_status('error');
     $res->set_error_message('Post não encontrado');
@@ -29,7 +29,7 @@ if (!isset($_GET['post_id'])) {
 $postId = $_GET['post_id'];
 
 try {
-    // Query para buscar o post específico com todas as informações
+    // Query to fetch the specific post with all its info
     
     $sql = "SELECT 
         p.id, 
@@ -80,7 +80,7 @@ try {
         exit;
     }
 
-    // Processar mídia do GROUP_CONCAT
+    // Process media from GROUP_CONCAT
     $post->media = [];
     if (!empty($post->media_data)) {
         $mediaItems = explode(';', $post->media_data);
@@ -95,9 +95,9 @@ try {
             }
         }
     }
-    unset($post->media_data); // Remover campo temporário
+    unset($post->media_data); // Remove temporary field
     
-    // Processar campus do GROUP_CONCAT
+    // Process campuses from GROUP_CONCAT
     $post->campus = [];
     if (!empty($post->campus_data)) {
         $campusItems = explode(';', $post->campus_data);
@@ -111,9 +111,9 @@ try {
             }
         }
     }
-    unset($post->campus_data); // Remover campo temporário
+    unset($post->campus_data); // Remove temporary field
 
-    // Buscar comentários do post
+    // Fetch the post's comments
     $commentSql = "SELECT 
         c.id,
         c.content,

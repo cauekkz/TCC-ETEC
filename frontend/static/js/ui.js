@@ -32,7 +32,7 @@
     kicker.textContent = KICKERS[page] || safeGet("selectedServerName") || "ETEConnect";
     title.before(kicker);
 
-    let sub = document.getElementById("consecultivos");
+    let sub = document.getElementById("server-subtitle");
     if (!sub) {
       sub = document.createElement("p");
       sub.className = "ui-sub";
@@ -48,8 +48,8 @@
     root.querySelectorAll?.(".post-role, .badge, #user-role").forEach((el) => {
       const txt = el.textContent.trim().toLowerCase();
       if (txt !== "professor" && txt !== "estudante") return;
-      el.classList.remove("ui-role-professor", "ui-role-estudante");
-      el.classList.add("ui-role-" + txt);
+      el.classList.remove("ui-role-teacher", "ui-role-student");
+      el.classList.add(txt === "professor" ? "ui-role-teacher" : "ui-role-student");
       el.style.removeProperty("background");
       el.style.removeProperty("background-color");
     });
@@ -66,7 +66,7 @@
 
   function markNotice(card) {
     const meta = card.querySelector(".notice-meta");
-    if (meta && /evento/i.test(meta.textContent)) card.classList.add("ui-type-evento");
+    if (meta && /evento/i.test(meta.textContent)) card.classList.add("ui-type-event");
   }
 
   function scan(root) {

@@ -12,18 +12,18 @@ if (!$email) {
     exit;
 }
 
-// busca usuário
+// find the user
 $sql = "SELECT id, name FROM user WHERE email = :email LIMIT 1";
 $r = $db->execute_query($sql, ["email" => $email]);
 $user = $r->results[0] ?? null;
 
-// resposta neutra (segurança)
+// neutral response (security)
 echo json_encode([
     "status" => "success",
     "msg" => "Se o email existir, você receberá a recuperação."
 ]);
 
-// se não existir, para aqui
+// if it doesn't exist, stop here
 if (!$user) exit;
 
 $token = bin2hex(random_bytes(32));
@@ -36,7 +36,7 @@ $_SESSION['password_reset'] = [
 // link
 $link = "http://localhost/resetpassword?token=$token";
 
-// corpo do e-mail
+// email body
 $body = "
 <h2>Recuperação de senha</h2>
 <p>Olá {$user->name}</p>
@@ -45,5 +45,5 @@ $body = "
 <p>Esse link expira em 1 hora.</p>
 ";
 
-// envia
+// send
 sendMail($email, "Recuperar Senha - ETEConnect", $body);
